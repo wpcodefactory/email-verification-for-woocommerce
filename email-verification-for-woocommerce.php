@@ -82,10 +82,8 @@ final class Alg_WC_Email_Verification {
 			return;
 		}
 
-		add_action('init',function(){
-			// Set up localisation
-			load_plugin_textdomain( 'emails-verification-for-woocommerce', false, dirname( plugin_basename( __FILE__ ) ) . '/langs/' );
-		});
+		// Set up localisation
+		load_plugin_textdomain( 'emails-verification-for-woocommerce', false, dirname( plugin_basename( __FILE__ ) ) . '/langs/' );
 
 		// Pro
 		if ( 'email-verification-for-woocommerce-pro.php' === basename( __FILE__ ) ) {

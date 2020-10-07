@@ -1,8 +1,8 @@
-#: email-verification-for-woocommerce.php:156
+#: email-verification-for-woocommerce.php:154
 msgid "Settings"
 msgstr ""
 
-#: email-verification-for-woocommerce.php:159
+#: email-verification-for-woocommerce.php:157
 msgid "Go Pro"
 msgstr ""
 
