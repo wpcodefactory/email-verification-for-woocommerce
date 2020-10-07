@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Logouts Class
  *
- * @version 1.9.5
+ * @version 1.9.6
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -16,7 +16,7 @@ class Alg_WC_Email_Verification_Logouts {
 	/**
 	 * Constructor.
 	 *
-	 * @version 1.9.5
+	 * @version 1.9.6
 	 * @since   1.6.0
 	 * @todo    (maybe) force "activate" notice for guest users also
 	 * @todo    (maybe) `alg_wc_ev_prevent_login_after_register`: `woocommerce_account_navigation` (doesn't seem to work though...)
@@ -51,7 +51,10 @@ class Alg_WC_Email_Verification_Logouts {
 		// Prevent login using the same activation link
 		add_filter( 'alg_wc_ev_verify_email', array( $this, 'prevent_login_using_the_same_link' ), 10, 3 );
 		add_action( 'alg_wc_ev_activation_link_already_used', function ( $user_id ) {
-			if ( isset( $_GET['alg_wc_ev_user_id'] ) ) {
+			if (
+				isset( $_GET['alg_wc_ev_user_id'] ) ||
+				is_user_logged_in()
+			) {
 				return;
 			}
 			add_filter( 'alg_wc_ev_verify_email_error', function () use ( $user_id ) {

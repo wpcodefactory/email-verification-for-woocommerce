@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Admin Section Settings
  *
- * @version 1.9.5
+ * @version 1.9.6
  * @since   1.3.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_Email_Verification_Settings_Admin extends Alg_WC_Email_Verification
 	/**
 	 * get_settings.
 	 *
-	 * @version 1.9.5
+	 * @version 1.9.6
 	 * @since   1.3.0
 	 * @todo    [next] Delete users (automatically): better description
 	 * @todo    [next] Email: better description(s) and default value(s)
@@ -70,6 +70,26 @@ class Alg_WC_Email_Verification_Settings_Admin extends Alg_WC_Email_Verification
 			array(
 				'type'     => 'sectionend',
 				'id'       => 'alg_wc_ev_admin_column_options',
+			),
+
+			// Bulk user actions
+			array(
+				'title'    => __( 'Bulk user actions', 'emails-verification-for-woocommerce' ),
+				'type'     => 'title',
+				'desc'     => sprintf( __( 'New options displayed on the <a href="%s">users</a> bulk actions.', 'emails-verification-for-woocommerce' ), admin_url( 'users.php' ) ),
+				'id'       => 'alg_wc_ev_admin_bulk_user_actions',
+			),
+			array(
+				'title'    => __( 'Resend verification email', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => __( 'Resends the verification email for multiple users that are still unverified.', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'Enable', 'emails-verification-for-woocommerce' ),
+				'type'     => 'checkbox',
+				'id'       => 'alg_wc_ev_admin_bulk_user_actions_resend',
+				'default'  => 'no',
+			),
+			array(
+				'type'     => 'sectionend',
+				'id'       => 'alg_wc_ev_admin_bulk_user_actions',
 			),
 		);
 	}

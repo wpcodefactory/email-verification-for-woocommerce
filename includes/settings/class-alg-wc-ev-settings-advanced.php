@@ -16,12 +16,12 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 	/**
 	 * Constructor.
 	 *
-	 * @version 1.6.0
+	 * @version 1.9.6
 	 * @since   1.6.0
 	 */
 	function __construct() {
 		$this->id   = 'advanced';
-		$this->desc = __( 'Advanced', 'Advanced-verification-for-woocommerce' );
+		$this->desc = __( 'Advanced', 'emails-verification-for-woocommerce' );
 		parent::__construct();
 	}
 

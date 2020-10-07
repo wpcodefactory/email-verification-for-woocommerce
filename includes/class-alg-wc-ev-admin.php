@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Admin Class
  *
- * @version 1.9.5
+ * @version 1.9.6
  * @since   1.5.0
  * @author  WPFactory
  */
@@ -16,7 +16,7 @@ class Alg_WC_Email_Verification_Admin {
 	/**
 	 * Constructor.
 	 *
-	 * @version 1.9.5
+	 * @version 1.9.6
 	 * @since   1.5.0
 	 * @todo    (maybe) move more stuff here, e.g. settings, action links etc.
 	 */
@@ -49,6 +49,75 @@ class Alg_WC_Email_Verification_Admin {
 			add_action( 'init',                              array( $this, 'unschedule_delete_unverified_users_cron' ) );
 		}
 		add_action( 'init',                                  array( $this, 'unschedule_delete_unverified_users_cron_on_deactivation' ) );
+		// Users Bulk Actions
+		add_filter( 'bulk_actions-users',        array( $this, 'add_bulk_user_actions' ) );
+		add_filter( 'handle_bulk_actions-users', array( $this, 'handle_bulk_user_actions' ), 10, 3 );
+		add_action( 'admin_notices',             array( $this, 'manage_bulk_notices' ) );
+	}
+
+	/**
+	 * manage_bulk_notices.
+	 *
+	 * @version 1.9.6
+	 * @since   1.9.6
+	 */
+	function manage_bulk_notices() {
+		if ( ! empty( $_REQUEST['bulk_alg_wc_ev_resend'] ) ) {
+			$count = intval( $_REQUEST['bulk_alg_wc_ev_resend'] );
+			printf( '<div id="message" class="updated notice is-dismissable"><p>' . _n( 'Verification email sent to %d user successfully.', 'Verification email sent to %d users successfully.', $count, 'emails-verification-for-woocommerce' ) . '</p></div>', $count );
+		}
+	}
+
+	/**
+	 * handle_bulk_actions_users.
+	 *
+	 * @version 1.9.6
+	 * @since   1.9.6
+	 *
+	 * @param $redirect_to
+	 * @param $doaction
+	 * @param $user_ids
+	 *
+	 * @return string
+	 */
+	function handle_bulk_user_actions( $redirect_to, $doaction, $user_ids ) {
+		switch ( $doaction ) {
+			case 'alg_wc_ev_resend':
+				$count = 0;
+				foreach ( $user_ids as $user_id ) {
+					$user = new WP_User( $user_id );
+					if ( $user && ! is_wp_error( $user ) ) {
+						if ( ! alg_wc_ev()->core->is_user_verified( $user ) ) {
+							$count ++;
+							alg_wc_ev()->core->emails->reset_and_mail_activation_link( $user_id );
+						}
+					}
+				}
+				$redirect_to = add_query_arg( 'bulk_alg_wc_ev_resend', $count, $redirect_to );
+				return $redirect_to;
+				break;
+			default:
+				return $redirect_to;
+		}
+		return $redirect_to;
+	}
+
+	/**
+	 * add_users_bulk_actions.
+	 *
+	 * @version 1.9.6
+	 * @since   1.9.6
+	 *
+	 * @param $bulk_actions
+	 *
+	 * @return mixed
+	 */
+	function add_bulk_user_actions( $bulk_actions ) {
+		if ( 'yes' !== get_option( 'alg_wc_ev_admin_bulk_user_actions_resend' ) ) {
+			return $bulk_actions;
+		}
+		$bulk_actions['alg_wc_ev_resend'] = __( 'Resend verification email', 'emails-verification-for-woocommerce' );
+		return $bulk_actions;
 	}
 
 	/**

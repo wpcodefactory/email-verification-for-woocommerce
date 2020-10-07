@@ -3,7 +3,7 @@ Contributors: wpcodefactory
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 5.5
-Stable tag: 1.9.5
+Stable tag: 1.9.6
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -57,8 +57,11 @@ If your cart is getting cleared after a new account is created, try to enable th
 
 == Changelog ==
 
-= 1.9.6 - 11/09/2020 =
+= 1.9.6 - 07/10/2020 =
+* Fix - Wrong text-domain on advanced settings.
+* Fix - 'One-time activation link' option triggering improper error message after successful login.
 * Dev - General Options - Advanced - Improve 'Custom "logout" function' option description.
+* Dev - Admin - Add 'Resend verification email' option for bulk users actions.
 * Add 'User registration clears shopping cart' FAQ question.
 
 = 1.9.5 - 08/09/2020 =
