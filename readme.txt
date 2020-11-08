@@ -3,7 +3,7 @@ Contributors: wpcodefactory
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 5.5
-Stable tag: 1.9.6
+Stable tag: 1.9.7
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -38,7 +38,7 @@ Verify user emails in WooCommerce. Beautifully.
 * Set activation link **expiration time**.
 * Send **email to the admin** when new user verifies his email.
 * Set emails **blacklist**.
-* Automatically accept email verification from **social login** plugin.
+* Automatically accept email verification from [social login](https://codecanyon.net/item/woocommerce-social-login-wordpress-plugin/8495883) plugin.
 
 = Feedback =
 
@@ -56,6 +56,14 @@ If your cart is getting cleared after a new account is created, try to enable th
 3. Start by visiting plugin settings at "WooCommerce > Settings > Email Verification".
 
 == Changelog ==
+
+= 1.9.7 - 08/11/2020 =
+* Fix `load_plugin_textdomain` call by putting it inside the 'init' hook.
+* Dev - Emails - Admin email - Allow template variables to be used on 'Subject' and 'Heading'.
+* Dev - General Options - Add compatibility with "Nextend Social Login" plugin.
+* Dev - General Options - Add compatibility with "Super Socializer" plugin.
+* Dev - General Options - Delay option will now send the automatically generated password on email by regenerating it again.
+* Add social login link on readme.
 
 = 1.9.6 - 07/10/2020 =
 * Fix - Wrong text-domain on advanced settings.
@@ -221,5 +229,10 @@ If your cart is getting cleared after a new account is created, try to enable th
 
 == Upgrade Notice ==
 
-= 1.0.0 =
-This is the first release of the plugin.
+= 1.9.7 =
+* Fix `load_plugin_textdomain` call by putting it inside the 'init' hook.
+* Dev - Emails - Admin email - Allow template variables to be used on 'Subject' and 'Heading'.
+* Dev - General Options - Add compatibility with "Nextend Social Login" plugin.
+* Dev - General Options - Add compatibility with "Super Socializer" plugin.
+* Dev - General Options - Delay option will now send the automatically generated password on email by regenerating it again.
+* Add social login link on readme.

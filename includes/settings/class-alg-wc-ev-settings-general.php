@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - General Section Settings
  *
- * @version 1.9.5
+ * @version 1.9.7
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -40,7 +40,7 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 	/**
 	 * get_settings.
 	 *
-	 * @version 1.9.5
+	 * @version 1.9.7
 	 * @since   1.0.0
 	 * @todo    [next] Logout unverified users on every page: better description
 	 * @todo    [next] (maybe) `alg_wc_ev_delay_wc_email`: default to `yes`?
@@ -437,12 +437,37 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 			),
 			array(
 				'title'    => __( 'WooCommerce - Social Login', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => sprintf( __( 'Check this if you want to automatically accept verification made by <a target="_blank" href="%s">"WooCommerce - Social Login</a>" plugin.', 'emails-verification-for-woocommerce' ), 'https://codecanyon.net/item/woocommerce-social-login-wordpress-plugin/8495883' ) .
+				'desc_tip' => sprintf( __( 'Check this if you want to automatically accept verification made by "<a target="_blank" href="%s">WooCommerce - Social Login</a>" plugin.', 'emails-verification-for-woocommerce' ), 'https://codecanyon.net/item/woocommerce-social-login-wordpress-plugin/8495883' ) .
 				              $this->pro_msg(),
 				'desc'     => __( 'Enable', 'emails-verification-for-woocommerce' ),
 				'type'     => 'checkbox',
 				'id'       => 'alg_wc_ev_accept_social_login',
 				'default'  => 'no',
+				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+			),
+			array(
+				'title'    => __( 'Super Socializer', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => sprintf( __( 'Automatically accepts verification from "<a target="_blank" href="%s">Super Socializer</a>" plugin.', 'emails-verification-for-woocommerce' ), 'https://wordpress.org/plugins/super-socializer/' ) .
+				              $this->pro_msg(),
+				'desc'     => __( 'Enable', 'emails-verification-for-woocommerce' ),
+				'type'     => 'checkbox',
+				'id'       => 'alg_wc_ev_super_socializer_login',
+				'default'  => 'no',
+				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+			),
+			array(
+				'title'    => __( 'Nextend Social Login', 'emails-verification-for-woocommerce' ),
+				'desc'     => sprintf( __( 'Automatically verifies a user who registers or logins from "<a target="_blank" href="%s">Nextend Social Login</a>" plugin.', 'emails-verification-for-woocommerce' ), 'https://wordpress.org/plugins/nextend-facebook-connect/' ) .
+				              $this->pro_msg(),
+				'desc_tip' => __( 'Leave it empty if you don\'t want to automatically verify an user from Nextend Social Login.', 'emails-verification-for-woocommerce' ),
+				'type'     => 'multiselect',
+				'class'    => 'chosen_select',
+				'id'       => 'alg_wc_ev_nextend_verify',
+				'default'  => array(''),
+				'options' => array(
+					'nsl_login'             => __( 'On login', 'emails-verification-for-woocommerce' ),
+					'nsl_register_new_user' => __( 'On register new user', 'emails-verification-for-woocommerce' ),
+				),
 				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
 			),
 			array(

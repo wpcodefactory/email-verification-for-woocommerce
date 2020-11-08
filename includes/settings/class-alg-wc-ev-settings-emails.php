@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Emails Section Settings
  *
- * @version 1.9.5
+ * @version 1.9.7
  * @since   1.3.0
  * @author  WPFactory
  */
@@ -23,6 +23,30 @@ class Alg_WC_Email_Verification_Settings_Emails extends Alg_WC_Email_Verificatio
 		$this->id   = 'emails';
 		$this->desc = __( 'Emails', 'emails-verification-for-woocommerce' );
 		parent::__construct();
+	}
+
+	/**
+	 * get_default_email_placeholders.
+	 *
+	 * @version 1.9.7
+	 * @since   1.9.7
+	 *
+	 * @return array
+	 */
+	function get_default_email_placeholders(){
+		return array(
+			'%user_id%',
+			'%user_login%',
+			'%user_nicename%',
+			'%user_email%',
+			'%user_url%',
+			'%user_registered%',
+			'%user_display_name%',
+			'%user_roles%',
+			'%user_first_name%',
+			'%user_last_name%',
+			'%admin_user_profile_url%',
+		);
 	}
 
 	/**
@@ -118,6 +142,7 @@ class Alg_WC_Email_Verification_Settings_Emails extends Alg_WC_Email_Verificatio
 			),
 			array(
 				'title'    => __( 'Subject', 'emails-verification-for-woocommerce' ),
+				'desc'     => $this->available_placeholders_desc( $this->get_default_email_placeholders() ),
 				'type'     => 'text',
 				'id'       => 'alg_wc_ev_admin_email_subject',
 				'default'  => __( 'User email has been verified', 'emails-verification-for-woocommerce' ),
@@ -125,6 +150,7 @@ class Alg_WC_Email_Verification_Settings_Emails extends Alg_WC_Email_Verificatio
 			),
 			array(
 				'title'    => __( 'Heading', 'emails-verification-for-woocommerce' ),
+				'desc'     => $this->available_placeholders_desc( $this->get_default_email_placeholders() ),
 				'type'     => 'textarea',
 				'id'       => 'alg_wc_ev_admin_email_heading',
 				'default'  => __( 'User account has been activated', 'emails-verification-for-woocommerce' ),
@@ -133,19 +159,7 @@ class Alg_WC_Email_Verification_Settings_Emails extends Alg_WC_Email_Verificatio
 			),
 			array(
 				'title'    => __( 'Content', 'emails-verification-for-woocommerce' ),
-				'desc'     => $this->available_placeholders_desc( array(
-					'%user_id%',
-					'%user_login%',
-					'%user_nicename%',
-					'%user_email%',
-					'%user_url%',
-					'%user_registered%',
-					'%user_display_name%',
-					'%user_roles%',
-					'%user_first_name%',
-					'%user_last_name%',
-					'%admin_user_profile_url%',
-				) ),
+				'desc'     => $this->available_placeholders_desc( $this->get_default_email_placeholders() ),
 				'type'     => 'textarea',
 				'id'       => 'alg_wc_ev_admin_email_content',
 				'default'  => sprintf( __( 'User %s has just verified his email (%s).', 'emails-verification-for-woocommerce' ),

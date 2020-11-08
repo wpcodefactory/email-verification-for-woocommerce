@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Emails Class
  *
- * @version 1.9.5
+ * @version 1.9.7
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -142,9 +142,10 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * maybe_send_wc_customer_new_account_email.
 	 *
-	 * @version 1.8.0
+	 * @see wc_create_new_customer()
+	 *
+	 * @version 1.9.7
 	 * @since   1.6.0
-	 * @todo    (maybe) somehow set 2nd and 3rd params in `customer_new_account()` (i.e. `user_pass` and `password_generated`)
 	 */
 	function maybe_send_wc_customer_new_account_email( $user_id ) {
 		if (
@@ -152,8 +153,13 @@ class Alg_WC_Email_Verification_Emails {
 			'' == get_user_meta( $user_id, 'alg_wc_ev_customer_new_account_email_sent', true ) &&
 			class_exists( 'WC_Emails' ) && method_exists( 'WC_Emails', 'instance' )
 		) {
-			$wc_emails = WC_Emails::instance();
-			$wc_emails->customer_new_account( $user_id );
+			$wc_emails     = WC_Emails::instance();
+			$customer_data = ( $password_generated = 'yes' === get_option( 'woocommerce_registration_generate_password', 'yes' ) ) ? array( 'user_pass' => $user_pass = wp_generate_password() ) : array();
+			if ( $password_generated ) {
+				add_filter( 'send_password_change_email', '__return_false' );
+				wp_update_user( array( 'ID' => $user_id, 'user_pass' => $user_pass ) );
+			}
+			$wc_emails->customer_new_account( $user_id, $customer_data, $password_generated );
 			update_user_meta( $user_id, 'alg_wc_ev_customer_new_account_email_sent', time() );
 		}
 	}
