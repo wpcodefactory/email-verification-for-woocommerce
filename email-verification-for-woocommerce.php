@@ -3,13 +3,13 @@
 Plugin Name: Email Verification for WooCommerce
 Plugin URI: https://wpfactory.com/item/email-verification-for-woocommerce/
 Description: Verify user emails in WooCommerce. Beautifully.
-Version: 1.9.7
+Version: 1.9.8
 Author: WPFactory
 Author URI: https://wpfactory.com
 Text Domain: emails-verification-for-woocommerce
 Domain Path: /langs
 Copyright: © 2020 WPFactory
-WC tested up to: 4.4
+WC tested up to: 4.7
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 */
@@ -33,7 +33,7 @@ final class Alg_WC_Email_Verification {
 	 * @var   string
 	 * @since 1.0.0
 	 */
-	public $version = '1.9.7';
+	public $version = '1.9.8';
 
 	/**
 	 * @var   Alg_WC_Email_Verification The single instance of the class
@@ -68,7 +68,7 @@ final class Alg_WC_Email_Verification {
 	/**
 	 * Alg_WC_Email_Verification Constructor.
 	 *
-	 * @version 1.9.7
+	 * @version 1.9.8
 	 * @since   1.0.0
 	 * @access  public
 	 */
@@ -82,10 +82,8 @@ final class Alg_WC_Email_Verification {
 			return;
 		}
 
-		add_action('init',function(){
-			// Set up localisation
-			load_plugin_textdomain( 'emails-verification-for-woocommerce', false, dirname( plugin_basename( __FILE__ ) ) . '/langs/' );
-		});
+		// Localization
+		add_action( 'init', array( $this, 'localize' ) );
 
 		// Pro
 		if ( 'email-verification-for-woocommerce-pro.php' === basename( __FILE__ ) ) {
@@ -99,6 +97,18 @@ final class Alg_WC_Email_Verification {
 		if ( is_admin() ) {
 			$this->admin();
 		}
+	}
+
+	/**
+	 * localize.
+	 *
+	 * @version 1.9.8
+	 * @since   1.9.8
+	 *
+	 */
+	function localize() {
+		// Set up localisation
+		load_plugin_textdomain( 'emails-verification-for-woocommerce', false, dirname( plugin_basename( __FILE__ ) ) . '/langs/' );
 	}
 
 	/**

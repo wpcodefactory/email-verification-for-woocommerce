@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Settings
  *
- * @version 1.9.3
+ * @version 1.9.8
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -36,12 +36,12 @@ class Alg_WC_Email_Verification_Settings extends WC_Settings_Page {
 	/**
 	 * maybe_unsanitize_option.
 	 *
-	 * @version 1.1.0
+	 * @version 1.9.8
 	 * @since   1.0.0
 	 * @todo    find better solution
 	 */
 	function maybe_unsanitize_option( $value, $option, $raw_value ) {
-		return ( ! empty( $option['alg_wc_ev_raw'] ) ? $raw_value : $value );
+		return ( ! empty( $option['alg_wc_ev_raw'] ) ? wp_kses_post( trim( $raw_value ) ) : $value );
 	}
 
 	/**

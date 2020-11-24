@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - General Section Settings
  *
- * @version 1.9.7
+ * @version 1.9.8
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -40,7 +40,7 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 	/**
 	 * get_settings.
 	 *
-	 * @version 1.9.7
+	 * @version 1.9.8
 	 * @since   1.0.0
 	 * @todo    [next] Logout unverified users on every page: better description
 	 * @todo    [next] (maybe) `alg_wc_ev_delay_wc_email`: default to `yes`?
@@ -221,12 +221,22 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 				'title'    => __( 'Expire time', 'emails-verification-for-woocommerce' ),
 				'desc_tip' => __( 'Ignored if set to zero.', 'emails-verification-for-woocommerce' ) . ' ' .
 				              __( 'Please note that all activation codes generated before installing the plugin v1.7.0 will be automatically expired.', 'emails-verification-for-woocommerce' ),
-				'desc'     => __( 'Expiration time in seconds', 'emails-verification-for-woocommerce' ) .
+				'desc'     => sprintf( __( 'Expiration time in %s.', 'emails-verification-for-woocommerce' ), get_option( 'alg_wc_ev_expiration_time_unit', 'seconds' ) ) .
 				              $this->pro_msg(),
 				'type'     => 'number',
 				'id'       => 'alg_wc_ev_expiration_time',
 				'default'  => 0,
 				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'readonly' => 'readonly' ), 'min', array( 0 ) ),
+			),
+			array(
+				'title'   => __( 'Expire time unit', 'emails-verification-for-woocommerce' ),
+				'type'    => 'select',
+				'options' => array(
+					'seconds' => __( 'Seconds', 'emails-verification-for-woocommerce' ),
+					'days'    => __( 'Days', 'emails-verification-for-woocommerce' ),
+				),
+				'id'      => 'alg_wc_ev_expiration_time_unit',
+				'default' => 'seconds',
 			),
 			array(
 				'title'    => __( 'Expire notice', 'emails-verification-for-woocommerce' ),

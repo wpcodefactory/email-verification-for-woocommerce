@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Functions
  *
- * @version 1.9.5
+ * @version 1.9.8
  * @since   1.9.0
  * @author  WPFactory
  */
@@ -62,5 +62,29 @@ if ( ! function_exists( 'alg_wc_ev_is_valid_paying_user' ) ) {
 			return true;
 		}
 		return false;
+	}
+}
+
+if ( ! function_exists( 'alg_wc_ev_get_expiration_time' ) ) {
+	/**
+	 * alg_wc_ev_get_expiration_time.
+	 *
+	 * @version 1.9.8
+	 * @since   1.9.8
+	 *
+	 * @return float|int
+	 */
+	function alg_wc_ev_get_expiration_time() {
+		$unit_constants   = array(
+			'seconds' => 1,
+			'days'    => DAY_IN_SECONDS,
+		);
+		$expire_time_opt  = get_option( 'alg_wc_ev_expiration_time', 0 );
+		$expire_time_unit = get_option( 'alg_wc_ev_expiration_time_unit', 'seconds' );
+		if ( empty( $expire_time_opt ) ) {
+			return 0;
+		} else {
+			return $expire_time_opt * $unit_constants[ $expire_time_unit ];
+		}
 	}
 }
