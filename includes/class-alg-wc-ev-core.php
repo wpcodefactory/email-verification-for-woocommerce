@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Core Class
  *
- * @version 1.9.5
+ * @version 2.0.0
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -16,7 +16,7 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 1.9.5
+	 * @version 2.0.0
 	 * @since   1.0.0
 	 * @todo    [next] (maybe) `[alg_wc_ev_translate]` to description in readme.txt
 	 */
@@ -39,8 +39,128 @@ class Alg_WC_Email_Verification_Core {
 		require_once( 'class-alg-wc-ev-admin.php' );
 		// Non Paying Blocker
 		require_once( 'class-alg-wc-ev-non-paying-blocker.php' );
+		// HTML tags converter
+		$this->setup_html_tags_converter();
 		// Core loaded
 		do_action( 'alg_wc_ev_core_loaded', $this );
+		// Login the user automatically
+		add_action( 'alg_wc_ev_user_account_activated', array( $this, 'login_user_automatically_on_success_activation' ) );
+		// Redirect on success activation
+		add_action( 'alg_wc_ev_user_account_activated', array( $this, 'redirect_on_success_activation' ) );
+		// Success activation message
+		add_action( 'alg_wc_ev_user_account_activated', array( $this, 'display_success_activation_message' ) );
+		add_action( 'init', array( $this, 'display_success_activation_message' ) );
+		add_filter( 'wp_redirect', array( $this, 'remove_success_activation_message' ) );
+	}
+
+	/**
+	 * @version 2.0.0
+	 * @since   2.0.0
+	 *
+	 * @param $redirect_to
+	 *
+	 * @return string
+	 */
+	function remove_success_activation_message( $redirect_to ) {
+		if ( isset( $_GET['alg_wc_ev_success_activation_message'] ) ) {
+			$redirect_to = remove_query_arg( 'alg_wc_ev_success_activation_message', $redirect_to );
+		}
+		return $redirect_to;
+	}
+
+	/**
+	 * login_user_automatically_on_success_activation.
+	 *
+	 * @version 2.0.0
+	 * @since   2.0.0
+	 *
+	 * @param $user_id
+	 */
+	function login_user_automatically_on_success_activation( $user_id ) {
+		if ( 'yes' == get_option( 'alg_wc_ev_login_automatically_on_activation', 'yes' ) ) {
+			wp_set_current_user( $user_id );
+			wp_set_auth_cookie( $user_id );
+		}
+	}
+
+	/**
+	 * display_success_activation_message.
+	 *
+	 * @version 2.0.0
+	 * @since   2.0.0
+	 */
+	function display_success_activation_message() {
+		$display_message = false;
+		if ( 'alg_wc_ev_user_account_activated' == current_filter() ) {
+			$display_message = true;
+		} elseif ( isset( $_GET['alg_wc_ev_success_activation_message'] ) ) {
+			$display_message = true;
+		}
+		if ( $display_message ) {
+			wc_add_notice( $this->messages->get_success_message() );
+		}
+	}
+
+	/**
+	 * redirect_on_success_activation.
+	 *
+	 * @version 2.0.0
+	 * @since   2.0.0
+	 *
+	 */
+	function redirect_on_success_activation() {
+		if ( 'no' != ( $redirect = get_option( 'alg_wc_ev_redirect_to_my_account_on_success', 'yes' ) ) ) {
+			switch ( $redirect ) {
+				case 'home':
+					$redirect_url = get_home_url();
+					break;
+				case 'shop':
+					$redirect_url = wc_get_page_permalink( 'shop' );
+					break;
+				case 'custom':
+					$redirect_url = get_option( 'alg_wc_ev_redirect_on_success_url', '' );
+					break;
+				default: // 'yes'
+					$redirect_url = wc_get_page_permalink( 'myaccount' );
+			}
+			$redirect_url = add_query_arg( array( 'alg_wc_ev_success_activation_message' => 1 ), $redirect_url );
+			wp_redirect( $redirect_url );
+			exit;
+		}
+	}
+
+	/**
+	 * setup_html_tags_converter.
+	 *
+	 * @version 2.0.0
+	 * @since   2.0.0
+	 */
+	function setup_html_tags_converter() {
+		$this->html_tags_converter = require_once( 'class-alg-wc-ev-html-tags-converter.php' );
+		$this->html_tags_converter->init( array(
+			'wc_tab_id' => 'alg_wc_ev',
+			'database'  => array(
+				'converter_id'    => 'alg_wc_ev_replace_html_tags',
+				'replacement_ids' => array(
+					'alg_wc_ev_error_message',
+					'alg_wc_ev_failed_message',
+					'alg_wc_ev_activation_message',
+					'alg_wc_ev_email_resend_message',
+					'alg_wc_ev_email_subject',
+					'alg_wc_ev_email_content',
+					'alg_wc_ev_email_template_wc_heading',
+					'alg_wc_ev_admin_email_heading',
+					'alg_wc_ev_admin_email_content',
+					'alg_wc_ev_redirect_on_success_url',
+					'alg_wc_ev_prevent_login_after_register_redirect_url',
+					'alg_wc_ev_activation_code_expired_message',
+					'alg_wc_ev_block_checkout_process_notice',
+					'alg_wc_ev_block_guest_add_to_cart_notice',
+					'alg_wc_ev_block_nonpaying_users_activation_error_notice',
+					'alg_wc_ev_blacklisted_message'
+				),
+			)
+		) );
 	}
 
 	/**
@@ -222,7 +342,7 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * verify.
 	 *
-	 * @version 1.9.5
+	 * @version 2.0.0
 	 * @since   1.6.0
 	 */
 	function verify() {
@@ -233,29 +353,9 @@ class Alg_WC_Email_Verification_Core {
 			if ( '' !== $code && $code === $data['code'] ) {
 				if ( apply_filters( 'alg_wc_ev_verify_email', true, $user_id, $code ) ) {
 					update_user_meta( $user_id, 'alg_wc_ev_is_activated', '1' );
-					wc_add_notice( $this->messages->get_success_message() );
 					$this->emails->maybe_send_wc_customer_new_account_email( $user_id );
 					do_action( 'alg_wc_ev_user_account_activated', $user_id, $code );
 					$this->save_first_activation_info( $code, $user_id );
-					if ( 'no' != ( $redirect = get_option( 'alg_wc_ev_redirect_to_my_account_on_success', 'yes' ) ) ) {
-						wp_set_current_user( $user_id );
-						wp_set_auth_cookie( $user_id );
-						switch ( $redirect ) {
-							case 'home':
-								$redirect_url = get_home_url();
-								break;
-							case 'shop':
-								$redirect_url = wc_get_page_permalink( 'shop' );
-								break;
-							case 'custom':
-								$redirect_url = get_option( 'alg_wc_ev_redirect_on_success_url', '' );
-								break;
-							default: // 'yes'
-								$redirect_url = wc_get_page_permalink( 'myaccount' );
-						}
-						wp_redirect( $redirect_url );
-						exit;
-					}
 				} else {
 					do_action( 'alg_wc_ev_verify_email_error', $user_id, $code );
 				}

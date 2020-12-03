@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Settings
  *
- * @version 1.9.8
+ * @version 2.0.0
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -16,14 +16,14 @@ class Alg_WC_Email_Verification_Settings extends WC_Settings_Page {
 	/**
 	 * Constructor.
 	 *
-	 * @version 1.9.3
+	 * @version 2.0.0
 	 * @since   1.0.0
 	 */
 	function __construct() {
 		$this->id    = 'alg_wc_ev';
 		$this->label = __( 'Email Verification', 'emails-verification-for-woocommerce' );
 		parent::__construct();
-		add_filter( 'woocommerce_admin_settings_sanitize_option', array( $this, 'maybe_unsanitize_option' ), PHP_INT_MAX, 3 );
+		add_filter( 'woocommerce_admin_settings_sanitize_option', array( $this, 'sanitize_raw_parameter' ), 10, 3 );
 		// Sections
 		require_once( 'class-alg-wc-ev-settings-section.php' );
 		require_once( 'class-alg-wc-ev-settings-general.php' );
@@ -36,12 +36,22 @@ class Alg_WC_Email_Verification_Settings extends WC_Settings_Page {
 	/**
 	 * maybe_unsanitize_option.
 	 *
-	 * @version 1.9.8
+	 * @version 2.0.0
 	 * @since   1.0.0
 	 * @todo    find better solution
+	 *
+	 * @param $value
+	 * @param $option
+	 * @param $raw_value
+	 *
+	 * @return mixed|string
 	 */
-	function maybe_unsanitize_option( $value, $option, $raw_value ) {
-		return ( ! empty( $option['alg_wc_ev_raw'] ) ? wp_kses_post( trim( $raw_value ) ) : $value );
+	function sanitize_raw_parameter( $value, $option, $raw_value ) {
+		if ( ! isset( $option['alg_wc_ev_raw'] ) || empty( $option['alg_wc_ev_raw'] ) ) {
+			return $value;
+		}
+		$new_value = wp_kses_post( trim( $raw_value ) );
+		return $new_value;
 	}
 
 	/**

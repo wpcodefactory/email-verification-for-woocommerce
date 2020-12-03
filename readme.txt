@@ -3,7 +3,7 @@ Contributors: wpcodefactory
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 5.5
-Stable tag: 1.9.8
+Stable tag: 2.0.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -49,6 +49,23 @@ Verify user emails in WooCommerce. Beautifully.
 = User registration clears shopping cart? =
 If your cart is getting cleared after a new account is created, try to enable the option **Custom logout function** available on the **Advanced** section.
 
+= How to eliminate Spam registrations? =
+If you use some options combined, you'll be able to remove the unverified users automatically, eliminating spam registrations.
+This is what you can do:
+
+- Disable **General > Enable email verification for already registered users** (This is optional, however it's more safe)
+- Enable **Advanced > Delete users automatically**
+- Set **General > Expire time** (This is optional but it's more safe, because you'll be removing only unverified users whose activation have expired. This is a [Pro](https://wpfactory.com/item/email-verification-for-woocommerce/) feature though)
+
+= What can I do if I get a 403 error or have issues when trying to save settings? =
+Some servers have security solutions that do not allow saving settings with HTML tags.
+You can try to contact them asking to disable it, or you can try our option:
+
+- **Advanced > Replace HTML tags**
+
+It will try to convert the angle brackets from HTML tags by other characters.
+After that, you'll just need to save the settings page once more. On the frontend the characters will be converted to HTML tags again.
+
 == Installation ==
 
 1. Upload the entire plugin folder to the `/wp-content/plugins/` directory.
@@ -56,6 +73,17 @@ If your cart is getting cleared after a new account is created, try to enable th
 3. Start by visiting plugin settings at "WooCommerce > Settings > Email Verification".
 
 == Changelog ==
+
+= 2.0.0 - 03/12/2020 =
+* Fix - Success message not getting displayed after redirect.
+* Dev - General - Add "Login automatically" option.
+* Dev - Advanced Options - Add "Replace HTML tags" option.
+* Dev - Advanced Options - Add "Delete users frequency" option.
+* Dev - Admin Options - Add info about the scheduled event from "Delete users automatically" option.
+* Dev - Filters - `alg_wc_ev_html_replacement_params` filter added.
+* Add "Replace HTML tags" option to readme FAQ.
+* Add "How to eliminate Spam registrations?" on readme.
+* Move "Prevent automatic user login" section from general to advanced.
 
 = 1.9.8 - 24/11/2020 =
 * Fix - Settings - Use `wp_kses_post` instead of leaving the `$raw_value`.
@@ -234,7 +262,13 @@ If your cart is getting cleared after a new account is created, try to enable th
 
 == Upgrade Notice ==
 
-= 1.9.8 =
-* Fix - Settings - Use `wp_kses_post` instead of leaving the `$raw_value`.
-* Dev - General Options - Add "Expire time unit" option.
-* WC tested up to: 4.7
+= 2.0.0 =
+* Fix - Success message not getting displayed after redirect.
+* Dev - General - Add "Login automatically" option.
+* Dev - Advanced Options - Add "Replace HTML tags" option.
+* Dev - Advanced Options - Add "Delete users frequency" option.
+* Dev - Admin Options - Add info about the scheduled event from "Delete users automatically" option.
+* Dev - Filters - `alg_wc_ev_html_replacement_params` filter added.
+* Add "Replace HTML tags" option to readme FAQ.
+* Add "How to eliminate Spam registrations?" on readme.
+* Move "Prevent automatic user login" section from general to advanced.

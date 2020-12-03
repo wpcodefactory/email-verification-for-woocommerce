@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Admin Class
  *
- * @version 1.9.6
+ * @version 2.0.0
  * @since   1.5.0
  * @author  WPFactory
  */
@@ -16,7 +16,7 @@ class Alg_WC_Email_Verification_Admin {
 	/**
 	 * Constructor.
 	 *
-	 * @version 1.9.6
+	 * @version 2.0.0
 	 * @since   1.5.0
 	 * @todo    (maybe) move more stuff here, e.g. settings, action links etc.
 	 */
@@ -42,6 +42,7 @@ class Alg_WC_Email_Verification_Admin {
 		// Admin delete unverified users
 		add_action( 'alg_wc_email_verification_after_save_settings', array( $this, 'maybe_delete_unverified_users' ) );
 		// Admin delete unverified users: Cron
+		add_action( 'alg_wc_ev_enable_delete_users_cron', array( $this, 'schedule_delete_unverified_users_cron' ) );
 		if ( 'yes' === get_option( 'alg_wc_ev_delete_users_cron', 'no' ) ) {
 			add_action( 'init',                              array( $this, 'schedule_delete_unverified_users_cron' ) );
 			add_action( 'alg_wc_ev_delete_unverified_users', array( $this, 'delete_unverified_users_cron' ) );
@@ -170,13 +171,12 @@ class Alg_WC_Email_Verification_Admin {
 	/**
 	 * schedule_delete_unverified_users_cron.
 	 *
-	 * @version 1.7.0
+	 * @version 2.0.0
 	 * @since   1.7.0
-	 * @todo    [next] customizable recurrence (e.g. `daily`)
 	 */
 	function schedule_delete_unverified_users_cron() {
 		if ( ! wp_next_scheduled( 'alg_wc_ev_delete_unverified_users' ) ) {
-			wp_schedule_event( time(), 'weekly', 'alg_wc_ev_delete_unverified_users' );
+			wp_schedule_event( time(), get_option( 'alg_wc_ev_delete_users_cron_frequency', 'weekly' ), 'alg_wc_ev_delete_unverified_users' );
 		}
 	}
 
