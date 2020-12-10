@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Admin Class
  *
- * @version 2.0.0
+ * @version 2.0.1
  * @since   1.5.0
  * @author  WPFactory
  */
@@ -16,7 +16,7 @@ class Alg_WC_Email_Verification_Admin {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.0.0
+	 * @version 2.0.1
 	 * @since   1.5.0
 	 * @todo    (maybe) move more stuff here, e.g. settings, action links etc.
 	 */
@@ -42,18 +42,47 @@ class Alg_WC_Email_Verification_Admin {
 		// Admin delete unverified users
 		add_action( 'alg_wc_email_verification_after_save_settings', array( $this, 'maybe_delete_unverified_users' ) );
 		// Admin delete unverified users: Cron
-		add_action( 'alg_wc_ev_enable_delete_users_cron', array( $this, 'schedule_delete_unverified_users_cron' ) );
+		add_action( 'update_option_alg_wc_ev_delete_users_cron', array( $this, 'schedule_delete_unverified_users_cron_on_option_enabled' ), 10, 3 );
 		if ( 'yes' === get_option( 'alg_wc_ev_delete_users_cron', 'no' ) ) {
-			add_action( 'init',                              array( $this, 'schedule_delete_unverified_users_cron' ) );
-			add_action( 'alg_wc_ev_delete_unverified_users', array( $this, 'delete_unverified_users_cron' ) );
+			add_action( 'init',                               array( $this, 'schedule_delete_unverified_users_cron' ) );
+			add_action( 'alg_wc_ev_delete_unverified_users',  array( $this, 'delete_unverified_users_cron' ) );
 		} else {
-			add_action( 'init',                              array( $this, 'unschedule_delete_unverified_users_cron' ) );
+			add_action( 'init',                               array( $this, 'unschedule_delete_unverified_users_cron' ) );
 		}
-		add_action( 'init',                                  array( $this, 'unschedule_delete_unverified_users_cron_on_deactivation' ) );
+		add_action( 'init',                                   array( $this, 'unschedule_delete_unverified_users_cron_on_deactivation' ) );
 		// Users Bulk Actions
 		add_filter( 'bulk_actions-users',        array( $this, 'add_bulk_user_actions' ) );
 		add_filter( 'handle_bulk_actions-users', array( $this, 'handle_bulk_user_actions' ), 10, 3 );
 		add_action( 'admin_notices',             array( $this, 'manage_bulk_notices' ) );
+		// Bkg Process
+		add_action( 'plugins_loaded',            array( $this, 'init_bkg_process' ) );
+	}
+
+	/**
+	 * init_bkg_process.
+	 *
+	 * @version 2.0.1
+	 * @since   2.0.1
+	 */
+	function init_bkg_process() {
+		require_once( alg_wc_ev()->plugin_path() . '/includes/background-process/class-alg-wc-ev-delete-users-bkg-process.php' );
+		$this->delete_users_bkg_process = new Alg_WC_Email_Verification_Import_Tool_Bkg_Process();
+	}
+
+	/**
+	 * schedule_delete_unverified_users_cron_on_option_enabled.
+	 *
+	 * @version 2.0.1
+	 * @since   2.0.1
+	 *
+	 * @param $old_value
+	 * @param $value
+	 * @param $option
+	 */
+	function schedule_delete_unverified_users_cron_on_option_enabled( $old_value, $value, $option ) {
+		if ( 'yes' === $value ) {
+			$this->schedule_delete_unverified_users_cron();
+		}
 	}
 
 	/**
@@ -218,7 +247,7 @@ class Alg_WC_Email_Verification_Admin {
 	/**
 	 * delete_unverified_users.
 	 *
-	 * @version 1.7.0
+	 * @version 2.0.1
 	 * @since   1.3.0
 	 * @todo    add "preview"
 	 */
@@ -238,7 +267,7 @@ class Alg_WC_Email_Verification_Admin {
 		);
 		if ( 'yes' === get_option( 'alg_wc_ev_verify_already_registered', 'no' ) ) {
 			$args['meta_query']['relation'] = 'OR';
-			$args['meta_query'][] = array(
+			$args['meta_query'][]           = array(
 				'key'     => 'alg_wc_ev_is_activated',
 				'value'   => 'alg_wc_ev_is_activated', // this is ignored; needed for WP prior to v3.9, see https://core.trac.wordpress.org/ticket/23268
 				'compare' => 'NOT EXISTS',
@@ -246,26 +275,27 @@ class Alg_WC_Email_Verification_Admin {
 		}
 		$args = apply_filters( 'alg_wc_ev_delete_unverified_users_loop_args', $args, $current_user_id, $is_cron );
 		// Loop
-		$do_log = ( $is_cron && defined( 'WP_DEBUG' ) && true === WP_DEBUG );
-		$total  = 0;
-		if ( $is_cron && ! function_exists( 'wp_delete_user' ) ) {
-			require_once( ABSPATH . 'wp-admin/includes/user.php' );
-		}
-		foreach ( get_users( $args ) as $user ) {
-			if ( wp_delete_user( $user->ID, $current_user_id ) ) {
-				$total++;
-				if ( $do_log ) {
-					alg_wc_ev()->core->add_to_log( __( 'Cron', 'emails-verification-for-woocommerce' ) . ': ' .
-						sprintf( __( 'User deleted: %d.', 'emails-verification-for-woocommerce' ), $user->ID ) );
+		$total                  = 0;
+		$users_query            = get_users( $args );
+		$bkg_process_min_amount = get_option( 'alg_wc_ev_bkg_process_min_amount', 20 );
+		$perform_bkg_process    = $is_cron || count( $users_query ) >= $bkg_process_min_amount;
+		if ( $perform_bkg_process ) {
+			$this->delete_users_bkg_process->cancel_process();
+			foreach ( $users_query as $user ) {
+				$total ++;
+				$this->delete_users_bkg_process->push_to_queue( array( 'user_id' => $user->ID, 'current_user_id' => $current_user_id ) );
+			}
+			$this->delete_users_bkg_process->save()->dispatch();
+			if ( ! $is_cron ) {
+				WC_Admin_Settings::add_message( sprintf( __( '%d unverified users are going to be deleted in background processing. When the task is complete an e-mail is going to be sent to %s', 'emails-verification-for-woocommerce' ), $total, get_option( 'alg_wc_ev_bkg_process_email_to', get_option( 'admin_email' ) ) ) );
+			}
+		} else {
+			foreach ( $users_query as $user ) {
+				if ( wp_delete_user( $user->ID, $current_user_id ) ) {
+					$total ++;
 				}
 			}
-		}
-		// Output
-		if ( ! $is_cron && method_exists( 'WC_Admin_Settings', 'add_message' ) ) {
-			WC_Admin_Settings::add_message( sprintf( __( 'Total users deleted: %d.', 'emails-verification-for-woocommerce' ), $total ) );
-		} elseif ( $do_log ) {
-			alg_wc_ev()->core->add_to_log( __( 'Cron', 'emails-verification-for-woocommerce' ) . ': ' .
-				sprintf( __( 'Total users deleted: %d.', 'emails-verification-for-woocommerce' ), $total ) );
+			WC_Admin_Settings::add_message( sprintf( __( 'Total unverified users deleted: %d.', 'emails-verification-for-woocommerce' ), $total ) );
 		}
 	}
 

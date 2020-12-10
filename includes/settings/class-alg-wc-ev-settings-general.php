@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - General Section Settings
  *
- * @version 2.0.0
+ * @version 2.0.1
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -40,7 +40,7 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.0.0
+	 * @version 2.0.1
 	 * @since   1.0.0
 	 * @todo    [next] Logout unverified users on every page: better description
 	 * @todo    [next] (maybe) `alg_wc_ev_delay_wc_email`: default to `yes`?
@@ -152,7 +152,7 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 				'title'    => __( 'Expire time', 'emails-verification-for-woocommerce' ),
 				'desc_tip' => __( 'Ignored if set to zero.', 'emails-verification-for-woocommerce' ) . ' ' .
 				              __( 'Please note that all activation codes generated before installing the plugin v1.7.0 will be automatically expired.', 'emails-verification-for-woocommerce' ),
-				'desc'     => sprintf( __( 'Expiration time in %s.', 'emails-verification-for-woocommerce' ), get_option( 'alg_wc_ev_expiration_time_unit', 'seconds' ) ) .
+				'desc'     => sprintf( __( 'Expiration time based on the %s option below.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Expire time unit', 'emails-verification-for-woocommerce' ) . '</strong>' ) .
 				              $this->pro_msg(),
 				'type'     => 'number',
 				'id'       => 'alg_wc_ev_expiration_time',
@@ -377,8 +377,18 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 				'id'       => 'alg_wc_ev_compatibility_options',
 			),
 			array(
-				'title'    => __( 'WooCommerce - Social Login', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => sprintf( __( 'Check this if you want to automatically accept verification made by "<a target="_blank" href="%s">WooCommerce - Social Login</a>" plugin.', 'emails-verification-for-woocommerce' ), 'https://codecanyon.net/item/woocommerce-social-login-wordpress-plugin/8495883' ) .
+				'title'    => __( 'WooCommerce Social Login (SkyVerge)', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => sprintf( __( 'Automatically accepts verification from "<a target="_blank" href="%s">WooCommerce Social Login</a>" plugin made by Woocommerce author <a href="%s" target="_blank">SkyVerge</a>.', 'emails-verification-for-woocommerce' ), 'https://woocommerce.com/products/woocommerce-social-login/', 'https://woocommerce.com/vendor/skyverge/' ) .
+				              $this->pro_msg(),
+				'desc'     => __( 'Enable', 'emails-verification-for-woocommerce' ),
+				'type'     => 'checkbox',
+				'id'       => 'alg_wc_ev_accept_social_login_skyverge',
+				'default'  => 'no',
+				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+			),
+			array(
+				'title'    => __( 'WooCommerce Social Login (wpweb)', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => sprintf( __( 'Automatically accepts verification from "<a target="_blank" href="%s">WooCommerce Social Login</a>" plugin made by CodeCanyon author <a href="%s" target="_blank">wpweb</a>.', 'emails-verification-for-woocommerce' ), 'https://codecanyon.net/item/woocommerce-social-login-wordpress-plugin/8495883', 'https://codecanyon.net/user/wpweb' ) .
 				              $this->pro_msg(),
 				'desc'     => __( 'Enable', 'emails-verification-for-woocommerce' ),
 				'type'     => 'checkbox',

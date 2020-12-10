@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Core Class
  *
- * @version 2.0.0
+ * @version 2.0.1
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -41,6 +41,8 @@ class Alg_WC_Email_Verification_Core {
 		require_once( 'class-alg-wc-ev-non-paying-blocker.php' );
 		// HTML tags converter
 		$this->setup_html_tags_converter();
+		// Background process
+		add_action( 'plugins_loaded', array( $this, 'init_bkg_process' ), 9 );
 		// Core loaded
 		do_action( 'alg_wc_ev_core_loaded', $this );
 		// Login the user automatically
@@ -51,6 +53,34 @@ class Alg_WC_Email_Verification_Core {
 		add_action( 'alg_wc_ev_user_account_activated', array( $this, 'display_success_activation_message' ) );
 		add_action( 'init', array( $this, 'display_success_activation_message' ) );
 		add_filter( 'wp_redirect', array( $this, 'remove_success_activation_message' ) );
+	}
+
+	/**
+	 * init_bkg_process.
+	 *
+	 * @version 2.0.1
+	 * @since   2.0.1
+	 */
+	function init_bkg_process() {
+		require_once( 'background-process/class-alg-wc-ev-bkg-process.php' );
+		add_filter( 'alg_wc_ev_bkg_process_email_params', array( $this, 'change_bkg_process_email_params' ) );
+		new Alg_WC_Email_Verification_Bkg_Process();
+	}
+
+	/**
+	 * change_bkg_process_email_params.
+	 *
+	 * @version 2.0.1
+	 * @since   2.0.1
+	 *
+	 * @param $email_params
+	 *
+	 * @return mixed
+	 */
+	function change_bkg_process_email_params( $email_params ) {
+		$email_params['send_email_on_task_complete'] = 'yes' === get_option( 'alg_wc_ev_bkg_process_send_email', 'yes' );
+		$email_params['send_to']                     = get_option( 'alg_wc_ev_bkg_process_email_to', get_option( 'admin_email' ) );
+		return $email_params;
 	}
 
 	/**

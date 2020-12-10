@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Advanced Section Settings
  *
- * @version 2.0.0
+ * @version 2.0.1
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -12,6 +12,14 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Advanced' ) ) :
 
 class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verification_Settings_Section {
+
+	/**
+	 * @version 2.0.1
+	 * @since   2.0.1
+	 *
+	 * @var string
+	 */
+	private static $delete_users_cron_output = '';
 
 	/**
 	 * Constructor.
@@ -96,6 +104,42 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 			array(
 				'type'     => 'sectionend',
 				'id'       => 'alg_wc_ev_advanced_options',
+			),
+			array(
+				'type'     => 'sectionend',
+				'id'       => 'alg_wc_ev_advanced_columns_sorting_options',
+			),
+			array(
+				'title'    => __( 'Background processing', 'emails-verification-for-woocommerce' ),
+				'type'     => 'title',
+				'id'       => 'alg_wc_ev_advanced_bkg_process_options',
+			),
+			array(
+				'title'    => __( 'Minimum amount', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => __( 'The minimum amount of results from a query in order to trigger a background processing.', 'emails-verification-for-woocommerce' ),
+				'id'       => 'alg_wc_ev_bkg_process_min_amount',
+				'default'  => 20,
+				'type'     => 'number',
+			),
+			array(
+				'title'    => __( 'Send email', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'Enable', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => __( 'Sends an email when a background processing is complete.', 'emails-verification-for-woocommerce' ),
+				'id'       => 'alg_wc_ev_bkg_process_send_email',
+				'default'  => 'yes',
+				'type'     => 'checkbox',
+			),
+			array(
+				'desc'       => __( 'Email to.', 'emails-verification-for-woocommerce' ),
+				'desc_tip'    => __( 'The email address that is going to receive the email when a background processing task is complete.', 'emails-verification-for-woocommerce' ). '<br />' . __( 'Requires the "Send email" option enabled in order to work.', 'emails-verification-for-woocommerce' ),
+				'id'          => 'alg_wc_ev_bkg_process_email_to',
+				'placeholder' => get_option( 'admin_email' ),
+				'default'     => get_option( 'admin_email' ),
+				'type'        => 'text',
+			),
+			array(
+				'type'     => 'sectionend',
+				'id'       => 'alg_wc_ev_advanced_bkg_process_options',
 			),
 			array(
 				'title'    => __( 'Delete options', 'emails-verification-for-woocommerce' ),
@@ -201,7 +245,7 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 				'id'       => 'alg_wc_ev_prevent_login_after_checkout_block_thankyou',
 				'default'  => 'no',
 				'checkboxgroup' => '',
-				//'readme'   => array( 'dynamic_params' => array( 'pro' => array( 'active' => true ) ) ),
+				//'doc'      => array( 'dynamic_params' => array( 'pro' => array( 'active' => true ) ) ),
 				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
 			),
 			array(
@@ -225,43 +269,35 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 	/**
 	 * get_delete_users_cron_info.
 	 *
-	 * @version 2.0.0
+	 * @version 2.0.1
 	 * @since   2.0.0
-	 *
-	 * @see https://wordpress.stackexchange.com/a/107258/25264
 	 *
 	 * @return string
 	 */
 	function get_delete_users_cron_info() {
-		if ( ( isset( $_POST['save'] ) && isset( $_POST['alg_wc_ev_delete_users_cron'] ) ) ) {
-			do_action( 'alg_wc_ev_enable_delete_users_cron' );
-		}
-		if (
-			! ( $event_timestamp = wp_next_scheduled( 'alg_wc_ev_delete_unverified_users' ) )
-			|| ( isset( $_POST['save'] ) && ! isset( $_POST['alg_wc_ev_delete_users_cron'] ) )
-		) {
-			return '';
-		}
-		$output          = '<br />';
-		$now             = new DateTime();
-		$event_date_time = new DateTime();
-		$event_date_time->setTimestamp( $event_timestamp );
-		$diff                = $event_date_time->diff( $now );
-		$pretty_time_missing = '';
-		if ( $diff->d > 0 ) {
-			$pretty_time_missing = sprintf( __( '(%s days missing)', 'emails-verification-for-woocommerce' ), $diff->d );
-		} elseif ( $diff->h > 0 ) {
-			$pretty_time_missing = sprintf( __( '(%s hours missing)', 'emails-verification-for-woocommerce' ), $diff->h + ( $diff->days * 24 ) );
-		} elseif ( $diff->d == 0 && $diff->h == 0 && $diff->i > 0 ) {
-			$pretty_time_missing = sprintf( __( '(%s minutes missing)', 'emails-verification-for-woocommerce' ), $diff->i );
-		}
-		if ( ! empty( $pretty_time_missing ) ) {
-			$output .= sprintf( __( 'Next event scheduled to %s', 'emails-verification-for-woocommerce' ), '<strong>' . get_date_from_gmt( date( 'Y-m-d H:i:s', $event_timestamp ), get_option( 'date_format' ) . ' - ' . get_option( 'time_format' ) ) . '</strong>' );
-			$output .= ' ' . $pretty_time_missing;
+		$delete_users_cron = 'yes' === get_option( 'alg_wc_ev_delete_users_cron', 'no' );
+		if ( empty( self::$delete_users_cron_output ) ) {
+			$output = '';
+			if (
+				( ! $event_timestamp = wp_next_scheduled( 'alg_wc_ev_delete_unverified_users' ) )
+				&& isset( $_POST['alg_wc_ev_delete_users_cron'] )
+			) {
+				$output = '<br />';
+				$output .= '<span style="font-weight: bold; color: green;">' . __( 'Please, reload the page to see the next scheduled event info.', 'emails-verification-for-woocommerce' ) . '</span>';
+			} elseif ( $event_timestamp && $delete_users_cron ) {
+				$output              = '<br />';
+				$now                 = current_time( 'timestamp', true );
+				$pretty_time_missing = human_time_diff( $now, $event_timestamp );
+				$output              .= sprintf( __( 'Next event scheduled to %s', 'emails-verification-for-woocommerce' ), '<strong>' . get_date_from_gmt( date( 'Y-m-d H:i:s', $event_timestamp ), get_option( 'date_format' ) . ' - ' . get_option( 'time_format' ) ) . '</strong>' );
+				$output              .= ' ' . '(' . $pretty_time_missing . ' left)';
+			}
+			self::$delete_users_cron_output = $output;
 		} else {
-			$output .= '<span style="font-weight: bold; color: green;">' . __( 'Please, reload the page to see the next scheduled event info.', 'emails-verification-for-woocommerce' ) . '</span>';
+			if ( ! $delete_users_cron ) {
+				self::$delete_users_cron_output = '';
+			}
 		}
-		return $output;
+		return self::$delete_users_cron_output;
 	}
 
 }

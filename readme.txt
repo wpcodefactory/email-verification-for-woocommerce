@@ -3,7 +3,7 @@ Contributors: wpcodefactory
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 5.5
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -49,7 +49,7 @@ Verify user emails in WooCommerce. Beautifully.
 = User registration clears shopping cart? =
 If your cart is getting cleared after a new account is created, try to enable the option **Custom logout function** available on the **Advanced** section.
 
-= How to eliminate Spam registrations? =
+= How to eliminate spam registrations? =
 If you use some options combined, you'll be able to remove the unverified users automatically, eliminating spam registrations.
 This is what you can do:
 
@@ -73,6 +73,14 @@ After that, you'll just need to save the settings page once more. On the fronten
 3. Start by visiting plugin settings at "WooCommerce > Settings > Email Verification".
 
 == Changelog ==
+
+= 2.0.1 - 10/12/2020 =
+* Dev - General Options - Add compatibility option with "WooCommerce Social Login" plugin made by WooCommerce author SkyVerge.
+* Dev - Advanced Options - Background Processing - Add "Minimum amount" option.
+* Dev - Advanced Options - Background Processing - Add "Send email" option.
+* Dev - Advanced Options - Background Processing - Add "Email to" option.
+* Fix - Admin Options - Delete users - Delete users in background processing avoiding possible server errors.
+* Fix - Admin Options - Info about the scheduled event from "Delete users automatically" option.
 
 = 2.0.0 - 03/12/2020 =
 * Fix - Success message not getting displayed after redirect.
@@ -262,13 +270,5 @@ After that, you'll just need to save the settings page once more. On the fronten
 
 == Upgrade Notice ==
 
-= 2.0.0 =
-* Fix - Success message not getting displayed after redirect.
-* Dev - General - Add "Login automatically" option.
-* Dev - Advanced Options - Add "Replace HTML tags" option.
-* Dev - Advanced Options - Add "Delete users frequency" option.
-* Dev - Admin Options - Add info about the scheduled event from "Delete users automatically" option.
-* Dev - Filters - `alg_wc_ev_html_replacement_params` filter added.
-* Add "Replace HTML tags" option to readme FAQ.
-* Add "How to eliminate Spam registrations?" on readme.
-* Move "Prevent automatic user login" section from general to advanced.
+= 1.0.0 =
+This is the first release of the plugin.
