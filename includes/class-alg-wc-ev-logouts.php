@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Logouts Class
  *
- * @version 1.9.6
+ * @version 2.0.2
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -16,14 +16,16 @@ class Alg_WC_Email_Verification_Logouts {
 	/**
 	 * Constructor.
 	 *
-	 * @version 1.9.6
+	 * @version 2.0.2
 	 * @since   1.6.0
 	 * @todo    (maybe) force "activate" notice for guest users also
 	 * @todo    (maybe) `alg_wc_ev_prevent_login_after_register`: `woocommerce_account_navigation` (doesn't seem to work though...)
 	 */
 	function __construct() {
 		// Block unverified user login
-		add_filter( 'wp_authenticate_user', array( $this, 'block_unverified_user_login' ), PHP_INT_MAX );
+		foreach ( array( 'wp_authenticate_user', 'authenticate' ) as $auth_filter ) {
+			add_filter( $auth_filter, array( $this, 'block_unverified_user_login' ), PHP_INT_MAX );
+		}
 		// Prevent login: After registration
 		if ( 'yes' === get_option( 'alg_wc_ev_prevent_login_after_register', 'yes' ) ) {
 			add_filter( 'woocommerce_registration_auth_new_customer', '__return_true', PHP_INT_MAX );
@@ -105,11 +107,15 @@ class Alg_WC_Email_Verification_Logouts {
 	/**
 	 * block_unverified_user_login.
 	 *
-	 * @version 1.9.5
+	 * @version 2.0.2
 	 * @since   1.0.0
 	 */
 	function block_unverified_user_login( $user ) {
-		if ( ! alg_wc_ev()->core->is_user_verified( $user ) ) {
+		if (
+			get_option( 'alg_wc_ev_auth_filter', 'wp_authenticate_user' ) == current_filter()
+			&& ! is_wp_error( $user )
+			&& ! alg_wc_ev()->core->is_user_verified( $user )
+		) {
 			$user = new WP_Error( 'alg_wc_ev_email_verified_error', apply_filters( 'alg_wc_ev_block_unverified_user_login_error_message', alg_wc_ev()->core->messages->get_error_message( $user->ID ), $user ) );
 		}
 		return $user;

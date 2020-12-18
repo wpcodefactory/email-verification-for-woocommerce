@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Advanced Section Settings
  *
- * @version 2.0.1
+ * @version 2.0.2
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -36,7 +36,7 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.0.0
+	 * @version 2.0.2
 	 * @since   1.6.0
 	 * @todo    (maybe) remove `alg_wc_ev_prevent_login_after_checkout_notice` (i.e. make it always enabled)
 	 */
@@ -59,6 +59,18 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 					'mail'    => sprintf( __( '%s function', 'emails-verification-for-woocommerce' ), 'PHP "mail()"' ),
 					'wc_mail' => sprintf( __( '%s function', 'emails-verification-for-woocommerce' ), 'WooCommerce "wc_mail()"' ),
 					'wp_mail' => sprintf( __( '%s function', 'emails-verification-for-woocommerce' ), 'WordPress "wp_mail()"' ),
+				),
+			),
+			array(
+				'title'    => __( 'Authenticate filter', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => __( 'WordPress filter used to check user authentication.', 'emails-verification-for-woocommerce' ),
+				'type'     => 'select',
+				'class'    => 'chosen_select',
+				'id'       => 'alg_wc_ev_auth_filter',
+				'default'  => 'wp_authenticate_user',
+				'options'  => array(
+					'wp_authenticate_user'    => sprintf( __( '%s filter', 'emails-verification-for-woocommerce' ), '"wp_authenticate_user"' ),
+					'authenticate' => sprintf( __( '%s filter', 'emails-verification-for-woocommerce' ), '"authenticate"' ),
 				),
 			),
 			array(
@@ -262,6 +274,71 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 			array(
 				'type'     => 'sectionend',
 				'id'       => 'alg_wc_ev_prevent_login_options',
+			),
+			array(
+				'title'    => __( 'Compatibility', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'Compatibility with third party plugins or solutions.', 'emails-verification-for-woocommerce' ),
+				'type'     => 'title',
+				'id'       => 'alg_wc_ev_compatibility_options',
+			),
+			array(
+				'title'    => __( 'WooCommerce Social Login (SkyVerge)', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => sprintf( __( 'Automatically accepts verification from "<a target="_blank" href="%s">WooCommerce Social Login</a>" plugin made by Woocommerce author <a href="%s" target="_blank">SkyVerge</a>.', 'emails-verification-for-woocommerce' ), 'https://woocommerce.com/products/woocommerce-social-login/', 'https://woocommerce.com/vendor/skyverge/' ) .
+				              $this->pro_msg(),
+				'desc'     => __( 'Enable', 'emails-verification-for-woocommerce' ),
+				'type'     => 'checkbox',
+				'id'       => 'alg_wc_ev_accept_social_login_skyverge',
+				'default'  => 'no',
+				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+			),
+			array(
+				'title'    => __( 'WooCommerce Social Login (wpweb)', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => sprintf( __( 'Automatically accepts verification from "<a target="_blank" href="%s">WooCommerce Social Login</a>" plugin made by CodeCanyon author <a href="%s" target="_blank">wpweb</a>.', 'emails-verification-for-woocommerce' ), 'https://codecanyon.net/item/woocommerce-social-login-wordpress-plugin/8495883', 'https://codecanyon.net/user/wpweb' ) .
+				              $this->pro_msg(),
+				'desc'     => __( 'Enable', 'emails-verification-for-woocommerce' ),
+				'type'     => 'checkbox',
+				'id'       => 'alg_wc_ev_accept_social_login',
+				'default'  => 'no',
+				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+			),
+			array(
+				'title'    => __( 'Super Socializer', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => sprintf( __( 'Automatically accepts verification from "<a target="_blank" href="%s">Super Socializer</a>" plugin.', 'emails-verification-for-woocommerce' ), 'https://wordpress.org/plugins/super-socializer/' ) .
+				              $this->pro_msg(),
+				'desc'     => __( 'Enable', 'emails-verification-for-woocommerce' ),
+				'type'     => 'checkbox',
+				'id'       => 'alg_wc_ev_super_socializer_login',
+				'default'  => 'no',
+				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+			),
+			array(
+				'title'    => __( 'Nextend Social Login', 'emails-verification-for-woocommerce' ),
+				'desc'     => sprintf( __( 'Automatically verifies a user who registers or logins from "<a target="_blank" href="%s">Nextend Social Login</a>" plugin.', 'emails-verification-for-woocommerce' ), 'https://wordpress.org/plugins/nextend-facebook-connect/' ) .
+				              $this->pro_msg(),
+				'desc_tip' => __( 'Leave it empty if you don\'t want to automatically verify an user from Nextend Social Login.', 'emails-verification-for-woocommerce' ),
+				'type'     => 'multiselect',
+				'class'    => 'chosen_select',
+				'id'       => 'alg_wc_ev_nextend_verify',
+				'default'  => array(''),
+				'options' => array(
+					'nsl_login'             => __( 'On login', 'emails-verification-for-woocommerce' ),
+					'nsl_register_new_user' => __( 'On register new user', 'emails-verification-for-woocommerce' ),
+				),
+				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+			),
+			array(
+				'title'    => __( 'My Listing Social Login', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => sprintf( __( 'Automatically accepts verification from Social Login feature bundled on "<a target="_blank" href="%s">My Listing</a>" theme made by ThemeForest author <a href="%s" target="_blank">27collective</a> .', 'emails-verification-for-woocommerce' ), 'https://themeforest.net/item/mylisting-directory-listing-wordpress-theme/20593226', 'https://themeforest.net/user/27collective' ) .
+				              $this->pro_msg(),
+				'desc'     => __( 'Enable', 'emails-verification-for-woocommerce' ),
+				'type'     => 'checkbox',
+				'id'       => 'alg_wc_ev_my_listing_social_login',
+				'default'  => 'no',
+				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+			),
+			array(
+				'type'     => 'sectionend',
+				'id'       => 'alg_wc_ev_compatibility_options',
 			),
 		);
 	}

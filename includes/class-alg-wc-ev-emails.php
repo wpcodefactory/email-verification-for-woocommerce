@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Emails Class
  *
- * @version 1.9.7
+ * @version 2.0.2
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -16,21 +16,59 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * Constructor.
 	 *
-	 * @version 1.9.5
+	 * @version 2.0.2
 	 * @since   1.6.0
 	 */
 	function __construct() {
 		if ( 'yes' === get_option( 'alg_wc_ev_send_as_separate_email', 'yes' ) ) {
 			// Activation email
 			$new_user_action = apply_filters( 'alg_wc_ev_new_user_action', ( get_option( 'alg_wc_ev_new_user_action', 'user_register' ) ) );
-			add_action( $new_user_action, array( $this, 'reset_and_mail_activation_link' ), PHP_INT_MAX );
+			add_action( $new_user_action, array( $this, 'handle_activation_email_sending' ), PHP_INT_MAX );
 			// Delay WC customer new account email
 			if ( 'yes' === get_option( 'alg_wc_ev_delay_wc_email', 'no' ) ) {
 				add_action( 'woocommerce_init', array( $this, 'remove_customer_new_account_email' ) );
 			}
+			add_action( 'init', array( $this, 'maybe_send_delayed_activation_email' ) );
 		} else {
 			// Append to WC customer new account email
 			add_filter( 'woocommerce_email_additional_content_' . 'customer_new_account', array( $this, 'customer_new_account_reset_and_append_verification_link' ), PHP_INT_MAX, 3 );
+		}
+	}
+
+	/**
+	 * maybe_send_delayed_activation_email.
+	 *
+	 * @version 2.0.2
+	 * @since   2.0.2
+	 */
+	function maybe_send_delayed_activation_email() {
+		if (
+			'yes' === get_option( 'alg_wc_ev_delay_activation_email', 'no' )
+			&& ! empty( $delayed_email_users = get_option( 'alg_wc_ev_send_delayed_email_users', array() ) )
+		) {
+			foreach ( $delayed_email_users as $user_id ) {
+				$this->reset_and_mail_activation_link( $user_id );
+			}
+			$delayed_email_users_update = array_diff( get_option( 'alg_wc_ev_send_delayed_email_users', array() ), $delayed_email_users );
+			empty( $delayed_email_users_update ) ? delete_option( 'alg_wc_ev_send_delayed_email_users' ) : update_option( 'alg_wc_ev_send_delayed_email_users', $delayed_email_users_update );
+		}
+	}
+
+	/**
+	 * handle_activation_email_sending.
+	 *
+	 * @version 2.0.2
+	 * @since   2.0.2
+	 *
+	 * @param $user_id
+	 */
+	function handle_activation_email_sending( $user_id ) {
+		if ( 'yes' !== get_option( 'alg_wc_ev_delay_activation_email', 'no' ) ) {
+			$this->reset_and_mail_activation_link( $user_id );
+		} else {
+			$delayed_email_users   = get_option( 'alg_wc_ev_send_delayed_email_users', array() );
+			$delayed_email_users[] = $user_id;
+			update_option( 'alg_wc_ev_send_delayed_email_users', $delayed_email_users );
 		}
 	}
 

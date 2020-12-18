@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - General Section Settings
  *
- * @version 2.0.1
+ * @version 2.0.2
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -40,7 +40,7 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.0.1
+	 * @version 2.0.2
 	 * @since   1.0.0
 	 * @todo    [next] Logout unverified users on every page: better description
 	 * @todo    [next] (maybe) `alg_wc_ev_delay_wc_email`: default to `yes`?
@@ -193,6 +193,15 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 					'woocommerce_created_customer' => __( 'On "WooCommerce created customer"', 'emails-verification-for-woocommerce' ),
 					//'on_order_payment'             => __( 'On order payment', 'emails-verification-for-woocommerce' ),
 				),
+			),
+			array(
+				'title'    => __( 'Activation email delay', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'Delay the activation email', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => __( 'Try to enable it if you\'re using some compatibility option and the activation emails are getting sent to authenticated users.', 'emails-verification-for-woocommerce' ) . '<br />' .
+				              sprintf( __( 'Will only work with %s option enabled', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Send as a separate email', 'emails-verification-for-woocommerce' ) . '</strong>' ),
+				'type'     => 'checkbox',
+				'id'       => 'alg_wc_ev_delay_activation_email',
+				'default'  => 'no',
 			),
 			array(
 				'type'     => 'sectionend',
@@ -369,61 +378,6 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 			array(
 				'type'     => 'sectionend',
 				'id'       => 'alg_wc_ev_block_activation_by_email_options',
-			),
-			array(
-				'title'    => __( 'Compatibility', 'emails-verification-for-woocommerce' ),
-				'desc'     => __( 'Compatibility with third party plugins or solutions.', 'emails-verification-for-woocommerce' ),
-				'type'     => 'title',
-				'id'       => 'alg_wc_ev_compatibility_options',
-			),
-			array(
-				'title'    => __( 'WooCommerce Social Login (SkyVerge)', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => sprintf( __( 'Automatically accepts verification from "<a target="_blank" href="%s">WooCommerce Social Login</a>" plugin made by Woocommerce author <a href="%s" target="_blank">SkyVerge</a>.', 'emails-verification-for-woocommerce' ), 'https://woocommerce.com/products/woocommerce-social-login/', 'https://woocommerce.com/vendor/skyverge/' ) .
-				              $this->pro_msg(),
-				'desc'     => __( 'Enable', 'emails-verification-for-woocommerce' ),
-				'type'     => 'checkbox',
-				'id'       => 'alg_wc_ev_accept_social_login_skyverge',
-				'default'  => 'no',
-				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
-			),
-			array(
-				'title'    => __( 'WooCommerce Social Login (wpweb)', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => sprintf( __( 'Automatically accepts verification from "<a target="_blank" href="%s">WooCommerce Social Login</a>" plugin made by CodeCanyon author <a href="%s" target="_blank">wpweb</a>.', 'emails-verification-for-woocommerce' ), 'https://codecanyon.net/item/woocommerce-social-login-wordpress-plugin/8495883', 'https://codecanyon.net/user/wpweb' ) .
-				              $this->pro_msg(),
-				'desc'     => __( 'Enable', 'emails-verification-for-woocommerce' ),
-				'type'     => 'checkbox',
-				'id'       => 'alg_wc_ev_accept_social_login',
-				'default'  => 'no',
-				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
-			),
-			array(
-				'title'    => __( 'Super Socializer', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => sprintf( __( 'Automatically accepts verification from "<a target="_blank" href="%s">Super Socializer</a>" plugin.', 'emails-verification-for-woocommerce' ), 'https://wordpress.org/plugins/super-socializer/' ) .
-				              $this->pro_msg(),
-				'desc'     => __( 'Enable', 'emails-verification-for-woocommerce' ),
-				'type'     => 'checkbox',
-				'id'       => 'alg_wc_ev_super_socializer_login',
-				'default'  => 'no',
-				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
-			),
-			array(
-				'title'    => __( 'Nextend Social Login', 'emails-verification-for-woocommerce' ),
-				'desc'     => sprintf( __( 'Automatically verifies a user who registers or logins from "<a target="_blank" href="%s">Nextend Social Login</a>" plugin.', 'emails-verification-for-woocommerce' ), 'https://wordpress.org/plugins/nextend-facebook-connect/' ) .
-				              $this->pro_msg(),
-				'desc_tip' => __( 'Leave it empty if you don\'t want to automatically verify an user from Nextend Social Login.', 'emails-verification-for-woocommerce' ),
-				'type'     => 'multiselect',
-				'class'    => 'chosen_select',
-				'id'       => 'alg_wc_ev_nextend_verify',
-				'default'  => array(''),
-				'options' => array(
-					'nsl_login'             => __( 'On login', 'emails-verification-for-woocommerce' ),
-					'nsl_register_new_user' => __( 'On register new user', 'emails-verification-for-woocommerce' ),
-				),
-				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
-			),
-			array(
-				'type'     => 'sectionend',
-				'id'       => 'alg_wc_ev_compatibility_options',
 			),
 		);
 	}

@@ -2,8 +2,8 @@
 Contributors: wpcodefactory
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
-Tested up to: 5.5
-Stable tag: 2.0.1
+Tested up to: 5.6
+Stable tag: 2.0.2
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -74,13 +74,23 @@ After that, you'll just need to save the settings page once more. On the fronten
 
 == Changelog ==
 
+= 2.0.2 - 18/12/2020 =
+* Fix - Check for possible previous error before checking if user is verified to show the error message.
+* Fix - Advanced - Fix compatibility with "Super Socializer" plugin.
+* Dev - Advanced - Add compatibility with "Social Login" from My Listing theme.
+* Dev - Advanced - Create "Authenticate filter" option.
+* Dev - General - Activation Link - Add a "Activation email delay" option, which tries to prevent the activation email from being sent to already authenticated users.
+* Move compatibility options to Advanced section.
+* WC tested up to: 4.8
+* Tested up to: 5.6
+
 = 2.0.1 - 10/12/2020 =
+* Fix - Admin Options - Delete users - Delete users in background processing avoiding possible server errors.
+* Fix - Admin Options - Info about the scheduled event from "Delete users automatically" option.
 * Dev - General Options - Add compatibility option with "WooCommerce Social Login" plugin made by WooCommerce author SkyVerge.
 * Dev - Advanced Options - Background Processing - Add "Minimum amount" option.
 * Dev - Advanced Options - Background Processing - Add "Send email" option.
 * Dev - Advanced Options - Background Processing - Add "Email to" option.
-* Fix - Admin Options - Delete users - Delete users in background processing avoiding possible server errors.
-* Fix - Admin Options - Info about the scheduled event from "Delete users automatically" option.
 
 = 2.0.0 - 03/12/2020 =
 * Fix - Success message not getting displayed after redirect.
