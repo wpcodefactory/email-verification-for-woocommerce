@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Core Class
  *
- * @version 2.0.1
+ * @version 2.0.3
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -372,7 +372,7 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * verify.
 	 *
-	 * @version 2.0.0
+	 * @version 2.0.3
 	 * @since   1.6.0
 	 */
 	function verify() {
@@ -384,8 +384,8 @@ class Alg_WC_Email_Verification_Core {
 				if ( apply_filters( 'alg_wc_ev_verify_email', true, $user_id, $code ) ) {
 					update_user_meta( $user_id, 'alg_wc_ev_is_activated', '1' );
 					$this->emails->maybe_send_wc_customer_new_account_email( $user_id );
-					do_action( 'alg_wc_ev_user_account_activated', $user_id, $code );
 					$this->save_first_activation_info( $code, $user_id );
+					do_action( 'alg_wc_ev_user_account_activated', $user_id, $code );
 				} else {
 					do_action( 'alg_wc_ev_verify_email_error', $user_id, $code );
 				}

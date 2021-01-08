@@ -36,7 +36,7 @@ if ( ! function_exists( 'alg_wc_ev_is_user_verified' ) ) {
 
 if ( ! function_exists( 'alg_wc_ev_is_valid_paying_user' ) ) {
 	/**
-	 * is_user_valid_non_paying.
+	 * alg_wc_ev_is_valid_paying_user.
 	 *
 	 * @version 1.9.5
 	 * @since   1.9.5
