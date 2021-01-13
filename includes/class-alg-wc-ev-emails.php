@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Emails Class
  *
- * @version 2.0.2
+ * @version 2.0.4
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -16,7 +16,7 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.0.2
+	 * @version 2.0.4
 	 * @since   1.6.0
 	 */
 	function __construct() {
@@ -32,13 +32,14 @@ class Alg_WC_Email_Verification_Emails {
 		} else {
 			// Append to WC customer new account email
 			add_filter( 'woocommerce_email_additional_content_' . 'customer_new_account', array( $this, 'customer_new_account_reset_and_append_verification_link' ), PHP_INT_MAX, 3 );
+			add_action( 'alg_wc_ev_activation_email_content_placeholder', array( $this, 'customer_new_account_reset_and_append_verification_link_fine_tune' ) );
 		}
 	}
 
 	/**
 	 * maybe_send_delayed_activation_email.
 	 *
-	 * @version 2.0.2
+	 * @version 2.0.4
 	 * @since   2.0.2
 	 */
 	function maybe_send_delayed_activation_email() {
@@ -46,18 +47,18 @@ class Alg_WC_Email_Verification_Emails {
 			'yes' === get_option( 'alg_wc_ev_delay_activation_email', 'no' )
 			&& ! empty( $delayed_email_users = get_option( 'alg_wc_ev_send_delayed_email_users', array() ) )
 		) {
+			$delayed_email_users_update = array_diff( get_option( 'alg_wc_ev_send_delayed_email_users', array() ), $delayed_email_users );
+			empty( $delayed_email_users_update ) ? delete_option( 'alg_wc_ev_send_delayed_email_users' ) : update_option( 'alg_wc_ev_send_delayed_email_users', $delayed_email_users_update );
 			foreach ( $delayed_email_users as $user_id ) {
 				$this->reset_and_mail_activation_link( $user_id );
 			}
-			$delayed_email_users_update = array_diff( get_option( 'alg_wc_ev_send_delayed_email_users', array() ), $delayed_email_users );
-			empty( $delayed_email_users_update ) ? delete_option( 'alg_wc_ev_send_delayed_email_users' ) : update_option( 'alg_wc_ev_send_delayed_email_users', $delayed_email_users_update );
 		}
 	}
 
 	/**
 	 * handle_activation_email_sending.
 	 *
-	 * @version 2.0.2
+	 * @version 2.0.4
 	 * @since   2.0.2
 	 *
 	 * @param $user_id
@@ -66,9 +67,11 @@ class Alg_WC_Email_Verification_Emails {
 		if ( 'yes' !== get_option( 'alg_wc_ev_delay_activation_email', 'no' ) ) {
 			$this->reset_and_mail_activation_link( $user_id );
 		} else {
+			$code = md5( time() );
+			$this->update_all_user_meta( $user_id, $code );
 			$delayed_email_users   = get_option( 'alg_wc_ev_send_delayed_email_users', array() );
 			$delayed_email_users[] = $user_id;
-			update_option( 'alg_wc_ev_send_delayed_email_users', $delayed_email_users );
+			update_option( 'alg_wc_ev_send_delayed_email_users', array_unique( $delayed_email_users ) );
 		}
 	}
 
@@ -124,7 +127,7 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * customer_new_account_reset_and_append_verification_link.
 	 *
-	 * @version 1.8.1
+	 * @version 2.0.4
 	 * @since   1.8.0
 	 * @todo    (recheck) `<p>` and plain?
 	 * @todo    (maybe) try getting new code before generating new one (i.e. `$code = get_user_meta( $user->ID, 'alg_wc_ev_activation_code', true );`)
@@ -132,10 +135,32 @@ class Alg_WC_Email_Verification_Emails {
 	function customer_new_account_reset_and_append_verification_link( $content, $user, $email ) {
 		$code = md5( time() );
 		$this->update_all_user_meta( $user->ID, $code );
-		if ( ! alg_wc_ev()->core->is_user_verified( $user ) ) {
+		if (
+			'no' === get_option( 'alg_wc_ev_fine_tune_activation_email_placement', 'no' )
+			&& ! alg_wc_ev()->core->is_user_verified( $user )
+		) {
 			return str_replace( array( '<br>' ), array( "\n" ), $this->get_email_content( $user->ID, $code ) ) . "\n\n" . $content;
 		}
 		return $content;
+	}
+
+	/**
+	 * append_verification_link.
+	 *
+	 * @version 2.0.4
+	 * @since   2.0.4
+	 *
+	 * @param $user
+	 */
+	function customer_new_account_reset_and_append_verification_link_fine_tune( $user ) {
+		if ( 'no' === get_option( 'alg_wc_ev_fine_tune_activation_email_placement', 'no' ) ) {
+			return;
+		}
+		$code = md5( time() );
+		$this->update_all_user_meta( $user->ID, $code );
+		if ( ! alg_wc_ev()->core->is_user_verified( $user ) ) {
+			echo wp_kses_post( wpautop( wptexturize( $this->get_email_content( $user->ID, $code ) ) ) );
+		}
 	}
 
 	/**

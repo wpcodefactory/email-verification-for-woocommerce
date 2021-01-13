@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - General Section Settings
  *
- * @version 2.0.3
+ * @version 2.0.4
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -40,7 +40,7 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.0.3
+	 * @version 2.0.4
 	 * @since   1.0.0
 	 * @todo    [next] Logout unverified users on every page: better description
 	 * @todo    [next] (maybe) `alg_wc_ev_delay_wc_email`: default to `yes`?
@@ -64,11 +64,21 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 			),
 			array(
 				'title'    => __( 'Send as a separate email', 'emails-verification-for-woocommerce' ),
-				'desc'     => __( 'Enable', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => __( 'Select if you want to send verification as a separate email, or append it to the standard WooCommerce "Customer new account" email.', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'Send verification as a separate email', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => __( 'Disable if you want to append it to the standard WooCommerce "Customer new account" email.', 'emails-verification-for-woocommerce' ),
 				'type'     => 'checkbox',
 				'id'       => 'alg_wc_ev_send_as_separate_email',
+				'checkboxgroup' => 'start',
 				'default'  => 'yes',
+			),
+			array(
+				'desc'          => __( 'Delay WooCommerce "Customer new account" email', 'emails-verification-for-woocommerce' ),
+				'desc_tip'      => __( '"Customer new account" email is only sent on successful verification.', 'emails-verification-for-woocommerce' ) . ' ' .
+				                   $this->separate_email_option_msg(),
+				'type'          => 'checkbox',
+				'id'            => 'alg_wc_ev_delay_wc_email',
+				'checkboxgroup' => 'end',
+				'default'       => 'no',
 			),
 			array(
 				'title'    => __( 'Skip email verification for user roles', 'emails-verification-for-woocommerce' ),
@@ -87,22 +97,13 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 				'default'  => 'no',
 			),
 			array(
-				'title'    => __( 'Delay standard WooCommerce customer new account email', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => __( 'Delays standard WooCommerce "Customer new account" email until after successful verification.', 'emails-verification-for-woocommerce' ) . ' ' .
-					$this->separate_email_option_msg(),
-				'desc'     => __( 'Delay', 'emails-verification-for-woocommerce' ),
-				'type'     => 'checkbox',
-				'id'       => 'alg_wc_ev_delay_wc_email',
-				'default'  => 'no',
-			),
-			array(
-				'title'    => __( 'Unverify email changing accounts', 'emails-verification-for-woocommerce' ),
-				'desc' => __( 'Unverify, logout and resend activation link to accounts that changed the emails', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => $this->pro_msg(''),
+				'title'             => __( 'Unverify email changing accounts', 'emails-verification-for-woocommerce' ),
+				'desc'              => __( 'Unverify, logout and resend activation link to accounts that changed the emails', 'emails-verification-for-woocommerce' ),
+				'desc_tip'          => $this->pro_msg( '' ),
 				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ), 'min', array( 0 ) ),
-				'type'     => 'checkbox',
-				'id'       => 'alg_wc_ev_unverify_email_changing',
-				'default'  => 'no',
+				'type'              => 'checkbox',
+				'id'                => 'alg_wc_ev_unverify_email_changing',
+				'default'           => 'no',
 			),
 			array(
 				'type'     => 'sectionend',
@@ -207,7 +208,7 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 				'title'    => __( 'Activation email delay', 'emails-verification-for-woocommerce' ),
 				'desc'     => __( 'Delay the activation email', 'emails-verification-for-woocommerce' ),
 				'desc_tip' => __( 'Try to enable it if you\'re using some compatibility option and the activation emails are getting sent to authenticated users.', 'emails-verification-for-woocommerce' ) . '<br />' .
-				              sprintf( __( 'Will only work with %s option enabled', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Send as a separate email', 'emails-verification-for-woocommerce' ) . '</strong>' ),
+				              $this->separate_email_option_msg(),
 				'type'     => 'checkbox',
 				'id'       => 'alg_wc_ev_delay_activation_email',
 				'default'  => 'no',

@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Advanced Section Settings
  *
- * @version 2.0.2
+ * @version 2.0.4
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -36,7 +36,7 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.0.2
+	 * @version 2.0.4
 	 * @since   1.6.0
 	 * @todo    (maybe) remove `alg_wc_ev_prevent_login_after_checkout_notice` (i.e. make it always enabled)
 	 */
@@ -97,6 +97,15 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 				),
 			),
 			array(
+				'title'         => __( 'Fine tune activation email placement', 'emails-verification-for-woocommerce' ),
+				'desc'          => __( 'Choose precisely where the activation email will be appended to the "Customer new account" email', 'emails-verification-for-woocommerce' ),
+				'desc_tip'      => sprintf( __( 'It\'s necessary to add %s to %s email template.', 'emails-verification-for-woocommerce' ), '<code>do_action( "alg_wc_ev_activation_email_content_placeholder", $email->object )</code>', '"Customer new account"' ).'<br />'.
+				                   $this->separate_email_option_msg('disabled'),
+				'type'          => 'checkbox',
+				'id'            => 'alg_wc_ev_fine_tune_activation_email_placement',
+				'default'       => 'no',
+			),
+			array(
 				'title'    => __( 'Notice for "Prevent automatic user login after checkout"', 'emails-verification-for-woocommerce' ),
 				'desc'     => __( 'Add notice', 'emails-verification-for-woocommerce' ),
 				'desc_tip' => __( 'Adds "Activate" notice to the WooCommerce "Thank you" (i.e. "Order received") page.', 'emails-verification-for-woocommerce' ),
@@ -106,9 +115,9 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 			),
 			array(
 				'title'    => __( 'Replace HTML tags', 'emails-verification-for-woocommerce' ),
-				'desc'     => __( 'Replace angle brackets from HTML tags.', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => __( 'Replaces angle brackets from HTML tags by other characters.', 'emails-verification-for-woocommerce' ).'<br />'.
-				              __( 'Enable if you have problem trying to save settings.', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'Replace angle brackets from HTML tags by other characters', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => __( 'Enable if you have problem trying to save settings.', 'emails-verification-for-woocommerce' ).'<br />'.
+				              __( 'Update the settings page containing HTML to see the value refreshed.', 'emails-verification-for-woocommerce' ),
 				'type'     => 'checkbox',
 				'id'       => 'alg_wc_ev_replace_html_tags',
 				'default'  => 'no',

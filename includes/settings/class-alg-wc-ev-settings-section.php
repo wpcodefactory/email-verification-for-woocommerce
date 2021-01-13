@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Section Settings
  *
- * @version 1.9.3
+ * @version 2.0.4
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -60,12 +60,20 @@ class Alg_WC_Email_Verification_Settings_Section {
 	/**
 	 * separate_email_option_msg.
 	 *
-	 * @version 1.8.0
+	 * @version 2.0.4
 	 * @since   1.8.0
+	 *
+	 * @param string $requirement 'enabled' | 'disabled'
+	 *
+	 * @return string
 	 */
-	function separate_email_option_msg() {
-		return sprintf( __( 'This is ignored if "%s > %s" option is disabled.', 'emails-verification-for-woocommerce' ),
-			__( 'General', 'emails-verification-for-woocommerce' ), __( 'Send as a separate email', 'emails-verification-for-woocommerce' ) );
+	function separate_email_option_msg( $requirement = 'enabled' ) {
+		$translation = array(
+			'enabled'  => __( 'enabled', 'emails-verification-for-woocommerce' ),
+			'disabled' => __( 'disabled', 'emails-verification-for-woocommerce' ),
+		);
+		return sprintf( __( 'This requires option "%s > %s" to be %s.', 'emails-verification-for-woocommerce' ),
+			__( 'General', 'emails-verification-for-woocommerce' ), __( 'Send as a separate email', 'emails-verification-for-woocommerce' ), '<strong>' . $translation[ $requirement ] . '</strong>' );
 	}
 
 }
