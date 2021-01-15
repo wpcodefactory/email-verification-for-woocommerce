@@ -16,7 +16,7 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.0.0
+	 * @version 2.0.5
 	 * @since   1.0.0
 	 * @todo    [next] (maybe) `[alg_wc_ev_translate]` to description in readme.txt
 	 */
@@ -48,7 +48,7 @@ class Alg_WC_Email_Verification_Core {
 		// Login the user automatically
 		add_action( 'alg_wc_ev_user_account_activated', array( $this, 'login_user_automatically_on_success_activation' ) );
 		// Redirect on success activation
-		add_action( 'alg_wc_ev_user_account_activated', array( $this, 'redirect_on_success_activation' ) );
+		add_action( 'alg_wc_ev_user_account_activated', array( $this, 'redirect_on_success_activation' ), 100 );
 		// Success activation message
 		add_action( 'alg_wc_ev_user_account_activated', array( $this, 'display_success_activation_message' ) );
 		add_action( 'init', array( $this, 'display_success_activation_message' ) );

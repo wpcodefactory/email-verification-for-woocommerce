@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Emails Class
  *
- * @version 2.0.4
+ * @version 2.0.5
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -16,7 +16,7 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.0.4
+	 * @version 2.0.5
 	 * @since   1.6.0
 	 */
 	function __construct() {
@@ -26,7 +26,7 @@ class Alg_WC_Email_Verification_Emails {
 			add_action( $new_user_action, array( $this, 'handle_activation_email_sending' ), PHP_INT_MAX );
 			// Delay WC customer new account email
 			if ( 'yes' === get_option( 'alg_wc_ev_delay_wc_email', 'no' ) ) {
-				add_action( 'woocommerce_init', array( $this, 'remove_customer_new_account_email' ) );
+				add_action( 'init', array( $this, 'remove_customer_new_account_email' ), 90 );
 			}
 			add_action( 'init', array( $this, 'maybe_send_delayed_activation_email' ) );
 		} else {

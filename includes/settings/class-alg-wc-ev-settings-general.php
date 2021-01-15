@@ -207,7 +207,7 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 			array(
 				'title'    => __( 'Activation email delay', 'emails-verification-for-woocommerce' ),
 				'desc'     => __( 'Delay the activation email', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => __( 'Try to enable it if you\'re using some compatibility option and the activation emails are getting sent to authenticated users.', 'emails-verification-for-woocommerce' ) . '<br />' .
+				'desc_tip' => __( 'Try to enable it if the activation emails are getting sent to authenticated users.', 'emails-verification-for-woocommerce' ) . '<br />' .
 				              $this->separate_email_option_msg(),
 				'type'     => 'checkbox',
 				'id'       => 'alg_wc_ev_delay_activation_email',

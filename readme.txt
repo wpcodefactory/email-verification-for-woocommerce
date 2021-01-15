@@ -3,7 +3,7 @@ Contributors: wpcodefactory
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 5.6
-Stable tag: 2.0.4
+Stable tag: 2.0.5
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -82,6 +82,10 @@ If just some of them are already enabled and even so it doesn't work, try to ena
 3. Start by visiting plugin settings at "WooCommerce > Settings > Email Verification".
 
 == Changelog ==
+
+= 2.0.5 - 15/01/2021
+* Fix - Conflict between WCMP plugin and "Delay WooCommerce Customer new account email" option making vendor template emails disappear from WooCommerce settings.
+* Fix - Increase priority on `redirect_on_success_activation()` from `alg_wc_ev_user_account_activated` hook.
 
 = 2.0.4 - 13/01/2021 =
 * Fix - General - Activation link - Activation email delay.

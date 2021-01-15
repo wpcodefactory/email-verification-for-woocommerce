@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Email Verification for WooCommerce 2.0.4\n"
+"Project-Id-Version: Email Verification for WooCommerce 2.0.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/emails-verification-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-01-13T21:15:41+01:00\n"
+"POT-Creation-Date: 2021-01-15T18:26:09+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: emails-verification-for-woocommerce\n"
@@ -887,7 +887,7 @@ msgid "Delay the activation email"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-general.php:210
-msgid "Try to enable it if you're using some compatibility option and the activation emails are getting sent to authenticated users."
+msgid "Try to enable it if the activation emails are getting sent to authenticated users."
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-general.php:221
