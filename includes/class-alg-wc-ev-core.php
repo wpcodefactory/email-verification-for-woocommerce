@@ -378,7 +378,19 @@ class Alg_WC_Email_Verification_Core {
 	function verify() {
 		if ( isset( $_GET['alg_wc_ev_verify_email'] ) ) {
 			$data    = json_decode( base64_decode( $_GET['alg_wc_ev_verify_email'] ), true );
-			$user_id = $data['id'];
+			$user_id = !empty($data['id']) ? $data['id'] : null;
+
+			if(empty($user_id)){
+				wc_add_notice( $this->messages->get_invalid_url_message() );
+				return true;
+			}
+
+			$is_verified_before = get_user_meta( $user_id, 'alg_wc_ev_is_activated', true );
+			if($is_verified_before == 1){
+				wc_add_notice( $this->messages->get_profile_already_activated_message() );
+				return true;
+			}
+
 			$code    = get_user_meta( $user_id, 'alg_wc_ev_activation_code', true );
 			if ( '' !== $code && $code === $data['code'] ) {
 				if ( apply_filters( 'alg_wc_ev_verify_email', true, $user_id, $code ) ) {

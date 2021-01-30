@@ -92,6 +92,28 @@ class Alg_WC_Email_Verification_Messages {
 		return add_query_arg( 'alg_wc_ev_user_id', $user_id );
 	}
 
+	/**
+	 * get_invalid_url_message.
+	 *
+	 * @version 2.0.5
+	 * @since   2.0.5
+	 */
+	function get_invalid_url_message() {
+		return do_shortcode( get_option( 'get_invalid_url_message',
+			__( '<strong>Error:</strong> Invalid activation url, please contact our administrator.', 'emails-verification-for-woocommerce' ) ) );
+	}
+
+	/**
+	 * get_profile_already_activated_message.
+	 *
+	 * @version 2.0.5
+	 * @since   2.0.5
+	 */
+	function get_profile_already_activated_message() {
+		return do_shortcode( get_option( 'get_profile_already_activated_message',
+			__( '<strong>Error:</strong> Your profile already activated, please contact our administrator if you need further assistance.', 'emails-verification-for-woocommerce' ) ) );
+	}
+
 }
 
 endif;
