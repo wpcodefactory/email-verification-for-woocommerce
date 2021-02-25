@@ -3,7 +3,7 @@ Contributors: wpcodefactory
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 5.6
-Stable tag: 2.0.5
+Stable tag: 2.0.6
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -66,7 +66,7 @@ You can try to contact them asking to disable it, or you can try our option:
 It will try to convert the angle brackets from HTML tags by other characters.
 After that, you'll just need to save the settings page once more. On the frontend the characters will be converted to HTML tags again.
 
-= Why the activate message ("Thank you for your registration...") is not getting displayed after registration? =
+= Why the activation message ("Thank you for your registration...") is not getting displayed after registration? =
 Please try to make sure that at least one of the above options are enabled.
 If just some of them are already enabled and even so it doesn't work, try to enable all of the them:
 
@@ -83,6 +83,12 @@ If just some of them are already enabled and even so it doesn't work, try to ena
 
 == Changelog ==
 
+= 2.0.6 - 25/02/2021
+* Fix - General - Activation link - Increase "Activation email delay" priority to fix possible conflicts with 3rd party plugins like "Kadence WooCommerce Email Designer".
+* Fix - Checks `$data['id']` from activation time.
+* Dev - Emails - Activation email - Add "Email wrap method" option.
+* WC tested up to: 5.0
+
 = 2.0.5 - 15/01/2021
 * Fix - Conflict between WCMP plugin and "Delay WooCommerce Customer new account email" option making vendor template emails disappear from WooCommerce settings.
 * Fix - Increase priority on `redirect_on_success_activation()` from `alg_wc_ev_user_account_activated` hook.
@@ -98,7 +104,7 @@ If just some of them are already enabled and even so it doesn't work, try to ena
 * Dev - General - Block adding products to cart - Add "Custom redirect URL" option.
 * Dev - Add "Verify paying customers automatically" option.
 * Dev - Add "Unverify email changing" option.
-* Add missing activate message question to FAQ.
+* Add missing activation message question to FAQ.
 
 = 2.0.2 - 18/12/2020 =
 * Fix - Check for possible previous error before checking if user is verified to show the error message.

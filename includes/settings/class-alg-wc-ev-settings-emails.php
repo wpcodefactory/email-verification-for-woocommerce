@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Emails Section Settings
  *
- * @version 1.9.7
+ * @version 2.0.6
  * @since   1.3.0
  * @author  WPFactory
  */
@@ -52,7 +52,7 @@ class Alg_WC_Email_Verification_Settings_Emails extends Alg_WC_Email_Verificatio
 	/**
 	 * get_settings.
 	 *
-	 * @version 1.9.5
+	 * @version 2.0.6
 	 * @since   1.3.0
 	 */
 	function get_settings() {
@@ -105,13 +105,25 @@ class Alg_WC_Email_Verification_Settings_Emails extends Alg_WC_Email_Verificatio
 				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
 			),
 			array(
-				'desc'     => __( 'If "WooCommerce" is selected as "Email template", set email heading here.', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => sprintf( __( 'If "%s" option is selected as "%s", set email heading here.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Email template', 'emails-verification-for-woocommerce' ) . '</strong>', '<strong>' . __( 'WooCommerce', 'emails-verification-for-woocommerce' ) . '</strong>' ),
+				'title'    => __( 'Email heading', 'emails-verification-for-woocommerce' ),
 				'id'       => 'alg_wc_ev_email_template_wc_heading',
 				'type'     => 'textarea',
 				'default'  => __( 'Activate your account', 'emails-verification-for-woocommerce' ),
 				'css'      => 'width:100%;',
 				'alg_wc_ev_raw' => true,
 				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'readonly' => 'readonly' ) ),
+			),
+			array(
+				'title'    => __( 'Email wrap method', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => sprintf( __( 'If "%s" option is selected as "%s", set the email wrap method here.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Email template', 'emails-verification-for-woocommerce' ) . '</strong>', '<strong>' . __( 'WooCommerce', 'emails-verification-for-woocommerce' ) . '</strong>' ),
+				'id'       => 'alg_wc_ev_email_template_wc_wrap_method',
+				'type'     => 'radio',
+				'default'  => 'manual', // Maybe put default as native?
+				'options'  => array(
+					'manual' => __( 'Manual - Adding WooCommerce header and footer manually', 'emails-verification-for-woocommerce' ),
+					'native' => sprintf( __( 'Native - Using %s function', 'emails-verification-for-woocommerce' ), 'WC_Emails::wrap_message()' )
+				)
 			),
 			array(
 				'type'     => 'sectionend',

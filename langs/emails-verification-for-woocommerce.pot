@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Email Verification for WooCommerce 2.0.5\n"
+"Project-Id-Version: Email Verification for WooCommerce 2.0.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/emails-verification-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-01-15T18:26:09+01:00\n"
+"POT-Creation-Date: 2021-02-25T21:41:11+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: emails-verification-for-woocommerce\n"
@@ -34,7 +34,7 @@ msgstr ""
 msgid "https://wpfactory.com"
 msgstr ""
 
-#: email-verification-for-woocommerce.php:188
+#: email-verification-for-woocommerce.php:191
 msgid "Go Pro"
 msgstr ""
 
@@ -111,13 +111,13 @@ msgid "Unverify"
 msgstr ""
 
 #: includes/class-alg-wc-ev-emails.php:100
-#: includes/pro/class-alg-wc-ev-pro.php:587
+#: includes/pro/class-alg-wc-ev-pro.php:592
 #: includes/settings/class-alg-wc-ev-settings-emails.php:89
 msgid "Please click the following link to verify your email:<br><br><a href=\"%verification_url%\">%verification_url%</a>"
 msgstr ""
 
 #: includes/class-alg-wc-ev-emails.php:179
-#: includes/pro/class-alg-wc-ev-pro.php:576
+#: includes/pro/class-alg-wc-ev-pro.php:581
 #: includes/settings/class-alg-wc-ev-settings-emails.php:70
 msgid "Please activate your account"
 msgstr ""
@@ -184,23 +184,24 @@ msgstr ""
 msgid "You need to <a href=\"%myaccount_url%\" target=\"_blank\">register</a> and verify your email before adding products to the cart."
 msgstr ""
 
-#: includes/pro/class-alg-wc-ev-pro.php:439
-#: includes/settings/class-alg-wc-ev-settings-emails.php:111
+#: includes/pro/class-alg-wc-ev-pro.php:440
+#: includes/pro/class-alg-wc-ev-pro.php:443
+#: includes/settings/class-alg-wc-ev-settings-emails.php:112
 msgid "Activate your account"
 msgstr ""
 
-#: includes/pro/class-alg-wc-ev-pro.php:558
-#: includes/settings/class-alg-wc-ev-settings-emails.php:148
+#: includes/pro/class-alg-wc-ev-pro.php:563
+#: includes/settings/class-alg-wc-ev-settings-emails.php:160
 msgid "User email has been verified"
 msgstr ""
 
-#: includes/pro/class-alg-wc-ev-pro.php:559
-#: includes/settings/class-alg-wc-ev-settings-emails.php:156
+#: includes/pro/class-alg-wc-ev-pro.php:564
+#: includes/settings/class-alg-wc-ev-settings-emails.php:168
 msgid "User account has been activated"
 msgstr ""
 
-#: includes/pro/class-alg-wc-ev-pro.php:561
-#: includes/settings/class-alg-wc-ev-settings-emails.php:165
+#: includes/pro/class-alg-wc-ev-pro.php:566
+#: includes/settings/class-alg-wc-ev-settings-emails.php:177
 msgid "User %s has just verified his email (%s)."
 msgstr ""
 
@@ -233,7 +234,7 @@ msgstr ""
 #: includes/settings/class-alg-wc-ev-settings-advanced.php:307
 #: includes/settings/class-alg-wc-ev-settings-advanced.php:317
 #: includes/settings/class-alg-wc-ev-settings-advanced.php:342
-#: includes/settings/class-alg-wc-ev-settings-emails.php:129
+#: includes/settings/class-alg-wc-ev-settings-emails.php:141
 #: includes/settings/class-alg-wc-ev-settings-general.php:93
 #: includes/settings/class-alg-wc-ev-settings-general.php:155
 #: includes/settings/class-alg-wc-ev-settings-general.php:228
@@ -683,6 +684,8 @@ msgid "Placeholders: %s"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-emails.php:95
+#: includes/settings/class-alg-wc-ev-settings-emails.php:108
+#: includes/settings/class-alg-wc-ev-settings-emails.php:119
 msgid "Email template"
 msgstr ""
 
@@ -695,39 +698,61 @@ msgid "Plain"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-emails.php:103
+#: includes/settings/class-alg-wc-ev-settings-emails.php:108
+#: includes/settings/class-alg-wc-ev-settings-emails.php:119
 msgid "WooCommerce"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-emails.php:108
-msgid "If \"WooCommerce\" is selected as \"Email template\", set email heading here."
+msgid "If \"%s\" option is selected as \"%s\", set email heading here."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-emails.php:121
-#: includes/settings/class-alg-wc-ev-settings-emails.php:127
+#: includes/settings/class-alg-wc-ev-settings-emails.php:109
+msgid "Email heading"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-emails.php:118
+msgid "Email wrap method"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-emails.php:119
+msgid "If \"%s\" option is selected as \"%s\", set the email wrap method here."
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-emails.php:124
+msgid "Manual - Adding WooCommerce header and footer manually"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-emails.php:125
+msgid "Native - Using %s function"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-emails.php:133
+#: includes/settings/class-alg-wc-ev-settings-emails.php:139
 msgid "Admin email"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-emails.php:123
+#: includes/settings/class-alg-wc-ev-settings-emails.php:135
 msgid "An email that can be sent to the admin when a new user verifies his email."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-emails.php:136
+#: includes/settings/class-alg-wc-ev-settings-emails.php:148
 msgid "Recipient"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-emails.php:137
+#: includes/settings/class-alg-wc-ev-settings-emails.php:149
 msgid "Leave empty to send to %s."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-emails.php:144
+#: includes/settings/class-alg-wc-ev-settings-emails.php:156
 msgid "Subject"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-emails.php:152
+#: includes/settings/class-alg-wc-ev-settings-emails.php:164
 msgid "Heading"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-emails.php:161
+#: includes/settings/class-alg-wc-ev-settings-emails.php:173
 msgid "Content"
 msgstr ""
 

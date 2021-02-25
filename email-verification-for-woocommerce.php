@@ -3,13 +3,13 @@
 Plugin Name: Email Verification for WooCommerce
 Plugin URI: https://wpfactory.com/item/email-verification-for-woocommerce/
 Description: Verify user emails in WooCommerce. Beautifully.
-Version: 2.0.5
+Version: 2.0.6
 Author: WPFactory
 Author URI: https://wpfactory.com
 Text Domain: emails-verification-for-woocommerce
 Domain Path: /langs
 Copyright: © 2021 WPFactory
-WC tested up to: 4.9
+WC tested up to: 5.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 */
@@ -33,7 +33,7 @@ final class Alg_WC_Email_Verification {
 	 * @var   string
 	 * @since 1.0.0
 	 */
-	public $version = '2.0.5';
+	public $version = '2.0.6';
 
 	/**
 	 * @var   Alg_WC_Email_Verification The single instance of the class
@@ -99,7 +99,7 @@ final class Alg_WC_Email_Verification {
 		}	
 
 		// Generate documentation
-		add_filter( 'wpfpdh_documentation_params_' . plugin_basename( $this->plugin_file() ), array( $this, 'handle_documentation_params' ), 10 );	
+		//add_filter( 'wpfpdh_documentation_params_' . plugin_basename( $this->plugin_file() ), array( $this, 'handle_documentation_params' ), 10 );
 	}	
 
 	/**
@@ -112,11 +112,14 @@ final class Alg_WC_Email_Verification {
 	 *
 	 * @return mixed
 	 */
-	function handle_documentation_params( $params ) {
+	/*function handle_documentation_params( $params ) {
 		$params['wc_tab_id']           = 'alg_wc_ev';
 		$params['pro_settings_filter'] = 'alg_wc_ev_settings';		
+		$params['text_file_update_params']=array(
+			'text_file_path' => WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'test' .DIRECTORY_SEPARATOR.'test.txt' //plugin_dir_path( $this->plugins_dir . DIRECTORY_SEPARATOR . $plugin_file ) ) ) . DIRECTORY_SEPARATOR . 'readme.txt'
+		);
 		return $params;
-	}
+	}*/
 
 	/**
 	 * localize.
