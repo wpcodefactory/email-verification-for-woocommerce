@@ -83,13 +83,13 @@ If just some of them are already enabled and even so it doesn't work, try to ena
 
 == Changelog ==
 
-= 2.0.6 - 25/02/2021
+= 2.0.6 - 25/02/2021 =
 * Fix - General - Activation link - Increase "Activation email delay" priority to fix possible conflicts with 3rd party plugins like "Kadence WooCommerce Email Designer".
 * Fix - Checks `$data['id']` from activation time.
 * Dev - Emails - Activation email - Add "Email wrap method" option.
 * WC tested up to: 5.0
 
-= 2.0.5 - 15/01/2021
+= 2.0.5 - 15/01/2021 =
 * Fix - Conflict between WCMP plugin and "Delay WooCommerce Customer new account email" option making vendor template emails disappear from WooCommerce settings.
 * Fix - Increase priority on `redirect_on_success_activation()` from `alg_wc_ev_user_account_activated` hook.
 
