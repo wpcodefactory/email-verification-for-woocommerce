@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Emails Section Settings
  *
- * @version 2.0.6
+ * @version 2.0.7
  * @since   1.3.0
  * @author  WPFactory
  */
@@ -52,11 +52,34 @@ class Alg_WC_Email_Verification_Settings_Emails extends Alg_WC_Email_Verificatio
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.0.6
+	 * @version 2.0.7
 	 * @since   1.3.0
 	 */
 	function get_settings() {
 		return array(
+			array(
+				'title'    => __( 'Email options', 'emails-verification-for-woocommerce' ),
+				'type'     => 'title',
+				'id'       => 'alg_wc_ev_email_options',
+			),
+			array(
+				'title'    => __( 'Mail function', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => __( 'Function used for sending the plugin\'s emails.', 'emails-verification-for-woocommerce' ) . ' ' .
+				              __( 'Leave the default value if unsure.', 'emails-verification-for-woocommerce' ),
+				'type'     => 'select',
+				'class'    => 'chosen_select',
+				'id'       => 'alg_wc_ev_mail_function',
+				'default'  => 'wc_mail',
+				'options'  => array(
+					'mail'    => sprintf( __( '%s function', 'emails-verification-for-woocommerce' ), 'PHP "mail()"' ),
+					'wc_mail' => sprintf( __( '%s function', 'emails-verification-for-woocommerce' ), 'WooCommerce "wc_mail()"' ),
+					'wp_mail' => sprintf( __( '%s function', 'emails-verification-for-woocommerce' ), 'WordPress "wp_mail()"' ),
+				),
+			),
+			array(
+				'type'     => 'sectionend',
+				'id'       => 'alg_wc_ev_email_options',
+			),
 			array(
 				'title'    => __( 'Activation email', 'emails-verification-for-woocommerce' ),
 				'type'     => 'title',
@@ -124,6 +147,15 @@ class Alg_WC_Email_Verification_Settings_Emails extends Alg_WC_Email_Verificatio
 					'manual' => __( 'Manual - Adding WooCommerce header and footer manually', 'emails-verification-for-woocommerce' ),
 					'native' => sprintf( __( 'Native - Using %s function', 'emails-verification-for-woocommerce' ), 'WC_Emails::wrap_message()' )
 				)
+			),
+			array(
+				'title'         => __( 'Fine tune activation email placement', 'emails-verification-for-woocommerce' ),
+				'desc'          => __( 'Choose precisely where the activation email will be appended to the "Customer new account" email', 'emails-verification-for-woocommerce' ),
+				'desc_tip'      => sprintf( __( 'It\'s necessary to add %s to %s email template.', 'emails-verification-for-woocommerce' ), '<code>do_action( "alg_wc_ev_activation_email_content_placeholder", $email->object )</code>', '"Customer new account"' ).'<br />'.
+				                   $this->separate_email_option_msg('disabled'),
+				'type'          => 'checkbox',
+				'id'            => 'alg_wc_ev_fine_tune_activation_email_placement',
+				'default'       => 'no',
 			),
 			array(
 				'type'     => 'sectionend',

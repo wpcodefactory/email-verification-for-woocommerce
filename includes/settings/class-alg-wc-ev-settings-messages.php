@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Messages Section Settings
  *
- * @version 1.5.1
+ * @version 2.0.7
  * @since   1.3.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_Email_Verification_Settings_Messages extends Alg_WC_Email_Verificat
 	/**
 	 * get_settings.
 	 *
-	 * @version 1.5.1
+	 * @version 2.0.7
 	 * @since   1.3.0
 	 */
 	function get_settings() {
@@ -84,6 +84,23 @@ class Alg_WC_Email_Verification_Settings_Messages extends Alg_WC_Email_Verificat
 			array(
 				'type'     => 'sectionend',
 				'id'       => 'alg_wc_ev_messages_options',
+			),
+			array(
+				'title'    => __( 'Resend verification URL', 'emails-verification-for-woocommerce' ),
+				'type'     => 'title',
+				'id'       => 'alg_wc_ev_resend_verification_url_options',
+			),
+			array(
+				'title'    => __( 'URL', 'emails-verification-for-woocommerce' ),
+				'type'     => 'text',
+				'desc_tip' => __( 'If empty the URL will be the current page the user is at the moment the link was clicked.', 'emails-verification-for-woocommerce' ),
+				'id'       => 'alg_wc_ev_resend_verification_url',
+				'default'  => '',
+				'css'      => 'width:100%;',
+			),
+			array(
+				'type'     => 'sectionend',
+				'id'       => 'alg_wc_ev_resend_verification_url_options',
 			),
 		);
 	}

@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Functions
  *
- * @version 1.9.8
+ * @version 2.0.7
  * @since   1.9.0
  * @author  WPFactory
  */
@@ -86,5 +86,30 @@ if ( ! function_exists( 'alg_wc_ev_get_expiration_time' ) ) {
 		} else {
 			return $expire_time_opt * $unit_constants[ $expire_time_unit ];
 		}
+	}
+}
+
+if ( ! function_exists( 'alg_wc_ev_array_to_string' ) ) {
+	/**
+	 * converts array to string.
+	 *
+	 * @version 2.0.7
+	 * @since   2.0.7
+	 *
+	 * @param $arr
+	 * @param array $args
+	 *
+	 * @return string
+	 */
+	function alg_wc_ev_array_to_string( $arr, $args = array() ) {
+		$args            = wp_parse_args( $args, array(
+			'glue'          => ', ',
+			'item_template' => '{value}' //  {key} and {value} allowed
+		) );
+		$transformed_arr = array_map( function ( $key, $value ) use ( $args ) {
+			$item = str_replace( array( '{key}', '{value}' ), array( $key, $value ), $args['item_template'] );
+			return $item;
+		}, array_keys( $arr ), $arr );
+		return implode( $args['glue'], $transformed_arr );
 	}
 }

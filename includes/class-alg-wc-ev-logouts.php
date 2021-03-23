@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Logouts Class
  *
- * @version 2.0.2
+ * @version 2.0.7
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -14,9 +14,17 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Logouts' ) ) :
 class Alg_WC_Email_Verification_Logouts {
 
 	/**
+	 * @version 2.0.7
+	 * @since   2.0.7
+	 *
+	 * @var bool
+	 */
+	protected $send_auth_cookies = true;
+
+	/**
 	 * Constructor.
 	 *
-	 * @version 2.0.2
+	 * @version 2.0.7
 	 * @since   1.6.0
 	 * @todo    (maybe) force "activate" notice for guest users also
 	 * @todo    (maybe) `alg_wc_ev_prevent_login_after_register`: `woocommerce_account_navigation` (doesn't seem to work though...)
@@ -26,6 +34,7 @@ class Alg_WC_Email_Verification_Logouts {
 		foreach ( array( 'wp_authenticate_user', 'authenticate' ) as $auth_filter ) {
 			add_filter( $auth_filter, array( $this, 'block_unverified_user_login' ), PHP_INT_MAX );
 		}
+		add_action( 'set_logged_in_cookie', array( $this, 'block_auth_cookies' ), 10, 4 );
 		// Prevent login: After registration
 		if ( 'yes' === get_option( 'alg_wc_ev_prevent_login_after_register', 'yes' ) ) {
 			add_filter( 'woocommerce_registration_auth_new_customer', '__return_true', PHP_INT_MAX );
@@ -64,6 +73,8 @@ class Alg_WC_Email_Verification_Logouts {
 			} );
 		} );
 	}
+
+
 
 	/**
 	 * prevent_login_using_the_same_link.
@@ -119,6 +130,43 @@ class Alg_WC_Email_Verification_Logouts {
 			$user = new WP_Error( 'alg_wc_ev_email_verified_error', apply_filters( 'alg_wc_ev_block_unverified_user_login_error_message', alg_wc_ev()->core->messages->get_error_message( $user->ID ), $user ) );
 		}
 		return $user;
+	}
+
+	/**
+	 * block_auth_cookies.
+	 *
+	 * @version 2.0.7
+	 * @since   2.0.7
+	 *
+	 * @param $logged_in_cookie
+	 * @param $expire
+	 * @param $expiration
+	 * @param $user_id
+	 */
+	function block_auth_cookies( $logged_in_cookie, $expire, $expiration, $user_id ) {
+		if (
+			'yes' === get_option( 'alg_wc_ev_block_auth_cookies', 'no' )
+			&& ! alg_wc_ev()->core->is_user_verified_by_user_id( $user_id )
+		) {
+			wp_safe_redirect( add_query_arg( 'alg_wc_ev_activate_account_message', $user_id ) );
+			$this->send_auth_cookies = false;
+			add_filter( 'send_auth_cookies', array( $this, 'prevent_sending_auth_cookies' ) );
+		}
+	}
+
+	/**
+	 * prevent_sending_auth_cookies.
+	 *
+	 * @version 2.0.7
+	 * @since   2.0.7
+	 *
+	 * @param $prevent
+	 *
+	 * @return bool
+	 */
+	function prevent_sending_auth_cookies( $prevent ) {
+		$prevent = $this->send_auth_cookies;
+		return $prevent;
 	}
 
 	/**

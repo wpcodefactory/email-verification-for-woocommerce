@@ -2,8 +2,8 @@
 Contributors: wpcodefactory
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
-Tested up to: 5.6
-Stable tag: 2.0.6
+Tested up to: 5.7
+Stable tag: 2.0.7
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -82,6 +82,13 @@ If just some of them are already enabled and even so it doesn't work, try to ena
 3. Start by visiting plugin settings at "WooCommerce > Settings > Email Verification".
 
 == Changelog ==
+
+= 2.0.7 - 22/03/2021 =
+* Fix - Advanced - Fix compatibility with "WooCommerce Social Login (SkyVerge)" plugin.
+* Dev - Advanced - Add "Block auth cookies" option.
+* Dev - Messages - Resend verification URL - Add "URL" option.
+* Move "Mail function" and "Fine tune activation email" options to "Emails" section.
+* Tested up to: 5.7
 
 = 2.0.6 - 25/02/2021 =
 * Fix - General - Activation link - Increase "Activation email delay" priority to fix possible conflicts with 3rd party plugins like "Kadence WooCommerce Email Designer".
