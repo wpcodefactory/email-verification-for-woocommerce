@@ -598,7 +598,7 @@ msgstr ""
 "caractères génériques (%s) ici, par exemple: %s"
 
 #: includes/settings/class-alg-wc-email-verification-settings-general.php:186
-msgid "Your email is blacklisted."
+msgid "Your email is denied."
 msgstr "Votre email est sur liste noire."
 
 #: includes/settings/class-alg-wc-email-verification-settings-general.php:192

@@ -72,7 +72,7 @@ class Alg_WC_Email_Verification_Settings_Section {
 			'enabled'  => __( 'enabled', 'emails-verification-for-woocommerce' ),
 			'disabled' => __( 'disabled', 'emails-verification-for-woocommerce' ),
 		);
-		return sprintf( __( 'This requires option "%s > %s" to be %s.', 'emails-verification-for-woocommerce' ),
+		return sprintf( __( 'The option "%s > %s" needs to be %s.', 'emails-verification-for-woocommerce' ),
 			__( 'General', 'emails-verification-for-woocommerce' ), __( 'Send as a separate email', 'emails-verification-for-woocommerce' ), '<strong>' . $translation[ $requirement ] . '</strong>' );
 	}
 

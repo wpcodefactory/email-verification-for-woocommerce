@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - General Section Settings
  *
- * @version 2.0.4
+ * @version 2.0.8
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -40,7 +40,7 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.0.4
+	 * @version 2.0.8
 	 * @since   1.0.0
 	 * @todo    [next] Logout unverified users on every page: better description
 	 * @todo    [next] (maybe) `alg_wc_ev_delay_wc_email`: default to `yes`?
@@ -90,7 +90,7 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 			),
 			array(
 				'title'    => __( 'Enable email verification for already registered users', 'emails-verification-for-woocommerce' ),
-				'desc'     => __( 'Enable', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'Verify email for current users', 'emails-verification-for-woocommerce' ),
 				'desc_tip' => __( 'If enabled, all your current users will have to verify their emails when logging to your site.', 'emails-verification-for-woocommerce' ),
 				'type'     => 'checkbox',
 				'id'       => 'alg_wc_ev_verify_already_registered',
@@ -99,11 +99,21 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 			array(
 				'title'             => __( 'Unverify email changing accounts', 'emails-verification-for-woocommerce' ),
 				'desc'              => __( 'Unverify, logout and resend activation link to accounts that changed the emails', 'emails-verification-for-woocommerce' ),
-				'desc_tip'          => $this->pro_msg( '' ),
 				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ), 'min', array( 0 ) ),
 				'type'              => 'checkbox',
 				'id'                => 'alg_wc_ev_unverify_email_changing',
 				'default'           => 'no',
+			),
+			array(
+				'title'    => __( 'Block unverified login', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'Block login from unverified users', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => __( 'If disabled, account verification will be optional. In that case you\'ll probably want to:', 'emails-verification-for-woocommerce' ) . '<br />' . alg_wc_ev_array_to_string( array(
+						sprintf( __( 'Change your %s option', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Message > Activation', 'emails-verification-for-woocommerce' ) . '</strong>' ),
+						sprintf( __( 'Disable login options on the %s section', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Advanced', 'emails-verification-for-woocommerce' ) . '</strong>', '<strong>' . __( 'Emails > Activation email > Email template', 'emails-verification-for-woocommerce' ) . '</strong>', '<strong>' . __( 'Plain', 'emails-verification-for-woocommerce' ) . '</strong>' ),
+					), array( 'glue' => '<br />', 'item_template' => '&#8226; {value}' ) ),
+				'type'     => 'checkbox',
+				'id'       => 'alg_wc_ev_block_unverified_login',
+				'default'  => 'yes',
 			),
 			array(
 				'type'     => 'sectionend',
@@ -152,8 +162,7 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 			),
 			array(
 				'title'    => __( 'One-time activation link', 'emails-verification-for-woocommerce' ),
-				'desc'     => __( 'Enable', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => __( 'After using the activation link for the first time, it won\'t work anymore.', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'Prevent activation link from working after the first use', 'emails-verification-for-woocommerce' ),
 				'type'     => 'checkbox',
 				'id'       => 'alg_wc_ev_one_time_activation_link',
 				'default'  => 'yes',
@@ -162,8 +171,7 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 				'title'    => __( 'Expire time', 'emails-verification-for-woocommerce' ),
 				'desc_tip' => __( 'Ignored if set to zero.', 'emails-verification-for-woocommerce' ) . ' ' .
 				              __( 'Please note that all activation codes generated before installing the plugin v1.7.0 will be automatically expired.', 'emails-verification-for-woocommerce' ),
-				'desc'     => sprintf( __( 'Expiration time based on the %s option below.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Expire time unit', 'emails-verification-for-woocommerce' ) . '</strong>' ) .
-				              $this->pro_msg(),
+				'desc'     => sprintf( __( 'Expiration time based on the %s option below.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Expire time unit', 'emails-verification-for-woocommerce' ) . '</strong>' ),
 				'type'     => 'number',
 				'id'       => 'alg_wc_ev_expiration_time',
 				'default'  => 0,
@@ -225,24 +233,21 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 			),
 			array(
 				'title'    => __( 'Logout unverified users on "My Account" page', 'emails-verification-for-woocommerce' ),
-				'desc'     => __( 'Enable', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => __( 'Will check if logged user is verified on "My Account" page.', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'Check if logged user is verified on "My Account" page', 'emails-verification-for-woocommerce' ),
 				'type'     => 'checkbox',
 				'id'       => 'alg_wc_ev_prevent_login_myaccount',
 				'default'  => 'no',
 			),
 			array(
 				'title'    => __( 'Logout unverified users on every page', 'emails-verification-for-woocommerce' ),
-				'desc'     => __( 'Enable', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => __( 'Will check if logged user is verified on every page of your site.', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'Check if logged user is verified on every page of your site', 'emails-verification-for-woocommerce' ),
 				'type'     => 'checkbox',
 				'id'       => 'alg_wc_ev_prevent_login_always',
 				'default'  => 'no',
 				'checkboxgroup' => 'start',
 			),
 			array(
-				'desc'     => __( 'Redirect', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => __( 'Redirect to the activate account notice after logout.', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'Redirect to the activate account notice after logout', 'emails-verification-for-woocommerce' ),
 				'type'     => 'checkbox',
 				'id'       => 'alg_wc_ev_prevent_login_always_redirect',
 				'default'  => 'yes',
@@ -260,9 +265,7 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 			),
 			array(
 				'title'    => __( 'Block checkout', 'emails-verification-for-woocommerce' ),
-				'desc'     => __( 'Enable', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => __( 'Blocks checkout process for unverified users (including guests).', 'emails-verification-for-woocommerce' ) .
-				              $this->pro_msg(),
+				'desc' => __( 'Blocks checkout process for unverified users (including guests).', 'emails-verification-for-woocommerce' ),
 				'type'     => 'checkbox',
 				'id'       => 'alg_wc_ev_block_checkout_process',
 				'default'  => 'no',
@@ -289,9 +292,7 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 			),
 			array(
 				'title'    => __( 'Block adding products to cart', 'emails-verification-for-woocommerce' ),
-				'desc'     => __( 'Enable', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => __( 'Blocks guests from adding any products to the cart.', 'emails-verification-for-woocommerce' ) .
-					$this->pro_msg(),
+				'desc' => __( 'Blocks guests from adding any products to the cart', 'emails-verification-for-woocommerce' ),
 				'type'     => 'checkbox',
 				'id'       => 'alg_wc_ev_block_guest_add_to_cart',
 				'default'  => 'no',
@@ -389,8 +390,7 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 				'title'    => __( 'Email denylist', 'emails-verification-for-woocommerce' ),
 				'desc_tip' => __( 'Ignored if empty.', 'emails-verification-for-woocommerce' ),
 				'desc'     => sprintf( __( 'Separate emails with a comma and/or with a new line. You can also use wildcard (%s) here, for example: %s', 'emails-verification-for-woocommerce' ),
-						'<code>*</code>', '<code>*@example.com,email@example.net</code>' ) .
-				              $this->pro_msg(),
+						'<code>*</code>', '<code>*@example.com,email@example.net</code>' ),
 				'type'     => 'textarea',
 				'css'      => 'width:100%;height:100px;',
 				'id'       => 'alg_wc_ev_email_blacklist',
@@ -402,7 +402,7 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 				'desc_tip' => __( 'Notice will appear when user will try to verify his email by clicking the email activation link.', 'emails-verification-for-woocommerce' ),
 				'type'     => 'textarea',
 				'id'       => 'alg_wc_ev_blacklisted_message',
-				'default'  => __( 'Your email is blacklisted.', 'emails-verification-for-woocommerce' ),
+				'default'  => __( 'Your email is denied.', 'emails-verification-for-woocommerce' ),
 				'css'      => 'width:100%;',
 				'alg_wc_ev_raw' => true,
 				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'readonly' => 'readonly' ) ),

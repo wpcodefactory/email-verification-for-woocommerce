@@ -3,7 +3,7 @@ Contributors: wpcodefactory
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 5.7
-Stable tag: 2.0.7
+Stable tag: 2.0.8
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -75,6 +75,9 @@ If just some of them are already enabled and even so it doesn't work, try to ena
 -  **Logout unverified users on "My Account" page**
 -  **Logout unverified users on every page**
 
+= How to prevent duplicated success message after account verification? =
+Please try to use **General > Redirect on success** option as **Do not redirect**
+
 == Installation ==
 
 1. Upload the entire plugin folder to the `/wp-content/plugins/` directory.
@@ -82,6 +85,16 @@ If just some of them are already enabled and even so it doesn't work, try to ena
 3. Start by visiting plugin settings at "WooCommerce > Settings > Email Verification".
 
 == Changelog ==
+
+= 2.0.8 - 09/04/2021 =
+* Fix - Account is not verified if "Send verification as a separate email" is disabled and "Delay Customer new account email" is enabled.
+* Dev - Advanced - Block order emails - Add "Blocked emails" option.
+* Dev - Advanced - Block order emails - Add "Unblock emails" option.
+* Dev - Advanced - Add compatibility option with "WooMail - WooCommerce Email Customizer" plugin.
+* Dev - General - Add "Block unverified login" option.
+* Add notice on settings page regarding pro version.
+* Advanced - Rearrange admin settings.
+* WC tested up to: 5.1.
 
 = 2.0.7 - 22/03/2021 =
 * Fix - Advanced - Fix compatibility with "WooCommerce Social Login (SkyVerge)" plugin.

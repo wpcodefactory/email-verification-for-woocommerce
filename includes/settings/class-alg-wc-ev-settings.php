@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Settings
  *
- * @version 2.0.0
+ * @version 2.0.8
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -16,7 +16,7 @@ class Alg_WC_Email_Verification_Settings extends WC_Settings_Page {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.0.0
+	 * @version 2.0.8
 	 * @since   1.0.0
 	 */
 	function __construct() {
@@ -31,6 +31,103 @@ class Alg_WC_Email_Verification_Settings extends WC_Settings_Page {
 		require_once( 'class-alg-wc-ev-settings-emails.php' );
 		require_once( 'class-alg-wc-ev-settings-admin.php' );
 		require_once( 'class-alg-wc-ev-settings-advanced.php' );
+		// Create notice about pro
+		add_action( 'woocommerce_sections_' . $this->id, array( $this, 'create_notice_regarding_pro' ) );
+		add_action( 'woocommerce_sections_' . $this->id, array( $this, 'highlight_premium_notice_on_disabled_setting_click' ) );
+	}
+
+	/**
+	 * highlight_premium_notice_on_disabled_setting_click.
+	 *
+	 * @version 2.0.8
+	 * @since   2.0.8
+	 */
+	function highlight_premium_notice_on_disabled_setting_click(){
+		if ( '' === apply_filters( 'alg_wc_ev_settings', true ) ) {
+			return;
+		}
+		?>
+		<script>
+			jQuery(document).ready(function ($) {
+				jQuery(document).ready(function ($) {
+					let highlighter = {
+						targetClass: '.alg-wc-ev-premium-notice',
+						highlight: function () {
+							window.scrollTo({
+								top: 0,
+								behavior: 'smooth'
+							});
+							setTimeout(function () {
+								$(highlighter.targetClass).addClass('alg-wc-ev-blink');
+							}, 300);
+							setTimeout(function () {
+								$(highlighter.targetClass).removeClass('alg-wc-ev-blink');
+							}, 3000);
+						}
+					};
+					function createDisabledElem(){
+						$(".form-table *:disabled,.form-table *[readonly],.form-table .select2-container--disabled").each(function () {
+							$(this).parent().css({
+								"position": "relative"
+							});
+							let position = $(this).position();
+							position.top = $(this)[0].offsetTop;
+							let disabledDiv = $("<div class='alg-wc-ev-disabled alg-wc-ev-highlight-premium-notice'></div>").insertAfter($(this));
+							disabledDiv.css({
+								"position": "absolute",
+								"left": position.left,
+								"top": position.top,
+								"width": $(this).outerWidth(),
+								"height": $(this).outerHeight(),
+								"cursor": 'pointer'
+							});
+						});
+					}
+					createDisabledElem();
+					$("label:has(input:disabled),label:has(input[readonly])").addClass('alg-wc-ev-highlight-premium-notice');
+					$(".alg-wc-ev-highlight-premium-notice, .select2-container--disabled").on('click', highlighter.highlight);
+				});
+			});
+		</script>
+		<style>
+			.alg-wc-ev-blink{
+				animation: alg-dtwp-blink 1s;
+				animation-iteration-count: 3;
+			}
+			@keyframes alg-dtwp-blink { 50% { background-color:#ececec ; }  }
+		</style>
+		<?php
+	}
+
+	/**
+	 * create_notice_regarding_pro.
+	 *
+	 * @version 2.0.8
+	 * @since   2.0.8
+	 */
+	function create_notice_regarding_pro() {
+		if ( true === apply_filters( 'alg_wc_ev_settings', true ) ) {
+			$pro_version_title      = __( 'Email Verification for WooCommerce Pro', 'emails-verification-for-woocommerce' );
+			$pro_version_url        = 'https://wpfactory.com/item/email-verification-for-woocommerce/';
+			$plugin_icon_url        = 'https://ps.w.org/emails-verification-for-woocommerce/assets/icon-128x128.png?rev=1884298';
+			$upgrade_btn_icon_class = 'dashicons-before dashicons-unlock';
+			// Message
+			$message = sprintf( '<img style="%s" src="%s"/><span style="%s">%s</span>',
+				'margin-right:10px;width:38px;vertical-align:middle',
+				$plugin_icon_url,
+				'vertical-align: middle;margin:0 14px 0 0;',
+				sprintf( __( 'Disabled options can be unlocked using <a href="%s" target="_blank">%s</a>', 'emails-verification-for-woocommerce' ), $pro_version_url, '<strong>' . $pro_version_title . '</strong>' )
+			);
+			// Button
+			$button = sprintf( '<a style="%s" target="_blank" class="button-primary" href="%s"><i style="%s" class="%s"></i>%s</a>',
+				'vertical-align:middle;display:inline-block;margin:0',
+				$pro_version_url,
+				'position:relative;top:3px;margin:0 2px 0 -2px;',
+				$upgrade_btn_icon_class,
+				__( 'Upgrade to Pro version', 'emails-verification-for-woocommerce' )
+			);
+			echo '<div id="message" class="alg-wc-ev-premium-notice notice notice-info inline"><p style="margin:5px 0">' . $message . $button . '</p></div>';
+		}
 	}
 
 	/**

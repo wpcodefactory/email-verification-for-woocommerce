@@ -84,7 +84,7 @@ class Alg_WC_Email_Verification_Settings_Emails extends Alg_WC_Email_Verificatio
 				'title'    => __( 'Activation email', 'emails-verification-for-woocommerce' ),
 				'type'     => 'title',
 				'id'       => 'alg_wc_ev_activation_email',
-				'desc'     => __( 'An email sent to the user with an activation link.', 'emails-verification-for-woocommerce' ).'<br />'.$this->pro_msg( '<strong>', 'You will need %s plugin to change email settings.', '</strong>' ),
+				'desc'     => __( 'An email sent to the user with an activation link.', 'emails-verification-for-woocommerce' ),
 			),
 			array(
 				'title'    => __( 'Email subject', 'emails-verification-for-woocommerce' ),
@@ -151,7 +151,7 @@ class Alg_WC_Email_Verification_Settings_Emails extends Alg_WC_Email_Verificatio
 			array(
 				'title'         => __( 'Fine tune activation email placement', 'emails-verification-for-woocommerce' ),
 				'desc'          => __( 'Choose precisely where the activation email will be appended to the "Customer new account" email', 'emails-verification-for-woocommerce' ),
-				'desc_tip'      => sprintf( __( 'It\'s necessary to add %s to %s email template.', 'emails-verification-for-woocommerce' ), '<code>do_action( "alg_wc_ev_activation_email_content_placeholder", $email->object )</code>', '"Customer new account"' ).'<br />'.
+				'desc_tip'      => sprintf( __( 'It\'s necessary to add %s to the %s email template.', 'emails-verification-for-woocommerce' ), '<code>do_action( "alg_wc_ev_activation_email_content_placeholder", $email->object )</code>', '"Customer new account"' ).'<br />'.
 				                   $this->separate_email_option_msg('disabled'),
 				'type'          => 'checkbox',
 				'id'            => 'alg_wc_ev_fine_tune_activation_email_placement',

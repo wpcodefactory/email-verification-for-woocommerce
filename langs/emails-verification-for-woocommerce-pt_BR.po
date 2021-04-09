@@ -180,7 +180,7 @@ msgstr ""
 
 #: includes/pro/class-alg-wc-ev-pro.php:170
 #: includes/settings/class-alg-wc-ev-settings-general.php:423
-msgid "Your email is blacklisted."
+msgid "Your email is denied."
 msgstr ""
 
 #: includes/pro/class-alg-wc-ev-pro.php:273

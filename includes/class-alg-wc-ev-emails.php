@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Emails Class
  *
- * @version 2.0.6
+ * @version 2.0.8
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -164,7 +164,7 @@ class Alg_WC_Email_Verification_Emails {
 	}
 
 	/**
-	 * reset_and_mail_activation_link.
+	 * reset_and_mail_activation_link.maybe_send_wc_customer_new_account_email
 	 *
 	 * @version 1.9.5
 	 * @since   1.0.0
@@ -207,11 +207,12 @@ class Alg_WC_Email_Verification_Emails {
 	 *
 	 * @see wc_create_new_customer()
 	 *
-	 * @version 1.9.7
+	 * @version 2.0.8
 	 * @since   1.6.0
 	 */
 	function maybe_send_wc_customer_new_account_email( $user_id ) {
 		if (
+			'yes' === get_option( 'alg_wc_ev_send_as_separate_email', 'yes' ) &&
 			'yes' === get_option( 'alg_wc_ev_delay_wc_email', 'no' ) &&
 			'' == get_user_meta( $user_id, 'alg_wc_ev_customer_new_account_email_sent', true ) &&
 			class_exists( 'WC_Emails' ) && method_exists( 'WC_Emails', 'instance' )
