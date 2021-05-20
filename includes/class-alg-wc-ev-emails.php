@@ -16,14 +16,14 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.0.6
+	 * @version 2.0.9
 	 * @since   1.6.0
 	 */
 	function __construct() {
 		if ( 'yes' === get_option( 'alg_wc_ev_send_as_separate_email', 'yes' ) ) {
 			// Activation email
 			$new_user_action = apply_filters( 'alg_wc_ev_new_user_action', ( get_option( 'alg_wc_ev_new_user_action', 'user_register' ) ) );
-			add_action( $new_user_action, array( $this, 'handle_activation_email_sending' ), PHP_INT_MAX );
+			add_action( $new_user_action, array( $this, 'handle_activation_email_sending' ), PHP_INT_MAX - 1 );
 			// Delay WC customer new account email
 			if ( 'yes' === get_option( 'alg_wc_ev_delay_wc_email', 'no' ) ) {
 				add_action( 'init', array( $this, 'remove_customer_new_account_email' ), 90 );

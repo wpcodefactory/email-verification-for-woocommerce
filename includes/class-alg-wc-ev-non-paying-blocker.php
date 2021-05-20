@@ -41,7 +41,7 @@ class Alg_WC_Email_Verification_Non_Paying_Blocker {
 	 */
 	function show_blocked_non_paying_user_error_message( $user_id ) {
 		add_filter( 'alg_wc_ev_verify_email_error', function () use ( $user_id ) {
-			wc_add_notice( $this->get_non_paying_user_error_message( $user_id ), 'error' );
+			alg_wc_ev_add_notice( $this->get_non_paying_user_error_message( $user_id ), 'error' );
 		} );
 	}
 

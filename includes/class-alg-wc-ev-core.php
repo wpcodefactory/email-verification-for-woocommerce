@@ -25,7 +25,7 @@ class Alg_WC_Email_Verification_Core {
 		require_once( 'alg-wc-ev-functions.php' );
 		// Verification actions
 		add_action( 'init', array( $this, 'verify' ),   PHP_INT_MAX );
-		add_action( 'init', array( $this, 'activate' ), PHP_INT_MAX );
+		add_action( 'init', array( $this, 'activate_message' ), PHP_INT_MAX );
 		add_action( 'init', array( $this, 'resend' ),   PHP_INT_MAX );
 		// Prevent login
 		require_once( 'class-alg-wc-ev-logouts.php' );
@@ -127,7 +127,7 @@ class Alg_WC_Email_Verification_Core {
 			$display_message = true;
 		}
 		if ( $display_message ) {
-			wc_add_notice( $this->messages->get_success_message() );
+			alg_wc_ev_add_notice( $this->messages->get_success_message() );
 		}
 	}
 
@@ -392,7 +392,7 @@ class Alg_WC_Email_Verification_Core {
 					do_action( 'alg_wc_ev_verify_email_error', $user_id, $code );
 				}
 			} else {
-				wc_add_notice( $this->messages->get_failed_message( $user_id ), 'error' );
+				alg_wc_ev_add_notice( $this->messages->get_failed_message( $user_id ), 'error' );
 			}
 		}
 	}
@@ -402,12 +402,12 @@ class Alg_WC_Email_Verification_Core {
 	 *
 	 * @version 1.6.0
 	 * @since   1.6.0
-	 * @todo    [next] (maybe) custom `wc_add_notice()`
+	 * @todo    [next] (maybe) custom `alg_wc_ev_add_notice()`
 	 * @todo    (maybe) rename `alg_wc_ev_activate_account_message`
 	 */
-	function activate() {
+	function activate_message() {
 		if ( isset( $_GET['alg_wc_ev_activate_account_message'] ) ) {
-			wc_add_notice( $this->messages->get_activation_message( intval( $_GET['alg_wc_ev_activate_account_message'] ) ) );
+			alg_wc_ev_add_notice( $this->messages->get_activation_message( intval( $_GET['alg_wc_ev_activate_account_message'] ) ) );
 		}
 	}
 
@@ -421,7 +421,7 @@ class Alg_WC_Email_Verification_Core {
 	function resend() {
 		if ( isset( $_GET['alg_wc_ev_user_id'] ) ) {
 			$this->emails->reset_and_mail_activation_link( $_GET['alg_wc_ev_user_id'] );
-			wc_add_notice( $this->messages->get_resend_message() );
+			alg_wc_ev_add_notice( $this->messages->get_resend_message() );
 		}
 	}
 

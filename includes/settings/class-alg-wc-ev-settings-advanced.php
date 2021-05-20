@@ -127,6 +127,14 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 				'alg_wc_ev_raw' => true,
 			),
 			array(
+				'title'    => __( 'Force redirect', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'Force redirect using sessions after the user is registered', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => __( 'Enable if the redirect is not working.', 'emails-verification-for-woocommerce' ),
+				'type'     => 'checkbox',
+				'id'       => 'alg_wc_ev_prevent_login_after_register_session_redirect',
+				'default'  => 'no',
+			),
+			array(
 				'type'     => 'sectionend',
 				'id'       => 'alg_wc_ev_prevent_login_after_register_options',
 			),

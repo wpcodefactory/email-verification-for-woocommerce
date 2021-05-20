@@ -3,7 +3,7 @@ Contributors: wpcodefactory
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 5.7
-Stable tag: 2.0.8
+Stable tag: 2.0.9
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -85,6 +85,11 @@ Please try to use **General > Redirect on success** option as **Do not redirect*
 3. Start by visiting plugin settings at "WooCommerce > Settings > Email Verification".
 
 == Changelog ==
+
+= 2.0.9 - 20/05/2021 =
+* Dev - Messages - Create "Clear previous messages" option trying to avoid duplicated messages.
+* Dev - Advanced - Prevent login after register - Create "Force redirect" option.
+* WC tested up to: 5.3.
 
 = 2.0.8 - 09/04/2021 =
 * Fix - Account is not verified if "Send verification as a separate email" is disabled and "Delay Customer new account email" is enabled.

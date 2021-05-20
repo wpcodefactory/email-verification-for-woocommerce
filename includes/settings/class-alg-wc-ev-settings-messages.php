@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Messages Section Settings
  *
- * @version 2.0.7
+ * @version 2.0.9
  * @since   1.3.0
  * @author  WPFactory
  */
@@ -28,11 +28,29 @@ class Alg_WC_Email_Verification_Settings_Messages extends Alg_WC_Email_Verificat
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.0.7
+	 * @version 2.0.9
 	 * @since   1.3.0
 	 */
 	function get_settings() {
 		return array(
+			array(
+				'title'    => __( 'Messages options', 'emails-verification-for-woocommerce' ),
+				'type'     => 'title',
+				'id'       => 'alg_wc_ev_messages_general_options',
+			),
+			array(
+				'title'    => __( 'Clear previous messages', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'Clear previous messages before displaying new ones', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => __( 'Enable if you have issues with duplicated messages.', 'emails-verification-for-woocommerce' ),
+				'type'     => 'checkbox',
+				'id'       => 'alg_wc_ev_clear_previous_messages',
+				'default'  => 'no',
+			),
+			array(
+				'type'     => 'sectionend',
+				'id'       => 'alg_wc_ev_messages_general_options',
+			),
+
 			array(
 				'title'    => __( 'Messages', 'emails-verification-for-woocommerce' ),
 				'type'     => 'title',

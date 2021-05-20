@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Emails Section Settings
  *
- * @version 2.0.7
+ * @version 2.0.9
  * @since   1.3.0
  * @author  WPFactory
  */

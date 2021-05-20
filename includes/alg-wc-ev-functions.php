@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Functions
  *
- * @version 2.0.7
+ * @version 2.0.9
  * @since   1.9.0
  * @author  WPFactory
  */
@@ -18,6 +18,30 @@ if ( ! function_exists( 'alg_wc_ev_is_user_verified_by_user_id' ) ) {
 	 */
 	function alg_wc_ev_is_user_verified_by_user_id( $user_id = false, $is_guest_verified = false ) {
 		return ( function_exists( 'alg_wc_ev' ) ? alg_wc_ev()->core->is_user_verified_by_user_id( $user_id, $is_guest_verified ) : null );
+	}
+}
+
+if ( ! function_exists( 'alg_wc_ev_add_notice' ) ) {
+	/**
+	 * alg_wc_ev_add_notice.
+	 *
+	 * @version 2.0.9
+	 * @since   2.0.9
+	 *
+	 * @param $message
+	 * @param string $notice_type
+	 * @param array $data
+	 * @param null $args
+	 */
+	function alg_wc_ev_add_notice( $message, $notice_type = 'success', $data = array(), $args = null ) {
+		$args = wp_parse_args( $args, array(
+			'clear_previous_messages' => 'yes' === get_option( 'alg_wc_ev_clear_previous_messages', 'no' )
+		) );
+		$clear_previous_messages = $args['clear_previous_messages'];
+		if ( $clear_previous_messages ) {
+			wc_clear_notices();
+		}
+		wc_add_notice( $message, $notice_type, $data );
 	}
 }
 
