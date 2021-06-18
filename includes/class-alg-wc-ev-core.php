@@ -16,7 +16,7 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.0.5
+	 * @version 2.1.0
 	 * @since   1.0.0
 	 * @todo    [next] (maybe) `[alg_wc_ev_translate]` to description in readme.txt
 	 */
@@ -53,6 +53,54 @@ class Alg_WC_Email_Verification_Core {
 		add_action( 'alg_wc_ev_user_account_activated', array( $this, 'display_success_activation_message' ) );
 		add_action( 'init', array( $this, 'display_success_activation_message' ) );
 		add_filter( 'wp_redirect', array( $this, 'remove_success_activation_message' ) );
+		// Error message
+		add_action( 'init', array( $this, 'display_error_activation_message' ) );
+		// Redirects on failure
+		add_action( 'wp_login_failed', array( $this, 'redirect_on_failure' ), 10, 2 );
+	}
+
+	/**
+	 * display_error_activation_message.
+	 *
+	 * @version 2.1.0
+	 * @since   2.1.0
+	 */
+	function display_error_activation_message() {
+		if (
+			isset( $_GET['alg_wc_ev_email_verified_error'] )
+			&& ! empty( $user_id = $_GET['alg_wc_ev_email_verified_error'] )
+			&& ! empty( $user = get_user_by( 'ID', $user_id ) )
+		) {
+			$message = apply_filters( 'alg_wc_ev_block_unverified_user_login_error_message', alg_wc_ev()->core->messages->get_error_message( $user->ID ), $user );
+			alg_wc_ev_add_notice( $message );
+		}
+	}
+
+	/**
+	 * redirect_on_failure.
+	 *
+	 * @version 2.1.0
+	 * @since   2.1.0
+	 *
+	 * @param $username
+	 * @param $error
+	 */
+	function redirect_on_failure( $username, $error ) {
+		if (
+			'yes' === get_option( 'alg_wc_ev_redirect_on_failure', 'no' )
+			&& in_array( 'alg_wc_ev_email_verified_error', $error->get_error_codes() )
+		) {
+			$user = get_user_by( 'email', $username );
+			if ( ! $user ) {
+				$user = get_user_by( 'login', $username );
+			}
+			if ( $user ) {
+				wp_redirect( add_query_arg( array(
+					'alg_wc_ev_email_verified_error' => $user->ID
+				), get_option( 'alg_wc_ev_redirect_on_failure_url', '' ) ) );
+				exit;
+			}
+		}
 	}
 
 	/**

@@ -3,18 +3,35 @@
 Plugin Name: Email Verification for WooCommerce
 Plugin URI: https://wpfactory.com/item/email-verification-for-woocommerce/
 Description: Verify user emails in WooCommerce. Beautifully.
-Version: 2.0.9
+Version: 2.1.0
 Author: WPFactory
 Author URI: https://wpfactory.com
 Text Domain: emails-verification-for-woocommerce
 Domain Path: /langs
 Copyright: © 2021 WPFactory
-WC tested up to: 5.3
+WC tested up to: 5.4
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
+// Handle is_plugin_active function
+if ( ! function_exists( 'is_plugin_active' ) ) {
+	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+}
+
+// Check for active plugins
+if (
+	! is_plugin_active( 'woocommerce/woocommerce.php' ) ||
+	( 'email-verification-for-woocommerce.php' === basename( __FILE__ ) && is_plugin_active( 'email-verification-for-woocommerce-pro/email-verification-for-woocommerce-pro.php' ) )
+) {
+	return;
+}
+
+if ( ! class_exists( 'Alg_WC_Email_Verification' ) ) :
+	require_once plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
+endif;
 
 if ( ! class_exists( 'Alg_WC_Email_Verification' ) ) :
 
@@ -33,7 +50,7 @@ final class Alg_WC_Email_Verification {
 	 * @var   string
 	 * @since 1.0.0
 	 */
-	public $version = '2.0.9';
+	public $version = '2.1.0';
 
 	/**
 	 * @var   Alg_WC_Email_Verification The single instance of the class
@@ -68,19 +85,11 @@ final class Alg_WC_Email_Verification {
 	/**
 	 * Alg_WC_Email_Verification Constructor.
 	 *
-	 * @version 1.9.8
+	 * @version 2.1.0
 	 * @since   1.0.0
 	 * @access  public
 	 */
 	function __construct() {
-
-		// Check for active plugins
-		if (
-			! $this->is_plugin_active( 'woocommerce/woocommerce.php' ) ||
-			( 'email-verification-for-woocommerce.php' === basename( __FILE__ ) && $this->is_plugin_active( 'email-verification-for-woocommerce-pro/email-verification-for-woocommerce-pro.php' ) )
-		) {
-			return;
-		}
 
 		// Localization
 		add_action( 'init', array( $this, 'localize' ) );
@@ -99,27 +108,27 @@ final class Alg_WC_Email_Verification {
 		}	
 
 		// Generate documentation
-		//add_filter( 'wpfpdh_documentation_params_' . plugin_basename( $this->plugin_file() ), array( $this, 'handle_documentation_params' ), 10 );
+		add_filter( 'wpfpdh_documentation_params_' . plugin_basename( $this->get_filesystem_path() ), array( $this, 'handle_documentation_params' ), 10 );
 	}	
 
 	/**
 	 * Handle documentation params managed by the WP Factory
 	 *
-	 * @version 2.0.2
+	 * @version 2.1.0
 	 * @since   2.0.0
 	 *
 	 * @param $params
 	 *
 	 * @return mixed
 	 */
-	/*function handle_documentation_params( $params ) {
+	function handle_documentation_params( $params ) {
 		$params['wc_tab_id']           = 'alg_wc_ev';
-		$params['pro_settings_filter'] = 'alg_wc_ev_settings';		
-		$params['text_file_update_params']=array(
+		$params['pro_settings_filter'] = 'alg_wc_ev_settings';
+		/*$params['text_file_update_params']=array(
 			'text_file_path' => WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'test' .DIRECTORY_SEPARATOR.'test.txt' //plugin_dir_path( $this->plugins_dir . DIRECTORY_SEPARATOR . $plugin_file ) ) ) . DIRECTORY_SEPARATOR . 'readme.txt'
-		);
+		);*/
 		return $params;
-	}*/
+	}
 
 	/**
 	 * localize.
@@ -131,21 +140,6 @@ final class Alg_WC_Email_Verification {
 	function localize() {
 		// Set up localisation
 		load_plugin_textdomain( 'emails-verification-for-woocommerce', false, dirname( plugin_basename( __FILE__ ) ) . '/langs/' );
-	}
-
-	/**
-	 * is_plugin_active.
-	 *
-	 * @version 1.2.0
-	 * @since   1.2.0
-	 */
-	function is_plugin_active( $plugin ) {
-		return ( function_exists( 'is_plugin_active' ) ? is_plugin_active( $plugin ) :
-			(
-				in_array( $plugin, apply_filters( 'active_plugins', ( array ) get_option( 'active_plugins', array() ) ) ) ||
-				( is_multisite() && array_key_exists( $plugin, ( array ) get_site_option( 'active_sitewide_plugins', array() ) ) )
-			)
-		);
 	}
 
 	/**
@@ -239,11 +233,11 @@ final class Alg_WC_Email_Verification {
 	/**
 	 * Get the plugin file.
 	 *
-	 * @version 1.7.0
+	 * @version 2.1.0
 	 * @since   1.7.0
 	 * @return  string
 	 */
-	function plugin_file() {
+	function get_filesystem_path() {
 		return __FILE__;
 	}
 

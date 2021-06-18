@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Admin Class
  *
- * @version 2.0.1
+ * @version 2.1.0
  * @since   1.5.0
  * @author  WPFactory
  */
@@ -212,11 +212,11 @@ class Alg_WC_Email_Verification_Admin {
 	/**
 	 * unschedule_delete_unverified_users_cron_on_deactivation.
 	 *
-	 * @version 1.7.0
+	 * @version 2.1.0
 	 * @since   1.7.0
 	 */
 	function unschedule_delete_unverified_users_cron_on_deactivation() {
-		register_deactivation_hook( alg_wc_ev()->plugin_file(), array( $this, 'unschedule_delete_unverified_users_cron' ) );
+		register_deactivation_hook( alg_wc_ev()->get_filesystem_path(), array( $this, 'unschedule_delete_unverified_users_cron' ) );
 	}
 
 	/**

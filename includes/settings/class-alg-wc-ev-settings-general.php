@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - General Section Settings
  *
- * @version 2.0.8
+ * @version 2.1.0
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -40,7 +40,7 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.0.8
+	 * @version 2.1.0
 	 * @since   1.0.0
 	 * @todo    [next] Logout unverified users on every page: better description
 	 * @todo    [next] (maybe) `alg_wc_ev_delay_wc_email`: default to `yes`?
@@ -153,6 +153,33 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 			array(
 				'type'     => 'sectionend',
 				'id'       => 'alg_wc_ev_redirect_on_success_options',
+			),
+			array(
+				'title' => __( 'Redirect on failure', 'emails-verification-for-woocommerce' ),
+				'type'  => 'title',
+				'desc'  => __( 'Redirects customers after unsuccessful verification.', 'emails-verification-for-woocommerce' ) . '<br />' .
+				           sprintf( __( 'This will also append a %s argument to the URL that could help you displaying the error message in case you have issues with that.', 'emails-verification-for-woocommerce' ), '<code>' . '?alg_wc_ev_email_verified_error' . '</code>' ),
+				'id'    => 'alg_wc_ev_redirect_on_failure_options',
+			),
+			array(
+				'title'    => __( 'Redirect on failure', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'Redirects to a custom URL if an unverified user tries to login', 'emails-verification-for-woocommerce' ),
+				'type'     => 'checkbox',
+				'id'       => 'alg_wc_ev_redirect_on_failure',
+				'default'  => 'no'
+			),
+			array(
+				'title'    => __( 'Custom redirect URL', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => __( 'If empty will redirect to the same page', 'emails-verification-for-woocommerce' ),
+				'type'     => 'text',
+				'id'       => 'alg_wc_ev_redirect_on_failure_url',
+				'default'  => '',
+				'css'      => 'width:100%;',
+				'alg_wc_ev_raw' => true,
+			),
+			array(
+				'type'     => 'sectionend',
+				'id'       => 'alg_wc_ev_redirect_on_failure_options',
 			),
 			array(
 				'title'    => __( 'Activation link', 'emails-verification-for-woocommerce' ),

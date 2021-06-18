@@ -3,7 +3,7 @@ Contributors: wpcodefactory
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 5.7
-Stable tag: 2.0.9
+Stable tag: 2.1.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -78,6 +78,15 @@ If just some of them are already enabled and even so it doesn't work, try to ena
 = How to prevent duplicated success message after account verification? =
 Please try to use **General > Redirect on success** option as **Do not redirect**
 
+= What can I do if the error messages are not showing? =
+If an unverified user is trying to login and the error message (Your account has to be activated before you can login...) is not getting displayed you can try two different approaches:
+
+1. Use the **Redirect on failure** option.
+Even if the **Custom redirect URL** option is empty, there will be no problem.
+A `?alg_wc_ev_email_verified_error` argument will be added to the URL that could help you displaying the message.
+
+2. Change the **Advanced > Authenticate filter** option.
+
 == Installation ==
 
 1. Upload the entire plugin folder to the `/wp-content/plugins/` directory.
@@ -85,6 +94,14 @@ Please try to use **General > Redirect on success** option as **Do not redirect*
 3. Start by visiting plugin settings at "WooCommerce > Settings > Email Verification".
 
 == Changelog ==
+
+= 2.1.0 - 18/06/2021 =
+* Fix - Free and pro plugins can't be active at the same time.
+* Dev - Use wpf-promoting-notice library to add notice on settings page regarding pro version.
+* Dev - General - Add "Redirect on failure" option.
+* Add FAQ question regarding error messages not getting displayed.
+* Add composer setup.
+* WC tested up to: 5.4.
 
 = 2.0.9 - 20/05/2021 =
 * Dev - Messages - Create "Clear previous messages" option trying to avoid duplicated messages.

@@ -187,7 +187,7 @@ class Alg_WC_Email_Verification_Settings_Emails extends Alg_WC_Email_Verificatio
 			array(
 				'title'    => __( 'Subject', 'emails-verification-for-woocommerce' ),
 				'desc'     => $this->available_placeholders_desc( $this->get_default_email_placeholders() ),
-				'type'     => 'text',
+				'type'     => 'text',				
 				'id'       => 'alg_wc_ev_admin_email_subject',
 				'default'  => __( 'User email has been verified', 'emails-verification-for-woocommerce' ),
 				'css'      => 'width:100%;',
