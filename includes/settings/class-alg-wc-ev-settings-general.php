@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - General Section Settings
  *
- * @version 2.1.0
+ * @version 2.1.1
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -26,21 +26,9 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 	}
 
 	/**
-	 * get_user_roles_options.
-	 *
-	 * @version 1.3.0
-	 * @since   1.0.0
-	 */
-	function get_user_roles_options() {
-		global $wp_roles;
-		$roles = apply_filters( 'editable_roles', ( isset( $wp_roles ) && is_object( $wp_roles ) ? $wp_roles->roles : array() ) );
-		return wp_list_pluck( $roles, 'name' );
-	}
-
-	/**
 	 * get_settings.
 	 *
-	 * @version 2.1.0
+	 * @version 2.1.1
 	 * @since   1.0.0
 	 * @todo    [next] Logout unverified users on every page: better description
 	 * @todo    [next] (maybe) `alg_wc_ev_delay_wc_email`: default to `yes`?
@@ -63,25 +51,9 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 				'default'  => 'yes',
 			),
 			array(
-				'title'    => __( 'Send as a separate email', 'emails-verification-for-woocommerce' ),
-				'desc'     => __( 'Send verification as a separate email', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => __( 'Disable if you want to append it to the standard WooCommerce "Customer new account" email.', 'emails-verification-for-woocommerce' ),
-				'type'     => 'checkbox',
-				'id'       => 'alg_wc_ev_send_as_separate_email',
-				'checkboxgroup' => 'start',
-				'default'  => 'yes',
-			),
-			array(
-				'desc'          => __( 'Delay WooCommerce "Customer new account" email', 'emails-verification-for-woocommerce' ),
-				'desc_tip'      => __( '"Customer new account" email is only sent on successful verification.', 'emails-verification-for-woocommerce' ) . ' ' .
-				                   $this->separate_email_option_msg(),
-				'type'          => 'checkbox',
-				'id'            => 'alg_wc_ev_delay_wc_email',
-				'checkboxgroup' => 'end',
-				'default'       => 'no',
-			),
-			array(
-				'title'    => __( 'Skip email verification for user roles', 'emails-verification-for-woocommerce' ),
+				'title'    => __( 'Ignore user roles', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => __( 'The following user roles won\'t need to be berified', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'Skipped user roles', 'emails-verification-for-woocommerce' ),
 				'type'     => 'multiselect',
 				'options'  => $this->get_user_roles_options(),
 				'id'       => 'alg_wc_ev_skip_user_roles',
@@ -89,15 +61,15 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 				'class'    => 'chosen_select',
 			),
 			array(
-				'title'    => __( 'Enable email verification for already registered users', 'emails-verification-for-woocommerce' ),
+				'title'    => __( 'Current registered users', 'emails-verification-for-woocommerce' ),
 				'desc'     => __( 'Verify email for current users', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => __( 'If enabled, all your current users will have to verify their emails when logging to your site.', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => __( 'If enabled, all your current unverified users will have to verify their emails when logging to your site.', 'emails-verification-for-woocommerce' ),
 				'type'     => 'checkbox',
 				'id'       => 'alg_wc_ev_verify_already_registered',
 				'default'  => 'no',
 			),
 			array(
-				'title'             => __( 'Unverify email changing accounts', 'emails-verification-for-woocommerce' ),
+				'title'             => __( 'Email changing accounts', 'emails-verification-for-woocommerce' ),
 				'desc'              => __( 'Unverify, logout and resend activation link to accounts that changed the emails', 'emails-verification-for-woocommerce' ),
 				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ), 'min', array( 0 ) ),
 				'type'              => 'checkbox',
@@ -118,6 +90,42 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 			array(
 				'type'     => 'sectionend',
 				'id'       => 'alg_wc_ev_general_options',
+			),
+			array(
+				'title'    => __( 'Verification info', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'Prepare a verification info to your customers like the verification status and a link to resend the verification email.', 'emails-verification-for-woocommerce' ).'<br />'.
+				$this->get_block_unverify_login_option_warning(),
+				'type'     => 'title',
+				'id'       => 'alg_wc_ev_verification_info',
+			),
+			array(
+				'title'    => __( 'My Account page', 'emails-verification-for-woocommerce' ),
+				'desc'     => sprintf( __( 'Show account verification info on <a href="%s">%s</a> page', 'emails-verification-for-woocommerce' ), wc_get_page_permalink( 'myaccount' ), __( 'My Account', 'emails-verification-for-woocommerce' ) ),
+				'type'     => 'checkbox',
+				'id'       => 'alg_wc_ev_verification_info_my_account',
+				'default'  => 'no',
+			),
+			array(
+				'title'    => __( 'Widget', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'Add account verification info widget', 'emails-verification-for-woocommerce' ),
+				'type'     => 'checkbox',
+				'id'       => 'alg_wc_ev_verification_info_widget',
+				'default'  => 'no',
+			),
+			array(
+				'title'             => __( 'Customization', 'emails-verification-for-woocommerce' ),
+				'desc'              => sprintf( __( 'Documentation on <a target="_blank" href="%s">plugin\'s FAQ</a>.', 'emails-verification-for-woocommerce' ), 'https://wordpress.org/plugins/emails-verification-for-woocommerce/' ),
+				'desc_tip'          => sprintf( __( 'You can use %s and %s shortcodes here and any other one you\'d like.', 'emails-verification-for-woocommerce' ), '<strong>' . '[alg_wc_ev_verification_status]' . '</strong>', '<strong>' . '[alg_wc_ev_resend_verification_url]' . '</strong>' ),
+				'type'              => 'textarea',
+				'css'               => 'width:100%;height:83px;',
+				'id'                => 'alg_wc_ev_verification_info_customization',
+				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'readonly' => 'readonly' ) ),
+				'alg_wc_ev_raw'     => true,
+				'default'           => alg_wc_ev()->core->get_verification_info_default(),
+			),
+			array(
+				'type'     => 'sectionend',
+				'id'       => 'alg_wc_ev_verification_info',
 			),
 			array(
 				'title'    => __( 'Redirect on success', 'emails-verification-for-woocommerce' ),
@@ -226,217 +234,8 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'readonly' => 'readonly' ) ),
 			),
 			array(
-				'title'    => __( 'Email sending trigger', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => __( 'Leave the default value if unsure.', 'emails-verification-for-woocommerce' ) . ' ' .
-				              $this->separate_email_option_msg(),
-				'type'     => 'select',
-				'class'    => 'chosen_select',
-				'id'       => 'alg_wc_ev_new_user_action',
-				'default'  => 'user_register',
-				'options'  => array(
-					'user_register'                => __( 'On "user register"', 'emails-verification-for-woocommerce' ),
-					'woocommerce_created_customer' => __( 'On "WooCommerce created customer"', 'emails-verification-for-woocommerce' ),
-					//'on_order_payment'             => __( 'On order payment', 'emails-verification-for-woocommerce' ),
-				),
-			),
-			array(
-				'title'    => __( 'Activation email delay', 'emails-verification-for-woocommerce' ),
-				'desc'     => __( 'Delay the activation email', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => __( 'Try to enable it if the activation emails are getting sent to authenticated users.', 'emails-verification-for-woocommerce' ) . '<br />' .
-				              $this->separate_email_option_msg(),
-				'type'     => 'checkbox',
-				'id'       => 'alg_wc_ev_delay_activation_email',
-				'default'  => 'no',
-			),
-			array(
 				'type'     => 'sectionend',
 				'id'       => 'alg_wc_ev_activation_link_options',
-			),
-			array(
-				'title'    => __( 'Logout unverified users', 'emails-verification-for-woocommerce' ),
-				'desc'     => __( 'Logouts unverified users in some specific situations.', 'emails-verification-for-woocommerce' ),
-				'type'     => 'title',
-				'id'       => 'alg_wc_ev_logout_options',
-			),
-			array(
-				'title'    => __( 'Logout unverified users on "My Account" page', 'emails-verification-for-woocommerce' ),
-				'desc'     => __( 'Check if logged user is verified on "My Account" page', 'emails-verification-for-woocommerce' ),
-				'type'     => 'checkbox',
-				'id'       => 'alg_wc_ev_prevent_login_myaccount',
-				'default'  => 'no',
-			),
-			array(
-				'title'    => __( 'Logout unverified users on every page', 'emails-verification-for-woocommerce' ),
-				'desc'     => __( 'Check if logged user is verified on every page of your site', 'emails-verification-for-woocommerce' ),
-				'type'     => 'checkbox',
-				'id'       => 'alg_wc_ev_prevent_login_always',
-				'default'  => 'no',
-				'checkboxgroup' => 'start',
-			),
-			array(
-				'desc'     => __( 'Redirect to the activate account notice after logout', 'emails-verification-for-woocommerce' ),
-				'type'     => 'checkbox',
-				'id'       => 'alg_wc_ev_prevent_login_always_redirect',
-				'default'  => 'yes',
-				'checkboxgroup' => 'end',
-			),
-			array(
-				'type'     => 'sectionend',
-				'id'       => 'alg_wc_ev_logout_options',
-			),
-			array(
-				'title'    => __( 'Block checkout', 'emails-verification-for-woocommerce' ),
-				'desc'     => __( 'Blocks checkout process for unverified users.', 'emails-verification-for-woocommerce' ),
-				'type'     => 'title',
-				'id'       => 'alg_wc_ev_block_checkout_options',
-			),
-			array(
-				'title'    => __( 'Block checkout', 'emails-verification-for-woocommerce' ),
-				'desc' => __( 'Blocks checkout process for unverified users (including guests).', 'emails-verification-for-woocommerce' ),
-				'type'     => 'checkbox',
-				'id'       => 'alg_wc_ev_block_checkout_process',
-				'default'  => 'no',
-				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
-			),
-			array(
-				'title'    => __( 'Error notice', 'emails-verification-for-woocommerce' ),
-				'type'     => 'textarea',
-				'id'       => 'alg_wc_ev_block_checkout_process_notice',
-				'default'  => __( 'You need to log in and verify your email to place an order.', 'emails-verification-for-woocommerce' ),
-				'css'      => 'width:100%;',
-				'alg_wc_ev_raw' => true,
-				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'readonly' => 'readonly' ) ),
-			),
-			array(
-				'type'     => 'sectionend',
-				'id'       => 'alg_wc_ev_block_checkout_options',
-			),
-			array(
-				'title'    => __( 'Block adding products to cart', 'emails-verification-for-woocommerce' ),
-				'desc'     => __( 'Blocks guests from adding products to the cart.', 'emails-verification-for-woocommerce' ),
-				'type'     => 'title',
-				'id'       => 'alg_wc_ev_block_guests_add_to_cart_options',
-			),
-			array(
-				'title'    => __( 'Block adding products to cart', 'emails-verification-for-woocommerce' ),
-				'desc' => __( 'Blocks guests from adding any products to the cart', 'emails-verification-for-woocommerce' ),
-				'type'     => 'checkbox',
-				'id'       => 'alg_wc_ev_block_guest_add_to_cart',
-				'default'  => 'no',
-				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
-			),
-			array(
-				'title'         => __( 'Custom redirect URL', 'emails-verification-for-woocommerce' ),
-				'desc_tip'      => __( 'Redirects to a custom URL after the customer is blocked.', 'emails-verification-for-woocommerce' ) . '<br />' .
-				                   __( 'Leave it empty if you don\'t want to redirect.', 'emails-verification-for-woocommerce' ),
-				'type'          => 'text',
-				'id'            => 'alg_wc_ev_block_guest_add_to_cart_custom_redirect_url',
-				'default'       => '',
-				'css'           => 'width:100%;',
-				'alg_wc_ev_raw' => true,
-			),
-			array(
-				'title'    => __( 'Error notice', 'emails-verification-for-woocommerce' ),
-				'desc'     => $this->available_placeholders_desc( array( '%myaccount_url%' ) ),
-				'type'     => 'textarea',
-				'id'       => 'alg_wc_ev_block_guest_add_to_cart_notice',
-				'default'  => __( 'You need to <a href="%myaccount_url%" target="_blank">register</a> and verify your email before adding products to the cart.', 'emails-verification-for-woocommerce' ),
-				'css'      => 'width:100%;',
-				'alg_wc_ev_raw' => true,
-				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'readonly' => 'readonly' ) ),
-			),
-			array(
-				'type'     => 'sectionend',
-				'id'       => 'alg_wc_ev_block_guests_add_to_cart_options',
-			),
-			array(
-				'title'    => __( 'Block non-paying users', 'emails-verification-for-woocommerce' ),
-				'desc'     => sprintf( __( 'Prevents non-paying users from activating their accounts until they become paying customers, considering the %s option.', 'emails-verification-for-woocommerce' ) . '<br />' . '<strong>' . __( 'Note:', 'emails-verification-for-woocommerce' ) . '</strong>' . ' ' . __( 'Probably this option will make more sense if users register only on checkout, or else they won\'t be able to purchase to activate their accounts using the same email.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Role checking', 'emails-verification-for-woocommerce' ) . '</strong>' ),
-				'type'     => 'title',
-				'id'       => 'alg_wc_ev_block_nonpaying_users_activation_options',
-			),
-			array(
-				'title'         => __( 'Block non-paying users', 'emails-verification-for-woocommerce' ),
-				'desc'          => __( 'Block activation link until the customer places an order and its status is considered as paid', 'emails-verification-for-woocommerce' ),
-				'desc_tip'      => __( 'Won\'t block users already verified.', 'emails-verification-for-woocommerce' ),
-				'type'          => 'checkbox',
-				'default'       => 'no',
-				'checkboxgroup' => 'start',
-				'id'            => 'alg_wc_ev_block_nonpaying_users_activation',
-			),
-			array(
-				'title'             => __( 'Verify paying customers automatically', 'emails-verification-for-woocommerce' ),
-				'desc'              => __( 'Activate the account automatically when the order is paid', 'emails-verification-for-woocommerce' ),
-				'desc_tip'          => __( 'The activation email won\'t be sent if the order cost is not free.', 'emails-verification-for-woocommerce' ),
-				'type'              => 'checkbox',
-				'default'           => 'no',
-				'checkboxgroup'     => 'start',
-				'id'                => 'alg_wc_ev_auto_verify_paying_user',
-				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
-			),
-			array(
-				'title'             => __( 'Send activation email only on payment', 'emails-verification-for-woocommerce' ),
-				'desc'              => __( 'Send the activation email only when order status is considered as paid', 'emails-verification-for-woocommerce' ),
-				'desc_tip'          => sprintf( __( 'Will only send the email if the %s option is disabled or if the corresponding order cost is free.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Verify paying customers automatically', 'emails-verification-for-woocommerce' ) . '</strong>' ),
-				'type'              => 'checkbox',
-				'id'                => 'alg_wc_ev_block_nonpaying_users_activation_email_on_payment',
-				'default'           => 'no',
-				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
-			),
-			array(
-				'title'    => __( 'Role checking', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => __( 'Blocks non-paying users with one of the following roles.', 'emails-verification-for-woocommerce' ).'<br />'.__( 'Probably you just want to mark the "Customer" role.', 'emails-verification-for-woocommerce' ).'<br />'.__( 'If empty, will work for any role.', 'emails-verification-for-woocommerce' ),
-				'type'     => 'multiselect',
-				'options'  => $this->get_user_roles_options(),
-				'id'       => 'alg_wc_ev_block_nonpaying_users_activation_role',
-				'default'  => array( 'customer' ),
-				'class'    => 'chosen_select',
-			),
-			array(
-				'title'    => __( 'Error notice', 'emails-verification-for-woocommerce' ),
-				'desc'     => $this->available_placeholders_desc( array( '%resend_verification_url%' ) ),
-				'desc_tip' => __( 'The notice will be displayed when user is blocked after trying to login or to verify its email.', 'emails-verification-for-woocommerce' ),
-				'type'     => 'textarea',
-				'id'       => 'alg_wc_ev_block_nonpaying_users_activation_error_notice',
-				'default'  => __( 'You need to become a paying customer in order to activate your account.', 'emails-verification-for-woocommerce' ),
-				'css'      => 'width:100%;',
-				'alg_wc_ev_raw' => true,
-				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'readonly' => 'readonly' ) ),
-			),
-			array(
-				'type'     => 'sectionend',
-				'id'       => 'alg_wc_ev_block_nonpaying_users_activation_options',
-			),
-			array(
-				'title'    => __( 'Block account verification by email', 'emails-verification-for-woocommerce' ),
-				'desc'     => __( 'Prevents account verification by email.', 'emails-verification-for-woocommerce' ),
-				'type'     => 'title',
-				'id'       => 'alg_wc_ev_block_nonpaying_users_activation_options',
-			),
-			array(
-				'title'    => __( 'Email denylist', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => __( 'Ignored if empty.', 'emails-verification-for-woocommerce' ),
-				'desc'     => sprintf( __( 'Separate emails with a comma and/or with a new line. You can also use wildcard (%s) here, for example: %s', 'emails-verification-for-woocommerce' ),
-						'<code>*</code>', '<code>*@example.com,email@example.net</code>' ),
-				'type'     => 'textarea',
-				'css'      => 'width:100%;height:100px;',
-				'id'       => 'alg_wc_ev_email_blacklist',
-				'default'  => '',
-				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'readonly' => 'readonly' ) ),
-			),
-			array(
-				'title'    => __( 'Error notice', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => __( 'Notice will appear when user will try to verify his email by clicking the email activation link.', 'emails-verification-for-woocommerce' ),
-				'type'     => 'textarea',
-				'id'       => 'alg_wc_ev_blacklisted_message',
-				'default'  => __( 'Your email is denied.', 'emails-verification-for-woocommerce' ),
-				'css'      => 'width:100%;',
-				'alg_wc_ev_raw' => true,
-				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'readonly' => 'readonly' ) ),
-			),
-			array(
-				'type'     => 'sectionend',
-				'id'       => 'alg_wc_ev_block_activation_by_email_options',
 			),
 		);
 	}

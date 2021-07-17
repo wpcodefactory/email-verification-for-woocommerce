@@ -1,27 +1,27 @@
 <?php
 /**
- * Email Verification for WooCommerce - Emails Section Settings
+ * Email Verification for WooCommerce - Email Section Settings
  *
- * @version 2.0.9
+ * @version 2.1.1
  * @since   1.3.0
  * @author  WPFactory
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Emails' ) ) :
+if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Email' ) ) :
 
-class Alg_WC_Email_Verification_Settings_Emails extends Alg_WC_Email_Verification_Settings_Section {
+class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification_Settings_Section {
 
 	/**
 	 * Constructor.
 	 *
-	 * @version 1.3.0
+	 * @version 2.1.1
 	 * @since   1.3.0
 	 */
 	function __construct() {
 		$this->id   = 'emails';
-		$this->desc = __( 'Emails', 'emails-verification-for-woocommerce' );
+		$this->desc = __( 'Email', 'emails-verification-for-woocommerce' );
 		parent::__construct();
 	}
 
@@ -52,7 +52,7 @@ class Alg_WC_Email_Verification_Settings_Emails extends Alg_WC_Email_Verificatio
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.0.7
+	 * @version 2.1.1
 	 * @since   1.3.0
 	 */
 	function get_settings() {
@@ -77,6 +77,15 @@ class Alg_WC_Email_Verification_Settings_Emails extends Alg_WC_Email_Verificatio
 				),
 			),
 			array(
+				'title'         => __( 'Customer new account email', 'emails-verification-for-woocommerce' ),
+				'desc'          => __( 'Delay WooCommerce "Customer new account" email', 'emails-verification-for-woocommerce' ),
+				'desc_tip'      => __( '"Customer new account" email is only sent on successful verification.', 'emails-verification-for-woocommerce' ) . ' ' .
+				                   $this->separate_email_option_msg(),
+				'type'          => 'checkbox',
+				'id'            => 'alg_wc_ev_delay_wc_email',
+				'default'       => 'no',
+			),
+			array(
 				'type'     => 'sectionend',
 				'id'       => 'alg_wc_ev_email_options',
 			),
@@ -85,6 +94,37 @@ class Alg_WC_Email_Verification_Settings_Emails extends Alg_WC_Email_Verificatio
 				'type'     => 'title',
 				'id'       => 'alg_wc_ev_activation_email',
 				'desc'     => __( 'An email sent to the user with an activation link.', 'emails-verification-for-woocommerce' ),
+			),
+			array(
+				'title'    => __( 'Send as a separate email', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'Send verification as a separate email', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => __( 'Disable it if you want to append it to the standard WooCommerce "Customer new account" email.', 'emails-verification-for-woocommerce' ),
+				'type'     => 'checkbox',
+				'id'       => 'alg_wc_ev_send_as_separate_email',
+				'default'  => 'yes',
+			),
+			array(
+				'title'    => __( 'Email sending trigger', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => __( 'Leave the default value if unsure.', 'emails-verification-for-woocommerce' ) . ' ' .
+				              $this->separate_email_option_msg(),
+				'type'     => 'select',
+				'class'    => 'chosen_select',
+				'id'       => 'alg_wc_ev_new_user_action',
+				'default'  => 'user_register',
+				'options'  => array(
+					'user_register'                => __( 'On "user register"', 'emails-verification-for-woocommerce' ),
+					'woocommerce_created_customer' => __( 'On "WooCommerce created customer"', 'emails-verification-for-woocommerce' ),
+					//'on_order_payment'             => __( 'On order payment', 'emails-verification-for-woocommerce' ),
+				),
+			),
+			array(
+				'title'    => __( 'Activation email delay', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'Delay the activation email', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => __( 'Try to enable it if the activation emails are getting sent to authenticated users.', 'emails-verification-for-woocommerce' ) . '<br />' .
+				              $this->separate_email_option_msg(),
+				'type'     => 'checkbox',
+				'id'       => 'alg_wc_ev_delay_activation_email',
+				'default'  => 'no',
 			),
 			array(
 				'title'    => __( 'Email subject', 'emails-verification-for-woocommerce' ),
@@ -222,4 +262,4 @@ class Alg_WC_Email_Verification_Settings_Emails extends Alg_WC_Email_Verificatio
 
 endif;
 
-return new Alg_WC_Email_Verification_Settings_Emails();
+return new Alg_WC_Email_Verification_Settings_Email();

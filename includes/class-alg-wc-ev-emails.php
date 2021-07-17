@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Emails Class
  *
- * @version 2.0.8
+ * @version 2.1.1
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -78,14 +78,14 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * get_verification_url.
 	 *
-	 * @version 1.8.0
+	 * @version 2.1.1
 	 * @since   1.8.0
 	 */
 	function get_verification_url( $user_id, $code = false ) {
 		if ( false === $code ) {
 			$code = md5( time() );
 		}
-		return add_query_arg( 'alg_wc_ev_verify_email', base64_encode( json_encode( array( 'id' => $user_id, 'code' => $code ) ) ), wc_get_page_permalink( 'myaccount' ) );
+		return add_query_arg( 'alg_wc_ev_verify_email', alg_wc_ev()->core->base64_url_encode( json_encode( array( 'id' => $user_id, 'code' => $code ) ) ), wc_get_page_permalink( 'myaccount' ) );
 	}
 
 	/**

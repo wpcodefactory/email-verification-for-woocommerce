@@ -16,7 +16,7 @@ class Alg_WC_Email_Verification_Settings extends WC_Settings_Page {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.0.8
+	 * @version 2.1.1
 	 * @since   1.0.0
 	 */
 	function __construct() {
@@ -27,9 +27,10 @@ class Alg_WC_Email_Verification_Settings extends WC_Settings_Page {
 		// Sections
 		require_once( 'class-alg-wc-ev-settings-section.php' );
 		require_once( 'class-alg-wc-ev-settings-general.php' );
-		require_once( 'class-alg-wc-ev-settings-messages.php' );
-		require_once( 'class-alg-wc-ev-settings-emails.php' );
+		require_once( 'class-alg-wc-ev-settings-email.php' );
+		require_once( 'class-alg-wc-ev-settings-blocking.php' );
 		require_once( 'class-alg-wc-ev-settings-admin.php' );
+		require_once( 'class-alg-wc-ev-settings-messages.php' );
 		require_once( 'class-alg-wc-ev-settings-advanced.php' );
 		// Create notice about pro
 		add_action( 'admin_init', array( $this, 'add_promoting_notice' ) );

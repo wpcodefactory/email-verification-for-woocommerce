@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Core Class
  *
- * @version 2.0.6
+ * @version 2.1.1
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -16,7 +16,7 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.1.0
+	 * @version 2.1.1
 	 * @since   1.0.0
 	 * @todo    [next] (maybe) `[alg_wc_ev_translate]` to description in readme.txt
 	 */
@@ -27,14 +27,14 @@ class Alg_WC_Email_Verification_Core {
 		add_action( 'init', array( $this, 'verify' ),   PHP_INT_MAX );
 		add_action( 'init', array( $this, 'activate_message' ), PHP_INT_MAX );
 		add_action( 'init', array( $this, 'resend' ),   PHP_INT_MAX );
+		// Verification info widget
+		require_once( 'class-alg-wc-ev-verification-info-widget.php' );
 		// Prevent login
 		require_once( 'class-alg-wc-ev-logouts.php' );
 		// Emails
 		$this->emails = require_once( 'class-alg-wc-ev-emails.php' );
 		// Messages
 		$this->messages = require_once( 'class-alg-wc-ev-messages.php' );
-		// Shortcodes
-		add_shortcode( 'alg_wc_ev_translate', array( $this, 'language_shortcode' ) );
 		// Admin stuff
 		require_once( 'class-alg-wc-ev-admin.php' );
 		// Non Paying Blocker
@@ -57,6 +57,129 @@ class Alg_WC_Email_Verification_Core {
 		add_action( 'init', array( $this, 'display_error_activation_message' ) );
 		// Redirects on failure
 		add_action( 'wp_login_failed', array( $this, 'redirect_on_failure' ), 10, 2 );
+		// Add verification info to my account page
+		add_action( 'woocommerce_account_dashboard', array( $this, 'add_verification_info_to_my_account_page' ) );
+		// Verification info widget
+		add_action( 'widgets_init', array( $this, 'add_verification_info_widget' ) );
+		// Blocks content for unverified users
+		add_action( 'template_redirect', array( $this, 'block_pages_for_unverified_users' ) );
+		add_action( 'init', array( $this, 'show_blocked_content_notice' ) );
+		$this->handle_shortcodes();
+	}
+
+	/**
+	 * block_pages_for_unverified_users.
+	 *
+	 * @version 2.1.1
+	 * @since   2.1.1
+	 */
+	function block_pages_for_unverified_users() {
+		if (
+			! is_admin()
+			&& ! empty( $blocked_pages = get_option( 'alg_wc_ev_blocked_pages', array() ) )
+			&& is_page( $blocked_pages )
+			&&
+			(
+				! is_user_logged_in()
+				|| ! alg_wc_ev_is_user_verified_by_user_id( get_current_user_id() )
+			)
+		) {
+			$redirect_url = add_query_arg( array(
+				'alg_wc_ev_blocked_content' => true
+			), get_option( 'alg_wc_ev_block_content_redirect', home_url() ) );
+			wp_safe_redirect( $redirect_url );
+			exit;
+		}
+	}
+
+	/**
+	 * show_blocked_content_notice.
+	 *
+	 * @version 2.1.1
+	 * @since   2.1.1
+	 */
+	function show_blocked_content_notice() {
+		if ( isset( $_GET['alg_wc_ev_blocked_content'] ) ) {
+			$error_msg_options = array(
+				'alg_wc_ev_block_content_notice_guests' => __( 'You need to verify your account to access this content.', 'emails-verification-for-woocommerce' ),
+				'alg_wc_ev_block_content_notice'        => __( 'You need to verify your account to access this content.', 'emails-verification-for-woocommerce' ) . ' ' . __( 'You can resend the email with verification link by clicking <a href="%resend_verification_url%">here</a>.', 'emails-verification-for-woocommerce' )
+			);
+			$error_msg_option  = ! is_user_logged_in() ? 'alg_wc_ev_block_content_notice_guests' : 'alg_wc_ev_block_content_notice';
+			$msg               = get_option( $error_msg_option, $error_msg_options[ $error_msg_option ] );
+			$replace           = array(
+				'%myaccount_url%' => wc_get_page_permalink( 'myaccount' )
+			);
+			if ( is_user_logged_in() ) {
+				$replace['%resend_verification_url%'] = alg_wc_ev()->core->messages->get_resend_verification_url( get_current_user_id() );
+			}
+			$msg = str_replace( array_keys( $replace ), $replace, $msg );
+			if ( ! empty( $msg ) ) {
+				alg_wc_ev_add_notice( $msg );
+			}
+		}
+	}
+
+	/**
+	 * add_verification_info_widget.
+	 *
+	 * @version 2.1.1
+	 * @since   2.1.1
+	 */
+	function add_verification_info_widget() {
+		if ( 'yes' === get_option( 'alg_wc_ev_verification_info_widget', 'no' ) ) {
+			register_widget( 'Alg_WC_Email_Verification_Info_Widget' );
+		}
+	}
+
+	/**
+	 * handle_shortcodes.
+	 *
+	 * @version 2.1.1
+	 * @since   2.1.1
+	 */
+	function handle_shortcodes(){
+		// Language translate shortcode
+		add_shortcode( 'alg_wc_ev_translate', array( $this, 'language_shortcode' ) );
+		// Verification status shortcode
+		add_shortcode( 'alg_wc_ev_verification_status', array( $this, 'alg_wc_ev_verification_status' ) );
+		// Resend verification url shortcode
+		add_shortcode( 'alg_wc_ev_resend_verification_url', array( $this, 'alg_wc_ev_resend_verification_url' ) );
+	}
+
+	/**
+	 * add_verification_status_to_my_account_page.
+	 *
+	 * @version 2.1.1
+	 * @since   2.1.1
+	 */
+	function add_verification_info_to_my_account_page() {
+		if ( 'yes' === get_option( 'alg_wc_ev_verification_info_my_account', 'no' ) ) {
+			echo do_shortcode( get_option( 'alg_wc_ev_verification_info_customization', $this->get_verification_info_default() ) );
+		}
+	}
+
+	/**
+	 * get_verification_info_default.
+	 *
+	 * @version 2.1.1
+	 * @since   2.1.1
+	 *
+	 * @param null $args
+	 *
+	 * @return string
+	 */
+	function get_verification_info_default( $args = null ) {
+		$args   = wp_parse_args( $args, array(
+			'tabs_to_remove' => 3
+		) );
+		$option =
+			'<div class="alg-wc-ev-verification-info">
+				[alg_wc_ev_verification_status content_template="' . __( 'Verification status: ', 'emails-verification-for-woocommerce' ) . '{verification_status}' . '"]
+			</div>';
+		if ( is_int( $args['tabs_to_remove'] ) && $args['tabs_to_remove'] > 0 ) {
+			$option = preg_replace( '/\t{' . $args['tabs_to_remove'] . '}/', '', $option );
+		}
+		return $option;
 	}
 
 	/**
@@ -242,51 +365,6 @@ class Alg_WC_Email_Verification_Core {
 	}
 
 	/**
-	 * language_in.
-	 *
-	 * @version 1.7.0
-	 * @since   1.7.0
-	 */
-	function language_in( $needle, $haystack ) {
-		return in_array( strtolower( $needle ), array_map( 'trim', explode( ',', strtolower( $haystack ) ) ) );
-	}
-
-	/**
-	 * get_language.
-	 *
-	 * @version 1.7.0
-	 * @since   1.7.0
-	 * @todo    [next] (maybe) email: add `lang` param to the `alg_wc_ev_user_id`
-	 * @todo    [next] (maybe) email: use `locale` ("Language") field from user profile
-	 * @todo    [next] (maybe) email: `billing_country`?
-	 * @todo    [next] (maybe) email: `shipping_country` fallback?
-	 * @todo    [next] (maybe) email: TLD fallback?
-	 */
-	function get_language() {
-		return ( defined( 'ICL_LANGUAGE_CODE' ) ? ICL_LANGUAGE_CODE : false );
-	}
-
-	/**
-	 * language_shortcode.
-	 *
-	 * @version 1.7.0
-	 * @since   1.7.0
-	 */
-	function language_shortcode( $atts, $content = '' ) {
-		$language = $this->get_language();
-		// E.g.: `[alg_wc_ev_translate lang="EN,DE" lang_text="Text for EN & DE" not_lang_text="Text for other languages"]`
-		if ( isset( $atts['lang_text'] ) && isset( $atts['not_lang_text'] ) && ! empty( $atts['lang'] ) ) {
-			return ( ! $language || ! $this->language_in( $language, $atts['lang'] ) ) ?
-				$atts['not_lang_text'] : $atts['lang_text'];
-		}
-		// E.g.: `[alg_wc_ev_translate lang="EN,DE"]Text for EN & DE[/alg_wc_ev_translate][alg_wc_ev_translate not_lang="EN,DE"]Text for other languages[/alg_wc_ev_translate]`
-		return (
-			( ! empty( $atts['lang'] )     && ( ! $language || ! $this->language_in( $language, $atts['lang'] ) ) ) ||
-			( ! empty( $atts['not_lang'] ) &&     $language &&   $this->language_in( $language, $atts['not_lang'] ) )
-		) ? '' : $content;
-	}
-
-	/**
 	 * add_to_log.
 	 *
 	 * @version 1.6.0
@@ -318,15 +396,12 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * is_user_verified.
 	 *
-	 * @version 1.8.0
+	 * @version 2.1.1
 	 * @since   1.1.0
 	 */
 	function is_user_verified( $user, $is_guest_verified = false ) {
 		if ( ! $user || is_wp_error( $user ) || 0 == $user->ID || empty( $user->roles ) ) {
-			return $is_guest_verified;
-		}
-		if ( apply_filters( 'alg_wc_ev_is_user_verified', false, $user->ID ) ) {
-			return true;
+			return apply_filters( 'alg_wc_ev_is_user_verified', $is_guest_verified, null );
 		}
 		$do_verify_already_registered = ( 'yes' === get_option( 'alg_wc_ev_verify_already_registered', 'no' ) );
 		$is_user_email_activated      = get_user_meta( $user->ID, 'alg_wc_ev_is_activated', true );
@@ -334,9 +409,9 @@ class Alg_WC_Email_Verification_Core {
 			( ( $do_verify_already_registered && ! $is_user_email_activated ) || ( ! $do_verify_already_registered && '0' === $is_user_email_activated ) ) &&
 			! $this->is_user_role_skipped( $user )
 		) {
-			return false;
+			return apply_filters( 'alg_wc_ev_is_user_verified', false, $user->ID );
 		}
-		return true;
+		return apply_filters( 'alg_wc_ev_is_user_verified', true, $user->ID );
 	}
 
 	/**
@@ -420,12 +495,12 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * verify.
 	 *
-	 * @version 2.0.6
+	 * @version 2.1.1
 	 * @since   1.6.0
 	 */
 	function verify() {
 		if ( isset( $_GET['alg_wc_ev_verify_email'] ) ) {
-			$data = json_decode( base64_decode( wc_clean( $_GET['alg_wc_ev_verify_email'] ) ), true );
+			$data = json_decode( alg_wc_ev()->core->base64_url_decode( wc_clean( $_GET['alg_wc_ev_verify_email'] ) ), true );
 			if (
 				! empty( $user_id = $data['id'] )
 				&& ! empty( $code = get_user_meta( $user_id, 'alg_wc_ev_activation_code', true ) )
@@ -471,6 +546,145 @@ class Alg_WC_Email_Verification_Core {
 			$this->emails->reset_and_mail_activation_link( $_GET['alg_wc_ev_user_id'] );
 			alg_wc_ev_add_notice( $this->messages->get_resend_message() );
 		}
+	}
+
+	/**
+	 * alg_wc_ev_resend_verification_url.
+	 *
+	 * @version 2.1.1
+	 * @since   2.1.1
+	 */
+	function alg_wc_ev_resend_verification_url( $atts = null ) {
+		$atts                     = shortcode_atts( array(
+			'wrapper_template' => '<div class="alg-wc-ev-resend-verification-url">{content_template}</div>',
+			'hide_if_verified' => true,
+			'content_template' => __( 'You can resend the email with verification link by clicking <a href="{resend_verification_url}">here</a>.', 'emails-verification-for-woocommerce' ),
+		), $atts, 'alg_wc_ev_verification_status' );
+		$atts['hide_if_verified'] = filter_var( $atts['hide_if_verified'], FILTER_VALIDATE_BOOLEAN );
+		$atts['hide_for_guests']  = filter_var( $atts['hide_for_guests'], FILTER_VALIDATE_BOOLEAN );
+		if (
+			( ! is_user_logged_in() && $atts['hide_for_guests'] )
+			|| ( ( $is_user_verified = alg_wc_ev_is_user_verified_by_user_id( get_current_user_id() ) ) && $atts['hide_if_verified'] )
+		) {
+			return '';
+		}
+		$from_to = array(
+			'{resend_verification_url}' => esc_url( alg_wc_ev()->core->messages->get_resend_verification_url( get_current_user_id() ) ),
+		);
+		$content = str_replace( array_keys( $from_to ), $from_to, $atts['content_template'] );
+		$output  = str_replace( '{content_template}', $content, $atts['wrapper_template'] );
+		return wp_kses_post( $output );
+	}
+
+	/**
+	 * alg_wc_ev_verification_status.
+	 *
+	 * @version 2.1.1
+	 * @since   2.1.1
+	 *
+	 * @param null $atts
+	 *
+	 * @return string
+	 */
+	function alg_wc_ev_verification_status( $atts = null ) {
+		$atts                     = shortcode_atts( array(
+			'wrapper_template'  => '<div class="alg-wc-ev-verification-status">{content_template}</div>',
+			'content_template'  => __( 'Verification status: ', 'emails-verification-for-woocommerce' ) . '{verification_status}',
+			'verified_status'   => '<strong>' . __( 'Verified', 'emails-verification-for-woocommerce' ) . '</strong>',
+			'unverified_status' => '<strong>' . __( 'Unverified', 'emails-verification-for-woocommerce' ) . '</strong>',
+			'hide_if_verified'  => false,
+			'hide_for_guests'   => false
+		), $atts, 'alg_wc_ev_verification_status' );
+		$atts['hide_if_verified'] = filter_var( $atts['hide_if_verified'], FILTER_VALIDATE_BOOLEAN );
+		$atts['hide_for_guests']  = filter_var( $atts['hide_for_guests'], FILTER_VALIDATE_BOOLEAN );
+		if (
+			( ! is_user_logged_in() && $atts['hide_for_guests'] )
+			|| ( ( $is_user_verified = alg_wc_ev_is_user_verified_by_user_id( get_current_user_id() ) ) && $atts['hide_if_verified'] )
+		) {
+			return '';
+		}
+		$user    = wp_get_current_user();
+		$from_to = array(
+			'{verification_status}' => $is_user_verified ? $atts['verified_status'] : $atts['unverified_status'],
+			'{user_display_name}'   => $user->display_name,
+			'{user_nicename}'       => $user->user_nicename,
+		);
+		$content = str_replace( array_keys( $from_to ), $from_to, $atts['content_template'] );
+		$output  = str_replace( '{content_template}', $content, $atts['wrapper_template'] );
+		return wp_kses_post( $output );
+	}
+
+	/**
+	 * language_in.
+	 *
+	 * @version 1.7.0
+	 * @since   1.7.0
+	 */
+	function language_in( $needle, $haystack ) {
+		return in_array( strtolower( $needle ), array_map( 'trim', explode( ',', strtolower( $haystack ) ) ) );
+	}
+
+	/**
+	 * get_language.
+	 *
+	 * @version 1.7.0
+	 * @since   1.7.0
+	 * @todo    [next] (maybe) email: add `lang` param to the `alg_wc_ev_user_id`
+	 * @todo    [next] (maybe) email: use `locale` ("Language") field from user profile
+	 * @todo    [next] (maybe) email: `billing_country`?
+	 * @todo    [next] (maybe) email: `shipping_country` fallback?
+	 * @todo    [next] (maybe) email: TLD fallback?
+	 */
+	function get_language() {
+		return ( defined( 'ICL_LANGUAGE_CODE' ) ? ICL_LANGUAGE_CODE : false );
+	}
+
+	/**
+	 * language_shortcode.
+	 *
+	 * @version 1.7.0
+	 * @since   1.7.0
+	 */
+	function language_shortcode( $atts, $content = '' ) {
+		$language = $this->get_language();
+		// E.g.: `[alg_wc_ev_translate lang="EN,DE" lang_text="Text for EN & DE" not_lang_text="Text for other languages"]`
+		if ( isset( $atts['lang_text'] ) && isset( $atts['not_lang_text'] ) && ! empty( $atts['lang'] ) ) {
+			return ( ! $language || ! $this->language_in( $language, $atts['lang'] ) ) ?
+				$atts['not_lang_text'] : $atts['lang_text'];
+		}
+		// E.g.: `[alg_wc_ev_translate lang="EN,DE"]Text for EN & DE[/alg_wc_ev_translate][alg_wc_ev_translate not_lang="EN,DE"]Text for other languages[/alg_wc_ev_translate]`
+		return (
+			( ! empty( $atts['lang'] )     && ( ! $language || ! $this->language_in( $language, $atts['lang'] ) ) ) ||
+			( ! empty( $atts['not_lang'] ) &&     $language &&   $this->language_in( $language, $atts['not_lang'] ) )
+		) ? '' : $content;
+	}
+
+	/**
+	 * base64_url_encode.
+	 *
+	 * @version 2.1.1
+	 * @since   2.1.1
+	 *
+	 * @param $input
+	 *
+	 * @return string
+	 */
+	function base64_url_encode( $input ) {
+		return strtr( base64_encode( $input ), '+/=', '._-' );
+	}
+
+	/**
+	 * base64_url_encode.
+	 *
+	 * @version 2.1.1
+	 * @since   2.1.1
+	 *
+	 * @param $input
+	 *
+	 * @return bool|string
+	 */
+	function base64_url_decode( $input ) {
+		return base64_decode( strtr( $input, '._-', '+/=' ) );
 	}
 
 }
