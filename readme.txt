@@ -3,7 +3,7 @@ Contributors: wpcodefactory
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 5.7
-Stable tag: 2.1.1
+Stable tag: 2.1.2
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -85,34 +85,34 @@ If an unverified user is trying to login and the error message (Your account has
 Even if the **Custom redirect URL** option is empty, there will be no problem.
 A `?alg_wc_ev_email_verified_error` argument will be added to the URL that could help you displaying the message.
 
-= How to use the `[alg_wc_ev_verification_status]` shortcode ? =
+2. Change the **Advanced > Authenticate filter** option.
+
+= How to use the [alg_wc_ev_verification_status] shortcode ? =
 Shortcode params:
-* **wrapper_template**: `<div class="alg-wc-ev-verification-status">{content_template}</div>`
-* **content_template**: `Verification status: {verification_status}`
-* **verified_status**: `Verified`
-* **unverified_status**: `Unverified`
-* **hide_if_verified**: `false`
-* **hide_for_guests**: `false`
+- **wrapper_template**: `<div class="alg-wc-ev-verification-status">{content_template}</div>`
+- **content_template**: `Verification status: {verification_status}`
+- **verified_status**: `Verified`
+- **unverified_status**: `Unverified`
+- **hide_if_verified**: `false`
+- **hide_for_guests**: `false`
 
 **wrapper_template** params:
-*  **{content_template}**
+- **{content_template}**
 
 **content_template** params:
-*  **{verification_status}**
-*  **{user_display_name}**
-*  **{user_nicename}**
+- **{verification_status}**
+- **{user_display_name}**
+- **{user_nicename}**
 
-= How to use the `[alg_wc_ev_resend_verification_url]` shortcode ? =
+= How to use the [alg_wc_ev_resend_verification_url] shortcode ? =
 Shortcode params:
-* **wrapper_template**: `<div class="alg-wc-ev-resend-verification-url">{content_template}</div>`
-* **content_template**: `You can resend the email with verification link by clicking <a href="{resend_verification_url}">here</a>.`
-* **hide_if_verified**: `false`
-* **hide_for_guests**: `false`
+- **wrapper_template**: `<div class="alg-wc-ev-resend-verification-url">{content_template}</div>`
+- **content_template**: `You can resend the email with verification link by clicking <a href="{resend_verification_url}">here</a>.`
+- **hide_if_verified**: `false`
+- **hide_for_guests**: `false`
 
 **content_template** params:
-*  **{resend_verification_url}**
-
-2. Change the **Advanced > Authenticate filter** option.
+- **{resend_verification_url}**
 
 == Installation ==
 
@@ -122,7 +122,10 @@ Shortcode params:
 
 == Changelog ==
 
-= 2.1.1 - 17/07/2021 =
+= 2.1.2 - 17/07/2021 =
+* Fix shortcode documentation format on FAQ.
+
+= 2.1.2 - 17/07/2021 =
 * Dev - Blocking - Create "Blocked pages" option.
 * Dev - Blocking - Create "Blocked products" option.
 * Dev - Blocking - Create "Conditionals" option allowing to block content by checking the conditionals.
