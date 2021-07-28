@@ -2,8 +2,8 @@
 Contributors: wpcodefactory
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
-Tested up to: 5.7
-Stable tag: 2.1.2
+Tested up to: 5.8
+Stable tag: 2.1.3
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -87,8 +87,10 @@ A `?alg_wc_ev_email_verified_error` argument will be added to the URL that could
 
 2. Change the **Advanced > Authenticate filter** option.
 
-= How to use the [alg_wc_ev_verification_status] shortcode ? =
-Shortcode params:
+= How to use the alg_wc_ev_verification_status shortcode ? =
+You can use the `[alg_wc_ev_verification_status]` shortcode to display the verification status, showing if current user is verified or not.
+Params for the `[alg_wc_ev_verification_status]` shortcode:
+
 - **wrapper_template**: `<div class="alg-wc-ev-verification-status">{content_template}</div>`
 - **content_template**: `Verification status: {verification_status}`
 - **verified_status**: `Verified`
@@ -97,22 +99,39 @@ Shortcode params:
 - **hide_for_guests**: `false`
 
 **wrapper_template** params:
+
 - **{content_template}**
 
 **content_template** params:
+
 - **{verification_status}**
 - **{user_display_name}**
 - **{user_nicename}**
 
-= How to use the [alg_wc_ev_resend_verification_url] shortcode ? =
-Shortcode params:
+= How to use the alg_wc_ev_resend_verification_url shortcode ? =
+You can use the `[alg_wc_ev_resend_verification_url]` shortcode to display a message with a link to the verification url.
+Params for the `[alg_wc_ev_resend_verification_url]` shortcode:
+
 - **wrapper_template**: `<div class="alg-wc-ev-resend-verification-url">{content_template}</div>`
 - **content_template**: `You can resend the email with verification link by clicking <a href="{resend_verification_url}">here</a>.`
-- **hide_if_verified**: `false`
+- **hide_if_verified**: `true`
 - **hide_for_guests**: `false`
 
 **content_template** params:
+
 - **{resend_verification_url}**
+
+= How to use the alg_wc_ev_email_content_placeholder shortcode ? =
+You can use the `[alg_wc_ev_email_content_placeholder]` shortcode to append the verification email to some custom email template.
+In order to use it, it's necessary to:
+
+- Enable the option **Email > Activation email > Fine tune activation email placement**
+- Disable the option **Email > Activation email > Send as a separate email**
+- Most probably the option **Emails > Activation email > Email template** should be set as **Plain**
+
+Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
+
+- **user_email**
 
 == Installation ==
 
@@ -122,10 +141,15 @@ Shortcode params:
 
 == Changelog ==
 
+= 2.1.3 - 28/07/2021 =
+* Dev - Add `[alg_wc_ev_email_content_placeholder]` shortcode with `user_email` param.
+* Create the compatibility section.
+* Tested up to: 5.8.
+
 = 2.1.2 - 17/07/2021 =
 * Fix shortcode documentation format on FAQ.
 
-= 2.1.2 - 17/07/2021 =
+= 2.1.1 - 17/07/2021 =
 * Dev - Blocking - Create "Blocked pages" option.
 * Dev - Blocking - Create "Blocked products" option.
 * Dev - Blocking - Create "Conditionals" option allowing to block content by checking the conditionals.

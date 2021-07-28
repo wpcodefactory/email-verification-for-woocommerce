@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Emails Class
  *
- * @version 2.1.1
+ * @version 2.1.3
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -16,7 +16,7 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.0.9
+	 * @version 2.1.3
 	 * @since   1.6.0
 	 */
 	function __construct() {
@@ -32,8 +32,34 @@ class Alg_WC_Email_Verification_Emails {
 		} else {
 			// Append to WC customer new account email
 			add_filter( 'woocommerce_email_additional_content_' . 'customer_new_account', array( $this, 'customer_new_account_reset_and_append_verification_link' ), PHP_INT_MAX, 3 );
+			// Append to anywhere else
 			add_action( 'alg_wc_ev_activation_email_content_placeholder', array( $this, 'customer_new_account_reset_and_append_verification_link_fine_tune' ) );
+			add_shortcode( 'alg_wc_ev_email_content_placeholder', array( $this, 'alg_wc_ev_email_content_placeholder' ) );
 		}
+	}
+
+	/**
+	 * alg_wc_ev_email_content_placeholder.
+	 *
+	 * @version 2.1.3
+	 * @since   2.1.3
+	 *
+	 * @param $atts
+	 *
+	 * @return false|string
+	 */
+	function alg_wc_ev_email_content_placeholder( $atts ) {
+		$atts = shortcode_atts( array(
+			'user_email' => '',
+		), $atts, 'alg_wc_ev_email_content_placeholder' );
+		if ( is_a( $user = get_user_by( 'email', $atts['user_email'] ), 'WP_User' ) ) {
+			ob_start();
+			$this->customer_new_account_reset_and_append_verification_link_fine_tune( $user );
+			$content = ob_get_contents();
+			ob_end_clean();
+			return $content;
+		}
+		return '';
 	}
 
 	/**

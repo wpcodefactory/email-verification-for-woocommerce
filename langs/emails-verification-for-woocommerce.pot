@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Email Verification for WooCommerce 2.1.2\n"
+"Project-Id-Version: Email Verification for WooCommerce 2.1.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/emails-verification-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-07-18T01:55:19+02:00\n"
+"POT-Creation-Date: 2021-07-29T00:11:17+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: emails-verification-for-woocommerce\n"
@@ -135,25 +135,25 @@ msgstr ""
 msgid "Unverified"
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:100
+#: includes/class-alg-wc-ev-emails.php:126
 #: includes/settings/class-alg-wc-ev-settings-email.php:152
 msgid "Please click the following link to verify your email:<br><br><a href=\"%verification_url%\">%verification_url%</a>"
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:179
+#: includes/class-alg-wc-ev-emails.php:205
 #: includes/settings/class-alg-wc-ev-settings-email.php:133
 msgid "Please activate your account"
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:251
+#: includes/class-alg-wc-ev-emails.php:277
 msgid "Error sending mail."
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:252
+#: includes/class-alg-wc-ev-emails.php:278
 msgid "Mail function: %s."
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:255
+#: includes/class-alg-wc-ev-emails.php:281
 msgid "Last error: %s."
 msgstr ""
 
@@ -590,126 +590,11 @@ msgstr ""
 msgid "Weekly"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:304
-msgid "Compatibility"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:305
-msgid "Compatibility with third party plugins or solutions."
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:306
-msgid "If you have issues with compatibility settings try to change these other options:"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:308
-msgid "Advanced > Block auth cookies"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:309
-msgid "Advanced > Authenticate filter"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:310
-msgid "General > Activation link > Activation email delay"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:316
-msgid "WooCommerce Social Login (SkyVerge)"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:317
-msgid "Accept verification from \"<a target=\"_blank\" href=\"%s\">WooCommerce Social Login</a>\" plugin made by Woocommerce author <a href=\"%s\" target=\"_blank\">SkyVerge</a>"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:324
-msgid "WooCommerce Social Login (wpweb)"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:325
-msgid "Accept verification from \"<a target=\"_blank\" href=\"%s\">WooCommerce Social Login</a>\" plugin made by CodeCanyon author <a href=\"%s\" target=\"_blank\">wpweb</a>"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:332
-msgid "Super Socializer"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:333
-msgid "Accept verification from \"<a target=\"_blank\" href=\"%s\">Super Socializer</a>\" plugin"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:340
-msgid "My Listing Social Login"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:341
-msgid "Accept verification from Social Login feature bundled on \"<a target=\"_blank\" href=\"%s\">My Listing</a>\" theme made by ThemeForest author <a href=\"%s\" target=\"_blank\">27collective</a>"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:348
-msgid "Nextend Social Login"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:349
-msgid "Automatically verifies a user who registers or logins from \"<a target=\"_blank\" href=\"%s\">Nextend Social Login</a>\" plugin"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:350
-msgid "Leave it empty if you don't want to automatically verify an user from Nextend Social Login."
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:356
-msgid "On login"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:357
-msgid "On register new user"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:362
-msgid "WooMail - WooCommerce Email Customizer"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:363
-msgid "Append verification email to the \"Customer new account\" email customized by the \"<a target=\"_blank\" href=\"%s\">WooMail</a>\" plugin"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:365
-msgid "You need to use this shortcode in your template: %s"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:366
-msgid "It's necessary to enable %s option and use %s option as %s"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:366
-msgid "Emails > Activation email > Fine tune activation email placement"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:366
-#: includes/settings/class-alg-wc-ev-settings-general.php:84
-msgid "Emails > Activation email > Email template"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:366
-#: includes/settings/class-alg-wc-ev-settings-email.php:165
-#: includes/settings/class-alg-wc-ev-settings-general.php:84
-msgid "Plain"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:367
-msgid "It's necessary to disable %s"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:367
-msgid "General > Send verification as a separate email"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:411
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:336
 msgid "Please, reload the page to see the next scheduled event info."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:416
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:341
 msgid "Next event scheduled to %s"
 msgstr ""
 
@@ -929,6 +814,114 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:334
 msgid "Redirect to the activate account notice after logout"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:24
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:38
+msgid "Compatibility"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:39
+msgid "Compatibility with third party plugins or solutions."
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:40
+msgid "If you have issues with compatibility settings try to change these other options:"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:42
+msgid "Advanced > Block auth cookies"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:43
+msgid "Advanced > Authenticate filter"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:44
+msgid "Email > Activation email > Activation email delay"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:50
+msgid "WooCommerce Social Login (SkyVerge)"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:51
+msgid "Accept verification from \"<a target=\"_blank\" href=\"%s\">WooCommerce Social Login</a>\" plugin made by Woocommerce author <a href=\"%s\" target=\"_blank\">SkyVerge</a>"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:58
+msgid "WooCommerce Social Login (wpweb)"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:59
+msgid "Accept verification from \"<a target=\"_blank\" href=\"%s\">WooCommerce Social Login</a>\" plugin made by CodeCanyon author <a href=\"%s\" target=\"_blank\">wpweb</a>"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:66
+msgid "Super Socializer"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:67
+msgid "Accept verification from \"<a target=\"_blank\" href=\"%s\">Super Socializer</a>\" plugin"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:74
+msgid "My Listing Social Login"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:75
+msgid "Accept verification from Social Login feature bundled on \"<a target=\"_blank\" href=\"%s\">My Listing</a>\" theme made by ThemeForest author <a href=\"%s\" target=\"_blank\">27collective</a>"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:82
+msgid "Nextend Social Login"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:83
+msgid "Automatically verifies a user who registers or logins from \"<a target=\"_blank\" href=\"%s\">Nextend Social Login</a>\" plugin"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:84
+msgid "Leave it empty if you don't want to automatically verify an user from Nextend Social Login."
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:90
+msgid "On login"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:91
+msgid "On register new user"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:96
+msgid "WooMail - WooCommerce Email Customizer"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:97
+msgid "Append verification email to the \"Customer new account\" email customized by the \"<a target=\"_blank\" href=\"%s\">WooMail</a>\" plugin"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:99
+msgid "You need to use this shortcode in your template: %s"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:100
+msgid "It's necessary to enable %s option and use %s option as %s"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:100
+msgid "Emails > Activation email > Fine tune activation email placement"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:100
+#: includes/settings/class-alg-wc-ev-settings-general.php:84
+msgid "Emails > Activation email > Email template"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:100
+#: includes/settings/class-alg-wc-ev-settings-email.php:165
+#: includes/settings/class-alg-wc-ev-settings-general.php:84
+msgid "Plain"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-email.php:24
@@ -1409,35 +1402,35 @@ msgstr ""
 msgid "Email Verification"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings.php:57
+#: includes/settings/class-alg-wc-ev-settings.php:58
 msgid "Email Verification for WooCommerce Pro"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings.php:58
+#: includes/settings/class-alg-wc-ev-settings.php:59
 msgid "Disabled options can be unlocked using <a href=\"%pro_version_url%\" target=\"_blank\"><strong>%pro_version_title%</strong></a>"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings.php:59
+#: includes/settings/class-alg-wc-ev-settings.php:60
 msgid "Upgrade to Pro version"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings.php:96
+#: includes/settings/class-alg-wc-ev-settings.php:97
 msgid "Reset Settings"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings.php:101
+#: includes/settings/class-alg-wc-ev-settings.php:102
 msgid "Reset section settings"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings.php:102
+#: includes/settings/class-alg-wc-ev-settings.php:103
 msgid "Reset"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings.php:103
+#: includes/settings/class-alg-wc-ev-settings.php:104
 msgid "Check the box and save changes to reset."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings.php:131
-#: includes/settings/class-alg-wc-ev-settings.php:146
+#: includes/settings/class-alg-wc-ev-settings.php:132
+#: includes/settings/class-alg-wc-ev-settings.php:147
 msgid "Your settings have been reset."
 msgstr ""
