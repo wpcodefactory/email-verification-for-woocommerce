@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Core Class
  *
- * @version 2.1.1
+ * @version 2.1.4
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -14,9 +14,18 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 class Alg_WC_Email_Verification_Core {
 
 	/**
+	 * success_message_displayed.
+	 *
+	 * @since   2.1.4
+	 *
+	 * @var bool
+	 */
+	protected $success_message_displayed = false;
+
+	/**
 	 * Constructor.
 	 *
-	 * @version 2.1.1
+	 * @version 2.1.4
 	 * @since   1.0.0
 	 * @todo    [next] (maybe) `[alg_wc_ev_translate]` to description in readme.txt
 	 */
@@ -46,12 +55,12 @@ class Alg_WC_Email_Verification_Core {
 		// Core loaded
 		do_action( 'alg_wc_ev_core_loaded', $this );
 		// Login the user automatically
-		add_action( 'alg_wc_ev_user_account_activated', array( $this, 'login_user_automatically_on_success_activation' ) );
+		add_action( 'alg_wc_ev_user_account_activated', array( $this, 'login_user_automatically_on_success_activation' ), 10, 3 );
 		// Redirect on success activation
-		add_action( 'alg_wc_ev_user_account_activated', array( $this, 'redirect_on_success_activation' ), 100 );
+		add_action( 'alg_wc_ev_user_account_activated', array( $this, 'redirect_on_success_activation' ), 100, 3 );
 		// Success activation message
-		add_action( 'alg_wc_ev_user_account_activated', array( $this, 'display_success_activation_message' ) );
-		add_action( 'init', array( $this, 'display_success_activation_message' ) );
+		add_action( 'alg_wc_ev_user_account_activated', array( $this, 'maybe_display_success_activation_message_via_hook' ), 10, 3 );
+		add_action( 'init', array( $this, 'maybe_display_success_activation_message_via_query_string' ) );
 		add_filter( 'wp_redirect', array( $this, 'remove_success_activation_message' ) );
 		// Error message
 		add_action( 'init', array( $this, 'display_error_activation_message' ) );
@@ -66,7 +75,7 @@ class Alg_WC_Email_Verification_Core {
 		add_action( 'init', array( $this, 'show_blocked_content_notice' ) );
 		$this->handle_shortcodes();
 	}
-
+	
 	/**
 	 * block_pages_for_unverified_users.
 	 *
@@ -272,45 +281,70 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * login_user_automatically_on_success_activation.
 	 *
-	 * @version 2.0.0
+	 * @version 2.1.4
 	 * @since   2.0.0
 	 *
 	 * @param $user_id
 	 */
-	function login_user_automatically_on_success_activation( $user_id ) {
-		if ( 'yes' == get_option( 'alg_wc_ev_login_automatically_on_activation', 'yes' ) ) {
+	function login_user_automatically_on_success_activation( $user_id, $code, $args ) {
+		if (
+			'yes' === get_option( 'alg_wc_ev_login_automatically_on_activation', 'yes' ) &&
+			! $args['is_rest_api']
+		) {
 			wp_set_current_user( $user_id );
 			wp_set_auth_cookie( $user_id );
 		}
 	}
 
 	/**
-	 * display_success_activation_message.
+	 * maybe_display_success_activation_message_via_query_string.
 	 *
-	 * @version 2.0.0
+	 * @version 2.1.4
+	 * @since   2.1.4
+	 */
+	function maybe_display_success_activation_message_via_query_string() {
+		if ( isset( $_GET['alg_wc_ev_success_activation_message'] ) ) {
+			$this->output_success_activation_message();
+		}
+	}
+
+	/**
+	 * maybe_display_success_activation_message.
+	 *
+	 * @version 2.1.4
 	 * @since   2.0.0
 	 */
-	function display_success_activation_message() {
-		$display_message = false;
-		if ( 'alg_wc_ev_user_account_activated' == current_filter() ) {
-			$display_message = true;
-		} elseif ( isset( $_GET['alg_wc_ev_success_activation_message'] ) ) {
-			$display_message = true;
+	function maybe_display_success_activation_message_via_hook( $user_id, $code, $args ) {
+		if ( ! $args['is_rest_api'] ) {
+			$this->output_success_activation_message();
 		}
-		if ( $display_message ) {
+	}
+
+	/**
+	 * output_success_activation_message.
+	 *
+	 * @version 2.1.4
+	 * @since   2.1.4
+	 */
+	function output_success_activation_message() {
+		if ( ! $this->success_message_displayed ) {
 			alg_wc_ev_add_notice( $this->messages->get_success_message() );
+			$this->success_message_displayed = true;
 		}
 	}
 
 	/**
 	 * redirect_on_success_activation.
 	 *
-	 * @version 2.0.0
+	 * @version 2.1.4
 	 * @since   2.0.0
 	 *
 	 */
-	function redirect_on_success_activation() {
-		if ( 'no' != ( $redirect = get_option( 'alg_wc_ev_redirect_to_my_account_on_success', 'yes' ) ) ) {
+	function redirect_on_success_activation( $user_id, $code, $args ) {
+		if (
+			'yes' === ( $redirect = get_option( 'alg_wc_ev_redirect_to_my_account_on_success', 'yes' ) ) &&
+			! $args['is_rest_api']
+		) {
 			switch ( $redirect ) {
 				case 'home':
 					$redirect_url = get_home_url();
@@ -436,18 +470,18 @@ class Alg_WC_Email_Verification_Core {
 	}
 
 	/**
-	 * save_first_activation_info
+	 * save_activation_info
 	 *
 	 * Save first_login_time for now.
 	 *
-	 * @version 1.9.5
+	 * @version 2.1.4
 	 * @since   1.9.5
 	 *
 	 * @param $code
 	 * @param $user_id
 	 */
-	function save_first_activation_info( $code, $user_id ) {
-		$this->update_activation_code_data( $user_id, $code, array( 'first_activation_time' => time() ) );
+	function save_activation_info( $code, $user_id ) {
+		$this->update_activation_code_data( $user_id, $code, array( 'activation_time' => time() ) );
 	}
 
 	/**
@@ -495,29 +529,46 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * verify.
 	 *
-	 * @version 2.1.1
+	 * @version 2.1.4
 	 * @since   1.6.0
+	 *
+	 * @param null $args
+	 *
+	 * @return bool
 	 */
-	function verify() {
-		if ( isset( $_GET['alg_wc_ev_verify_email'] ) ) {
-			$data = json_decode( alg_wc_ev()->core->base64_url_decode( wc_clean( $_GET['alg_wc_ev_verify_email'] ) ), true );
+	function verify( $args = null ) {
+		$args = wp_parse_args( $args, array(
+			'verify_code' => isset( $_GET['alg_wc_ev_verify_email'] ) ? $_GET['alg_wc_ev_verify_email'] : '',
+			'is_rest_api' => false
+		) );
+		if (
+			! empty( $args['verify_code'] ) &&
+			! empty( $verify_code = wc_clean( $args['verify_code'] ) ) &&
+			! empty( $data = json_decode( alg_wc_ev()->core->base64_url_decode( $verify_code ), true ) )
+		) {
 			if (
-				! empty( $user_id = $data['id'] )
-				&& ! empty( $code = get_user_meta( $user_id, 'alg_wc_ev_activation_code', true ) )
-				&& $code === $data['code']
+				! empty( $user_id = $data['id'] ) &&
+				! empty( $code = get_user_meta( $user_id, 'alg_wc_ev_activation_code', true ) ) &&
+				$code === $data['code'] &&
+				! alg_wc_ev_is_user_verified_by_user_id( $user_id )
 			) {
-				if ( apply_filters( 'alg_wc_ev_verify_email', true, $user_id, $code ) ) {
+				if ( apply_filters( 'alg_wc_ev_verify_email', true, $user_id, $code, $args ) ) {
 					update_user_meta( $user_id, 'alg_wc_ev_is_activated', '1' );
-					$this->emails->maybe_send_wc_customer_new_account_email( $user_id );
-					$this->save_first_activation_info( $code, $user_id );
-					do_action( 'alg_wc_ev_user_account_activated', $user_id, $code );
+					$this->save_activation_info( $code, $user_id );
+					do_action( 'alg_wc_ev_user_account_activated', $user_id, $code, $args );
+					return true;
 				} else {
-					do_action( 'alg_wc_ev_verify_email_error', $user_id, $code );
+					do_action( 'alg_wc_ev_verify_email_error', $user_id, $code, $args );
+					return false;
 				}
 			} else {
-				alg_wc_ev_add_notice( $this->messages->get_failed_message( $user_id ), 'error' );
+				if ( ! $args['is_rest_api'] ) {
+					alg_wc_ev_add_notice( $this->messages->get_failed_message( $user_id ), 'error', $args );
+				}
+				return false;
 			}
 		}
+		return false;
 	}
 
 	/**

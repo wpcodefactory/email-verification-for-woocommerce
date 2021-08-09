@@ -28,7 +28,7 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.1.1
+	 * @version 2.1.4
 	 * @since   1.0.0
 	 * @todo    [next] Logout unverified users on every page: better description
 	 * @todo    [next] (maybe) `alg_wc_ev_delay_wc_email`: default to `yes`?
@@ -44,37 +44,11 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 				'id'       => 'alg_wc_ev_general_options',
 			),
 			array(
-				'title'    => __( 'Login automatically', 'emails-verification-for-woocommerce' ),
+				'title'    => __( 'Login on activation', 'emails-verification-for-woocommerce' ),
 				'desc'     => __( 'Login the user automatically after the account is verified', 'emails-verification-for-woocommerce' ),
 				'type'     => 'checkbox',
 				'id'       => 'alg_wc_ev_login_automatically_on_activation',
 				'default'  => 'yes',
-			),
-			array(
-				'title'    => __( 'Ignore user roles', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => __( 'The following user roles won\'t need to be berified', 'emails-verification-for-woocommerce' ),
-				'desc'     => __( 'Skipped user roles', 'emails-verification-for-woocommerce' ),
-				'type'     => 'multiselect',
-				'options'  => $this->get_user_roles_options(),
-				'id'       => 'alg_wc_ev_skip_user_roles',
-				'default'  => array( 'administrator' ),
-				'class'    => 'chosen_select',
-			),
-			array(
-				'title'    => __( 'Current registered users', 'emails-verification-for-woocommerce' ),
-				'desc'     => __( 'Verify email for current users', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => __( 'If enabled, all your current unverified users will have to verify their emails when logging to your site.', 'emails-verification-for-woocommerce' ),
-				'type'     => 'checkbox',
-				'id'       => 'alg_wc_ev_verify_already_registered',
-				'default'  => 'no',
-			),
-			array(
-				'title'             => __( 'Email changing accounts', 'emails-verification-for-woocommerce' ),
-				'desc'              => __( 'Unverify, logout and resend activation link to accounts that changed the emails', 'emails-verification-for-woocommerce' ),
-				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ), 'min', array( 0 ) ),
-				'type'              => 'checkbox',
-				'id'                => 'alg_wc_ev_unverify_email_changing',
-				'default'           => 'no',
 			),
 			array(
 				'title'    => __( 'Block unverified login', 'emails-verification-for-woocommerce' ),
@@ -90,6 +64,49 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 			array(
 				'type'     => 'sectionend',
 				'id'       => 'alg_wc_ev_general_options',
+			),
+			array(
+				'title'    => __( 'Account verification', 'emails-verification-for-woocommerce' ),
+				'type'     => 'title',
+				'id'       => 'alg_wc_ev_account_verification',
+			),
+			array(
+				'title'    => __( 'Ignore user roles', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => __( 'The following user roles won\'t need to be berified', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'Skipped user roles', 'emails-verification-for-woocommerce' ),
+				'type'     => 'multiselect',
+				'options'  => $this->get_user_roles_options(),
+				'id'       => 'alg_wc_ev_skip_user_roles',
+				'default'  => array( 'administrator' ),
+				'class'    => 'chosen_select',
+			),
+			array(
+				'title'    => __( 'Current registered users', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'Verify account for current users', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => __( 'If enabled, all your current unverified users will have to verify their accounts.', 'emails-verification-for-woocommerce' ),
+				'type'     => 'checkbox',
+				'id'       => 'alg_wc_ev_verify_already_registered',
+				'default'  => 'no',
+			),
+			array(
+				'title'             => __( 'Email changing', 'emails-verification-for-woocommerce' ),
+				'desc'              => __( 'Unverify, logout and resend activation link to accounts that changed the emails', 'emails-verification-for-woocommerce' ),
+				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+				'type'              => 'checkbox',
+				'id'                => 'alg_wc_ev_unverify_email_changing',
+				'default'           => 'no',
+			),
+			array(
+				'title'             => __( 'Password reset', 'emails-verification-for-woocommerce' ),
+				'desc'              => __( 'Automatically verify the user on password reset', 'emails-verification-for-woocommerce' ),
+				'type'              => 'checkbox',
+				'id'                => 'alg_wc_ev_verify_account_on_password_reset',
+				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+				'default'           => 'no',
+			),
+			array(
+				'type'     => 'sectionend',
+				'id'       => 'alg_wc_ev_account_verification',
 			),
 			array(
 				'title'    => __( 'Verification info', 'emails-verification-for-woocommerce' ),

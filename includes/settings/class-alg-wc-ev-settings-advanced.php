@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Advanced Section Settings
  *
- * @version 2.1.3
+ * @version 2.1.4
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -36,7 +36,7 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.1.3
+	 * @version 2.1.4
 	 * @since   1.6.0
 	 * @todo    (maybe) remove `alg_wc_ev_prevent_login_after_checkout_notice` (i.e. make it always enabled)
 	 */
@@ -257,6 +257,28 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 				'id'       => 'alg_wc_ev_advanced_bkg_process_options',
 			),
 			array(
+				'type'     => 'sectionend',
+				'id'       => 'alg_wc_ev_admin_delete_options',
+			),
+			array(
+				'title'    => __( 'REST API options', 'emails-verification-for-woocommerce' ),
+				'type'     => 'title',
+				'id'       => 'alg_wc_ev_rest_api_options',
+			),
+			array(
+				'title'             => __( 'Verify endpoint', 'emails-verification-for-woocommerce' ),
+				'desc'              => sprintf( __( 'Add %s endpoint allowing to verify users via REST API', 'emails-verification-for-woocommerce' ), '<code>' . 'alg_wc_ev/v1/verify' . '</code>' ),
+				'desc_tip'          => sprintf( __( 'Full URL example: %s', 'emails-verification-for-woocommerce' ), '<code>' . get_home_url() . '/wp-json/alg_wc_ev/v1/verify?verify_code=eyJpZCI6NCwiY29kZSI6Ijg0Mzk5ZjcwMzVkM2EwMjcxNGE3N2MxMTcxNjExNmQ3In0-' . '</code>' ),
+				'type'              => 'checkbox',
+				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+				'id'                => 'alg_wc_ev_rest_api_verify_endpoint',
+				'default'           => 'no',
+			),
+			array(
+				'type'     => 'sectionend',
+				'id'       => 'alg_wc_ev_rest_api_options',
+			),
+			array(
 				'title'    => __( 'Delete options', 'emails-verification-for-woocommerce' ),
 				'desc' => __( 'Some notes regarding how this tool works:', 'emails-verification-for-woocommerce' ) . '<br />'
 				          . '- ' . sprintf( __( 'It will only delete unverified users which roles are not set in the %s option.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Skip email verification for user roles', 'emails-verification-for-woocommerce' ) . '</strong>' ) . '<br />'
@@ -295,10 +317,6 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 				),
 				'id'       => 'alg_wc_ev_delete_users_cron_frequency',
 				'default'  => 'weekly',
-			),
-			array(
-				'type'     => 'sectionend',
-				'id'       => 'alg_wc_ev_admin_delete_options',
 			),
 		);
 	}

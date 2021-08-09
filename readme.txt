@@ -3,7 +3,7 @@ Contributors: wpcodefactory
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 5.8
-Stable tag: 2.1.3
+Stable tag: 2.1.4
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -140,6 +140,14 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 3. Start by visiting plugin settings at "WooCommerce > Settings > Email Verification".
 
 == Changelog ==
+
+= 2.1.4 - 09/08/2021 =
+* Fix - Possible duplicated activation message.
+* Dev - General - Add new option to verify the account if password is reset.
+* Dev - Advanced - Add option to use `alg_wc_ev/v1/verify` REST API endpoint.
+* Dev - Improve main `verify()` function.
+* Dev - Improve one-time activation link function.
+* Reorganize general section on admin settings.
 
 = 2.1.3 - 28/07/2021 =
 * Dev - Add `[alg_wc_ev_email_content_placeholder]` shortcode with `user_email` param.

@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Logouts Class
  *
- * @version 2.0.9
+ * @version 2.1.4
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -24,7 +24,7 @@ class Alg_WC_Email_Verification_Logouts {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.0.9
+	 * @version 2.1.4
 	 * @since   1.6.0
 	 * @todo    (maybe) force "activate" notice for guest users also
 	 * @todo    (maybe) `alg_wc_ev_prevent_login_after_register`: `woocommerce_account_navigation` (doesn't seem to work though...)
@@ -65,17 +65,66 @@ class Alg_WC_Email_Verification_Logouts {
 		}
 		// Prevent login using the same activation link
 		add_filter( 'alg_wc_ev_verify_email', array( $this, 'prevent_login_using_the_same_link' ), 10, 3 );
-		add_action( 'alg_wc_ev_activation_link_already_used', function ( $user_id ) {
-			if (
-				isset( $_GET['alg_wc_ev_user_id'] ) ||
-				is_user_logged_in()
-			) {
-				return;
-			}
-			add_filter( 'alg_wc_ev_verify_email_error', function () use ( $user_id ) {
-				alg_wc_ev_add_notice( alg_wc_ev()->core->messages->get_failed_message( $user_id ), 'error' );
-			} );
-		} );
+		add_action( 'alg_wc_ev_activation_link_already_used', array( $this, 'register_one_time_activation_link_error_notice' ) );
+	}
+
+	/**
+	 * prevent_login_using_the_same_link.
+	 *
+	 * @version 2.1.4
+	 * @since   1.9.5
+	 *
+	 * @param $is_valid
+	 * @param $user_id
+	 *
+	 * @param $code
+	 *
+	 * @return bool
+	 */
+	function prevent_login_using_the_same_link( $is_valid, $user_id, $code ) {
+		if (
+			'yes' === get_option( 'alg_wc_ev_one_time_activation_link', 'yes' ) &&
+			(
+				alg_wc_ev()->core->get_activation_code_data( $user_id, $code, 'first_activation_time' ) ||
+				alg_wc_ev()->core->get_activation_code_data( $user_id, $code, 'activation_time' )
+			)
+		) {
+			do_action( 'alg_wc_ev_activation_link_already_used', $user_id );
+			$is_valid = false;
+		}
+		return $is_valid;
+	}
+
+	/**
+	 * register_one_time_activation_link_error_notice.
+	 *
+	 * @version 2.1.4
+	 * @since   2.1.4
+	 *
+	 * @param $user_id
+	 */
+	function register_one_time_activation_link_error_notice( $user_id ) {
+		if (
+			isset( $_GET['alg_wc_ev_user_id'] ) ||
+			is_user_logged_in()
+		) {
+			return;
+		}
+		add_action( 'alg_wc_ev_verify_email_error', array( $this, 'output_one_time_activation_link_error_notice' ), 10, 3 );
+	}
+
+	/**
+	 * output_one_time_activation_link_error_notice.
+	 *
+	 * @version 2.1.4
+	 * @since   2.1.4
+	 *
+	 * @param $user_id
+	 */
+	function output_one_time_activation_link_error_notice( $user_id, $code, $args ) {
+		if ( ! $args['is_rest_api'] ) {
+			alg_wc_ev_add_notice( alg_wc_ev()->core->messages->get_failed_message( $user_id ), 'error' );
+		}
 	}
 
 	/**
@@ -133,31 +182,6 @@ class Alg_WC_Email_Verification_Logouts {
 				$_SESSION['alg_wc_ev_redirect'] = $redirect;
 			}
 		}
-	}
-
-	/**
-	 * prevent_login_using_the_same_link.
-	 *
-	 * @version 1.9.5
-	 * @since   1.9.5
-	 *
-	 * @param $is_valid
-	 * @param $user_id
-	 *
-	 * @param $code
-	 *
-	 * @return bool
-	 */
-	function prevent_login_using_the_same_link( $is_valid, $user_id, $code ) {
-		if (
-			'no' === get_option( 'alg_wc_ev_one_time_activation_link', 'yes' )
-			|| ! alg_wc_ev()->core->get_activation_code_data( $user_id, $code, 'first_activation_time' )
-		) {
-			return $is_valid;
-		}
-		do_action( 'alg_wc_ev_activation_link_already_used', $user_id );
-		$is_valid = false;
-		return $is_valid;
 	}
 
 	/**
