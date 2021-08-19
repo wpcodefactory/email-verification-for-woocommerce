@@ -3,7 +3,7 @@ Contributors: wpcodefactory
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 5.8
-Stable tag: 2.1.4
+Stable tag: 2.1.5
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -13,32 +13,90 @@ Verify user emails in WooCommerce. Beautifully.
 
 **Email Verification for WooCommerce** plugin lets you add email verification to WooCommerce.
 
-= Main Features =
+### &#10004; Main Features ###
 
 * Require **email verification** for new user registrations.
+
+
 * Optionally enable email verification for **already registered users**.
+
+
 * Skip email verification for selected **user roles**.
-* Customize **frontend messages**.
+
+
+* Customize **verification messages** on frontend.
+
+
 * Optionally manually **verify**, **unverify**, **resend** email activation link **by admin**.
+
+
 * Optionally **delete unverified users** from the database (manually or automatically once per week).
+
+
 * Select if you want to send verification as a **separate email**, or **append** it to the standard WooCommerce "Customer new account" email.
+
+
 * **Delay** standard WooCommerce **"Customer new account" email** until after successful verification (in a separate email).
+
+
 * **Prevent** automatic user **login after registration**, including registration during checkout.
+
+
+* **Content blocking**: Block content from unverified users.
+
+
 * And more...
 
-= Premium Version =
+### &#9733; Premium Version ###
 
-[Email Verification for WooCommerce Pro](https://wpfactory.com/item/email-verification-for-woocommerce/) includes:
+[Email Verification for WooCommerce Pro](https://wpfactory.com/item/email-verification-for-woocommerce/) features:
 
-* **User email customization options**, including wrapping in standard WooCommerce email template.
+* **Activation email customization options**, including wrapping in standard WooCommerce email template.
+
+
 * **Block "Thank you"** (i.e. "Order received") **page** access for non-verified users.
+
+
 * **Block** standard WooCommerce customer **order emails** ("Order on-hold", "Processing order", "Completed order") for all non-verified users.
+
+
 * **Block guests** from adding products to the cart.
+
+
 * **Block checkout process** for non-verified users.
+
+
+* **Content blocking customization**: Block content from unverified users, like products or block content by function, like shop pages, category pages. Customize the error notice and the page the unverified user is going to be redirected in case he tries to access the content.
+
+
 * Set activation link **expiration time**.
-* Send **email to the admin** when new user verifies his email.
-* Set emails **blacklist**.
-* Automatically accept email verification from [social login](https://codecanyon.net/item/woocommerce-social-login-wordpress-plugin/8495883) plugin.
+
+
+* Send **email to the admin** when a new user verifies his email.
+
+
+* Set emails on a **denylist**.
+
+
+* Automatically unverify users who have **changed their emails**.
+
+
+* Automatically verify users on **password reset**.
+
+
+* Customize the verification info completely.
+
+
+* **REST API**: Verify users using the REST API with the `alg_wc_ev/v1/verify` endpoint. Example:
+`http://mysite.com/wp-json/alg_wc_ev/v1/verify?verify_code=abcd`
+
+
+* Compatibility options with:
+  * [Social Login - WPWeb](https://woocommerce.com/products/woocommerce-social-login/) plugin.
+  * [Social Login - SkyVerge](https://codecanyon.net/item/woocommerce-social-login-wordpress-plugin/8495883) plugin.
+  * [Super Socializer](https://wordpress.org/plugins/super-socializer/) plugin.
+  * [Nextend Social Login](https://codecanyon.net/item/woocommerce-social-login-wordpress-plugin/8495883) plugin.
+  * [WooMail](https://codecanyon.net/item/email-customizer-for-woocommerce-with-drag-drop-builder-woo-email-editor/22400984) plugin.
 
 = Feedback =
 
@@ -77,6 +135,9 @@ If just some of them are already enabled and even so it doesn't work, try to ena
 
 = How to prevent duplicated success message after account verification? =
 Please try to use **General > Redirect on success** option as **Do not redirect**
+
+= If a unverified user tries to login how to priorize verification error message over incorrect password ? =
+Try to set the **Advanced > Authenticate filter** option to **authenticate filter**
 
 = What can I do if the error messages are not showing? =
 If an unverified user is trying to login and the error message (Your account has to be activated before you can login...) is not getting displayed you can try two different approaches:
@@ -140,6 +201,10 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 3. Start by visiting plugin settings at "WooCommerce > Settings > Email Verification".
 
 == Changelog ==
+
+= 2.1.5 - 19/08/2021 =
+* Dev - Advanced - Improve "Authenticate filter" option.
+* Improve readme.
 
 = 2.1.4 - 09/08/2021 =
 * Fix - Possible duplicated activation message.

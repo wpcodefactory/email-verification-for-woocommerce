@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Logouts Class
  *
- * @version 2.1.4
+ * @version 2.1.5
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -24,7 +24,7 @@ class Alg_WC_Email_Verification_Logouts {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.1.4
+	 * @version 2.1.5
 	 * @since   1.6.0
 	 * @todo    (maybe) force "activate" notice for guest users also
 	 * @todo    (maybe) `alg_wc_ev_prevent_login_after_register`: `woocommerce_account_navigation` (doesn't seem to work though...)
@@ -32,7 +32,7 @@ class Alg_WC_Email_Verification_Logouts {
 	function __construct() {
 		// Block unverified user login
 		foreach ( array( 'wp_authenticate_user', 'authenticate' ) as $auth_filter ) {
-			add_filter( $auth_filter, array( $this, 'block_unverified_user_login' ), PHP_INT_MAX );
+			add_filter( $auth_filter, array( $this, 'block_unverified_user_login' ), PHP_INT_MAX, 2 );
 		}
 		add_action( 'set_logged_in_cookie', array( $this, 'block_auth_cookies' ), 10, 4 );
 		// Prevent login: After registration
@@ -201,17 +201,31 @@ class Alg_WC_Email_Verification_Logouts {
 	/**
 	 * block_unverified_user_login.
 	 *
-	 * @version 2.0.8
+	 * @version 2.1.5
 	 * @since   1.0.0
+	 *
+	 * @param $user
+	 *
+	 * @return WP_Error|WP_User
 	 */
 	function block_unverified_user_login( $user ) {
 		if (
-			'yes' === get_option( 'alg_wc_ev_block_unverified_login', 'yes' )
-			&& get_option( 'alg_wc_ev_auth_filter', 'wp_authenticate_user' ) == current_filter()
-			&& ! is_wp_error( $user )
-			&& ! alg_wc_ev()->core->is_user_verified( $user )
+			'yes' === get_option( 'alg_wc_ev_block_unverified_login', 'yes' ) &&
+			current_filter() === get_option( 'alg_wc_ev_auth_filter', 'wp_authenticate_user' )
 		) {
-			$user = new WP_Error( 'alg_wc_ev_email_verified_error', apply_filters( 'alg_wc_ev_block_unverified_user_login_error_message', alg_wc_ev()->core->messages->get_error_message( $user->ID ), $user ) );
+			$check_user = $user;
+			if ( ! is_a( $check_user, 'WP_User' ) ) {
+				$username_or_pass = func_get_arg( 1 );
+				$get_user_by      = filter_var( $username_or_pass, FILTER_VALIDATE_EMAIL ) ? 'email' : 'login';
+				$check_user       = get_user_by( $get_user_by, $username_or_pass );
+			}
+			if (
+				is_a( $check_user, 'WP_User' ) &&
+				! alg_wc_ev()->core->is_user_verified( $check_user )
+			) {
+				$error_msg = apply_filters( 'alg_wc_ev_block_unverified_user_login_error_message', alg_wc_ev()->core->messages->get_error_message( $check_user->ID ), $check_user );
+				$user      = new WP_Error( 'alg_wc_ev_email_verified_error', $error_msg );
+			}
 		}
 		return $user;
 	}

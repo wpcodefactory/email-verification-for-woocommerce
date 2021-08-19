@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Email Verification for WooCommerce 2.1.4\n"
+"Project-Id-Version: Email Verification for WooCommerce 2.1.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/emails-verification-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-08-09T15:58:11+02:00\n"
+"POT-Creation-Date: 2021-08-19T21:50:58+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: emails-verification-for-woocommerce\n"
@@ -273,344 +273,356 @@ msgstr ""
 msgid "WordPress filter used to check user authentication."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:58
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:53
+msgid "Use the %s filter to priorize the %s message over the %s message."
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:53
+msgid "verification error"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:53
+msgid "incorrect password"
+msgstr ""
+
 #: includes/settings/class-alg-wc-ev-settings-advanced.php:59
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:60
 msgid "%s filter"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:63
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:64
 msgid "Block auth cookies"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:64
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:65
 msgid "Prevent auth cookies from being sent to unverified users"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:65
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:66
 msgid "Enable if users are being able to login when they are not supposed to."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:71
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:72
 msgid "Custom \"logout\" function"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:72
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:73
 msgid "Replace standard %s function by a custom one"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:73
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:74
 msgid "Enable this if you are having issues with \"Activate\" notice not being displayed after user registration."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:74
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:75
 msgid "If your cart is getting cleared after a new account is created, you can also try to enable this option."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:80
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:81
 msgid "Replace HTML tags"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:81
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:82
 msgid "Replace angle brackets from HTML tags by other characters"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:82
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:83
 msgid "Enable if you have problem trying to save settings."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:83
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:84
 msgid "Update the settings page containing HTML to see the value refreshed."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:93
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:100
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:94
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:101
 msgid "Prevent login after register"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:101
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:102
 msgid "Prevent automatic user login after registration on \"My Account\" page"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:107
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:121
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:108
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:122
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:127
 msgid "Redirect"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:113
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:114
 msgid "No redirect"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:114
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:115
 msgid "Force redirect to the \"My Account\" page"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:115
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:121
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:116
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:122
 msgid "Custom redirect"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:119
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:120
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:200
 #: includes/settings/class-alg-wc-ev-settings-general.php:169
 #: includes/settings/class-alg-wc-ev-settings-general.php:197
 msgid "Custom redirect URL"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:120
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:121
 #: includes/settings/class-alg-wc-ev-settings-general.php:170
 msgid "\"%s\" must be selected for the \"%s\" option above."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:122
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:123
 msgid "Must be a local URL."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:130
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:131
 msgid "Force redirect"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:131
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:132
 msgid "Force redirect using sessions after the user is registered"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:132
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:133
 msgid "Enable if the redirect is not working."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:143
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:149
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:144
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:150
 msgid "Prevent login after checkout"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:150
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:151
 msgid "Prevent automatic user login after registration during checkout"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:151
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:152
 msgid "If this option is not working correctly on your site, please try to change the %s option."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:152
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:160
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:153
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:161
 msgid "Prevent login action"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:161
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:162
 msgid "Change this if you are having issues with \"Prevent automatic user login after checkout\" option, e.g. product is removed from the cart on checkout."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:162
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:163
 #: includes/settings/class-alg-wc-ev-settings-email.php:68
 #: includes/settings/class-alg-wc-ev-settings-email.php:108
 msgid "Leave the default value if unsure."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:168
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:169
 msgid "On \"get return URL\""
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:169
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:170
 msgid "On \"before 'thank you' page\""
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:170
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:171
 msgid "On \"'thank you' page\""
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:174
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:175
 msgid "Prevent login notice"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:175
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:176
 msgid "Add \"Activate\" notice to the WooCommerce \"Thank you\" (i.e. \"Order received\") page"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:181
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:182
 msgid "Block thank you page"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:182
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:183
 msgid "Block \"Thank you\" (i.e. \"Order received\") page access for non-verified users"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:183
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:184
 msgid "Users will be redirected to the \"My account\" page."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:195
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:200
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:196
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:201
 msgid "Block order emails"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:201
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:202
 msgid "Block WooCommerce order emails for all non-verified users (including guests)"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:208
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:219
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:209
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:220
 msgid "Blocked emails"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:209
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:210
 msgid "Consider adding the %s email if you want to prevent the admin from receiving the new order notification."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:209
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:219
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:210
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:220
 msgid "New Order"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:217
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:218
 msgid "Unblock emails"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:218
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:219
 msgid "Send blocked emails to users who have just verified accounts"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:219
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:220
 msgid "Will only send the email related to the current order status and the %s email, if set on the %s option."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:229
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:230
 msgid "Background processing"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:234
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:235
 msgid "Minimum amount"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:235
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:236
 msgid "The minimum amount of results from a query in order to trigger a background processing."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:241
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:242
 msgid "Send email"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:242
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:243
 msgid "Send email when a background processing is complete"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:248
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:249
 msgid "Email to."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:249
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:250
 msgid "The email address that is going to receive the email when a background processing task is complete."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:249
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:250
 msgid "Requires the \"Send email\" option enabled in order to work."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:264
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:265
 msgid "REST API options"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:269
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:270
 msgid "Verify endpoint"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:270
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:271
 msgid "Add %s endpoint allowing to verify users via REST API"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:271
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:272
 msgid "Full URL example: %s"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:282
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:283
 msgid "Delete options"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:283
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:284
 msgid "Some notes regarding how this tool works:"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:284
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:285
 msgid "It will only delete unverified users which roles are not set in the %s option."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:284
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:285
 msgid "Skip email verification for user roles"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:285
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:286
 msgid "If the %s option is set it will only delete unverified users whose activation have expired, so it's more safe to use it."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:285
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:286
 #: includes/settings/class-alg-wc-ev-settings-general.php:223
 msgid "Expire time"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:286
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:287
 msgid "If the %s option is enabled it may delete the current users who have not verified their account yet, so it's more safe to leave it <strong>disabled</strong>."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:286
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:287
 msgid "Enable email verification for already registered users"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:287
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:288
 msgid "Deleted users can only be restored if you have a backup."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:292
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:293
 msgid "Delete users"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:293
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:294
 msgid "Delete unverified users from the database"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:294
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:295
 msgid "Check the box and save changes to run the tool."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:300
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:301
 msgid "Delete users automatically"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:301
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:302
 msgid "Delete unverified users from the database automatically"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:302
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:303
 msgid "Deletes based on the frequency option below."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:309
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:310
 msgid "Frequency"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:311
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:312
 msgid "If the frequency is changed after the Delete users automatically option is enabled, it will be necessary to disable and enable it again to see the frequency updated."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:313
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:314
 msgid "Hourly"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:314
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:315
 msgid "Daily"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:315
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:316
 msgid "Twice daily"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:316
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:317
 msgid "Weekly"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:354
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:355
 msgid "Please, reload the page to see the next scheduled event info."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:359
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:360
 msgid "Next event scheduled to %s"
 msgstr ""
 
