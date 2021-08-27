@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Core Class
  *
- * @version 2.1.4
+ * @version 2.1.6
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -336,13 +336,13 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * redirect_on_success_activation.
 	 *
-	 * @version 2.1.4
+	 * @version 2.1.6
 	 * @since   2.0.0
 	 *
 	 */
 	function redirect_on_success_activation( $user_id, $code, $args ) {
 		if (
-			'yes' === ( $redirect = get_option( 'alg_wc_ev_redirect_to_my_account_on_success', 'yes' ) ) &&
+			'no' !== ( $redirect = get_option( 'alg_wc_ev_redirect_to_my_account_on_success', 'yes' ) ) &&
 			! $args['is_rest_api']
 		) {
 			switch ( $redirect ) {

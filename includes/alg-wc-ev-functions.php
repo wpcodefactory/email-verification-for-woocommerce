@@ -25,7 +25,7 @@ if ( ! function_exists( 'alg_wc_ev_add_notice' ) ) {
 	/**
 	 * alg_wc_ev_add_notice.
 	 *
-	 * @version 2.0.9
+	 * @version 2.1.6
 	 * @since   2.0.9
 	 *
 	 * @param $message
@@ -35,13 +35,19 @@ if ( ! function_exists( 'alg_wc_ev_add_notice' ) ) {
 	 */
 	function alg_wc_ev_add_notice( $message, $notice_type = 'success', $data = array(), $args = null ) {
 		$args = wp_parse_args( $args, array(
-			'clear_previous_messages' => 'yes' === get_option( 'alg_wc_ev_clear_previous_messages', 'no' )
+			'clear_previous_messages' => 'yes' === get_option( 'alg_wc_ev_clear_previous_messages', 'no' ),
+			'check_previous_messages' => true
 		) );
 		$clear_previous_messages = $args['clear_previous_messages'];
 		if ( $clear_previous_messages ) {
 			wc_clear_notices();
 		}
-		wc_add_notice( $message, $notice_type, $data );
+		if (
+			! $args['check_previous_messages'] ||
+			! wc_has_notice( $message, $notice_type )
+		) {
+			wc_add_notice( $message, $notice_type, $data );
+		}
 	}
 }
 

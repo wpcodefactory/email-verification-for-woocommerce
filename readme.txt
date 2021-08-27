@@ -3,7 +3,7 @@ Contributors: wpcodefactory
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 5.8
-Stable tag: 2.1.5
+Stable tag: 2.1.6
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -13,7 +13,7 @@ Verify user emails in WooCommerce. Beautifully.
 
 **Email Verification for WooCommerce** plugin lets you add email verification to WooCommerce.
 
-### &#10004; Main Features ###
+### &#9989; Main Features ###
 
 * Require **email verification** for new user registrations.
 
@@ -47,7 +47,7 @@ Verify user emails in WooCommerce. Beautifully.
 
 * And more...
 
-### &#9733; Premium Version ###
+### &#11088; Premium Version ###
 
 [Email Verification for WooCommerce Pro](https://wpfactory.com/item/email-verification-for-woocommerce/) features:
 
@@ -87,8 +87,7 @@ Verify user emails in WooCommerce. Beautifully.
 * Customize the verification info completely.
 
 
-* **REST API**: Verify users using the REST API with the `alg_wc_ev/v1/verify` endpoint. Example:
-`http://mysite.com/wp-json/alg_wc_ev/v1/verify?verify_code=abcd`
+* **REST API**: Verify users using the REST API with the `alg_wc_ev/v1/verify` endpoint.
 
 
 * Compatibility options with:
@@ -137,7 +136,7 @@ If just some of them are already enabled and even so it doesn't work, try to ena
 Please try to use **General > Redirect on success** option as **Do not redirect**
 
 = If a unverified user tries to login how to priorize verification error message over incorrect password ? =
-Try to set the **Advanced > Authenticate filter** option to **authenticate filter**
+Try to set the **Advanced > Authenticate filter** option as **authenticate filter**
 
 = What can I do if the error messages are not showing? =
 If an unverified user is trying to login and the error message (Your account has to be activated before you can login...) is not getting displayed you can try two different approaches:
@@ -201,6 +200,12 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 3. Start by visiting plugin settings at "WooCommerce > Settings > Email Verification".
 
 == Changelog ==
+
+= 2.1.6 - 27/08/2021 =
+* Fix - General - Redirect on success option.
+* Dev - Functions - Create a new param `check_previous_messages` to check if the message has been added previously.
+* Dev - Improve `is_plugin_active()` function.
+* WC tested up to: 5.6.
 
 = 2.1.5 - 19/08/2021 =
 * Dev - Advanced - Improve "Authenticate filter" option.
