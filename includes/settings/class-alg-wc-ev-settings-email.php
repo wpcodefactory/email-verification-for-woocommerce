@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Email Section Settings
  *
- * @version 2.1.1
+ * @version 2.1.7
  * @since   1.3.0
  * @author  WPFactory
  */
@@ -52,7 +52,7 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.1.1
+	 * @version 2.1.7
 	 * @since   1.3.0
 	 */
 	function get_settings() {

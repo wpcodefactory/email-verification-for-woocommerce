@@ -3,7 +3,7 @@ Contributors: wpcodefactory
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 5.8
-Stable tag: 2.1.6
+Stable tag: 2.1.7
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -47,7 +47,7 @@ Verify user emails in WooCommerce. Beautifully.
 
 * And more...
 
-### &#11088; Premium Version ###
+### &#127942; Premium Version ###
 
 [Email Verification for WooCommerce Pro](https://wpfactory.com/item/email-verification-for-woocommerce/) features:
 
@@ -66,7 +66,7 @@ Verify user emails in WooCommerce. Beautifully.
 * **Block checkout process** for non-verified users.
 
 
-* **Content blocking customization**: Block content from unverified users, like products or block content by function, like shop pages, category pages. Customize the error notice and the page the unverified user is going to be redirected in case he tries to access the content.
+* **Content blocking customization**: Block content from unverified users like products or block content by function, as shop pages, category pages and more. Customize the error notice and the page the unverified user is going to be redirected to in case he tries to access the content.
 
 
 * Set activation link **expiration time**.
@@ -84,13 +84,13 @@ Verify user emails in WooCommerce. Beautifully.
 * Automatically verify users on **password reset**.
 
 
-* Customize the verification info completely.
+* **Customize** the **verification info** completely.
 
 
 * **REST API**: Verify users using the REST API with the `alg_wc_ev/v1/verify` endpoint.
 
 
-* Compatibility options with:
+* **Compatibility** options with:
   * [Social Login - WPWeb](https://woocommerce.com/products/woocommerce-social-login/) plugin.
   * [Social Login - SkyVerge](https://codecanyon.net/item/woocommerce-social-login-wordpress-plugin/8495883) plugin.
   * [Super Socializer](https://wordpress.org/plugins/super-socializer/) plugin.
@@ -201,9 +201,12 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 
 == Changelog ==
 
+= 2.1.7 - 13/09/2021 =
+* Fix - Email - Verify nonce in order to resend the activation email.
+
 = 2.1.6 - 27/08/2021 =
 * Fix - General - Redirect on success option.
-* Dev - Functions - Create a new param `check_previous_messages` to check if the message has been added previously.
+* Dev - Functions - Create the param `check_previous_messages` to check if the message has been added previously.
 * Dev - Improve `is_plugin_active()` function.
 * WC tested up to: 5.6.
 
