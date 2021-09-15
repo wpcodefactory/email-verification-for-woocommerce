@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Emails Class
  *
- * @version 2.1.4
+ * @version 2.1.8
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -118,13 +118,24 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * get_email_content.
 	 *
-	 * @version 1.9.0
+	 * @version 2.1.8
 	 * @since   1.8.0
 	 * @todo    (maybe) `$user->user_url`, `$user->user_registered`
+	 *
+	 * @param null $args
+	 *
+	 * @return string
 	 */
-	function get_email_content( $user_id, $code = false ) {
+	function get_email_content( $args = null ) {
+		$args = wp_parse_args( $args, array(
+			'user_id' => '',
+			'code'    => false,
+			'context' => 'separate_email'
+		) );
+		$user_id = $args['user_id'];
+		$code = $args['code'];
 		$content = do_shortcode( apply_filters( 'alg_wc_ev_email_content',
-			__( 'Please click the following link to verify your email:<br><br><a href="%verification_url%">%verification_url%</a>', 'emails-verification-for-woocommerce' ) ) );
+			__( '<p>Please <a href="%verification_url%" target="_blank">click here</a> to verify your email.</p>', 'emails-verification-for-woocommerce' ) ) );
 		$placeholders = ( ( $user = new WP_User( $user_id ) ) && ! is_wp_error( $user ) ? array(
 				'%user_first_name%'     => $user->first_name,
 				'%user_last_name%'      => $user->last_name,
@@ -135,7 +146,7 @@ class Alg_WC_Email_Verification_Emails {
 			) : array() );
 		$placeholders['%user_id%']          = $user_id;
 		$placeholders['%verification_url%'] = $this->get_verification_url( $user_id, $code );
-		return apply_filters( 'alg_wc_ev_email_content_final', str_replace( array_keys( $placeholders ), $placeholders, $content ) );
+		return apply_filters( 'alg_wc_ev_email_content_final', str_replace( array_keys( $placeholders ), $placeholders, $content ), $args );
 	}
 
 	/**
@@ -154,7 +165,7 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * customer_new_account_reset_and_append_verification_link.
 	 *
-	 * @version 2.0.4
+	 * @version 2.1.8
 	 * @since   1.8.0
 	 * @todo    (recheck) `<p>` and plain?
 	 * @todo    (maybe) try getting new code before generating new one (i.e. `$code = get_user_meta( $user->ID, 'alg_wc_ev_activation_code', true );`)
@@ -166,7 +177,15 @@ class Alg_WC_Email_Verification_Emails {
 			'no' === get_option( 'alg_wc_ev_fine_tune_activation_email_placement', 'no' )
 			&& ! alg_wc_ev()->core->is_user_verified( $user )
 		) {
-			return str_replace( array( '<br>' ), array( "\n" ), $this->get_email_content( $user->ID, $code ) ) . "\n\n" . $content;
+			update_user_meta( $user->ID, 'alg_wc_ev_activation_email_sent', time() );
+			return str_replace(
+				       array( '<br>' ),
+				       array( "\n" ),
+				       $this->get_email_content( array(
+					       'user_id' => $user->ID,
+					       'code'    => $code,
+					       'context' => 'customer_new_account_email'
+				       ) ) ) . "\n\n" . $content;
 		}
 		return $content;
 	}
@@ -174,7 +193,7 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * append_verification_link.
 	 *
-	 * @version 2.0.4
+	 * @version 2.1.8
 	 * @since   2.0.4
 	 *
 	 * @param $user
@@ -186,14 +205,19 @@ class Alg_WC_Email_Verification_Emails {
 		$code = md5( time() );
 		$this->update_all_user_meta( $user->ID, $code );
 		if ( ! alg_wc_ev()->core->is_user_verified( $user ) ) {
-			echo wp_kses_post( wpautop( wptexturize( $this->get_email_content( $user->ID, $code ) ) ) );
+			update_user_meta( $user->ID, 'alg_wc_ev_activation_email_sent', time() );
+			echo wp_kses_post( wpautop( wptexturize( $this->get_email_content( array(
+				'user_id' => $user->ID,
+				'code'    => $code,
+				'context' => 'activation_email_content_placeholder'
+			) ) ) ) );
 		}
 	}
 
 	/**
-	 * reset_and_mail_activation_link.maybe_send_wc_customer_new_account_email
+	 * reset_and_mail_activation_link.maybe_send_wc_customer_new_account_email.
 	 *
-	 * @version 1.9.5
+	 * @version 2.1.8
 	 * @since   1.0.0
 	 * @todo    (maybe) add `%site_name%` etc. replaced value in `alg_wc_ev_email_subject`
 	 */
@@ -202,7 +226,11 @@ class Alg_WC_Email_Verification_Emails {
 			// Get data
 			$user          = get_userdata( $user_id );
 			$code          = md5( time() );
-			$email_content = $this->get_email_content( $user_id, $code );
+			$email_content = $this->get_email_content( array(
+				'user_id' => $user_id,
+				'code'    => $code,
+				'context' => 'separate_email'
+			) );
 			$email_subject = do_shortcode( apply_filters( 'alg_wc_ev_email_subject', __( 'Please activate your account', 'emails-verification-for-woocommerce' ) ) );
 			// Set user meta
 			$this->update_all_user_meta( $user_id, $code );

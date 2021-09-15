@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Email Section Settings
  *
- * @version 2.1.7
+ * @version 2.1.8
  * @since   1.3.0
  * @author  WPFactory
  */
@@ -52,7 +52,7 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.1.7
+	 * @version 2.1.8
 	 * @since   1.3.0
 	 */
 	function get_settings() {
@@ -149,14 +149,15 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 					) ) . '</code>' ),
 				'type'     => 'textarea',
 				'id'       => 'alg_wc_ev_email_content',
-				'default'  => __( 'Please click the following link to verify your email:<br><br><a href="%verification_url%">%verification_url%</a>', 'emails-verification-for-woocommerce' ),
+				'default'  => __( '<p>Please <a href="%verification_url%" target="_blank">click here</a> to verify your email.</p>', 'emails-verification-for-woocommerce' ),
 				'css'      => 'width:100%;height:150px;',
 				'alg_wc_ev_raw' => true,
 				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'readonly' => 'readonly' ) ),
 			),
 			array(
 				'title'    => __( 'Email template', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => __( 'Possible values: Plain, WooCommerce.', 'emails-verification-for-woocommerce' ),
+				'desc'     => sprintf( __( 'Possible values: %s, %s, %s.', 'emails-verification-for-woocommerce' ), __( 'Plain', 'emails-verification-for-woocommerce' ), __( 'WooCommerce', 'emails-verification-for-woocommerce' ), __( 'Smart', 'emails-verification-for-woocommerce' ) ),
+				'desc_tip' => __( '"Smart" will automatically send a "Plain" activation email when it\'s appended to other email, like the "Customer new account" email, and will send a "WooCommerce" email when sending it as a separate email. Most probably "Smart" will be the best choice.', 'emails-verification-for-woocommerce' ),
 				'id'       => 'alg_wc_ev_email_template',
 				'type'     => 'select',
 				'class'    => 'chosen_select',
@@ -164,6 +165,7 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 				'options'  => array(
 					'plain' => __( 'Plain', 'emails-verification-for-woocommerce' ),
 					'wc'    => __( 'WooCommerce', 'emails-verification-for-woocommerce' ),
+					'smart' => __( 'Smart', 'emails-verification-for-woocommerce' ),
 				),
 				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
 			),

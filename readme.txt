@@ -3,7 +3,7 @@ Contributors: wpcodefactory
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 5.8
-Stable tag: 2.1.7
+Stable tag: 2.1.8
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -200,6 +200,11 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 3. Start by visiting plugin settings at "WooCommerce > Settings > Email Verification".
 
 == Changelog ==
+
+= 2.1.8 - 15/09/2021 =
+* Fix - User can't resend activation email if "Send as a separate email" option is disabled.
+* Fix - Email - Activation email - Change "Email content" default value in order to prevent possible issues from some email services like Outlook/Hotmail.
+* Dev - Email - Activation email - Create "Smart" value to "Email template" option.
 
 = 2.1.7 - 13/09/2021 =
 * Fix - Email - Verify nonce in order to resend the activation email.
