@@ -1,0 +1,10 @@
+<wpml-config>
+	<admin-texts>
+		<key name="alg_wc_ev_email_subject" />
+		<key name="alg_wc_ev_email_content" />
+		<key name="alg_wc_ev_email_template_wc_heading" />
+		<key name="alg_wc_ev_admin_email_subject" />
+		<key name="alg_wc_ev_admin_email_heading" />
+		<key name="alg_wc_ev_admin_email_content" />
+	</admin-texts>
+</wpml-config>

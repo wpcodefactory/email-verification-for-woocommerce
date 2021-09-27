@@ -1,9 +1,9 @@
 === Email Verification for WooCommerce ===
-Contributors: wpcodefactory
+Contributors: wpcodefactory, Karzin
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 5.8
-Stable tag: 2.1.8
+Stable tag: 2.1.9
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -30,7 +30,7 @@ Verify user emails in WooCommerce. Beautifully.
 * Optionally manually **verify**, **unverify**, **resend** email activation link **by admin**.
 
 
-* Optionally **delete unverified users** from the database (manually or automatically once per week).
+* Optionally **delete unverified users** from the database (manually or automatically once per week, day or hour).
 
 
 * Select if you want to send verification as a **separate email**, or **append** it to the standard WooCommerce "Customer new account" email.
@@ -200,6 +200,11 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 3. Start by visiting plugin settings at "WooCommerce > Settings > Email Verification".
 
 == Changelog ==
+
+= 2.1.9 - 27/09/2021 =
+* Dev - Email - Create `wpml-config.xml` file with admin email options.
+* Improve admin settings.
+* WC tested up to: 5.7.
 
 = 2.1.8 - 15/09/2021 =
 * Fix - User can't resend activation email if "Send as a separate email" option is disabled.
