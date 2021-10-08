@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Admin Section Settings
  *
- * @version 2.1.9
+ * @version 2.2.0
  * @since   1.3.0
  * @author  WPFactory
  */
@@ -26,9 +26,25 @@ class Alg_WC_Email_Verification_Settings_Admin extends Alg_WC_Email_Verification
 	}
 
 	/**
+	 * get_allowed_user_roles_option.
+	 *
+	 * @version 2.3.4
+	 * @since   2.3.4
+	 *
+	 * @return array
+	 */
+	function get_allowed_user_roles_option() {
+		if ( ! function_exists( 'get_editable_roles' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/user.php';
+		}
+		$roles = wp_list_pluck( get_editable_roles(), 'name' );
+		return $roles;
+	}
+
+	/**
 	 * get_settings.
 	 *
-	 * @version 2.1.9
+	 * @version 2.2.0
 	 * @since   1.3.0
 	 * @todo    [next] Delete users (automatically): better description
 	 * @todo    [next] Email: better description(s) and default value(s)
@@ -37,6 +53,27 @@ class Alg_WC_Email_Verification_Settings_Admin extends Alg_WC_Email_Verification
 	 */
 	function get_settings() {
 		return array(
+			// Admin options
+			array(
+				'title'    => __( 'Admin options', 'emails-verification-for-woocommerce' ),
+				'type'     => 'title',
+				'id'       => 'alg_wc_ev_admin_options',
+			),
+			array(
+				'title'    => __( 'Allowed user roles', 'cost-of-goods-for-woocommerce' ),
+				'desc'     => __( 'User roles allowed to see and interact with the admin interface from the Email Verification plugin.', 'cost-of-goods-for-woocommerce' ),
+				'desc_tip' => __( 'The administrator can\'t be removed', 'cost-of-goods-for-woocommerce' ),
+				'id'       => 'alg_wc_ev_admin_allowed_user_roles',
+				'default'  => array( 'administrator' ),
+				'type'     => 'multiselect',
+				'class'    => 'chosen_select',
+				'options'  => $this->get_allowed_user_roles_option(),
+			),
+			array(
+				'type'     => 'sectionend',
+				'id'       => 'alg_wc_ev_admin_options',
+			),
+			// Column options
 			array(
 				'title'    => __( 'Verified column', 'emails-verification-for-woocommerce' ),
 				'type'     => 'title',
@@ -69,7 +106,6 @@ class Alg_WC_Email_Verification_Settings_Admin extends Alg_WC_Email_Verification
 				'type'     => 'sectionend',
 				'id'       => 'alg_wc_ev_admin_column_options',
 			),
-
 			// Bulk user actions
 			array(
 				'title'    => __( 'Bulk user actions', 'emails-verification-for-woocommerce' ),

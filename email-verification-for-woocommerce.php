@@ -3,7 +3,7 @@
 Plugin Name: Email Verification for WooCommerce
 Plugin URI: https://wpfactory.com/item/email-verification-for-woocommerce/
 Description: Verify user emails in WooCommerce. Beautifully.
-Version: 2.1.9
+Version: 2.2.0
 Author: WPFactory
 Author URI: https://wpfactory.com
 Text Domain: emails-verification-for-woocommerce
@@ -62,7 +62,7 @@ final class Alg_WC_Email_Verification {
 	 * @var   string
 	 * @since 1.0.0
 	 */
-	public $version = '2.1.9';
+	public $version = '2.2.0';
 	
 	/**
 	 * @var   Alg_WC_Email_Verification The single instance of the class
@@ -202,11 +202,13 @@ final class Alg_WC_Email_Verification {
 	/**
 	 * Add Email Verification settings tab to WooCommerce settings.
 	 *
-	 * @version 1.9.3
+	 * @version 2.2.0
 	 * @since   1.0.0
 	 */
 	function add_woocommerce_settings_tab( $settings ) {
-		$settings[] = require_once( 'includes/settings/class-alg-wc-ev-settings.php' );
+		if ( apply_filters( 'alg_wc_ev_add_woocommerce_settings_tab_validation', true ) ) {
+			$settings[] = require_once( 'includes/settings/class-alg-wc-ev-settings.php' );
+		}
 		return $settings;
 	}
 

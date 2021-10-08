@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Settings
  *
- * @version 2.1.3
+ * @version 2.2.0
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -16,7 +16,7 @@ class Alg_WC_Email_Verification_Settings extends WC_Settings_Page {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.1.3
+	 * @version 2.2.0
 	 * @since   1.0.0
 	 */
 	function __construct() {
@@ -35,6 +35,27 @@ class Alg_WC_Email_Verification_Settings extends WC_Settings_Page {
 		require_once( 'class-alg-wc-ev-settings-compatibility.php' );
 		// Create notice about pro
 		add_action( 'admin_init', array( $this, 'add_promoting_notice' ) );
+		// Sanitize "admin user roles" option.
+		add_filter( 'woocommerce_admin_settings_sanitize_option_' . 'alg_wc_ev_admin_allowed_user_roles', array( $this, 'append_administrator_to_admin_user_roles_option' ), 10, 3 );
+	}
+
+	/**
+	 * Append 'administrator' to "admin user roles" option.
+	 *
+	 * @version 2.2.0
+	 * @since   2.2.0
+	 *
+	 * @param $value
+	 * @param $option
+	 * @param $raw_value
+	 *
+	 * @return array
+	 */
+	function append_administrator_to_admin_user_roles_option( $value, $option, $raw_value ) {
+		if ( ! in_array( 'administrator', $value ) ) {
+			$value[] = 'administrator';
+		}
+		return $value;
 	}
 
 	/**

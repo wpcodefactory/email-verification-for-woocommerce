@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Admin Class
  *
- * @version 2.1.0
+ * @version 2.2.0
  * @since   1.5.0
  * @author  WPFactory
  */
@@ -56,6 +56,23 @@ class Alg_WC_Email_Verification_Admin {
 		add_action( 'admin_notices',             array( $this, 'manage_bulk_notices' ) );
 		// Bkg Process
 		add_action( 'plugins_loaded',            array( $this, 'init_bkg_process' ) );
+		// Hides admin interface.
+		add_filter( 'alg_wc_ev_add_woocommerce_settings_tab_validation', array( $this, 'hide_woocommerce_settings_tab' ) );
+	}
+
+	/**
+	 * hide_woocommerce_settings_tab.
+	 *
+	 * @version 2.2.0
+	 * @since   2.2.0
+	 *
+	 * @param $validation
+	 *
+	 * @return bool
+	 */
+	function hide_woocommerce_settings_tab( $validation ) {
+		$validation = $this->is_user_allowed_to_interact_with_admin_ui();
+		return $validation;
 	}
 
 	/**
@@ -135,7 +152,7 @@ class Alg_WC_Email_Verification_Admin {
 	/**
 	 * add_users_bulk_actions.
 	 *
-	 * @version 1.9.6
+	 * @version 2.2.0
 	 * @since   1.9.6
 	 *
 	 * @param $bulk_actions
@@ -143,10 +160,12 @@ class Alg_WC_Email_Verification_Admin {
 	 * @return mixed
 	 */
 	function add_bulk_user_actions( $bulk_actions ) {
-		if ( 'yes' !== get_option( 'alg_wc_ev_admin_bulk_user_actions_resend' ) ) {
-			return $bulk_actions;
+		if (
+			'yes' === get_option( 'alg_wc_ev_admin_bulk_user_actions_resend' ) &&
+			$this->is_user_allowed_to_interact_with_admin_ui()
+		) {
+			$bulk_actions['alg_wc_ev_resend'] = __( 'Resend verification email', 'emails-verification-for-woocommerce' );
 		}
-		$bulk_actions['alg_wc_ev_resend'] = __( 'Resend verification email', 'emails-verification-for-woocommerce' );
 		return $bulk_actions;
 	}
 
@@ -302,15 +321,44 @@ class Alg_WC_Email_Verification_Admin {
 	/**
 	 * get_user_id_from_action.
 	 *
-	 * @version 1.6.0
+	 * @version 2.2.0
 	 * @since   1.6.0
 	 */
 	function get_user_id_from_action( $action, $do_check_nonce = true ) {
-		if ( ! empty( $_GET[ $action ] ) && ( $user_id = intval( $_GET[ $action ] ) ) > 0 && current_user_can( 'manage_woocommerce' ) ) {
+		if ( ! empty( $_GET[ $action ] ) && ( $user_id = intval( $_GET[ $action ] ) ) > 0 && $this->is_user_allowed_to_interact_with_admin_ui() ) {
 			if ( ! $do_check_nonce || ( isset( $_GET['_alg_wc_ev_wpnonce'] ) && wp_verify_nonce( $_GET['_alg_wc_ev_wpnonce'], 'alg_wc_ev_action' ) ) ) {
 				return $user_id;
 			} else {
 				wp_die( __( 'Nonce not found or not verified.', 'emails-verification-for-woocommerce' ) );
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * is_user_allowed_to_interact_with_admin_ui.
+	 *
+	 * @version 2.2.0
+	 * @since   2.2.0
+	 *
+	 * @param null $args
+	 *
+	 * @return bool
+	 */
+	function is_user_allowed_to_interact_with_admin_ui( $args = null ) {
+		$args = wp_parse_args( $args, array(
+			'user'    => false,
+			'user_id' => false
+		) );
+		if ( $args['user'] || $args['user_id'] ) {
+			$user = $args['user'] ? $args['user'] : get_user_by( 'ID', intval( $args['user_id'] ) );
+		} else {
+			$user = wp_get_current_user();
+		}
+		if ( is_a( $user, '\WP_User' ) ) {
+			$allowed_user_roles = get_option( 'alg_wc_ev_admin_allowed_user_roles', array( 'administrator' ) );
+			if ( count( array_intersect( $allowed_user_roles, $user->roles ) ) > 0 ) {
+				return true;
 			}
 		}
 		return false;
@@ -372,16 +420,18 @@ class Alg_WC_Email_Verification_Admin {
 	/**
 	 * add_verified_email_column.
 	 *
-	 * @version 1.9.5
+	 * @version 2.2.0
 	 * @since   1.0.0
 	 * @todo    new column: "expire"
 	 * @todo    (maybe) add option to rename the column(s)
 	 */
 	function add_verified_email_column( $columns ) {
-		$position = get_option( 'alg_wc_ev_admin_column_position', 5 );
-		$columns  = array_slice( $columns, 0, $position, true ) +
-		            array( 'alg_wc_ev' => __( 'Verified', 'emails-verification-for-woocommerce' ) ) +
-		            array_slice( $columns, $position, count( $columns ) - 1, true );
+		if ( $this->is_user_allowed_to_interact_with_admin_ui() ) {
+			$position = get_option( 'alg_wc_ev_admin_column_position', 5 );
+			$columns  = array_slice( $columns, 0, $position, true ) +
+			            array( 'alg_wc_ev' => __( 'Verified', 'emails-verification-for-woocommerce' ) ) +
+			            array_slice( $columns, $position, count( $columns ) - 1, true );
+		}
 		return $columns;
 	}
 
