@@ -3,7 +3,7 @@ Contributors: wpcodefactory, Karzin
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 5.8
-Stable tag: 2.2.0
+Stable tag: 2.2.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -200,6 +200,9 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 3. Start by visiting plugin settings at "WooCommerce > Settings > Email Verification".
 
 == Changelog ==
+
+= 2.2.1 - 12/10/2021 =
+* Fix - Check for `WP_Background_Process` class before trying to use it.
 
 = 2.2.0 - 07/10/2021 =
 * Dev - Admin - Add "Allowed user roles" option allowing to manage which user roles will interact with the admin interface from the plugin.

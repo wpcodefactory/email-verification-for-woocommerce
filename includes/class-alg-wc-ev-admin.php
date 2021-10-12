@@ -16,7 +16,7 @@ class Alg_WC_Email_Verification_Admin {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.0.1
+	 * @version 2.2.0
 	 * @since   1.5.0
 	 * @todo    (maybe) move more stuff here, e.g. settings, action links etc.
 	 */
