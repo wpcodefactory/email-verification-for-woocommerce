@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Core Class
  *
- * @version 2.1.7
+ * @version 2.2.2
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -211,15 +211,16 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * redirect_on_failure.
 	 *
-	 * @version 2.1.0
+	 * @version 2.2.2
 	 * @since   2.1.0
 	 *
 	 * @param $username
-	 * @param $error
 	 */
-	function redirect_on_failure( $username, $error ) {
+	function redirect_on_failure( $username ) {
 		if (
-			'yes' === get_option( 'alg_wc_ev_redirect_on_failure', 'no' )
+			'yes' === get_option( 'alg_wc_ev_redirect_on_failure', 'no' ) &&
+			2 == func_num_args() &&
+			! empty( $error = func_get_arg( 1 ) )
 			&& in_array( 'alg_wc_ev_email_verified_error', $error->get_error_codes() )
 		) {
 			$user = get_user_by( 'email', $username );
