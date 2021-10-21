@@ -6,5 +6,6 @@
 		<key name="alg_wc_ev_admin_email_subject" />
 		<key name="alg_wc_ev_admin_email_heading" />
 		<key name="alg_wc_ev_admin_email_content" />
+		<key name="alg_wc_ev_verification_info_customization" />
 	</admin-texts>
 </wpml-config>
