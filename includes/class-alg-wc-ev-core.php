@@ -441,7 +441,10 @@ class Alg_WC_Email_Verification_Core {
 		$do_verify_already_registered = ( 'yes' === get_option( 'alg_wc_ev_verify_already_registered', 'no' ) );
 		$is_user_email_activated      = get_user_meta( $user->ID, 'alg_wc_ev_is_activated', true );
 		if (
-			( ( $do_verify_already_registered && ! $is_user_email_activated ) || ( ! $do_verify_already_registered && '0' === $is_user_email_activated ) ) &&
+			(
+				( $do_verify_already_registered && ! $is_user_email_activated ) ||
+				( ! $do_verify_already_registered && '0' === $is_user_email_activated )
+			) &&
 			! $this->is_user_role_skipped( $user )
 		) {
 			return apply_filters( 'alg_wc_ev_is_user_verified', false, $user->ID );

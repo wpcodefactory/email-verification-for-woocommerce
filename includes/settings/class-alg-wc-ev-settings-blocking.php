@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Blocking Section Settings.
  *
- * @version 2.1.1
+ * @version 2.2.4
  * @since   2.1.1
  * @author  WPFactory
  */
@@ -73,7 +73,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Blocking' ) ) :
 		/**
 		 * get_settings.
 		 *
-		 * @version 2.1.1
+		 * @version 2.2.4
 		 * @since   2.1.1
 		 */
 		function get_settings() {
@@ -228,27 +228,19 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Blocking' ) ) :
 				),
 				array(
 					'title'         => __( 'Block non-paying users', 'emails-verification-for-woocommerce' ),
-					'desc'          => __( 'Block activation link until the customer places an order and its status is considered as paid', 'emails-verification-for-woocommerce' ),
-					'desc_tip'      => __( 'Won\'t block users already verified.', 'emails-verification-for-woocommerce' ),
+					'desc'          => __( 'Block activation link until the customer places an order and its status is considered paid', 'emails-verification-for-woocommerce' ),
+					'desc_tip'      => __( 'Won\'t block users already verified.', 'emails-verification-for-woocommerce' ).'<br />'.
+					                   sprintf( __( 'The order status should be marked as %s.', 'emails-verification-for-woocommerce' ), '<strong>' . wc_get_order_status_name( 'wc-completed' ) . '</strong>' ),
 					'type'          => 'checkbox',
 					'default'       => 'no',
 					'checkboxgroup' => 'start',
 					'id'            => 'alg_wc_ev_block_nonpaying_users_activation',
 				),
 				array(
-					'title'             => __( 'Verify paying customers automatically', 'emails-verification-for-woocommerce' ),
-					'desc'              => __( 'Activate the account automatically when the order is paid', 'emails-verification-for-woocommerce' ),
-					'desc_tip'          => __( 'The activation email won\'t be sent if the order cost is not free.', 'emails-verification-for-woocommerce' ),
-					'type'              => 'checkbox',
-					'default'           => 'no',
-					'checkboxgroup'     => 'start',
-					'id'                => 'alg_wc_ev_auto_verify_paying_user',
-					'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
-				),
-				array(
-					'title'             => __( 'Send activation email only on payment', 'emails-verification-for-woocommerce' ),
-					'desc'              => __( 'Send the activation email only when order status is considered as paid', 'emails-verification-for-woocommerce' ),
-					'desc_tip'          => sprintf( __( 'Will only send the email if the %s option is disabled or if the corresponding order cost is free.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Verify paying customers automatically', 'emails-verification-for-woocommerce' ) . '</strong>' ),
+					'title'             => __( 'Activation email', 'emails-verification-for-woocommerce' ),
+					'desc'              => __( 'Send the activation email only when a non-free order is considered paid', 'emails-verification-for-woocommerce' ),
+					'desc_tip'          => sprintf( __( 'Won\'t send the activation email to already verified users.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Verify paying customers automatically', 'emails-verification-for-woocommerce' ) . '</strong>' ) . '<br />' .
+					                       $this->get_paid_statuses_msg(),
 					'type'              => 'checkbox',
 					'id'                => 'alg_wc_ev_block_nonpaying_users_activation_email_on_payment',
 					'default'           => 'no',

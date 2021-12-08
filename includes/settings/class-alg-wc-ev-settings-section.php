@@ -41,6 +41,18 @@ class Alg_WC_Email_Verification_Settings_Section {
 	}
 
 	/**
+	 * get_paid_statuses_msg.
+	 *
+	 * @version 2.2.4
+	 * @since   2.2.4
+	 *
+	 * @return string
+	 */
+	function get_paid_statuses_msg() {
+		return __( 'Paid statuses:', 'emails-verification-for-woocommerce' ) . ' ' . alg_wc_ev_array_to_string( wc_get_is_paid_statuses(), array( 'glue' => ', ', 'item_template' => '<code>{value}</code>' ) );
+	}
+
+	/**
 	 * settings_section.
 	 *
 	 * @version 1.0.0

@@ -98,11 +98,22 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 			),
 			array(
 				'title'             => __( 'Password reset', 'emails-verification-for-woocommerce' ),
-				'desc'              => __( 'Automatically verify the user on password reset', 'emails-verification-for-woocommerce' ),
+				'desc'              => __( 'Verify the user on password reset', 'emails-verification-for-woocommerce' ),
 				'type'              => 'checkbox',
 				'id'                => 'alg_wc_ev_verify_account_on_password_reset',
 				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
 				'default'           => 'no',
+			),
+			array(
+				'title'             => __( 'Paying customers', 'emails-verification-for-woocommerce' ),
+				'desc'              => __( 'Verify customers as soon as any of their non-free orders are considered paid', 'emails-verification-for-woocommerce' ),
+				'desc_tip'          => $this->get_paid_statuses_msg(),
+				//'desc_tip'          => __( 'The activation email won\'t be sent if the order cost is not free.', 'emails-verification-for-woocommerce' ),
+				'type'              => 'checkbox',
+				'default'           => 'no',
+				'checkboxgroup'     => 'start',
+				'id'                => 'alg_wc_ev_auto_verify_paying_user',
+				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
 			),
 			array(
 				'type'     => 'sectionend',
