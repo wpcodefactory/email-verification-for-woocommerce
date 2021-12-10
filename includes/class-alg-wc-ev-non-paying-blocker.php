@@ -50,7 +50,7 @@ class Alg_WC_Email_Verification_Non_Paying_Blocker {
 	/**
 	 * prevent_non_paying_users_from_verify.
 	 *
-	 * @version 1.9.5
+	 * @version 2.2.5
 	 * @since   1.9.5
 	 *
 	 * @param $is_valid
@@ -60,11 +60,13 @@ class Alg_WC_Email_Verification_Non_Paying_Blocker {
 	 * @throws Exception
 	 */
 	function prevent_non_paying_users_from_verify( $is_valid, $user_id ) {
-		if ( alg_wc_ev_is_valid_paying_user( $user_id ) ) {
-			return $is_valid;
+		if (
+			'yes' === get_option( 'alg_wc_ev_block_nonpaying_users_activation', 'no' ) &&
+			! alg_wc_ev_is_valid_paying_user( $user_id )
+		) {
+			do_action( 'alg_wc_ev_non_paying_user_blocked', $user_id );
+			$is_valid = false;
 		}
-		do_action( 'alg_wc_ev_non_paying_user_blocked', $user_id );
-		$is_valid = false;
 		return $is_valid;
 	}
 

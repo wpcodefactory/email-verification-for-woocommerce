@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Email Verification for WooCommerce 2.2.4\n"
+"Project-Id-Version: Email Verification for WooCommerce 2.2.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/emails-verification-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-12-08T20:02:45+01:00\n"
+"POT-Creation-Date: 2021-12-10T16:32:58+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: emails-verification-for-woocommerce\n"
@@ -183,7 +183,7 @@ msgstr ""
 msgid "Thank you for your registration. Your account has to be activated before you can login. Please check your email."
 msgstr ""
 
-#: includes/class-alg-wc-ev-non-paying-blocker.php:160
+#: includes/class-alg-wc-ev-non-paying-blocker.php:162
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:264
 msgid "You need to become a paying customer in order to activate your account."
 msgstr ""

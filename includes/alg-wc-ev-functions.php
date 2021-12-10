@@ -79,14 +79,14 @@ if ( ! function_exists( 'alg_wc_ev_is_valid_paying_user' ) ) {
 	 * @todo Maybe create an option or a filter to change if the function should check if user is already verified or not
 	 */
 	function alg_wc_ev_is_valid_paying_user( $user_id ) {
-		if ( alg_wc_ev()->core->is_user_verified_by_user_id( $user_id ) ||
-		     (
-			     'yes' === get_option( 'alg_wc_ev_block_nonpaying_users_activation', 'no' ) &&
-			     ! empty( $user = get_user_by( 'id', $user_id ) ) &&
-			     ! empty( $customer = new \WC_Customer( $user_id ) ) &&
-			     ( empty( $role_checking = get_option( 'alg_wc_ev_block_nonpaying_users_activation_role', array( 'customer' ) ) ) || count( array_intersect( $role_checking, $user->roles ) ) > 0 ) &&
-			     $customer->get_is_paying_customer()
-		     )
+		if (
+			alg_wc_ev()->core->is_user_verified_by_user_id( $user_id ) ||
+			(
+				! empty( $user = get_user_by( 'id', $user_id ) ) &&
+				! empty( $customer = new \WC_Customer( $user_id ) ) &&
+				( empty( $role_checking = get_option( 'alg_wc_ev_block_nonpaying_users_activation_role', array( 'customer' ) ) ) || count( array_intersect( $role_checking, $user->roles ) ) > 0 ) &&
+				$customer->get_is_paying_customer()
+			)
 		) {
 			return true;
 		}

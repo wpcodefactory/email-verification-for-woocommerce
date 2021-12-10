@@ -3,7 +3,7 @@ Contributors: wpcodefactory, Karzin
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 5.8
-Stable tag: 2.2.4
+Stable tag: 2.2.5
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -200,6 +200,9 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 3. Start by visiting plugin settings at "WooCommerce > Settings > Email Verification".
 
 == Changelog ==
+
+= 2.2.5 - 10/12/2021 =
+* Fix - Users can't activate the account.
 
 = 2.2.4 - 08/12/2021 =
 * Dev - Move "Auto verify paying customers" to General > Account verification.
