@@ -193,40 +193,6 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 				'id'       => 'alg_wc_ev_prevent_login_after_checkout_options',
 			),
 			array(
-				'title'    => __( 'Block order emails', 'emails-verification-for-woocommerce' ),
-				'type'     => 'title',
-				'id'       => 'alg_wc_ev_block_emails_options',
-			),
-			array(
-				'title'    => __( 'Block order emails', 'emails-verification-for-woocommerce' ),
-				'desc'     => __( 'Block WooCommerce order emails for all non-verified users (including guests)', 'emails-verification-for-woocommerce' ),
-				'type'     => 'checkbox',
-				'id'       => 'alg_wc_ev_block_customer_order_emails',
-				'default'  => 'no',
-				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
-			),
-			array(
-				'title'    => __( 'Blocked emails', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => sprintf( __( 'Consider adding the %s email if you want to prevent the admin from receiving the new order notification.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'New Order', 'emails-verification-for-woocommerce' ) . '</strong>' ),
-				'type'     => 'multiselect',
-				'options'  => $this->get_emails(),
-				'default'  => array( 'customer_on_hold_order', 'customer_processing_order', 'customer_completed_order' ),
-				'class'    => 'chosen_select',
-				'id'       => 'alg_wc_ev_block_customer_order_emails_email_ids',
-			),
-			array(
-				'title'    => __( 'Unblock emails', 'emails-verification-for-woocommerce' ),
-				'desc'     => __( 'Send blocked emails to users who have just verified accounts', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => sprintf( __( 'Will only send the email related to the current order status and the %s email, if set on the %s option.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'New Order', 'emails-verification-for-woocommerce' ) . '</strong>', '<strong>' . __( 'Blocked emails', 'emails-verification-for-woocommerce' ) . '</strong>' ),
-				'type'     => 'checkbox',
-				'id'       => 'alg_wc_ev_block_customer_order_emails_unblock',
-				'default'  => 'yes',
-			),
-			array(
-				'type'     => 'sectionend',
-				'id'       => 'alg_wc_ev_block_emails_options',
-			),
-			array(
 				'title'    => __( 'Background processing', 'emails-verification-for-woocommerce' ),
 				'type'     => 'title',
 				'id'       => 'alg_wc_ev_advanced_bkg_process_options',
@@ -320,19 +286,6 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 				'default'  => 'weekly',
 			),
 		);
-	}
-
-	/**
-	 * get_emails.
-	 *
-	 * @version 2.0.8
-	 * @since   2.0.8
-	 *
-	 * @return array
-	 */
-	function get_emails() {
-		$emails = wc()->mailer()->get_emails();
-		return wp_list_pluck( $emails, 'title', 'id' );
 	}
 
 	/**

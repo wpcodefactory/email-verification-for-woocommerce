@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Logouts Class
  *
- * @version 2.1.5
+ * @version 2.2.6
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -98,7 +98,7 @@ class Alg_WC_Email_Verification_Logouts {
 	/**
 	 * register_one_time_activation_link_error_notice.
 	 *
-	 * @version 2.1.4
+	 * @version 2.2.6
 	 * @since   2.1.4
 	 *
 	 * @param $user_id
@@ -110,19 +110,20 @@ class Alg_WC_Email_Verification_Logouts {
 		) {
 			return;
 		}
-		add_action( 'alg_wc_ev_verify_email_error', array( $this, 'output_one_time_activation_link_error_notice' ), 10, 3 );
+		add_action( 'alg_wc_ev_verify_email_error', array( $this, 'output_one_time_activation_link_error_notice' ), 10, 2 );
 	}
 
 	/**
 	 * output_one_time_activation_link_error_notice.
 	 *
-	 * @version 2.1.4
+	 * @version 2.2.6
 	 * @since   2.1.4
 	 *
 	 * @param $user_id
+	 * @param $args
 	 */
-	function output_one_time_activation_link_error_notice( $user_id, $code, $args ) {
-		if ( ! $args['is_rest_api'] ) {
+	function output_one_time_activation_link_error_notice( $user_id, $args ) {
+		if ( $args['directly'] ) {
 			alg_wc_ev_add_notice( alg_wc_ev()->core->messages->get_failed_message( $user_id ), 'error' );
 		}
 	}

@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Non Paying Blocker
  *
- * @version 2.2.4
+ * @version 2.2.6
  * @since   1.9.5
  * @author  WPFactory
  */
@@ -34,14 +34,14 @@ class Alg_WC_Email_Verification_Non_Paying_Blocker {
 	/**
 	 * show_blocked_non_paying_user_error_message.
 	 *
-	 * @version 2.1.4
+	 * @version 2.2.6
 	 * @since   1.9.5
 	 *
 	 * @param $user_id
 	 */
 	function show_blocked_non_paying_user_error_message( $user_id ) {
-		add_filter( 'alg_wc_ev_verify_email_error', function ( $user_id, $code, $args ) {
-			if ( ! $args['is_rest_api'] ) {
+		add_action( 'alg_wc_ev_verify_email_error', function ( $user_id, $args ) {
+			if ( $args['directly'] ) {
 				alg_wc_ev_add_notice( $this->get_non_paying_user_error_message( $user_id ), 'error' );
 			}
 		}, 10, 3 );

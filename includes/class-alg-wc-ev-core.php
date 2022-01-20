@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Core Class
  *
- * @version 2.2.2
+ * @version 2.2.6
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -25,7 +25,7 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.1.4
+	 * @version 2.2.6
 	 * @since   1.0.0
 	 * @todo    [next] (maybe) `[alg_wc_ev_translate]` to description in readme.txt
 	 */
@@ -55,11 +55,11 @@ class Alg_WC_Email_Verification_Core {
 		// Core loaded
 		do_action( 'alg_wc_ev_core_loaded', $this );
 		// Login the user automatically
-		add_action( 'alg_wc_ev_user_account_activated', array( $this, 'login_user_automatically_on_success_activation' ), 10, 3 );
+		add_action( 'alg_wc_ev_user_account_activated', array( $this, 'login_user_automatically_on_success_activation' ), 10, 2 );
 		// Redirect on success activation
-		add_action( 'alg_wc_ev_user_account_activated', array( $this, 'redirect_on_success_activation' ), 100, 3 );
+		add_action( 'alg_wc_ev_user_account_activated', array( $this, 'redirect_on_success_activation' ), 100, 2 );
 		// Success activation message
-		add_action( 'alg_wc_ev_user_account_activated', array( $this, 'maybe_display_success_activation_message_via_hook' ), 10, 3 );
+		add_action( 'alg_wc_ev_user_account_activated', array( $this, 'maybe_display_success_activation_message_via_hook' ), 10, 2 );
 		add_action( 'init', array( $this, 'maybe_display_success_activation_message_via_query_string' ) );
 		add_filter( 'wp_redirect', array( $this, 'remove_success_activation_message' ) );
 		// Error message
@@ -282,15 +282,15 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * login_user_automatically_on_success_activation.
 	 *
-	 * @version 2.1.4
+	 * @version 2.2.6
 	 * @since   2.0.0
 	 *
 	 * @param $user_id
 	 */
-	function login_user_automatically_on_success_activation( $user_id, $code, $args ) {
+	function login_user_automatically_on_success_activation( $user_id, $args ) {
 		if (
 			'yes' === get_option( 'alg_wc_ev_login_automatically_on_activation', 'yes' ) &&
-			! $args['is_rest_api']
+			$args['directly']
 		) {
 			wp_set_current_user( $user_id );
 			wp_set_auth_cookie( $user_id );
@@ -312,11 +312,11 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * maybe_display_success_activation_message.
 	 *
-	 * @version 2.1.4
+	 * @version 2.2.6
 	 * @since   2.0.0
 	 */
-	function maybe_display_success_activation_message_via_hook( $user_id, $code, $args ) {
-		if ( ! $args['is_rest_api'] ) {
+	function maybe_display_success_activation_message_via_hook( $user_id, $args ) {
+		if ( $args['directly'] ) {
 			$this->output_success_activation_message();
 		}
 	}
@@ -337,14 +337,14 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * redirect_on_success_activation.
 	 *
-	 * @version 2.1.6
+	 * @version 2.2.6
 	 * @since   2.0.0
 	 *
 	 */
-	function redirect_on_success_activation( $user_id, $code, $args ) {
+	function redirect_on_success_activation( $user_id, $args ) {
 		if (
 			'no' !== ( $redirect = get_option( 'alg_wc_ev_redirect_to_my_account_on_success', 'yes' ) ) &&
-			! $args['is_rest_api']
+			$args['directly']
 		) {
 			switch ( $redirect ) {
 				case 'home':
@@ -533,7 +533,7 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * verify.
 	 *
-	 * @version 2.1.4
+	 * @version 2.2.6
 	 * @since   1.6.0
 	 *
 	 * @param null $args
@@ -543,7 +543,7 @@ class Alg_WC_Email_Verification_Core {
 	function verify( $args = null ) {
 		$args = wp_parse_args( $args, array(
 			'verify_code' => isset( $_GET['alg_wc_ev_verify_email'] ) ? $_GET['alg_wc_ev_verify_email'] : '',
-			'is_rest_api' => false
+			'directly'    => true
 		) );
 		if (
 			! empty( $args['verify_code'] ) &&
@@ -551,28 +551,55 @@ class Alg_WC_Email_Verification_Core {
 			! empty( $data = json_decode( alg_wc_ev()->core->base64_url_decode( $verify_code ), true ) )
 		) {
 			if (
-				! empty( $user_id = $data['id'] ) &&
+				! empty( $user_id = intval( $data['id'] ) ) &&
 				! empty( $code = get_user_meta( $user_id, 'alg_wc_ev_activation_code', true ) ) &&
 				$code === $data['code'] &&
 				! alg_wc_ev_is_user_verified_by_user_id( $user_id )
 			) {
 				if ( apply_filters( 'alg_wc_ev_verify_email', true, $user_id, $code, $args ) ) {
-					update_user_meta( $user_id, 'alg_wc_ev_is_activated', '1' );
-					$this->save_activation_info( $code, $user_id );
-					do_action( 'alg_wc_ev_user_account_activated', $user_id, $code, $args );
+					$this->activate_user( array(
+						'user_id'     => $user_id,
+						'code'        => $code,
+						'directly'    => $args['directly'],
+						'verify_args' => $args
+					) );
 					return true;
 				} else {
-					do_action( 'alg_wc_ev_verify_email_error', $user_id, $code, $args );
+					do_action( 'alg_wc_ev_verify_email_error', $user_id, $args );
 					return false;
 				}
 			} else {
-				if ( ! $args['is_rest_api'] ) {
+				if ( $args['directly'] ) {
 					alg_wc_ev_add_notice( $this->messages->get_failed_message( $user_id ), 'error', $args );
 				}
 				return false;
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * activate_user.
+	 *
+	 * @version 2.2.6
+	 * @since   2.2.6
+	 *
+	 * @param null $args
+	 */
+	function activate_user( $args = null ) {
+		$args = wp_parse_args( $args, array(
+			'user_id'     => '',
+			'code'        => '',
+			'directly'    => true, // Should be false when the user account is activated indirectly, like if the user is auto activated after its order is paid. Should be true when user account is directly activated, like if the user has accessed the activation link.
+			'verify_args' => array()
+		) );
+		$user_id = $args['user_id'];
+		$code    = $args['code'];
+		update_user_meta( $user_id, 'alg_wc_ev_is_activated', '1' );
+		if ( ! empty( $code ) ) {
+			$this->save_activation_info( $code, $user_id );
+		}
+		do_action( 'alg_wc_ev_user_account_activated', $user_id, $args );
 	}
 
 	/**

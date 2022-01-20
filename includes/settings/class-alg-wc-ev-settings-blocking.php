@@ -230,7 +230,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Blocking' ) ) :
 					'title'         => __( 'Block non-paying users', 'emails-verification-for-woocommerce' ),
 					'desc'          => __( 'Block activation link until the customer places an order and its status is considered paid', 'emails-verification-for-woocommerce' ),
 					'desc_tip'      => __( 'Won\'t block users already verified.', 'emails-verification-for-woocommerce' ).'<br />'.
-					                   sprintf( __( 'The order status should be marked as %s.', 'emails-verification-for-woocommerce' ), '<strong>' . wc_get_order_status_name( 'wc-completed' ) . '</strong>' ),
+					                   sprintf( __( 'The order status should be marked as %s to be considered paid.', 'emails-verification-for-woocommerce' ), '<strong>' . wc_get_order_status_name( 'wc-completed' ) . '</strong>' ),
 					'type'          => 'checkbox',
 					'default'       => 'no',
 					'checkboxgroup' => 'start',
@@ -269,6 +269,40 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Blocking' ) ) :
 				array(
 					'type'     => 'sectionend',
 					'id'       => 'alg_wc_ev_block_nonpaying_users_activation_options',
+				),
+				array(
+					'title'    => __( 'Block order emails', 'emails-verification-for-woocommerce' ),
+					'type'     => 'title',
+					'id'       => 'alg_wc_ev_block_emails_options',
+				),
+				array(
+					'title'    => __( 'Block order emails', 'emails-verification-for-woocommerce' ),
+					'desc'     => __( 'Block WooCommerce order emails for all non-verified users (including guests)', 'emails-verification-for-woocommerce' ),
+					'type'     => 'checkbox',
+					'id'       => 'alg_wc_ev_block_customer_order_emails',
+					'default'  => 'no',
+					'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+				),
+				array(
+					'title'    => __( 'Blocked emails', 'emails-verification-for-woocommerce' ),
+					'desc_tip' => sprintf( __( 'Consider adding the %s email if you want to prevent the admin from receiving the new order notification.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'New Order', 'emails-verification-for-woocommerce' ) . '</strong>' ),
+					'type'     => 'multiselect',
+					'options'  => $this->get_emails(),
+					'default'  => array( 'customer_on_hold_order', 'customer_processing_order', 'customer_completed_order' ),
+					'class'    => 'chosen_select',
+					'id'       => 'alg_wc_ev_block_customer_order_emails_email_ids',
+				),
+				array(
+					'title'    => __( 'Unblock emails', 'emails-verification-for-woocommerce' ),
+					'desc'     => __( 'Send blocked emails to users who have just verified accounts', 'emails-verification-for-woocommerce' ),
+					'desc_tip' => sprintf( __( 'Will only send the email related to the current order status and the %s email if set on the %s option.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'New Order', 'emails-verification-for-woocommerce' ) . '</strong>', '<strong>' . __( 'Blocked emails', 'emails-verification-for-woocommerce' ) . '</strong>' ),
+					'type'     => 'checkbox',
+					'id'       => 'alg_wc_ev_block_customer_order_emails_unblock',
+					'default'  => 'yes',
+				),
+				array(
+					'type'     => 'sectionend',
+					'id'       => 'alg_wc_ev_block_emails_options',
 				),
 				array(
 					'title'    => __( 'Block account verification by email', 'emails-verification-for-woocommerce' ),
@@ -334,6 +368,19 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Blocking' ) ) :
 					'id'       => 'alg_wc_ev_logout_options',
 				),
 			);
+		}
+
+		/**
+		 * get_emails.
+		 *
+		 * @version 2.0.8
+		 * @since   2.0.8
+		 *
+		 * @return array
+		 */
+		function get_emails() {
+			$emails = wc()->mailer()->get_emails();
+			return wp_list_pluck( $emails, 'title', 'id' );
 		}
 
 	}
