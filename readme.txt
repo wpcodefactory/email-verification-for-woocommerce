@@ -2,8 +2,8 @@
 Contributors: wpcodefactory, Karzin
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
-Tested up to: 5.8
-Stable tag: 2.2.6
+Tested up to: 5.9
+Stable tag: 2.2.7
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -200,6 +200,11 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 3. Start by visiting plugin settings at "WooCommerce > Settings > Email Verification".
 
 == Changelog ==
+
+= 2.2.7 - 31/01/2022 =
+* Dev - Compatibility - Email Customizer - Create option that allows a `alg_wc_ev_ec_email_content` action hook display the activation email content.
+* Dev - Add more strings to `wpml-config.xml`.
+* Tested up to: 5.9.
 
 = 2.2.6 - 19/01/2022 =
 * Fix - Blocking - Block order emails - Users don't receive the emails when accounts are activated automatically after the order is paid.

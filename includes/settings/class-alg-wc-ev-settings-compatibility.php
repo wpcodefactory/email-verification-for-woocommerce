@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Compatibility Section Settings.
  *
- * @version 2.1.3
+ * @version 2.2.7
  * @since   2.1.3
  * @author  WPFactory
  */
@@ -28,12 +28,12 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 		/**
 		 * get_settings.
 		 *
-		 * @version 2.1.3
+		 * @version 2.2.7
 		 * @since   2.1.3
 		 * @todo    (maybe) remove `alg_wc_ev_prevent_login_after_checkout_notice` (i.e. make it always enabled)
 		 */
 		function get_settings() {
-			return array(
+			$general =  array(
 				array(
 					'title' => __( 'Compatibility', 'emails-verification-for-woocommerce' ),
 					'desc'  => __( 'Compatibility with third party plugins or solutions.', 'emails-verification-for-woocommerce' ) . '<br />' .
@@ -96,10 +96,10 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 					'title'             => __( 'WooMail - WooCommerce Email Customizer', 'emails-verification-for-woocommerce' ),
 					'desc'              => sprintf( __( 'Append verification email to the "Customer new account" email customized by the "<a target="_blank" href="%s">WooMail</a>" plugin', 'emails-verification-for-woocommerce' ), 'https://codecanyon.net/item/email-customizer-for-woocommerce-with-drag-drop-builder-woo-email-editor/22400984' ),
 					'desc_tip'          => alg_wc_ev_array_to_string( array(
-						sprintf( __( 'You need to use this shortcode in your template: %s', 'emails-verification-for-woocommerce' ), '<code>[ec_woo_custom_code type="alg_wc_ev_activation_email"]</code>' ),
-						sprintf( __( 'It\'s necessary to enable %s option and use %s option as %s', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Emails > Activation email > Fine tune activation email placement', 'emails-verification-for-woocommerce' ) . '</strong>', '<strong>' . __( 'Emails > Activation email > Email template', 'emails-verification-for-woocommerce' ) . '</strong>', '<strong>' . __( 'Plain', 'emails-verification-for-woocommerce' ) . '</strong>' ),
+						sprintf( __( 'You need to use this shortcode in your template: %s.', 'emails-verification-for-woocommerce' ), '<code>[ec_woo_custom_code type="alg_wc_ev_activation_email"]</code>' ),
+						sprintf( __( 'It\'s necessary to enable %s option and use %s option as %s.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Emails > Activation email > Fine tune activation email placement', 'emails-verification-for-woocommerce' ) . '</strong>', '<strong>' . __( 'Emails > Activation email > Email template', 'emails-verification-for-woocommerce' ) . '</strong>', '<strong>' . __( 'Plain', 'emails-verification-for-woocommerce' ) . '</strong>' ),
 						$this->separate_email_option_msg( 'disabled' ),
-					), array( 'glue' => '<br />', 'item_template' => '&#8226; {value}' ) ),
+					), array( 'glue' => '<br />', 'item_template' => '{value}' ) ),
 					'type'              => 'checkbox',
 					'id'                => 'alg_wc_ev_woomail',
 					'default'           => 'no',
@@ -110,7 +110,35 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 					'id'       => 'alg_wc_ev_compatibility_options',
 				),
 			);
+			$email_customizer_themehigh_opts = array(
+				array(
+					'title' => __( 'Email Customizer for WooCommerce', 'emails-verification-for-woocommerce' ),
+					'type'  => 'title',
+					'desc'  => sprintf( __( 'Compatibility with %s plugin.', 'emails-verification-for-woocommerce' ), sprintf( '<a href="%s" target="_blank">%s</a>', 'https://themehigh.com/product/woocommerce-email-customizer', __( 'Email Customizer for WooCommerce', 'emails-verification-for-woocommerce' ) ) ),
+					'id'    => 'alg_wc_ev_compatibility_email_customizer_options',
+				),
+				array(
+					'title'             => __( 'Activation email content', 'emails-verification-for-woocommerce' ),
+					'desc'              => sprintf( __( 'Display the activation email content on a custom template using the %s action hook', 'emails-verification-for-woocommerce' ), '<code>alg_wc_ev_ec_email_content</code>' ),
+					'desc_tip'          => sprintf( __( 'The action hook should be used in a %s block from the Email Customizer plugin.', 'emails-verification-for-woocommerce' ), sprintf( '<a href="https://help.themehigh.com/hc/en-us/articles/4405390768025-Add-New-Email-Template#h_01FDS804XTGFN0S9F2W736GKD6" target="_blank">%s</a>', __( 'Custom Hook', 'emails-verification-for-woocommerce' ) ) ) . '<br />' .
+					                       sprintf( __( 'It\'s necessary to enable %s option and use %s option as %s.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Emails > Activation email > Fine tune activation email placement', 'emails-verification-for-woocommerce' ) . '</strong>', '<strong>' . __( 'Emails > Activation email > Email template', 'emails-verification-for-woocommerce' ) . '</strong>', '<strong>' . __( 'Plain', 'emails-verification-for-woocommerce' ) . '</strong>' ) . '<br />' .
+					                       $this->separate_email_option_msg( 'disabled' ),
+					'id'                => 'alg_wc_ev_email_customizer_hook_enabled',
+					'default'           => 'no',
+					'type'              => 'checkbox',
+					'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+				),
+				array(
+					'type' => 'sectionend',
+					'id'   => 'alg_wc_ev_compatibility_email_customizer_options',
+				),
+			);
+			return array_merge(
+				$general, $email_customizer_themehigh_opts
+			);
 		}
+
+
 
 	}
 

@@ -6,6 +6,17 @@
 		<key name="alg_wc_ev_admin_email_subject" />
 		<key name="alg_wc_ev_admin_email_heading" />
 		<key name="alg_wc_ev_admin_email_content" />
+		<key name="alg_wc_ev_block_content_notice_guests" />
+		<key name="alg_wc_ev_block_content_notice" />
+		<key name="alg_wc_ev_block_checkout_process_notice" />
+		<key name="alg_wc_ev_block_guest_add_to_cart_notice" />
+		<key name="alg_wc_ev_block_nonpaying_users_activation_error_notice" />
 		<key name="alg_wc_ev_verification_info_customization" />
+		<key name="alg_wc_ev_blacklisted_message" />
+		<key name="alg_wc_ev_success_message" />
+		<key name="alg_wc_ev_error_message" />
+		<key name="alg_wc_ev_failed_message" />
+		<key name="alg_wc_ev_activation_message" />
+		<key name="alg_wc_ev_email_resend_message" />
 	</admin-texts>
 </wpml-config>

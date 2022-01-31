@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Email Verification for WooCommerce 2.2.6\n"
+"Project-Id-Version: Email Verification for WooCommerce 2.2.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/emails-verification-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-01-20T02:13:57+01:00\n"
+"POT-Creation-Date: 2022-01-31T19:20:02+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: emails-verification-for-woocommerce\n"
@@ -925,27 +925,56 @@ msgid "Append verification email to the \"Customer new account\" email customize
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:99
-msgid "You need to use this shortcode in your template: %s"
+msgid "You need to use this shortcode in your template: %s."
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:100
-msgid "It's necessary to enable %s option and use %s option as %s"
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:124
+msgid "It's necessary to enable %s option and use %s option as %s."
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:100
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:124
 msgid "Emails > Activation email > Fine tune activation email placement"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:100
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:124
 #: includes/settings/class-alg-wc-ev-settings-general.php:58
 msgid "Emails > Activation email > Email template"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:100
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:124
 #: includes/settings/class-alg-wc-ev-settings-email.php:159
 #: includes/settings/class-alg-wc-ev-settings-email.php:166
 #: includes/settings/class-alg-wc-ev-settings-general.php:58
 msgid "Plain"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:115
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:117
+msgid "Email Customizer for WooCommerce"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:117
+msgid "Compatibility with %s plugin."
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:121
+msgid "Activation email content"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:122
+msgid "Display the activation email content on a custom template using the %s action hook"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:123
+msgid "The action hook should be used in a %s block from the Email Customizer plugin."
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:123
+msgid "Custom Hook"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-email.php:24
