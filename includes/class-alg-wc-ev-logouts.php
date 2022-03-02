@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Logouts Class
  *
- * @version 2.2.6
+ * @version 2.2.8
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -202,7 +202,7 @@ class Alg_WC_Email_Verification_Logouts {
 	/**
 	 * block_unverified_user_login.
 	 *
-	 * @version 2.1.5
+	 * @version 2.2.8
 	 * @since   1.0.0
 	 *
 	 * @param $user
@@ -225,7 +225,11 @@ class Alg_WC_Email_Verification_Logouts {
 				! alg_wc_ev()->core->is_user_verified( $check_user )
 			) {
 				$error_msg = apply_filters( 'alg_wc_ev_block_unverified_user_login_error_message', alg_wc_ev()->core->messages->get_error_message( $check_user->ID ), $check_user );
-				$user      = new WP_Error( 'alg_wc_ev_email_verified_error', $error_msg );
+				if ( is_a( $user, 'WP_User' ) ) {
+					$user = new WP_Error( 'alg_wc_ev_email_verified_error', $error_msg );
+				} elseif ( is_wp_error( $user ) ) {
+					$user->add( 'alg_wc_ev_email_verified_error', $error_msg );
+				}
 			}
 		}
 		return $user;

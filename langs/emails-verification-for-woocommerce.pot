@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Email Verification for WooCommerce 2.2.7\n"
+"Project-Id-Version: Email Verification for WooCommerce 2.2.8\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/emails-verification-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-01-31T19:20:02+01:00\n"
+"POT-Creation-Date: 2022-03-02T15:37:15+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: emails-verification-for-woocommerce\n"
@@ -83,7 +83,7 @@ msgid "User %s: activation link resent."
 msgstr ""
 
 #: includes/class-alg-wc-ev-admin.php:432
-#: includes/class-alg-wc-ev-core.php:685
+#: includes/class-alg-wc-ev-core.php:706
 msgid "Verified"
 msgstr ""
 
@@ -124,15 +124,15 @@ msgid "You can resend the email with verification link by clicking <a href=\"%re
 msgstr ""
 
 #: includes/class-alg-wc-ev-core.php:186
-#: includes/class-alg-wc-ev-core.php:684
+#: includes/class-alg-wc-ev-core.php:705
 msgid "Verification status: "
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:653
+#: includes/class-alg-wc-ev-core.php:674
 msgid "You can resend the email with verification link by clicking <a href=\"{resend_verification_url}\">here</a>."
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:686
+#: includes/class-alg-wc-ev-core.php:707
 msgid "Unverified"
 msgstr ""
 
@@ -207,6 +207,18 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-admin.php:58
 msgid "Admin options"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-admin.php:63
+msgid "Allowed user roles"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-admin.php:64
+msgid "User roles allowed to see and interact with the admin interface from the Email Verification plugin."
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-admin.php:65
+msgid "The administrator can't be removed"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-admin.php:78
@@ -857,6 +869,7 @@ msgid "Advanced > Block auth cookies"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:43
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:146
 msgid "Advanced > Authenticate filter"
 msgstr ""
 
@@ -958,6 +971,7 @@ msgid "Email Customizer for WooCommerce"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:117
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:140
 msgid "Compatibility with %s plugin."
 msgstr ""
 
@@ -975,6 +989,32 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:123
 msgid "Custom Hook"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:138
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:140
+msgid "Essential Addons for Elementor"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:144
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:145
+msgid "Login Register form"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:145
+msgid "Verify users who register or log in from %s element"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:146
+msgid "If you have issues, try to enable %s and set the %s option as %s."
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:146
+msgid "General > Account verification > Verify account for current users"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:146
+msgid "Authenticate"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-email.php:24

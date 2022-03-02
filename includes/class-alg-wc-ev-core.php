@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Core Class
  *
- * @version 2.2.6
+ * @version 2.2.8
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -337,11 +337,33 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * redirect_on_success_activation.
 	 *
-	 * @version 2.2.6
+	 * @version 2.2.8
 	 * @since   2.0.0
 	 *
 	 */
 	function redirect_on_success_activation( $user_id, $args ) {
+		if ( false !== ( $redirect_url = $this->get_redirect_url_on_success_activation( $args ) ) ) {
+			$redirect_url = add_query_arg( array( 'alg_wc_ev_success_activation_message' => 1 ), $redirect_url );
+			wp_redirect( $redirect_url );
+			exit;
+		}
+	}
+
+	/**
+	 * get_redirect_url_on_success_activation.
+	 *
+	 * @version 2.2.8
+	 * @since   2.2.8
+	 *
+	 * @param null $args
+	 *
+	 * @return bool|string
+	 */
+	function get_redirect_url_on_success_activation( $args = null ) {
+		$args         = wp_parse_args( $args, array(
+			'directly' => true
+		) );
+		$redirect_url = false;
 		if (
 			'no' !== ( $redirect = get_option( 'alg_wc_ev_redirect_to_my_account_on_success', 'yes' ) ) &&
 			$args['directly']
@@ -360,9 +382,8 @@ class Alg_WC_Email_Verification_Core {
 					$redirect_url = wc_get_page_permalink( 'myaccount' );
 			}
 			$redirect_url = add_query_arg( array( 'alg_wc_ev_success_activation_message' => 1 ), $redirect_url );
-			wp_redirect( $redirect_url );
-			exit;
 		}
+		return $redirect_url;
 	}
 
 	/**

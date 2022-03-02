@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Compatibility Section Settings.
  *
- * @version 2.2.7
+ * @version 2.2.8
  * @since   2.1.3
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 		/**
 		 * get_settings.
 		 *
-		 * @version 2.2.7
+		 * @version 2.2.8
 		 * @since   2.1.3
 		 * @todo    (maybe) remove `alg_wc_ev_prevent_login_after_checkout_notice` (i.e. make it always enabled)
 		 */
@@ -133,8 +133,30 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 					'id'   => 'alg_wc_ev_compatibility_email_customizer_options',
 				),
 			);
+			$elementor_essential_addons_opts = array(
+				array(
+					'title' => __( 'Essential Addons for Elementor', 'emails-verification-for-woocommerce' ),
+					'type'  => 'title',
+					'desc'  => sprintf( __( 'Compatibility with %s plugin.', 'emails-verification-for-woocommerce' ), sprintf( '<a href="%s" target="_blank">%s</a>', 'https://essential-addons.com/elementor/', __( __( 'Essential Addons for Elementor', 'emails-verification-for-woocommerce' ), 'emails-verification-for-woocommerce' ) ) ),
+					'id'    => 'alg_wc_ev_compatibility_elementor_ea_options',
+				),
+				array(
+					'title'             => __( 'Login Register form', 'emails-verification-for-woocommerce' ),
+					'desc'              => sprintf( __( 'Verify users who register or log in from %s element', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Login Register form', 'emails-verification-for-woocommerce' ) . '</strong>' ),
+					'desc_tip'          => sprintf( __( 'If you have issues, try to enable %s and set the %s option as %s.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'General > Account verification > Verify account for current users', 'emails-verification-for-woocommerce' ) . '</strong>','<strong>'.__( 'Advanced > Authenticate filter', 'emails-verification-for-woocommerce' ) . '</strong>', '<strong>'.__( 'Authenticate', 'emails-verification-for-woocommerce' ) . '</strong>' ) . '<br />' .
+					                       $this->separate_email_option_msg( 'enabled' ),
+					'id'                => 'alg_wc_ev_compatibility_elementor_ea_login_register_form',
+					'default'           => 'no',
+					'type'              => 'checkbox',
+					'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+				),
+				array(
+					'type' => 'sectionend',
+					'id'   => 'alg_wc_ev_compatibility_elementor_ea_options',
+				),
+			);
 			return array_merge(
-				$general, $email_customizer_themehigh_opts
+				$general, $elementor_essential_addons_opts, $email_customizer_themehigh_opts
 			);
 		}
 
