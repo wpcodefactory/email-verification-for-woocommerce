@@ -1,8 +1,8 @@
 <?php
 /**
- * Email Verification for WooCommerce - Emails Class
+ * Email Verification for WooCommerce - Emails Class.
  *
- * @version 2.1.8
+ * @version 2.2.9
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -16,7 +16,7 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.1.4
+	 * @version 2.2.9
 	 * @since   1.6.0
 	 */
 	function __construct() {
@@ -37,6 +37,52 @@ class Alg_WC_Email_Verification_Emails {
 			add_shortcode( 'alg_wc_ev_email_content_placeholder', array( $this, 'alg_wc_ev_email_content_placeholder' ) );
 		}
 		add_action( 'alg_wc_ev_user_account_activated', array( $this, 'maybe_send_wc_customer_new_account_email' ) );
+		// Confirmation email.
+		add_action( 'alg_wc_ev_user_account_activated', array( $this, 'maybe_send_confirmation_email' ), 10, 2 );
+	}
+
+	/**
+	 * Send Confirmation email to the user.
+	 *
+	 * @version 2.2.9
+	 * @since   2.2.9
+	 *
+	 * @param   $user_id
+	 * @param   $args
+	 */
+	function maybe_send_confirmation_email( $user_id, $args ) {
+		if ( 'yes' === get_option( 'alg_wc_ev_enable_confirmation_email', 'yes' ) ) {
+			$user      = new WP_User( $user_id );
+			$recipient = $user->user_email;
+			if ( '' === $recipient ) {
+				return;
+			}
+			$placeholders = array(
+				'%user_id%'                => $user_id,
+				'%user_login%'             => $user->user_login,
+				'%user_nicename%'          => $user->user_nicename,
+				'%user_email%'             => $user->user_email,
+				'%user_url%'               => $user->user_url,
+				'%user_registered%'        => $user->user_registered,
+				'%user_display_name%'      => $user->display_name,
+				'%user_roles%'             => implode( ', ', $user->roles ),
+				'%user_first_name%'        => $user->first_name,
+				'%user_last_name%'         => $user->last_name,
+				'%admin_user_profile_url%' => admin_url( 'user-edit.php?user_id=' . $user_id ),
+			);
+			$subject      = str_replace( array_keys( $placeholders ), $placeholders, get_option( 'alg_wc_ev_confirmation_email_subject', __( 'Your account has been activated successfully', 'emails-verification-for-woocommerce' ) ) );
+			$heading      = str_replace( array_keys( $placeholders ), $placeholders, get_option( 'alg_wc_ev_confirmation_email_heading', __( 'Your account has been activated', 'emails-verification-for-woocommerce' ) ) );
+			$content      = wpautop( str_replace( array_keys( $placeholders ),
+				$placeholders,
+				get_option( 'alg_wc_ev_confirmation_email_content',
+					__( 'Your account has been activated successfully.', 'emails-verification-for-woocommerce' ) ) ) );
+			$content      = $this->wrap_in_wc_email_template( $content, $heading );
+			$this->core->emails->send_mail( $recipient, $subject, $content );
+			$data = array(
+				'confirmation_email_sent' => time()
+			);
+			alg_wc_ev()->core->update_activation_code_data( $user_id, $args['code'], $data );
+		}
 	}
 
 	/**

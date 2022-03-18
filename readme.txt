@@ -1,9 +1,9 @@
 === Email Verification for WooCommerce ===
-Contributors: wpcodefactory, Karzin
+Contributors: wpcodefactory, Karzin, jaedm97
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 5.9
-Stable tag: 2.2.8
+Stable tag: 2.2.9
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -200,6 +200,11 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 3. Start by visiting plugin settings at "WooCommerce > Settings > Email Verification".
 
 == Changelog ==
+
+= 2.2.9 - 18/03/2022 =
+* Dev - Move compatibility code to a new class.
+* Dev - Emails - Implement functionality of sending confirmation email to user.
+* WC tested up to: 6.3.
 
 = 2.2.8 - 02/03/2022 =
 * Dev - Improve `Alg_WC_Email_Verification_Logouts::block_unverified_user_login()`.

@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Email Section Settings
  *
- * @version 2.1.8
+ * @version 2.2.9
  * @since   1.3.0
  * @author  WPFactory
  */
@@ -52,7 +52,7 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.1.8
+	 * @version 2.2.9
 	 * @since   1.3.0
 	 */
 	function get_settings() {
@@ -256,6 +256,60 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 			array(
 				'type'     => 'sectionend',
 				'id'       => 'alg_wc_ev_email_options',
+			),
+			array(
+				'title'    => __( 'Confirmation email', 'emails-verification-for-woocommerce' ),
+				'type'     => 'title',
+				'id'       => 'alg_wc_ev_confirmation_email',
+				'desc'     => __( 'An email sent to the user when the account is verified.', 'emails-verification-for-woocommerce' ),
+			),
+			array(
+				'title'    => __( 'Confirmation email', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'Send confirmation email to users who have just verified their accounts', 'emails-verification-for-woocommerce' ),
+				'type'     => 'checkbox',
+				'id'       => 'alg_wc_ev_enable_confirmation_email',
+				'default'  => 'yes',
+			),
+			array(
+				'title'             => __( 'Email subject', 'emails-verification-for-woocommerce' ),
+				'type'              => 'textarea',
+				'id'                => 'alg_wc_ev_confirmation_email_subject',
+				'default'           => __( 'Your account has been activated successfully', 'emails-verification-for-woocommerce' ),
+				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'readonly' => 'readonly' ) ),
+				'css'               => 'width:100%;',
+				'alg_wc_ev_raw'     => true,
+			),
+			array(
+				'title'             => __( 'Email Heading', 'emails-verification-for-woocommerce' ),
+				'desc'              => $this->available_placeholders_desc( $this->get_default_email_placeholders() ),
+				'type'              => 'textarea',
+				'id'                => 'alg_wc_ev_confirmation_email_heading',
+				'default'           => __( 'Your account has been activated', 'emails-verification-for-woocommerce' ),
+				'css'               => 'width:100%;',
+				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'readonly' => 'readonly' ) ),
+				'alg_wc_ev_raw'     => true,
+			),
+			array(
+				'title'             => __( 'Email content', 'emails-verification-for-woocommerce' ),
+				'desc'              => sprintf( __( 'Placeholders: %s', 'emails-verification-for-woocommerce' ), '<code>' . implode( '</code>, <code>', array(
+						'%user_id%',
+						'%user_first_name%',
+						'%user_last_name%',
+						'%user_login%',
+						'%user_nicename%',
+						'%user_email%',
+						'%user_display_name%',
+					) ) . '</code>' ),
+				'type'              => 'textarea',
+				'id'                => 'alg_wc_ev_confirmation_email_content',
+				'default'           => __( '<p>Your account has been activated successfully.</p>', 'emails-verification-for-woocommerce' ),
+				'css'               => 'width:100%;height:150px;',
+				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'readonly' => 'readonly' ) ),
+				'alg_wc_ev_raw'     => true,
+			),
+			array(
+				'type'     => 'sectionend',
+				'id'       => 'alg_wc_ev_activation_email',
 			),
 		);
 	}
