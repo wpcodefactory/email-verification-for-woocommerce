@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Email Verification for WooCommerce 2.2.9\n"
+"Project-Id-Version: Email Verification for WooCommerce 2.3.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/emails-verification-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-03-18T23:52:48+01:00\n"
+"POT-Creation-Date: 2022-03-21T21:45:36+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: emails-verification-for-woocommerce\n"
@@ -136,39 +136,34 @@ msgstr ""
 msgid "Unverified"
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:73
+#: includes/class-alg-wc-ev-emails.php:61
 #: includes/settings/class-alg-wc-ev-settings-email.php:277
 msgid "Your account has been activated successfully"
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:74
-#: includes/settings/class-alg-wc-ev-settings-email.php:287
-msgid "Your account has been activated"
-msgstr ""
-
-#: includes/class-alg-wc-ev-emails.php:78
+#: includes/class-alg-wc-ev-emails.php:84
 msgid "Your account has been activated successfully."
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:184
+#: includes/class-alg-wc-ev-emails.php:185
 #: includes/settings/class-alg-wc-ev-settings-email.php:152
 msgid "<p>Please <a href=\"%verification_url%\" target=\"_blank\">click here</a> to verify your email.</p>"
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:280
+#: includes/class-alg-wc-ev-emails.php:281
 #: includes/settings/class-alg-wc-ev-settings-email.php:133
 msgid "Please activate your account"
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:352
+#: includes/class-alg-wc-ev-emails.php:353
 msgid "Error sending mail."
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:353
+#: includes/class-alg-wc-ev-emails.php:354
 msgid "Mail function: %s."
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:356
+#: includes/class-alg-wc-ev-emails.php:357
 msgid "Last error: %s."
 msgstr ""
 
@@ -1248,6 +1243,10 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-email.php:283
 msgid "Email Heading"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-email.php:287
+msgid "Your account has been activated"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-email.php:305

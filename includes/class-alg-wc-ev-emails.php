@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Emails Class.
  *
- * @version 2.2.9
+ * @version 2.3.0
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -16,7 +16,7 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.2.9
+	 * @version 2.3.0
 	 * @since   1.6.0
 	 */
 	function __construct() {
@@ -39,12 +39,13 @@ class Alg_WC_Email_Verification_Emails {
 		add_action( 'alg_wc_ev_user_account_activated', array( $this, 'maybe_send_wc_customer_new_account_email' ) );
 		// Confirmation email.
 		add_action( 'alg_wc_ev_user_account_activated', array( $this, 'maybe_send_confirmation_email' ), 10, 2 );
+		add_filter( 'alg_wc_ev_email_content', array( $this, 'filter_confirmation_email_content' ), 11, 2 );
 	}
 
 	/**
 	 * Send Confirmation email to the user.
 	 *
-	 * @version 2.2.9
+	 * @version 2.3.0
 	 * @since   2.2.9
 	 *
 	 * @param   $user_id
@@ -57,32 +58,32 @@ class Alg_WC_Email_Verification_Emails {
 			if ( '' === $recipient ) {
 				return;
 			}
-			$placeholders = array(
-				'%user_id%'                => $user_id,
-				'%user_login%'             => $user->user_login,
-				'%user_nicename%'          => $user->user_nicename,
-				'%user_email%'             => $user->user_email,
-				'%user_url%'               => $user->user_url,
-				'%user_registered%'        => $user->user_registered,
-				'%user_display_name%'      => $user->display_name,
-				'%user_roles%'             => implode( ', ', $user->roles ),
-				'%user_first_name%'        => $user->first_name,
-				'%user_last_name%'         => $user->last_name,
-				'%admin_user_profile_url%' => admin_url( 'user-edit.php?user_id=' . $user_id ),
-			);
-			$subject      = str_replace( array_keys( $placeholders ), $placeholders, get_option( 'alg_wc_ev_confirmation_email_subject', __( 'Your account has been activated successfully', 'emails-verification-for-woocommerce' ) ) );
-			$heading      = str_replace( array_keys( $placeholders ), $placeholders, get_option( 'alg_wc_ev_confirmation_email_heading', __( 'Your account has been activated', 'emails-verification-for-woocommerce' ) ) );
-			$content      = wpautop( str_replace( array_keys( $placeholders ),
-				$placeholders,
-				get_option( 'alg_wc_ev_confirmation_email_content',
-					__( 'Your account has been activated successfully.', 'emails-verification-for-woocommerce' ) ) ) );
-			$content      = $this->wrap_in_wc_email_template( $content, $heading );
-			$this->core->emails->send_mail( $recipient, $subject, $content );
-			$data = array(
-				'confirmation_email_sent' => time()
-			);
+			$subject = do_shortcode( __( 'Your account has been activated successfully', 'emails-verification-for-woocommerce' ) );
+			$content = $this->get_email_content( array(
+				'user_id' => $user_id,
+				'context' => 'confirmation_email'
+			) );
+			$this->send_mail( $recipient, $subject, $content );
+			$data = array( 'confirmation_email_sent' => time() );
 			alg_wc_ev()->core->update_activation_code_data( $user_id, $args['code'], $data );
 		}
+	}
+
+	/**
+	 * filter_confirmation_email_content.
+	 *
+	 * @version 2.3.0
+	 * @since   2.3.0
+	 *
+	 * @param $content
+	 *
+	 * @return string
+	 */
+	function filter_confirmation_email_content( $content, $args ) {
+		if ( 'confirmation_email' === $args['context'] ) {
+			$content = get_option( 'alg_wc_ev_confirmation_email_content', __( 'Your account has been activated successfully.', 'emails-verification-for-woocommerce' ) );
+		}
+		return $content;
 	}
 
 	/**
@@ -181,7 +182,7 @@ class Alg_WC_Email_Verification_Emails {
 		$user_id = $args['user_id'];
 		$code = $args['code'];
 		$content = do_shortcode( apply_filters( 'alg_wc_ev_email_content',
-			__( '<p>Please <a href="%verification_url%" target="_blank">click here</a> to verify your email.</p>', 'emails-verification-for-woocommerce' ) ) );
+			__( '<p>Please <a href="%verification_url%" target="_blank">click here</a> to verify your email.</p>', 'emails-verification-for-woocommerce' ), $args ) );
 		$placeholders = ( ( $user = new WP_User( $user_id ) ) && ! is_wp_error( $user ) ? array(
 				'%user_first_name%'     => $user->first_name,
 				'%user_last_name%'      => $user->last_name,
