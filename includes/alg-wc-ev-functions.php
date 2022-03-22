@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Functions.
  *
- * @version 2.2.4
+ * @version 2.3.1
  * @since   1.9.0
  * @author  WPFactory
  */
@@ -140,5 +140,41 @@ if ( ! function_exists( 'alg_wc_ev_array_to_string' ) ) {
 			return $item;
 		}, array_keys( $arr ), $arr );
 		return implode( $args['glue'], $transformed_arr );
+	}
+}
+
+if ( ! function_exists( 'alg_wc_ev_get_user_placeholders' ) ) {
+	/**
+	 * converts array to string.
+	 *
+	 * @version 2.3.1
+	 * @since   2.3.1
+	 *
+	 * @param array $args
+	 *
+	 * @return array
+	 */
+	function alg_wc_ev_get_user_placeholders( $args ) {
+		$args         = wp_parse_args( $args, array(
+			'user_id' => '',
+			'user'    => '',
+		) );
+		$args         = apply_filters( 'alg_wc_ev_user_placeholders_args', $args );
+		$user_id      = intval( $args['user_id'] );
+		$user         = ! empty( $args['user'] ) && is_a( $args['user'], 'WP_User' ) ? $args['user'] : new WP_User( $user_id );
+		$placeholders = array(
+			'%user_id%'                => $user_id,
+			'%user_login%'             => $user->user_login,
+			'%user_nicename%'          => $user->user_nicename,
+			'%user_email%'             => $user->user_email,
+			'%user_url%'               => $user->user_url,
+			'%user_registered%'        => $user->user_registered,
+			'%user_display_name%'      => $user->display_name,
+			'%user_roles%'             => implode( ', ', $user->roles ),
+			'%user_first_name%'        => $user->first_name,
+			'%user_last_name%'         => $user->last_name,
+			'%admin_user_profile_url%' => admin_url( 'user-edit.php?user_id=' . $user_id ),
+		);
+		return apply_filters( 'alg_wc_ev_user_placeholders_args', $placeholders, $args );
 	}
 }
