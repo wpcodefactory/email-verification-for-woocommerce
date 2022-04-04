@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Compatibility Section Settings.
  *
- * @version 2.2.8
+ * @version 2.3.2
  * @since   2.1.3
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 		/**
 		 * get_settings.
 		 *
-		 * @version 2.2.8
+		 * @version 2.3.2
 		 * @since   2.1.3
 		 * @todo    (maybe) remove `alg_wc_ev_prevent_login_after_checkout_notice` (i.e. make it always enabled)
 		 */
@@ -155,8 +155,37 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 					'id'   => 'alg_wc_ev_compatibility_elementor_ea_options',
 				),
 			);
+			$paid_memberships_pro_opts = array(
+				array(
+					'title' => __( 'Paid Memberships Pro', 'emails-verification-for-woocommerce' ),
+					'type'  => 'title',
+					'desc'  => sprintf( __( 'Compatibility with %s plugin.', 'emails-verification-for-woocommerce' ), sprintf( '<a href="%s" target="_blank">%s</a>', 'https://wordpress.org/plugins/paid-memberships-pro/', __( 'Paid Memberships Pro', 'emails-verification-for-woocommerce' ) ) ),
+					'id'    => 'alg_wc_ev_compatibility_paid_memberships_pro_options',
+				),
+				array(
+					'title'             => __( 'Account verification', 'emails-verification-for-woocommerce' ),
+					'desc'              => __( 'Verify users that signs up via Paid Memberships Pro registration process', 'emails-verification-for-woocommerce' ),
+					'id'                => 'alg_wc_ev_compatibility_pmpro_auto_verify_registration',
+					'default'           => 'no',
+					'type'              => 'checkbox',
+					'checkboxgroup'     => 'start',
+					'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+				),
+				array(
+					'desc'              => __( 'Verify users that already have a valid membership', 'emails-verification-for-woocommerce' ),
+					'id'                => 'alg_wc_ev_compatibility_pmpro_auto_verify_valid_membership',
+					'default'           => 'no',
+					'type'              => 'checkbox',
+					'checkboxgroup'     => 'end',
+					'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+				),
+				array(
+					'type' => 'sectionend',
+					'id'   => 'alg_wc_ev_compatibility_paid_memberships_pro_options',
+				),
+			);
 			return array_merge(
-				$general, $elementor_essential_addons_opts, $email_customizer_themehigh_opts
+				$general, $elementor_essential_addons_opts, $email_customizer_themehigh_opts, $paid_memberships_pro_opts
 			);
 		}
 

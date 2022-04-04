@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Email Verification for WooCommerce 2.3.1\n"
+"Project-Id-Version: Email Verification for WooCommerce 2.3.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/emails-verification-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-03-22T03:17:39+01:00\n"
+"POT-Creation-Date: 2022-04-05T00:56:17+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: emails-verification-for-woocommerce\n"
@@ -988,6 +988,7 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:117
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:140
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:162
 msgid "Compatibility with %s plugin."
 msgstr ""
 
@@ -1031,6 +1032,24 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:146
 msgid "Authenticate"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:160
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:162
+msgid "Paid Memberships Pro"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:166
+#: includes/settings/class-alg-wc-ev-settings-general.php:69
+msgid "Account verification"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:167
+msgid "Verify users that signs up via Paid Memberships Pro registration process"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:175
+msgid "Verify users that already have a valid membership"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-email.php:24
@@ -1290,10 +1309,6 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-general.php:58
 msgid "Disable login options on the %s section"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-general.php:69
-msgid "Account verification"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-general.php:74

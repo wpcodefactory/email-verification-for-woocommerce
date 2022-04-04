@@ -3,7 +3,7 @@ Contributors: wpcodefactory, Karzin, jaedm97
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 5.9
-Stable tag: 2.3.1
+Stable tag: 2.3.2
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -201,10 +201,13 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 
 == Changelog ==
 
+= 2.3.2 - 04/04/2022 =
+* Dev - Compatibility - Paid Memberships Pro - Add option to verify users that signs up via Paid Memberships Pro registration process.
+* Dev - Compatibility - Paid Memberships Pro - Add option to verify users that already have a valid membership.
+
 = 2.3.1 - 21/03/2022 =
 * Fix - Emails - Confirmation email - Subject does not reflect the settings.
 * Fix - Emails - Confirmation email - Wrong email heading.
-* Dev - Emails - Create `alg_wc_ev_email_subject` filter.
 * Dev - Emails - Create `alg_wc_ev_email_subject_final` filter.
 * Dev - Emails - Create `alg_wc_ev_email_content_heading` filter.
 * Dev - Emails - Move "Email template" and "Email wrap method" options from activation email to general email section.
