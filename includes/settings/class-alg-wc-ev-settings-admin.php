@@ -1,8 +1,8 @@
 <?php
 /**
- * Email Verification for WooCommerce - Admin Section Settings
+ * Email Verification for WooCommerce - Admin Section Settings.
  *
- * @version 2.2.8
+ * @version 2.3.3
  * @since   1.3.0
  * @author  WPFactory
  */
@@ -28,17 +28,13 @@ class Alg_WC_Email_Verification_Settings_Admin extends Alg_WC_Email_Verification
 	/**
 	 * get_allowed_user_roles_option.
 	 *
-	 * @version 2.3.4
-	 * @since   2.3.4
+	 * @version 2.3.3
+	 * @since   2.2.0
 	 *
 	 * @return array
 	 */
-	function get_allowed_user_roles_option() {
-		if ( ! function_exists( 'get_editable_roles' ) ) {
-			require_once ABSPATH . 'wp-admin/includes/user.php';
-		}
-		$roles = wp_list_pluck( get_editable_roles(), 'name' );
-		return $roles;
+	function get_available_user_roles_option() {
+		return wp_roles()->get_names();
 	}
 
 	/**
@@ -61,13 +57,20 @@ class Alg_WC_Email_Verification_Settings_Admin extends Alg_WC_Email_Verification
 			),
 			array(
 				'title'    => __( 'Allowed user roles', 'emails-verification-for-woocommerce' ),
-				'desc'     => __( 'User roles allowed to see and interact with the admin interface from the Email Verification plugin.', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'User roles allowed to see and interact with the admin interface of the Email Verification plugin.', 'emails-verification-for-woocommerce' ),
 				'desc_tip' => __( 'The administrator can\'t be removed', 'emails-verification-for-woocommerce' ),
 				'id'       => 'alg_wc_ev_admin_allowed_user_roles',
-				'default'  => array( 'administrator' ),
+				'default'  => array(),
 				'type'     => 'multiselect',
 				'class'    => 'chosen_select',
-				'options'  => $this->get_allowed_user_roles_option(),
+				'options'  => $this->get_available_user_roles_option(),
+			),
+			array(
+				'title'    => __( 'Users filter', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'Add a dropdown on the users page allowing to filter verified/unverified users.', 'emails-verification-for-woocommerce' ),
+				'id'       => 'alg_wc_ev_admin_users_filter',
+				'type'     => 'checkbox',
+				'default'  => 'no',
 			),
 			array(
 				'type'     => 'sectionend',
@@ -118,6 +121,13 @@ class Alg_WC_Email_Verification_Settings_Admin extends Alg_WC_Email_Verification
 				'desc'     => sprintf( __( 'Add %s bulk option', 'emails-verification-for-woocommerce' ), '"' . __( 'Resend verification email', 'emails-verification-for-woocommerce' ) . '"' ),
 				'type'     => 'checkbox',
 				'id'       => 'alg_wc_ev_admin_bulk_user_actions_resend',
+				'default'  => 'no',
+			),
+			array(
+				'title'    => __( 'Verify users', 'emails-verification-for-woocommerce' ),
+				'desc'     => sprintf( __( 'Add %s bulk option', 'emails-verification-for-woocommerce' ), '"' . __( 'Verify users', 'emails-verification-for-woocommerce' ) . '"' ),
+				'type'     => 'checkbox',
+				'id'       => 'alg_wc_ev_admin_bulk_verify_users',
 				'default'  => 'no',
 			),
 			array(

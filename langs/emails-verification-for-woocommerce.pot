@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Email Verification for WooCommerce 2.3.2\n"
+"Project-Id-Version: Email Verification for WooCommerce 2.3.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/emails-verification-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-04-05T00:56:17+02:00\n"
+"POT-Creation-Date: 2022-04-26T22:24:39+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: emails-verification-for-woocommerce\n"
@@ -46,69 +46,109 @@ msgstr ""
 msgid "User deleted: %d."
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:114
+#: includes/background-process/class-alg-wc-ev-verify-users.php:30
+msgid "Email Verification for WooCommerce - Verify Users"
+msgstr ""
+
+#: includes/background-process/class-alg-wc-ev-verify-users.php:49
+msgid "User verified manually: %d."
+msgstr ""
+
+#: includes/class-alg-wc-ev-admin.php:151
+msgid "All Users"
+msgstr ""
+
+#: includes/class-alg-wc-ev-admin.php:152
+msgid "Verified Users"
+msgstr ""
+
+#: includes/class-alg-wc-ev-admin.php:153
+msgid "Unverified Users"
+msgstr ""
+
+#: includes/class-alg-wc-ev-admin.php:158
+msgid "Filter"
+msgstr ""
+
+#: includes/class-alg-wc-ev-admin.php:217
 msgid "Verification email sent to %d user successfully."
 msgid_plural "Verification email sent to %d users successfully."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-alg-wc-ev-admin.php:167
-#: includes/settings/class-alg-wc-ev-settings-admin.php:117
-#: includes/settings/class-alg-wc-ev-settings-admin.php:118
+#: includes/class-alg-wc-ev-admin.php:224
+msgid "%d unverified users are going to be verified manually in background processing."
+msgstr ""
+
+#: includes/class-alg-wc-ev-admin.php:226
+msgid "%d user verified successfully."
+msgid_plural "%d users verified successfully."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-alg-wc-ev-admin.php:310
+#: includes/settings/class-alg-wc-ev-settings-admin.php:120
+#: includes/settings/class-alg-wc-ev-settings-admin.php:121
 msgid "Resend verification email"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:309
+#: includes/class-alg-wc-ev-admin.php:317
+#: includes/settings/class-alg-wc-ev-settings-admin.php:127
+#: includes/settings/class-alg-wc-ev-settings-admin.php:128
+msgid "Verify users"
+msgstr ""
+
+#: includes/class-alg-wc-ev-admin.php:460
 msgid "%d unverified users are going to be deleted in background processing. When the task is complete an e-mail is going to be sent to %s"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:317
+#: includes/class-alg-wc-ev-admin.php:468
 msgid "Total unverified users deleted: %d."
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:332
+#: includes/class-alg-wc-ev-admin.php:483
 msgid "Nonce not found or not verified."
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:395
+#: includes/class-alg-wc-ev-admin.php:550
 msgid "User %s: verified."
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:399
+#: includes/class-alg-wc-ev-admin.php:554
 msgid "User %s: unverified."
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:403
+#: includes/class-alg-wc-ev-admin.php:558
 msgid "User %s: activation link resent."
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:432
+#: includes/class-alg-wc-ev-admin.php:587
 #: includes/class-alg-wc-ev-core.php:706
 msgid "Verified"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:446
+#: includes/class-alg-wc-ev-admin.php:603
 msgid "Are you sure?"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:465
+#: includes/class-alg-wc-ev-admin.php:622
 msgid "Email not verified"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:468
+#: includes/class-alg-wc-ev-admin.php:625
 msgid "Verify"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:470
+#: includes/class-alg-wc-ev-admin.php:627
 #: includes/settings/class-alg-wc-ev-settings-messages.php:95
 msgid "Resend"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:474
+#: includes/class-alg-wc-ev-admin.php:631
 msgid "Email verified"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:477
+#: includes/class-alg-wc-ev-admin.php:634
 msgid "Unverify"
 msgstr ""
 
@@ -221,65 +261,74 @@ msgstr ""
 msgid "Admin"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-admin.php:58
+#: includes/settings/class-alg-wc-ev-settings-admin.php:54
 msgid "Admin options"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-admin.php:63
+#: includes/settings/class-alg-wc-ev-settings-admin.php:59
 msgid "Allowed user roles"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-admin.php:64
-msgid "User roles allowed to see and interact with the admin interface from the Email Verification plugin."
+#: includes/settings/class-alg-wc-ev-settings-admin.php:60
+msgid "User roles allowed to see and interact with the admin interface of the Email Verification plugin."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-admin.php:65
+#: includes/settings/class-alg-wc-ev-settings-admin.php:61
 msgid "The administrator can't be removed"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-admin.php:78
-#: includes/settings/class-alg-wc-ev-settings-admin.php:84
-#: includes/settings/class-alg-wc-ev-settings-admin.php:99
+#: includes/settings/class-alg-wc-ev-settings-admin.php:69
+msgid "Users filter"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-admin.php:70
+msgid "Add a dropdown on the users page allowing to filter verified/unverified users."
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-admin.php:81
+#: includes/settings/class-alg-wc-ev-settings-admin.php:87
+#: includes/settings/class-alg-wc-ev-settings-admin.php:102
 msgid "Verified column"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-admin.php:80
+#: includes/settings/class-alg-wc-ev-settings-admin.php:83
 msgid "A new column displayed on the <a href=\"%s\">users list page</a> with useful info about users verification."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-admin.php:85
+#: includes/settings/class-alg-wc-ev-settings-admin.php:88
 msgid "Add \"Verified\" column to the admin \"Users\" list"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-admin.php:91
+#: includes/settings/class-alg-wc-ev-settings-admin.php:94
 msgid "Position"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-admin.php:92
+#: includes/settings/class-alg-wc-ev-settings-admin.php:95
 msgid "The position of the column."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-admin.php:98
+#: includes/settings/class-alg-wc-ev-settings-admin.php:101
 msgid "Actions"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-admin.php:99
+#: includes/settings/class-alg-wc-ev-settings-admin.php:102
 msgid "%s option must be enabled."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-admin.php:100
+#: includes/settings/class-alg-wc-ev-settings-admin.php:103
 msgid "Add links for manual email verification, unverification and email resend by admin"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-admin.php:111
+#: includes/settings/class-alg-wc-ev-settings-admin.php:114
 msgid "Bulk user actions"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-admin.php:113
+#: includes/settings/class-alg-wc-ev-settings-admin.php:116
 msgid "New options displayed on the <a href=\"%s\">users</a> bulk actions."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-admin.php:118
+#: includes/settings/class-alg-wc-ev-settings-admin.php:121
+#: includes/settings/class-alg-wc-ev-settings-admin.php:128
 msgid "Add %s bulk option"
 msgstr ""
 
@@ -1579,35 +1628,35 @@ msgstr ""
 msgid "Email Verification"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings.php:79
+#: includes/settings/class-alg-wc-ev-settings.php:82
 msgid "Email Verification for WooCommerce Pro"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings.php:80
+#: includes/settings/class-alg-wc-ev-settings.php:83
 msgid "Disabled options can be unlocked using <a href=\"%pro_version_url%\" target=\"_blank\"><strong>%pro_version_title%</strong></a>"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings.php:81
+#: includes/settings/class-alg-wc-ev-settings.php:84
 msgid "Upgrade to Pro version"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings.php:118
+#: includes/settings/class-alg-wc-ev-settings.php:121
 msgid "Reset Settings"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings.php:123
+#: includes/settings/class-alg-wc-ev-settings.php:126
 msgid "Reset section settings"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings.php:124
+#: includes/settings/class-alg-wc-ev-settings.php:127
 msgid "Reset"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings.php:125
+#: includes/settings/class-alg-wc-ev-settings.php:128
 msgid "Check the box and save changes to reset."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings.php:153
-#: includes/settings/class-alg-wc-ev-settings.php:168
+#: includes/settings/class-alg-wc-ev-settings.php:156
+#: includes/settings/class-alg-wc-ev-settings.php:171
 msgid "Your settings have been reset."
 msgstr ""

@@ -42,7 +42,7 @@ class Alg_WC_Email_Verification_Settings extends WC_Settings_Page {
 	/**
 	 * Append 'administrator' to "admin user roles" option.
 	 *
-	 * @version 2.2.0
+	 * @version 2.3.3
 	 * @since   2.2.0
 	 *
 	 * @param $value
@@ -52,7 +52,10 @@ class Alg_WC_Email_Verification_Settings extends WC_Settings_Page {
 	 * @return array
 	 */
 	function append_administrator_to_admin_user_roles_option( $value, $option, $raw_value ) {
-		if ( ! in_array( 'administrator', $value ) ) {
+		if (
+			! empty( $value ) &&
+			! in_array( 'administrator', $value )
+		) {
 			$value[] = 'administrator';
 		}
 		return $value;
