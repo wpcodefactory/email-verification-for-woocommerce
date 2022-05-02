@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Advanced Section Settings
  *
- * @version 2.1.5
+ * @version 2.3.4
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -36,7 +36,7 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.1.5
+	 * @version 2.3.4
 	 * @since   1.6.0
 	 * @todo    (maybe) remove `alg_wc_ev_prevent_login_after_checkout_notice` (i.e. make it always enabled)
 	 */
@@ -87,6 +87,15 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 				'default'  => 'no',
 			),
 			array(
+				'title'    => __( 'Session start params', 'emails-verification-for-woocommerce' ),
+				'type'     => 'textarea',
+				'id'       => 'alg_wc_ev_session_start_params',
+				'desc'     => $this->get_session_start_params_desc(),
+				'desc_tip' => __( 'Only going to be used in case an option needs Session, like "Prevent login after register > Force redirect". You can leave it empty if you don\'t know what parameters to use.', 'emails-verification-for-woocommerce' ),
+				'default'  => wp_json_encode( alg_wc_ev_get_default_session_start_params(), JSON_PRETTY_PRINT ),
+				'css'      => $this->get_session_start_params_css()
+			),
+			array(
 				'type'     => 'sectionend',
 				'id'       => 'alg_wc_ev_advanced_options',
 			),
@@ -103,6 +112,18 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 				'type'     => 'checkbox',
 				'id'       => 'alg_wc_ev_prevent_login_after_register',
 				'default'  => 'yes',
+			),
+			array(
+				'title'    => __( 'Login prevention method', 'emails-verification-for-woocommerce' ),
+				'desc'     => sprintf( __( 'Note: The %s method sets the %s filter as %s.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'login filter from WooCommerce', 'emails-verification-for-woocommerce' ) . '</strong>','<code>woocommerce_registration_auth_new_customer</code>', '<code>false</code>' ),
+				'type'     => 'select',
+				'class'    => 'chosen_select',
+				'id'       => 'alg_wc_ev_prevent_login_after_register_method',
+				'options'  => array(
+					'logout_after_login'         => __( 'Logout right after login', 'emails-verification-for-woocommerce' ),
+					'prevent_login_using_wc_filter' => __( 'Use login filter from WooCommerce', 'emails-verification-for-woocommerce' ),
+				),
+				'default'  => 'logout_after_login',
 			),
 			array(
 				'title'    => __( 'Redirect', 'emails-verification-for-woocommerce' ),
@@ -142,7 +163,6 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 			// Prevent login after checkout
 			array(
 				'title'    => __( 'Prevent login after checkout', 'emails-verification-for-woocommerce' ),
-				//'desc'     => __( 'Prevents users from login automatically before their accounts are verified.', 'emails-verification-for-woocommerce' ),
 				'type'     => 'title',
 				'id'       => 'alg_wc_ev_prevent_login_after_checkout_options',
 			),
@@ -286,6 +306,53 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 				'default'  => 'weekly',
 			),
 		);
+	}
+
+	/**
+	 * get_sanitization_content_desc.
+	 *
+	 * @version 2.3.4
+	 * @since   2.3.4
+	 *
+	 * @return string
+	 */
+	function get_session_start_params_desc() {
+		$desc = ! $this->is_session_start_params_option_valid() ? '<span style="color:red">' . __( 'JSON not valid. Please check the content.', 'emails-verification-for-woocommerce' ) . '</span>' : '';
+		return $desc;
+	}
+
+	/**
+	 * get_sanitization_content_css.
+	 *
+	 * @version 2.3.4
+	 * @since   2.3.4
+	 *
+	 * @return string
+	 */
+	function get_session_start_params_css() {
+		$css = 'min-height:110px;';
+		if ( ! $this->is_session_start_params_option_valid() ) {
+			$css .= 'border:1px solid red;';
+		}
+		return $css;
+	}
+
+	/**
+	 * sanitization_content_valid.
+	 *
+	 * @version 2.3.4
+	 * @since   2.3.4
+	 *
+	 * @return bool
+	 */
+	function is_session_start_params_option_valid() {
+		$allowed_html = get_option( 'alg_wc_ev_session_start_params', wp_json_encode( alg_wc_ev_get_default_session_start_params() ) );
+		$ob           = json_decode( $allowed_html );
+		if ( $ob === null ) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	/**

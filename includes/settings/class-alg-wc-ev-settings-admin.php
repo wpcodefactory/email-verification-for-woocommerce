@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Admin Section Settings.
  *
- * @version 2.3.3
+ * @version 2.3.4
  * @since   1.3.0
  * @author  WPFactory
  */
@@ -40,7 +40,7 @@ class Alg_WC_Email_Verification_Settings_Admin extends Alg_WC_Email_Verification
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.2.8
+	 * @version 2.3.4
 	 * @since   1.3.0
 	 * @todo    [next] Delete users (automatically): better description
 	 * @todo    [next] Email: better description(s) and default value(s)
@@ -58,7 +58,8 @@ class Alg_WC_Email_Verification_Settings_Admin extends Alg_WC_Email_Verification
 			array(
 				'title'    => __( 'Allowed user roles', 'emails-verification-for-woocommerce' ),
 				'desc'     => __( 'User roles allowed to see and interact with the admin interface of the Email Verification plugin.', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => __( 'The administrator can\'t be removed', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => __( 'The administrator can\'t be removed.', 'emails-verification-for-woocommerce' ).'<br />'.
+				              __( 'Leave it empty to allow all user roles to access the plugin\'s settings.', 'emails-verification-for-woocommerce' ),
 				'id'       => 'alg_wc_ev_admin_allowed_user_roles',
 				'default'  => array(),
 				'type'     => 'multiselect',

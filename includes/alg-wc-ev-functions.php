@@ -178,3 +178,34 @@ if ( ! function_exists( 'alg_wc_ev_get_user_placeholders' ) ) {
 		return apply_filters( 'alg_wc_ev_user_placeholders_args', $placeholders, $args );
 	}
 }
+
+if ( ! function_exists( 'alg_wc_ev_get_default_session_start_params' ) ) {
+	/**
+	 * alg_wc_ev_get_session_start_default_params.
+	 *
+	 * @version 2.3.4
+	 * @since   2.3.4
+	 *
+	 * @return array
+	 */
+	function alg_wc_ev_get_default_session_start_params() {
+		return array(
+			'cache_limiter'  => 'private',
+			'read_and_close' => true,
+		);
+	}
+}
+
+if ( ! function_exists( 'alg_wc_ev_get_session_start_params_option' ) ) {
+	/**
+	 * get_session_start_params_option.
+	 *
+	 * @version 2.3.4
+	 * @since   2.3.4
+	 *
+	 * @return array
+	 */
+	function alg_wc_ev_get_session_start_params_option() {
+		return apply_filters( 'alg_wc_ev_session_start_params', json_decode( get_option( 'alg_wc_ev_session_start_params', wp_json_encode( alg_wc_ev_get_default_session_start_params() ) ), true ) );
+	}
+}

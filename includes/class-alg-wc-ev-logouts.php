@@ -1,8 +1,8 @@
 <?php
 /**
- * Email Verification for WooCommerce - Logouts Class
+ * Email Verification for WooCommerce - Logouts Class.
  *
- * @version 2.2.8
+ * @version 2.3.4
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -24,7 +24,7 @@ class Alg_WC_Email_Verification_Logouts {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.1.5
+	 * @version 2.3.4
 	 * @since   1.6.0
 	 * @todo    (maybe) force "activate" notice for guest users also
 	 * @todo    (maybe) `alg_wc_ev_prevent_login_after_register`: `woocommerce_account_navigation` (doesn't seem to work though...)
@@ -37,10 +37,11 @@ class Alg_WC_Email_Verification_Logouts {
 		add_action( 'set_logged_in_cookie', array( $this, 'block_auth_cookies' ), 10, 4 );
 		// Prevent login: After registration
 		if ( 'yes' === get_option( 'alg_wc_ev_prevent_login_after_register', 'yes' ) ) {
-			add_filter( 'woocommerce_registration_auth_new_customer', '__return_true', PHP_INT_MAX );
+			add_filter( 'woocommerce_registration_auth_new_customer', array( $this, 'handle_login_after_registration' ), PHP_INT_MAX );
 			add_filter( 'woocommerce_registration_redirect', array( $this, 'logout_and_redirect_user_on_registration' ), PHP_INT_MAX );
 			$new_user_action = apply_filters( 'alg_wc_ev_new_user_action', ( get_option( 'alg_wc_ev_new_user_action', 'user_register' ) ) );
 			add_action( $new_user_action, array( $this, 'add_redirect_session_variable_after_register' ), PHP_INT_MAX );
+			add_action( $new_user_action, array( $this, 'redirect_on_new_user_created_and_login_prevented' ), PHP_INT_MAX );
 			add_action( 'wp_footer', array( $this, 'redirect_after_register_using_sessions' ) );
 			add_action( 'init', array( $this, 'start_session_for_redirecting_after_register' ), 1 );
 		}
@@ -131,16 +132,17 @@ class Alg_WC_Email_Verification_Logouts {
 	/**
 	 * start_session_for_redirect_after_register.
 	 *
-	 * @version 2.0.9
+	 * @version 2.3.4
 	 * @since   2.0.9
 	 */
 	function start_session_for_redirecting_after_register() {
 		if (
-			'yes' === get_option( 'alg_wc_ev_prevent_login_after_register_session_redirect', 'no' )
-			&& 'no' != get_option( 'alg_wc_ev_prevent_login_after_register_redirect', 'no' )
-			&& ! session_id()
+			'yes' === get_option( 'alg_wc_ev_prevent_login_after_register_session_redirect', 'no' ) &&
+			'no' != get_option( 'alg_wc_ev_prevent_login_after_register_redirect', 'no' ) &&
+			! session_id() &&
+			! is_admin()
 		) {
-			session_start();
+			session_start( alg_wc_ev_get_session_start_params_option() );
 		}
 	}
 
@@ -155,20 +157,20 @@ class Alg_WC_Email_Verification_Logouts {
 			'no' === get_option( 'alg_wc_ev_prevent_login_after_register_session_redirect', 'no' )
 			|| 'no' == get_option( 'alg_wc_ev_prevent_login_after_register_redirect', 'no' )
 			|| ! isset( $_SESSION['alg_wc_ev_redirect'] )
-			|| empty( $redirect = $_SESSION['alg_wc_ev_redirect'] )
+			|| empty( $redirect_url = $_SESSION['alg_wc_ev_redirect'] )
 		) {
 			return;
 		}
 		unset( $_SESSION['alg_wc_ev_redirect'] );
 		?>
-		<script>window.location.replace("<?php echo esc_url( $redirect )?>");</script>
+		<script>window.location.replace("<?php echo esc_url( $redirect_url )?>");</script>
 		<?php
 	}
 
 	/**
 	 * create_redirect_cookie_after_register.
 	 *
-	 * @version 2.0.9
+	 * @version 2.3.4
 	 * @since   2.0.9
 	 *
 	 * @param $user_id
@@ -178,10 +180,31 @@ class Alg_WC_Email_Verification_Logouts {
 			'yes' === get_option( 'alg_wc_ev_prevent_login_after_register_session_redirect', 'no' )
 			&& 'no' != get_option( 'alg_wc_ev_prevent_login_after_register_redirect', 'no' )
 		) {
-			$redirect = $this->logout_and_redirect( '', 'on_registration', array( 'user_id' => $user_id ) );
-			if ( ! empty( $redirect ) ) {
-				$_SESSION['alg_wc_ev_redirect'] = $redirect;
+			$redirect_url='';
+			if ( ! empty( $user_id ) && ! alg_wc_ev()->core->is_user_verified_by_user_id( $user_id ) ) {
+				$redirect_url = apply_filters( 'alg_wc_ev_redirect_on_registration', $this->get_redirect_url_on_registration(), $user_id );
 			}
+			$redirect_url = add_query_arg( 'alg_wc_ev_activate_account_message', $user_id, $redirect_url );
+			$_SESSION['alg_wc_ev_redirect'] = $redirect_url;
+		}
+	}
+
+	/**
+	 * redirect_on_new_user_created_and_login_prevented.
+	 *
+	 * @version 2.3.4
+	 * @since   2.3.4
+	 *
+	 * @param $user_id
+	 */
+	function redirect_on_new_user_created_and_login_prevented( $user_id ) {
+		if (
+			'prevent_login_using_wc_filter' === get_option( 'alg_wc_ev_prevent_login_after_register_method', 'logout_after_login' ) &&
+			! empty( $user_id )
+		) {
+			$redirect_url = add_query_arg( 'alg_wc_ev_activate_account_message', $user_id, $this->get_redirect_url_on_registration() );
+			wp_redirect( wp_validate_redirect( $redirect_url ) );
+			exit;
 		}
 	}
 
@@ -273,26 +296,28 @@ class Alg_WC_Email_Verification_Logouts {
 	}
 
 	/**
-	 * get_redirect_on_registration.
+	 * get_redirect_url_on_registration.
 	 *
-	 * @version 1.9.0
+	 * @version 2.3.4
 	 * @since   1.9.0
 	 */
-	function get_redirect_on_registration( $redirect_to ) {
+	function get_redirect_url_on_registration() {
+		$url = '';
 		switch ( get_option( 'alg_wc_ev_prevent_login_after_register_redirect', 'no' ) ) {
 			case 'yes':
-				return wc_get_page_permalink( 'myaccount' );
+				$url = wc_get_page_permalink( 'myaccount' );
+				break;
 			case 'custom':
-				return get_option( 'alg_wc_ev_prevent_login_after_register_redirect_url', '' );
-			default: // 'no'
-				return $redirect_to;
+				$url = get_option( 'alg_wc_ev_prevent_login_after_register_redirect_url', '' );
+				break;
 		}
+		return $url;
 	}
 
 	/**
 	 * logout_and_redirect.
 	 *
-	 * @version 2.0.9
+	 * @version 2.3.4
 	 * @since   1.9.0
 	 */
 	function logout_and_redirect( $redirect_to, $type, $args = null ) {
@@ -304,7 +329,9 @@ class Alg_WC_Email_Verification_Logouts {
 			$this->logout_user();
 			switch ( $type ) {
 				case 'on_registration':
-					$redirect_to = apply_filters( 'alg_wc_ev_redirect_on_registration', $this->get_redirect_on_registration( $redirect_to ), $user_id );
+					if ( ! empty( $redirect_url_after_registration = $this->get_redirect_url_on_registration() ) ) {
+						$redirect_to = apply_filters( 'alg_wc_ev_redirect_on_registration', $redirect_url_after_registration, $user_id );
+					}
 					break;
 				case 'after_checkout':
 					$redirect_to = apply_filters( 'alg_wc_ev_redirect_after_checkout', $redirect_to, $user_id );
@@ -324,6 +351,28 @@ class Alg_WC_Email_Verification_Logouts {
 	 */
 	function logout_and_redirect_user_on_registration( $redirect_to ) {
 		return $this->logout_and_redirect( $redirect_to, 'on_registration' );
+	}
+
+	/**
+	 * handle_login_after_registration.
+	 *
+	 * @version 2.3.4
+	 * @since   2.3.4
+	 *
+	 * @param $login
+	 *
+	 * @return bool
+	 */
+	function handle_login_after_registration( $login ) {
+		switch ( get_option( 'alg_wc_ev_prevent_login_after_register_method', 'logout_after_login' ) ) {
+			case 'logout_after_login':
+				$login = true;
+				break;
+			case 'prevent_login_using_wc_filter':
+				$login = false;
+				break;
+		}
+		return $login;
 	}
 
 	/**

@@ -3,7 +3,7 @@ Contributors: wpcodefactory, Karzin, jaedm97
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 5.9
-Stable tag: 2.3.3
+Stable tag: 2.3.4
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -104,7 +104,12 @@ Verify user emails in WooCommerce. Beautifully.
 
 == Frequently Asked Questions ==
 = User registration clears shopping cart? =
-If your cart is getting cleared after a new account is created, try to enable the option **Custom logout function** available on the **Advanced** section.
+If your cart is getting empty after a new account is created, there are some things you could try:
+ - Enable the option **Advanced > Custom logout function**.
+ - Set the **Advanced > Prevent login after register > Login prevention method** option as **Use login filter from WooCommerce**.
+
+= When a user registers, it gives an error. How can I fix it? =
+Set the **Advanced > Prevent login after register > Login prevention method** option as **Use login filter from WooCommerce**.
 
 = How to eliminate spam registrations? =
 If you use some options combined, you'll be able to remove the unverified users automatically, eliminating spam registrations.
@@ -200,6 +205,12 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 3. Start by visiting plugin settings at "WooCommerce > Settings > Email Verification".
 
 == Changelog ==
+
+= 2.3.4 - 02/05/2022 =
+* Fix - Success message does not get displayed after verification when "Redirect on success" is disabled.
+* Dev - Advanced - Add "Session start params" option.
+* Dev - Advanced - Prevent login after register - Create "Login prevention method" option.
+* Dev - Add `alg_wc_ev_session_start_params` filter.
 
 = 2.3.3 - 26/04/2022 =
 * Fix - Admin - "Allowed user roles" option needs to work empty as well, allowing all user roles to access the plugin settings.
