@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Functions.
  *
- * @version 2.3.1
+ * @version 2.3.5
  * @since   1.9.0
  * @author  WPFactory
  */
@@ -25,7 +25,7 @@ if ( ! function_exists( 'alg_wc_ev_add_notice' ) ) {
 	/**
 	 * alg_wc_ev_add_notice.
 	 *
-	 * @version 2.1.6
+	 * @version 2.3.5
 	 * @since   2.0.9
 	 *
 	 * @param $message
@@ -44,7 +44,7 @@ if ( ! function_exists( 'alg_wc_ev_add_notice' ) ) {
 		}
 		if (
 			! $args['check_previous_messages'] ||
-			! wc_has_notice( $message, $notice_type )
+			( function_exists( 'wc_has_notice' ) && ! wc_has_notice( $message, $notice_type ) )
 		) {
 			wc_add_notice( $message, $notice_type, $data );
 		}

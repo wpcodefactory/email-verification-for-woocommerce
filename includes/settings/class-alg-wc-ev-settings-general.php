@@ -89,14 +89,6 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 				'default'  => 'no',
 			),
 			array(
-				'title'             => __( 'Email changing', 'emails-verification-for-woocommerce' ),
-				'desc'              => __( 'Unverify, logout and resend activation link to accounts that changed the emails', 'emails-verification-for-woocommerce' ),
-				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
-				'type'              => 'checkbox',
-				'id'                => 'alg_wc_ev_unverify_email_changing',
-				'default'           => 'no',
-			),
-			array(
 				'title'             => __( 'Password reset', 'emails-verification-for-woocommerce' ),
 				'desc'              => __( 'Verify the user on password reset', 'emails-verification-for-woocommerce' ),
 				'type'              => 'checkbox',
@@ -114,6 +106,21 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 				'checkboxgroup'     => 'start',
 				'id'                => 'alg_wc_ev_auto_verify_paying_user',
 				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+			),
+			array(
+				'title'             => __( 'Email changing', 'emails-verification-for-woocommerce' ),
+				'desc'              => __( 'Unverify, logout and resend activation link to accounts that changed the emails', 'emails-verification-for-woocommerce' ),
+				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+				'type'              => 'checkbox',
+				'id'                => 'alg_wc_ev_unverify_email_changing',
+				'default'           => 'no',
+			),
+			array(
+				'desc'              => 'Message displayed after the email has been changed.',
+				'custom_attributes' => '',
+				'type'              => 'text',
+				'id'                => 'alg_wc_ev_unverify_email_changing_msg',
+				'default'           => __( 'Your email has been changed. In order to verify your account please check the activation email that was sent to your new email.', 'emails-verification-for-woocommerce' ),
 			),
 			array(
 				'type'     => 'sectionend',
@@ -169,11 +176,12 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 				'id'       => 'alg_wc_ev_redirect_to_my_account_on_success', // mislabeled, should be `alg_wc_ev_redirect_on_success`
 				'default'  => 'yes',
 				'options'  => array(
-					'no'     => __( 'Do not redirect', 'emails-verification-for-woocommerce' ),
-					'yes'    => __( 'Redirect to "My account" page', 'emails-verification-for-woocommerce' ),
-					'shop'   => __( 'Redirect to "Shop" page', 'emails-verification-for-woocommerce' ),
-					'home'   => __( 'Redirect to home page', 'emails-verification-for-woocommerce' ),
-					'custom' => __( 'Redirect to custom URL', 'emails-verification-for-woocommerce' ),
+					'no'      => __( 'Do not redirect', 'emails-verification-for-woocommerce' ),
+					'yes'     => __( 'Redirect to "My account" page', 'emails-verification-for-woocommerce' ),
+					'shop'    => __( 'Redirect to "Shop" page', 'emails-verification-for-woocommerce' ),
+					'home'    => __( 'Redirect to home page', 'emails-verification-for-woocommerce' ),
+					'custom'  => __( 'Redirect to custom URL', 'emails-verification-for-woocommerce' ),
+					'my_account_referer' => __( 'Redirect to the previous url before "my account" page', 'emails-verification-for-woocommerce' ),
 				),
 			),
 			array(

@@ -2,8 +2,8 @@
 Contributors: wpcodefactory, Karzin, jaedm97
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
-Tested up to: 5.9
-Stable tag: 2.3.4
+Tested up to: 6.0
+Stable tag: 2.3.5
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -205,6 +205,17 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 3. Start by visiting plugin settings at "WooCommerce > Settings > Email Verification".
 
 == Changelog ==
+
+= 2.3.5 - 30/05/2022 =
+* Fix - Creating a new account triggers sometimes the error "Call to undefined function `wc_has_notice()`".
+* Fix - Blocking - Block account verification by email - Blocks some users when it should not.
+* Dev - Shortcode - Add `[alg_wc_ev_new_user_info]` shortcode to display user information for users who have just registered.
+* Dev - Shortcode - Add `[alg_wc_ev_resend_verification_form]` shortcode to display resend verification form.
+* Dev - General - Account verification - Create new option to manage the message displayed to the user who has just changed his email.
+* Dev - General - Redirect on success - Create new option to redirect to the previous page the user was before accessing my account page.
+* Dev - Compatibility - Add `{alg_wc_ev_viwec}` special text for Email Customizer plugin by VillaTheme.
+* WC tested up to: 6.5.
+* Tested up to: 6.0.
 
 = 2.3.4 - 02/05/2022 =
 * Fix - Success message does not get displayed after verification when "Redirect on success" is disabled.

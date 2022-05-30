@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Compatibility Section Settings.
  *
- * @version 2.3.2
+ * @version 2.3.5
  * @since   2.1.3
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 		/**
 		 * get_settings.
 		 *
-		 * @version 2.3.2
+		 * @version 2.3.5
 		 * @since   2.1.3
 		 * @todo    (maybe) remove `alg_wc_ev_prevent_login_after_checkout_notice` (i.e. make it always enabled)
 		 */
@@ -112,9 +112,9 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 			);
 			$email_customizer_themehigh_opts = array(
 				array(
-					'title' => __( 'Email Customizer for WooCommerce', 'emails-verification-for-woocommerce' ),
+					'title' => __( 'Email Customizer for WooCommerce by Themehigh', 'emails-verification-for-woocommerce' ),
 					'type'  => 'title',
-					'desc'  => sprintf( __( 'Compatibility with %s plugin.', 'emails-verification-for-woocommerce' ), sprintf( '<a href="%s" target="_blank">%s</a>', 'https://themehigh.com/product/woocommerce-email-customizer', __( 'Email Customizer for WooCommerce', 'emails-verification-for-woocommerce' ) ) ),
+					'desc'  => sprintf( __( 'Compatibility with %s plugin.', 'emails-verification-for-woocommerce' ), sprintf( '<a href="%s" target="_blank">%s</a>', 'https://themehigh.com/product/woocommerce-email-customizer', __( 'Email Customizer for WooCommerce by Themehigh', 'emails-verification-for-woocommerce' ) ) ),
 					'id'    => 'alg_wc_ev_compatibility_email_customizer_options',
 				),
 				array(
@@ -131,6 +131,29 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 				array(
 					'type' => 'sectionend',
 					'id'   => 'alg_wc_ev_compatibility_email_customizer_options',
+				),
+			);
+			$email_customizer_villatheme_opts = array(
+				array(
+					'title' => __( 'Email Customizer for WooCommerce by VillaTheme', 'emails-verification-for-woocommerce' ),
+					'type'  => 'title',
+					'desc'  => sprintf( __( 'Compatibility with %s plugin.', 'emails-verification-for-woocommerce' ), sprintf( '<a href="%s" target="_blank">%s</a>', 'https://villatheme.com/extensions/woocommerce-email-template-customizer/', __( 'Email Customizer for WooCommerce by VillaTheme', 'emails-verification-for-woocommerce' ) ) ),
+					'id'    => 'alg_wc_ev_comp_email_customizer_vt_options',
+				),
+				array(
+					'title'             => __( 'Activation email content', 'emails-verification-for-woocommerce' ),
+					'desc'              => sprintf( __( 'Display the activation email content on the %s template using the %s special text', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'New account', 'emails-verification-for-woocommerce' ) . '</strong>', '<code>{alg_wc_ev_viwec}</code>' ),
+					'desc_tip'          => sprintf( __( 'The action hook should be used in a %s from the Email Customizer plugin.', 'emails-verification-for-woocommerce' ), sprintf( '<a href="https://docs.villatheme.com/woocommerce-email-template-customizer/#configuration_child_menu_4653" target="_blank">%s</a>', __( 'Text element', 'emails-verification-for-woocommerce' ) ) ) . '<br />' .
+					                       sprintf( __( 'It\'s necessary to enable %s option.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Emails > Activation email > Fine tune activation email placement', 'emails-verification-for-woocommerce' ) . '</strong>', '<strong>' . __( 'Emails > Activation email > Email template', 'emails-verification-for-woocommerce' ) . '</strong>' ) . '<br />' .
+					                       $this->separate_email_option_msg( 'disabled' ),
+					'id'                => 'alg_wc_ev_comp_email_customizer_vt_special_text_enabled',
+					'default'           => 'no',
+					'type'              => 'checkbox',
+					'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+				),
+				array(
+					'type' => 'sectionend',
+					'id'   => 'alg_wc_ev_comp_email_customizer_vt_options',
 				),
 			);
 			$elementor_essential_addons_opts = array(
@@ -185,7 +208,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 				),
 			);
 			return array_merge(
-				$general, $elementor_essential_addons_opts, $email_customizer_themehigh_opts, $paid_memberships_pro_opts
+				$general, $elementor_essential_addons_opts, $email_customizer_themehigh_opts, $email_customizer_villatheme_opts, $paid_memberships_pro_opts
 			);
 		}
 
