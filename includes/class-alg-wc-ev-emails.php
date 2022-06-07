@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Emails Class.
  *
- * @version 2.3.1
+ * @version 2.3.6
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -12,11 +12,10 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 if ( ! class_exists( 'Alg_WC_Email_Verification_Emails' ) ) :
 
 class Alg_WC_Email_Verification_Emails {
-
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.3.0
+	 * @version 2.3.6
 	 * @since   1.6.0
 	 */
 	function __construct() {
@@ -44,7 +43,7 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * Send Confirmation email to the user.
 	 *
-	 * @version 2.3.1
+	 * @version 2.3.6
 	 * @since   2.2.9
 	 *
 	 * @param   $user_id
@@ -57,18 +56,26 @@ class Alg_WC_Email_Verification_Emails {
 			if ( '' === $recipient ) {
 				return;
 			}
-			$content = $this->get_email_content( array(
+			$content            = $this->get_email_content( array(
 				'user_id' => $user_id,
 				'context' => 'confirmation_email',
 				'content' => __( 'Your account has been activated successfully', 'emails-verification-for-woocommerce' ),
 				'heading' => __( 'Your account has been activated', 'emails-verification-for-woocommerce' )
 			) );
-			$subject = $this->get_email_subject( array(
+			$subject            = $this->get_email_subject( array(
 				'user_id' => $user_id,
 				'context' => 'confirmation_email',
 				'subject' => __( 'Your account has been activated successfully', 'emails-verification-for-woocommerce' )
 			) );
-			$this->send_mail( $recipient, $subject, $content );
+			$wc_email_template  = get_option( 'alg_wc_ev_wc_email_template', 'simulation' );
+			$email_template     = get_option( 'alg_wc_ev_email_template', 'plain' );
+
+			if ( in_array( $email_template, array( 'wc', 'smart' ) ) && 'real_wc_email' === $wc_email_template ) {
+				do_action('alg_wc_ev_trigger_confirmation_wc_email', $user_id );
+			} else {
+				$this->send_mail( $recipient, $subject, $content );
+			}
+
 			$data = array( 'confirmation_email_sent' => time() );
 			alg_wc_ev()->core->update_activation_code_data( $user_id, $args['code'], $data );
 		}
@@ -120,7 +127,7 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * handle_activation_email_sending.
 	 *
-	 * @version 2.0.4
+	 * @version 2.3.5
 	 * @since   2.0.2
 	 *
 	 * @param $user_id
@@ -267,7 +274,7 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * reset_and_mail_activation_link.maybe_send_wc_customer_new_account_email.
 	 *
-	 * @version 2.3.1
+	 * @version 2.3.6
 	 * @since   1.0.0
 	 * @todo    (maybe) add `%site_name%` etc. replaced value in `alg_wc_ev_email_subject`
 	 */
@@ -290,7 +297,15 @@ class Alg_WC_Email_Verification_Emails {
 			$this->update_all_user_meta( $user_id, $code );
 			// Send email
 			if ( ! alg_wc_ev()->core->is_user_verified_by_user_id( $user_id ) ) {
-				$this->send_mail( $user->user_email, $email_subject, $email_content );
+				$wc_email_template  = get_option( 'alg_wc_ev_wc_email_template', 'simulation' );
+				$email_template     = get_option( 'alg_wc_ev_email_template', 'plain' );
+
+				if ( in_array( $email_template, array( 'wc', 'smart' ) ) && 'real_wc_email' === $wc_email_template ) {
+					do_action('alg_wc_ev_trigger_activation_wc_email', $user_id );
+				} else {
+					$this->send_mail( $user->user_email, $email_subject, $email_content );
+				}
+
 				update_user_meta( $user_id, 'alg_wc_ev_activation_email_sent', time() );
 			} else {
 				$this->maybe_send_wc_customer_new_account_email( $user_id );

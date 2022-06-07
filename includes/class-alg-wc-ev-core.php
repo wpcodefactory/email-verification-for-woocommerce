@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Core Class.
  *
- * @version 2.3.5
+ * @version 2.3.6
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -12,6 +12,11 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 
 class Alg_WC_Email_Verification_Core {
+
+	/**
+	 * @var Alg_WC_Email_Verification_Emails
+	 */
+	public $emails;
 
 	/**
 	 * success_message_displayed.
@@ -364,7 +369,7 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * redirect_on_success_activation.
 	 *
-	 * @version 2.3.4
+	 * @version 2.3.6
 	 * @since   2.0.0
 	 *
 	 */
@@ -375,6 +380,7 @@ class Alg_WC_Email_Verification_Core {
 		if ( $args['directly'] ) {
 			$redirect_url = false !== ( $url = $this->get_redirect_url_on_success_activation( $args ) ) ? $url : '';
 			$redirect_url = add_query_arg( array( 'alg_wc_ev_success_activation_message' => 1 ), $redirect_url );
+			$redirect_url = remove_query_arg( 'alg_wc_ev_verify_email', $redirect_url );
 			wp_redirect( $redirect_url );
 			exit;
 		}
@@ -727,7 +733,7 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * Return resend verification form.
 	 *
-	 * @version 2.3.5
+	 * @version 2.3.6
 	 * @since   2.3.5
 	 *
 	 * @param null $atts
@@ -737,14 +743,15 @@ class Alg_WC_Email_Verification_Core {
 	function alg_wc_ev_resend_verification_form( $atts = null ) {
 
 		$atts                   = shortcode_atts( array(
-			'email_address'     => true,
-			'template'          => '<span>{user_email_input}</span><span>{resend_verification_btn}</span>',
-			'wrapper_template'  => '<form class="alg-wc-ev-resend-verification-form" method="post" action="">{nonce_field}{template}</form>',
+			'email_address'         => true,
+			'template'              => '<span>{user_email_input}</span><span>{resend_verification_btn}</span>',
+			'submit_btn_template'   => '<button type="submit">'. esc_html__('Submit', 'emails-verification-for-woocommerce' ) .'</button>',
+			'wrapper_template'      => '<form class="alg-wc-ev-resend-verification-form" method="post" action="">{nonce_field}{template}</form>',
 		), $atts, 'alg_wc_ev_resend_verification_form' );
 		$email_address          = isset( $atts['email_address'] ) ? sanitize_email( $atts['email_address'] ) : '';
 		$form_template          = array(
 			'{user_email_input}'          => sprintf('<input type="email" name="email_address" value="%s" placeholder="%s" required>', $email_address, esc_html__('Email address', 'emails-verification-for-woocommerce' ) ),
-			'{resend_verification_btn}'   => sprintf('<button type="submit">%s</button>', esc_html__('Submit', 'emails-verification-for-woocommerce' ) ),
+			'{resend_verification_btn}'   => $atts['submit_btn_template'],
 		);
 		$nonce_field            = wp_nonce_field('alg_wc_ev_resend_verification_form_nonce', 'alg_wc_ev_nonce', false );
 		$content                = str_replace( array_keys( $form_template ), $form_template, $atts['template'] );

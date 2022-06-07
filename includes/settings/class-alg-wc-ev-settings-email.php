@@ -52,7 +52,7 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.3.1
+	 * @version 2.3.6
 	 * @since   1.3.0
 	 */
 	function get_settings() {
@@ -100,6 +100,20 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 					'smart' => __( 'Smart', 'emails-verification-for-woocommerce' ),
 				),
 				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+			),
+			array(
+				'title' => __( 'WC email template', 'emails-verification-for-woocommerce' ),
+				'desc' => sprintf( __( '%s will use the template options from this page.', 'emails-verification-for-woocommerce' ), '<code>' . __( 'Email Verification plugin', 'emails-verification-for-woocommerce' ) . '</code>' ) . '<br />' .
+				          sprintf( __( '%s option will create new emails (%s) on %s.', 'emails-verification-for-woocommerce' ), '<code>' . __( 'WooCommerce > Emails', 'emails-verification-for-woocommerce' ) . '</code>', alg_wc_ev_array_to_string( array( __( 'Activation', 'emails-verification-for-woocommerce' ), __( 'Confirmation', 'emails-verification-for-woocommerce' ) ) ), '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=email' ) . '">' . __( 'WooCommerce > Emails', 'emails-verification-for-woocommerce' ) . '</a>' ),
+				'desc_tip' => __( 'This option will only be useful if the Email Template option is set as <code>WooCommerce</code> or <code>Smart</code>.', 'emails-verification-for-woocommerce' ),
+				'type'     => 'select',
+				'class'    => 'chosen_select',
+				'id'       => 'alg_wc_ev_wc_email_template',
+				'default'  => 'simulation',
+				'options'  => array(
+					'simulation'    => __( 'Email Verification plugin', 'emails-verification-for-woocommerce' ),
+					'real_wc_email' => __( 'WooCommerce > Emails', 'emails-verification-for-woocommerce' ),
+				),
 			),
 			array(
 				'title'    => __( 'Email wrap method', 'emails-verification-for-woocommerce' ),

@@ -1,9 +1,9 @@
 === Email Verification for WooCommerce ===
-Contributors: wpcodefactory, Karzin, jaedm97
+Contributors: wpcodefactory, Karzin, jaedm97, algoritmika, anbinder
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 6.0
-Stable tag: 2.3.5
+Stable tag: 2.3.6
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -205,6 +205,10 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 3. Start by visiting plugin settings at "WooCommerce > Settings > Email Verification".
 
 == Changelog ==
+= 2.3.6 - 07/06/2022 =
+* Fix - Error message being displayed on verification.
+* Dev - New parameter `submit_btn_template` added to the shortcode `alg_wc_ev_resend_verification_form` to control submit button of the form.
+* Dev - Emails - Create new "WC email template" option that adds new emails (activation, confirmation) to "WooCommerce > emails".
 
 = 2.3.5 - 30/05/2022 =
 * Fix - Creating a new account triggers sometimes the error "Call to undefined function `wc_has_notice()`".
