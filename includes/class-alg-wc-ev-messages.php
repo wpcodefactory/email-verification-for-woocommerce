@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Messages Class
  *
- * @version 2.1.7
+ * @version 2.3.7
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -38,12 +38,31 @@ class Alg_WC_Email_Verification_Messages {
 	/**
 	 * get_resend_message.
 	 *
-	 * @version 1.6.0
+	 * @version 2.3.7
 	 * @since   1.6.0
 	 */
-	function get_resend_message() {
-		return do_shortcode( get_option( 'alg_wc_ev_email_resend_message',
+	function get_resend_message( $code = '1' ) {
+
+		$success_message = do_shortcode( get_option( 'alg_wc_ev_email_resend_message',
 			__( '<strong>Success:</strong> Your activation email has been resent. Please check your email.', 'emails-verification-for-woocommerce' ) ) );
+		$resend_messages = apply_filters( 'alg_wc_ev_resend_status_codes',
+			array(
+				'1' => array(
+					'type'  => 'success',
+					'msg'   => $success_message,
+				),
+				'2' => array(
+					'type'  => 'error',
+					'msg'   => __( '<strong>Error:</strong> No registration found under the email.', 'emails-verification-for-woocommerce' )
+				),
+				'3' => array(
+					'type'  => 'error',
+					'msg'   => __( '<strong>Error:</strong> This user is already verified.', 'emails-verification-for-woocommerce' )
+				),
+			)
+		);
+
+		return isset( $resend_messages[ $code ] ) ? $resend_messages[ $code ] : '';
 	}
 
 	/**
@@ -84,18 +103,19 @@ class Alg_WC_Email_Verification_Messages {
 	/**
 	 * get_resend_verification_url.
 	 *
-	 * @version 2.1.7
+	 * @version 2.3.7
 	 * @since   1.4.0
 	 * @todo    (maybe) `wc_get_page_permalink( 'myaccount' )` instead of current URL
 	 *
 	 * @param $user_id
+	 * @param $url_params
 	 *
 	 * @return string
 	 */
-	function get_resend_verification_url( $user_id ) {
-		$resend_timestamp = get_user_meta( $user_id, 'alg_wc_ev_activation_email_sent', true );
-		$nonce_required   = true;
-		$url_params       = array( 'alg_wc_ev_user_id' => $user_id );
+	function get_resend_verification_url( $user_id, $url_params = array()  ) {
+		$resend_timestamp   = get_user_meta( $user_id, 'alg_wc_ev_activation_email_sent', true );
+		$nonce_required     = true;
+		$url_params         = wp_parse_args( (array) $url_params, array( 'alg_wc_ev_user_id' => $user_id ) );
 		if ( $nonce_required ) {
 			$url_params['alg_wc_ev_nonce'] = wp_create_nonce( "resend-{$user_id}-{$resend_timestamp}" );
 		}

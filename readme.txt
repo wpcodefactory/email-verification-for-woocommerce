@@ -3,7 +3,7 @@ Contributors: wpcodefactory, Karzin, jaedm97, algoritmika, anbinder
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 6.0
-Stable tag: 2.3.6
+Stable tag: 2.3.7
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -205,9 +205,15 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 3. Start by visiting plugin settings at "WooCommerce > Settings > Email Verification".
 
 == Changelog ==
+= 2.3.7 - 20/06/2022 =
+* Fix - Shortcode - Add success and failure messages depending on the user status upon submission of verification form.
+* Fix - General - Redirect on success - Store the referer URL on a better place to use later for redirection.
+* WC tested up to: 6.6.
+
 = 2.3.6 - 07/06/2022 =
 * Fix - Error message being displayed on verification.
 * Dev - New parameter `submit_btn_template` added to the shortcode `alg_wc_ev_resend_verification_form` to control submit button of the form.
+* Dev - Emails - Create new "WC email template" option that adds new emails (activation, confirmation) to "WooCommerce > emails".
 * Dev - Emails - Create new "WC email template" option that adds new emails (activation, confirmation) to "WooCommerce > emails".
 
 = 2.3.5 - 30/05/2022 =

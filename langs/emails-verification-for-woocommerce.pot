@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Email Verification for WooCommerce 2.3.6\n"
+"Project-Id-Version: Email Verification for WooCommerce 2.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/emails-verification-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-06-08T01:06:19+02:00\n"
+"POT-Creation-Date: 2022-06-20T22:01:44+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: emails-verification-for-woocommerce\n"
@@ -123,7 +123,7 @@ msgid "User %s: activation link resent."
 msgstr ""
 
 #: includes/class-alg-wc-ev-admin.php:587
-#: includes/class-alg-wc-ev-core.php:844
+#: includes/class-alg-wc-ev-core.php:881
 msgid "Verified"
 msgstr ""
 
@@ -164,27 +164,27 @@ msgid "You can resend the email with verification link by clicking <a href=\"%re
 msgstr ""
 
 #: includes/class-alg-wc-ev-core.php:218
-#: includes/class-alg-wc-ev-core.php:843
+#: includes/class-alg-wc-ev-core.php:880
 msgid "Verification status: "
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:748
+#: includes/class-alg-wc-ev-core.php:779
 msgid "Submit"
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:753
+#: includes/class-alg-wc-ev-core.php:790
 msgid "Email address"
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:796
+#: includes/class-alg-wc-ev-core.php:833
 msgid "User data not found."
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:812
+#: includes/class-alg-wc-ev-core.php:849
 msgid "You can resend the email with verification link by clicking <a href=\"{resend_verification_url}\">here</a>."
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:845
+#: includes/class-alg-wc-ev-core.php:882
 msgid "Unverified"
 msgstr ""
 
@@ -214,15 +214,15 @@ msgstr ""
 msgid "Please activate your account"
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:375
+#: includes/class-alg-wc-ev-emails.php:383
 msgid "Error sending mail."
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:376
+#: includes/class-alg-wc-ev-emails.php:384
 msgid "Mail function: %s."
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:379
+#: includes/class-alg-wc-ev-emails.php:387
 msgid "Last error: %s."
 msgstr ""
 
@@ -231,22 +231,30 @@ msgstr ""
 msgid "Your account has to be activated before you can login. You can resend the email with verification link by clicking <a href=\"%resend_verification_url%\">here</a>."
 msgstr ""
 
-#: includes/class-alg-wc-ev-messages.php:46
+#: includes/class-alg-wc-ev-messages.php:47
 #: includes/settings/class-alg-wc-ev-settings-messages.php:98
 msgid "<strong>Success:</strong> Your activation email has been resent. Please check your email."
 msgstr ""
 
-#: includes/class-alg-wc-ev-messages.php:57
+#: includes/class-alg-wc-ev-messages.php:56
+msgid "<strong>Error:</strong> No registration found under the email."
+msgstr ""
+
+#: includes/class-alg-wc-ev-messages.php:60
+msgid "<strong>Error:</strong> This user is already verified."
+msgstr ""
+
+#: includes/class-alg-wc-ev-messages.php:76
 #: includes/settings/class-alg-wc-ev-settings-messages.php:81
 msgid "<strong>Error:</strong> Activation failed, please contact our administrator. You can resend the email with verification link by clicking <a href=\"%resend_verification_url%\">here</a>."
 msgstr ""
 
-#: includes/class-alg-wc-ev-messages.php:69
+#: includes/class-alg-wc-ev-messages.php:88
 #: includes/settings/class-alg-wc-ev-settings-messages.php:63
 msgid "<strong>Success:</strong> Your account has been activated!"
 msgstr ""
 
-#: includes/class-alg-wc-ev-messages.php:80
+#: includes/class-alg-wc-ev-messages.php:99
 #: includes/settings/class-alg-wc-ev-settings-messages.php:90
 msgid "Thank you for your registration. Your account has to be activated before you can login. Please check your email."
 msgstr ""

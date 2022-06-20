@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Core Class.
  *
- * @version 2.3.6
+ * @version 2.3.7
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -30,7 +30,7 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.3.5
+	 * @version 2.3.7
 	 * @since   1.0.0
 	 * @todo    [next] (maybe) `[alg_wc_ev_translate]` to description in readme.txt
 	 */
@@ -78,7 +78,7 @@ class Alg_WC_Email_Verification_Core {
 		// Blocks content for unverified users
 		add_action( 'template_redirect', array( $this, 'block_pages_for_unverified_users' ) );
 		add_action( 'init', array( $this, 'show_blocked_content_notice' ) );
-		add_action( 'init', array( $this, 'redirect_to_resend_verification_url' ) );
+		add_action( 'wp', array( $this, 'redirect_to_resend_verification_url' ) );
 		add_action( 'wp', array( $this, 'save_my_account_page_referer_url' ) );
 		$this->handle_shortcodes();
 	}
@@ -86,7 +86,7 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * save_my_account_page_referer_url.
 	 *
-	 * @version 2.3.5
+	 * @version 2.3.7
 	 * @since   2.3.5
 	 */
 	function save_my_account_page_referer_url() {
@@ -96,9 +96,9 @@ class Alg_WC_Email_Verification_Core {
 			! wp_doing_cron() &&
 			! is_user_logged_in() &&
 			'my_account_referer' === get_option( 'alg_wc_ev_redirect_to_my_account_on_success', 'yes' ) &&
-			get_queried_object_id() === wc_get_page_id( 'myaccount' ) &&
-			! empty( $referer_url = wp_get_referer() )
-			//! isset( $_COOKIE['alg_wc_ev_my_account_referer_url'] )
+			get_queried_object_id() === ( $my_account_id = wc_get_page_id( 'myaccount' ) ) &&
+			! empty( $referer_url = wp_get_referer() ) &&
+			$referer_url !== get_permalink( $my_account_id )
 		) {
 			wc_setcookie( 'alg_wc_ev_my_account_referer_url', $referer_url );
 		}
@@ -226,7 +226,7 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * display_error_activation_message.
 	 *
-	 * @version 2.1.0
+	 * @version 2.3.7
 	 * @since   2.1.0
 	 */
 	function display_error_activation_message() {
@@ -237,6 +237,18 @@ class Alg_WC_Email_Verification_Core {
 		) {
 			$message = apply_filters( 'alg_wc_ev_block_unverified_user_login_error_message', alg_wc_ev()->core->messages->get_error_message( $user->ID ), $user );
 			alg_wc_ev_add_notice( $message );
+		}
+
+		if (
+			isset( $_GET['alg_wc_ev_resend_status_code'] )
+			&& ! empty( $resend_status_code = sanitize_text_field( $_GET['alg_wc_ev_resend_status_code'] ) )
+			&& $resend_status_code != '1'
+		) {
+			$resend_message         = alg_wc_ev()->core->messages->get_resend_message( $resend_status_code );
+			$resend_message_string  = isset( $resend_message[ 'msg' ] ) ? sanitize_text_field( $resend_message[ 'msg' ] ) : '';
+			$resend_message_type    = isset( $resend_message[ 'type' ] ) ? sanitize_text_field( $resend_message[ 'type' ] ) : '';
+
+			alg_wc_ev_add_notice( $resend_message_string, $resend_message_type );
 		}
 	}
 
@@ -369,7 +381,7 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * redirect_on_success_activation.
 	 *
-	 * @version 2.3.6
+	 * @version 2.3.7
 	 * @since   2.0.0
 	 *
 	 */
@@ -379,6 +391,7 @@ class Alg_WC_Email_Verification_Core {
 		) );
 		if ( $args['directly'] ) {
 			$redirect_url = false !== ( $url = $this->get_redirect_url_on_success_activation( $args ) ) ? $url : '';
+			$redirect_url = empty( $referer_url = get_user_meta( $user_id, 'alg_wc_ev_my_account_referer_url', true ) ) ? $redirect_url : $referer_url;
 			$redirect_url = add_query_arg( array( 'alg_wc_ev_success_activation_message' => 1 ), $redirect_url );
 			$redirect_url = remove_query_arg( 'alg_wc_ev_verify_email', $redirect_url );
 			wp_redirect( $redirect_url );
@@ -649,7 +662,7 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * activate_user.
 	 *
-	 * @version 2.2.6
+	 * @version 2.3.7
 	 * @since   2.2.6
 	 *
 	 * @param null $args
@@ -666,6 +679,10 @@ class Alg_WC_Email_Verification_Core {
 		update_user_meta( $user_id, 'alg_wc_ev_is_activated', '1' );
 		if ( ! empty( $code ) ) {
 			$this->save_activation_info( $code, $user_id );
+		}
+		// update redirect url from cookie into meta
+		if( isset( $_COOKIE['alg_wc_ev_redirect_referer_url'] ) && ! empty( $_COOKIE['alg_wc_ev_redirect_referer_url'] ) ) {
+			update_user_meta( $user_id, 'alg_wc_ev_redirect_referer_url', sanitize_url( $_COOKIE['alg_wc_ev_redirect_referer_url'] ) );
 		}
 		do_action( 'alg_wc_ev_user_account_activated', $user_id, $args );
 	}
@@ -704,7 +721,7 @@ class Alg_WC_Email_Verification_Core {
 			)
 		) {
 			$this->emails->reset_and_mail_activation_link( $_GET['alg_wc_ev_user_id'] );
-			alg_wc_ev_add_notice( $this->messages->get_resend_message() );
+			alg_wc_ev_add_notice( $this->messages->get_resend_message()['msg'] );
 		}
 	}
 
@@ -712,28 +729,41 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * Receive email address and send verification email from verification form.
 	 *
-	 * @version 2.3.5
+	 * @version 2.3.7
 	 * @since   2.3.5
 	 */
 	function redirect_to_resend_verification_url() {
 		// Check if the nonce is okay.
 		if( isset( $_POST['alg_wc_ev_nonce'] ) && wp_verify_nonce( $_POST['alg_wc_ev_nonce'], 'alg_wc_ev_resend_verification_form_nonce' ) ) {
 
+			global $wp;
+
 			$email_address  = isset( $_POST['email_address'] ) ? sanitize_email( $_POST['email_address'] ) : '';
 			$user_to_verify = get_user_by( 'email', $email_address );
+			$current_url    = site_url( $wp->request );
 
-			// If the user is valid then get verification URL and redirect there.
-			if( $user_to_verify instanceof WP_User && ! alg_wc_ev_is_user_verified_by_user_id( $user_to_verify->ID ) ) {
-				wp_safe_redirect( alg_wc_ev()->core->messages->get_resend_verification_url( $user_to_verify->ID ) );
+			// If no user found with this email.
+			if( ! $user_to_verify instanceof WP_User ) {
+				wp_safe_redirect( add_query_arg( array( 'alg_wc_ev_resend_status_code' => 2 ), $current_url ) );
 				exit;
 			}
+
+			// If the user is already verified.
+			if( alg_wc_ev_is_user_verified_by_user_id( $user_to_verify->ID ) ) {
+				wp_safe_redirect( add_query_arg( array( 'alg_wc_ev_resend_status_code' => 3 ), $current_url ) );
+				exit;
+			}
+
+			// Ready to resend verification email to this user.
+			wp_safe_redirect( alg_wc_ev()->core->messages->get_resend_verification_url( $user_to_verify->ID, array( 'alg_wc_ev_resend_status_code' => 1 ) ) );
+			exit;
 		}
 	}
 
 	/**
 	 * Return resend verification form.
 	 *
-	 * @version 2.3.6
+	 * @version 2.3.7
 	 * @since   2.3.5
 	 *
 	 * @param null $atts
@@ -742,12 +772,19 @@ class Alg_WC_Email_Verification_Core {
 	 */
 	function alg_wc_ev_resend_verification_form( $atts = null ) {
 
-		$atts                   = shortcode_atts( array(
-			'email_address'         => true,
-			'template'              => '<span>{user_email_input}</span><span>{resend_verification_btn}</span>',
-			'submit_btn_template'   => '<button type="submit">'. esc_html__('Submit', 'emails-verification-for-woocommerce' ) .'</button>',
-			'wrapper_template'      => '<form class="alg-wc-ev-resend-verification-form" method="post" action="">{nonce_field}{template}</form>',
+		$atts                               = shortcode_atts( array(
+			'email_address'             => true,
+			'show_to_logged_in_users'   => false,
+			'template'                  => '<span>{user_email_input}</span><span>{resend_verification_btn}</span>',
+			'submit_btn_template'       => '<button type="submit">'. esc_html__('Submit', 'emails-verification-for-woocommerce' ) .'</button>',
+			'wrapper_template'          => '<form class="alg-wc-ev-resend-verification-form" method="post" action="">{nonce_field}{template}</form>',
 		), $atts, 'alg_wc_ev_resend_verification_form' );
+		$atts['show_to_logged_in_users']    = filter_var( $atts['show_to_logged_in_users'], FILTER_VALIDATE_BOOLEAN );
+
+		if( ( is_user_logged_in() && ! $atts['show_to_logged_in_users'] ) ) {
+			return '';
+		}
+
 		$email_address          = isset( $atts['email_address'] ) ? sanitize_email( $atts['email_address'] ) : '';
 		$form_template          = array(
 			'{user_email_input}'          => sprintf('<input type="email" name="email_address" value="%s" placeholder="%s" required>', $email_address, esc_html__('Email address', 'emails-verification-for-woocommerce' ) ),

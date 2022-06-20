@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Emails Class.
  *
- * @version 2.3.6
+ * @version 2.3.7
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -274,7 +274,7 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * reset_and_mail_activation_link.maybe_send_wc_customer_new_account_email.
 	 *
-	 * @version 2.3.6
+	 * @version 2.3.7
 	 * @since   1.0.0
 	 * @todo    (maybe) add `%site_name%` etc. replaced value in `alg_wc_ev_email_subject`
 	 */
@@ -304,6 +304,14 @@ class Alg_WC_Email_Verification_Emails {
 					do_action('alg_wc_ev_trigger_activation_wc_email', $user_id );
 				} else {
 					$this->send_mail( $user->user_email, $email_subject, $email_content );
+				}
+
+				// Store referer url in meta from cookies
+				if(
+					isset( $_COOKIE['alg_wc_ev_my_account_referer_url'] ) &&
+					'my_account_referer' === get_option( 'alg_wc_ev_redirect_to_my_account_on_success', 'yes' )
+				) {
+					update_user_meta( $user_id, 'alg_wc_ev_my_account_referer_url', sanitize_url( $_COOKIE['alg_wc_ev_my_account_referer_url'] ) );
 				}
 
 				update_user_meta( $user_id, 'alg_wc_ev_activation_email_sent', time() );
