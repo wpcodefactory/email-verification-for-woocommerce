@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Admin Class.
  *
- * @version 2.3.3
+ * @version 2.3.8
  * @since   1.5.0
  * @author  WPFactory
  */
@@ -177,7 +177,7 @@ class Alg_WC_Email_Verification_Admin {
 	/**
 	 * init_bkg_process.
 	 *
-	 * @version 2.3.3
+	 * @version 2.3.8
 	 * @since   2.0.1
 	 */
 	function init_bkg_process() {
@@ -186,6 +186,9 @@ class Alg_WC_Email_Verification_Admin {
 
 		require_once( alg_wc_ev()->plugin_path() . '/includes/background-process/class-alg-wc-ev-verify-users.php' );
 		$this->verify_users_bkg_process = new Alg_WC_Email_Verification_Verify_Users();
+
+		require_once( alg_wc_ev()->plugin_path() . '/includes/background-process/class-alg-wc-ev-unverify-users.php' );
+		$this->unverify_users_bkg_process = new Alg_WC_Email_Verification_Unverify_Users();
 	}
 
 	/**
@@ -208,39 +211,81 @@ class Alg_WC_Email_Verification_Admin {
 	/**
 	 * manage_bulk_notices.
 	 *
-	 * @version 2.3.3
+	 * @version 2.3.8
 	 * @since   1.9.6
 	 */
 	function manage_bulk_notices() {
+		if (
+			isset( $_REQUEST['bkg_process'] ) &&
+			'yes' === sanitize_text_field( $_REQUEST['bkg_process'] )
+		) {
+			$complete_bkg_task_msg_regarding_email = alg_wc_ev_get_complete_bkg_task_msg_regarding_email();
+		}
+
 		if ( ! empty( $_REQUEST['bulk_alg_wc_ev_resend'] ) ) {
 			$count = intval( sanitize_text_field( $_REQUEST['bulk_alg_wc_ev_resend'] ) );
 			printf( '<div id="message" class="updated notice is-dismissable"><p>' . _n( 'Verification email sent to %d user successfully.', 'Verification email sent to %d users successfully.', $count, 'emails-verification-for-woocommerce' ) . '</p></div>', $count );
 		}
 
+        // For verify user action
 		if ( ! empty( $_REQUEST['bulk_alg_wc_ev_verify_users'] ) ) {
 			$count = intval( sanitize_text_field( $_REQUEST['bulk_alg_wc_ev_verify_users'] ) );
-
 			if ( isset( $_REQUEST['bkg_process'] ) && 'yes' === sanitize_text_field( $_REQUEST['bkg_process'] ) ) {
-				printf( '<div id="message" class="updated notice is-dismissable"><p>' . sprintf( __( '%d unverified users are going to be verified manually in background processing.', 'emails-verification-for-woocommerce' ), $count ) . '</p></div>', $count );
+				$bkg_task_msg = sprintf( __( '%d unverified users are going to be verified manually in background processing.', 'emails-verification-for-woocommerce' ), $count );
+				$bkg_task_msg .= ! empty( $complete_bkg_task_msg_regarding_email ) ? ' ' . $complete_bkg_task_msg_regarding_email : '';
+				printf( '<div id="message" class="updated notice is-dismissable"><p>' . $bkg_task_msg . '</p></div>' );
 			} else {
 				printf( '<div id="message" class="updated notice is-dismissable"><p>' . _n( '%d user verified successfully.', '%d users verified successfully.', $count, 'emails-verification-for-woocommerce' ) . '</p></div>', $count );
+			}
+		}
+
+        // For unverify user action
+		if ( ! empty( $_REQUEST['bulk_alg_wc_ev_unverify_users'] ) ) {
+			$count = intval( sanitize_text_field( $_REQUEST['bulk_alg_wc_ev_unverify_users'] ) );
+			if ( isset( $_REQUEST['bkg_process'] ) && 'yes' === sanitize_text_field( $_REQUEST['bkg_process'] ) ) {
+				$bkg_task_msg = sprintf( __( '%d verified users are going to be unverified manually in background processing.', 'emails-verification-for-woocommerce' ), $count );
+				$bkg_task_msg .= ! empty( $complete_bkg_task_msg_regarding_email ) ? ' ' . $complete_bkg_task_msg_regarding_email : '';
+				printf( '<div id="message" class="updated notice is-dismissable"><p>' . $bkg_task_msg . '</p></div>' );
+			} else {
+				printf( '<div id="message" class="updated notice is-dismissable"><p>' . _n( '%d user unverified successfully.', '%d users unverified successfully.', $count, 'emails-verification-for-woocommerce' ) . '</p></div>', $count );
 			}
 		}
 	}
 
 	/**
+	 * get_query_args_to_remove.
+	 *
+	 * @version 2.3.8
+	 * @since   2.3.8
+	 *
+	 * @param $reference
+	 *
+	 * @return array
+	 */
+	function get_query_args_to_remove( $reference ) {
+		$args_to_remove = array();
+		switch ( $reference ) {
+			case 'bulk_user_actions':
+				$args_to_remove = array( 'bkg_process', 'bulk_alg_wc_ev_resend', 'bulk_alg_wc_ev_verify_users', 'bulk_alg_wc_ev_unverify_users' );
+		}
+		return $args_to_remove;
+	}
+
+	/**
 	 * handle_bulk_actions_users.
+	 *
+	 * @version 2.3.8
+	 * @since   1.9.6
 	 *
 	 * @param $redirect_to
 	 * @param $doaction
 	 * @param $user_ids
 	 *
 	 * @return string
-	 * @version 2.3.3
-	 * @since   1.9.6
 	 *
 	 */
 	function handle_bulk_user_actions( $redirect_to, $doaction, $user_ids ) {
+		$redirect_to = remove_query_arg( $this->get_query_args_to_remove( 'bulk_user_actions' ), $redirect_to );
 		switch ( $doaction ) {
 			case 'alg_wc_ev_resend':
 				$count = 0;
@@ -254,8 +299,6 @@ class Alg_WC_Email_Verification_Admin {
 					}
 				}
 				$redirect_to = add_query_arg( 'bulk_alg_wc_ev_resend', $count, $redirect_to );
-
-				return $redirect_to;
 				break;
 
 			case 'alg_wc_ev_verify_manually':
@@ -264,7 +307,6 @@ class Alg_WC_Email_Verification_Admin {
 					return alg_wc_ev()->core->is_user_verified_by_user_id( $user_id ) ? '' : $user_id;
 				}, $user_ids ) );
 				$min_amount = get_option( 'alg_wc_ev_bkg_process_min_amount', 20 );
-
 				if ( count( $user_ids ) >= $min_amount ) {
 					$this->verify_users_bkg_process->cancel_process();
 					foreach ( $user_ids as $user_id ) {
@@ -283,13 +325,38 @@ class Alg_WC_Email_Verification_Admin {
 					}
 					$redirect_to = add_query_arg( 'bulk_alg_wc_ev_verify_users', $count, $redirect_to );
 				}
+				break;
 
-				return $redirect_to;
+			case 'alg_wc_ev_unverify_manually':
+				$count      = 0;
+				$user_ids   = array_filter( array_map( function ( $user_id ) {
+					return alg_wc_ev()->core->is_user_verified_by_user_id( $user_id ) ? $user_id : '';
+				}, $user_ids ) );
+				$min_amount = get_option( 'alg_wc_ev_bkg_process_min_amount', 20 );
+
+				if ( count( $user_ids ) >= $min_amount ) {
+					$this->unverify_users_bkg_process->cancel_process();
+					foreach ( $user_ids as $user_id ) {
+						$count ++;
+						$this->unverify_users_bkg_process->push_to_queue( array( 'user_id' => $user_id ) );
+					}
+					$this->unverify_users_bkg_process->save()->dispatch();
+					$redirect_to = add_query_arg( array( 'bulk_alg_wc_ev_unverify_users' => $count, 'bkg_process' => 'yes' ), $redirect_to );
+				} else {
+					foreach ( $user_ids as $user_id ) {
+						$count ++;
+						alg_wc_ev()->core->deactivate_user( array(
+							'user_id' => $user_id,
+						) );
+					}
+					$redirect_to = add_query_arg( 'bulk_alg_wc_ev_unverify_users', $count, $redirect_to );
+				}
 				break;
 
 			default:
 				return $redirect_to;
 		}
+		return $redirect_to;
 	}
 
 	/**
@@ -298,25 +365,20 @@ class Alg_WC_Email_Verification_Admin {
 	 * @param $bulk_actions
 	 *
 	 * @return mixed
-	 * @version 2.3.3
+	 * @version 2.3.8
 	 * @since   1.9.6
 	 *
 	 */
 	function add_bulk_user_actions( $bulk_actions ) {
-		if (
-			'yes' === get_option( 'alg_wc_ev_admin_bulk_user_actions_resend', 'no' ) &&
-			$this->is_user_allowed_to_interact_with_admin_ui()
-		) {
+		if ( 'yes' === get_option( 'alg_wc_ev_admin_bulk_user_actions_resend', 'no' ) && $this->is_user_allowed_to_interact_with_admin_ui() ) {
 			$bulk_actions['alg_wc_ev_resend'] = __( 'Resend verification email', 'emails-verification-for-woocommerce' );
 		}
-
-		if (
-			'yes' === get_option( 'alg_wc_ev_admin_bulk_verify_users', 'no' ) &&
-			$this->is_user_allowed_to_interact_with_admin_ui()
-		) {
+		if ( 'yes' === get_option( 'alg_wc_ev_admin_bulk_verify_users', 'no' ) && $this->is_user_allowed_to_interact_with_admin_ui() ) {
 			$bulk_actions['alg_wc_ev_verify_manually'] = __( 'Verify users', 'emails-verification-for-woocommerce' );
 		}
-
+        if ( 'yes' === get_option( 'alg_wc_ev_admin_bulk_unverify_users', 'no' ) && $this->is_user_allowed_to_interact_with_admin_ui() ) {
+			$bulk_actions['alg_wc_ev_unverify_manually'] = __( 'Unverify users', 'emails-verification-for-woocommerce' );
+		}
 		return $bulk_actions;
 	}
 
@@ -417,7 +479,7 @@ class Alg_WC_Email_Verification_Admin {
 	/**
 	 * delete_unverified_users.
 	 *
-	 * @version 2.0.1
+	 * @version 2.3.8
 	 * @since   1.3.0
 	 * @todo    add "preview"
 	 */
@@ -457,7 +519,11 @@ class Alg_WC_Email_Verification_Admin {
 			}
 			$this->delete_users_bkg_process->save()->dispatch();
 			if ( ! $is_cron ) {
-				WC_Admin_Settings::add_message( sprintf( __( '%d unverified users are going to be deleted in background processing. When the task is complete an e-mail is going to be sent to %s', 'emails-verification-for-woocommerce' ), $total, get_option( 'alg_wc_ev_bkg_process_email_to', get_option( 'admin_email' ) ) ) );
+				$message = sprintf( __( '%d unverified users are going to be deleted in background processing.', 'emails-verification-for-woocommerce' ), $total );
+				if ( ! empty( $complete_bkg_task_msg_regarding_email = alg_wc_ev_get_complete_bkg_task_msg_regarding_email() ) ) {
+					$message .= ' ' . $complete_bkg_task_msg_regarding_email;
+				}
+				WC_Admin_Settings::add_message( $message );
 			}
 		} else {
 			foreach ( $users_query as $user ) {

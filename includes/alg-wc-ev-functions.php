@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Functions.
  *
- * @version 2.3.5
+ * @version 2.3.8
  * @since   1.9.0
  * @author  WPFactory
  */
@@ -207,5 +207,23 @@ if ( ! function_exists( 'alg_wc_ev_get_session_start_params_option' ) ) {
 	 */
 	function alg_wc_ev_get_session_start_params_option() {
 		return apply_filters( 'alg_wc_ev_session_start_params', json_decode( get_option( 'alg_wc_ev_session_start_params', wp_json_encode( alg_wc_ev_get_default_session_start_params() ) ), true ) );
+	}
+}
+
+if ( ! function_exists( 'alg_wc_ev_get_complete_bkg_task_msg_regarding_email' ) ) {
+	/**
+	 * alg_wc_ev_get_complete_bkg_task_msg_regarding_email.
+	 *
+	 * @version 2.3.8
+	 * @since   2.3.8
+	 *
+	 * @return string
+	 */
+	function alg_wc_ev_get_complete_bkg_task_msg_regarding_email() {
+		$msg = '';
+		if ( 'yes' === get_option( 'alg_wc_ev_bkg_process_send_email', 'no' ) ) {
+			$msg = sprintf( __( 'When the task is complete an email is going to be sent to %s.', 'emails-verification-for-woocommerce' ), get_option( 'alg_wc_ev_bkg_process_email_to', get_option( 'admin_email' ) ) );
+		}
+		return $msg;
 	}
 }

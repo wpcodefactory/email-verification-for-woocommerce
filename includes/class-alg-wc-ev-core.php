@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Core Class.
  *
- * @version 2.3.7
+ * @version 2.3.8
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -685,6 +685,27 @@ class Alg_WC_Email_Verification_Core {
 			update_user_meta( $user_id, 'alg_wc_ev_redirect_referer_url', sanitize_url( $_COOKIE['alg_wc_ev_redirect_referer_url'] ) );
 		}
 		do_action( 'alg_wc_ev_user_account_activated', $user_id, $args );
+	}
+
+	/**
+	 * Deactivate or Unverify user.
+	 *
+	 * @version 2.3.8
+	 * @since   2.3.8
+	 *
+	 * @param null $args
+	 */
+	function deactivate_user( $args = array() ) {
+		$args       = wp_parse_args( $args, array(
+			'user_id' => '',
+		) );
+		$user_id    = $args['user_id'];
+
+		update_user_meta( $user_id, 'alg_wc_ev_is_activated', '0' );
+		delete_user_meta( $user_id, 'alg_wc_ev_customer_new_account_email_sent' );
+		delete_user_meta( $user_id, 'alg_wc_ev_admin_email_sent' );
+
+		do_action( 'alg_wc_ev_user_account_deactivated', $user_id, $args );
 	}
 
 	/**

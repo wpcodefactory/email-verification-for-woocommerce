@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Email Verification for WooCommerce 2.3.7\n"
+"Project-Id-Version: Email Verification for WooCommerce 2.3.8\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/emails-verification-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-06-20T22:01:44+02:00\n"
+"POT-Creation-Date: 2022-07-07T00:49:16+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: emails-verification-for-woocommerce\n"
@@ -38,12 +38,24 @@ msgstr ""
 msgid "Go Pro"
 msgstr ""
 
+#: includes/alg-wc-ev-functions.php:225
+msgid "When the task is complete an email is going to be sent to %s."
+msgstr ""
+
 #: includes/background-process/class-alg-wc-ev-delete-users-bkg-process.php:30
 msgid "Email Verification for WooCommerce - Delete users tool"
 msgstr ""
 
 #: includes/background-process/class-alg-wc-ev-delete-users-bkg-process.php:48
 msgid "User deleted: %d."
+msgstr ""
+
+#: includes/background-process/class-alg-wc-ev-unverify-users.php:26
+msgid "Email Verification for WooCommerce - Unverify Users"
+msgstr ""
+
+#: includes/background-process/class-alg-wc-ev-unverify-users.php:44
+msgid "User unverified manually: %d."
 msgstr ""
 
 #: includes/background-process/class-alg-wc-ev-verify-users.php:30
@@ -70,85 +82,101 @@ msgstr ""
 msgid "Filter"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:217
+#: includes/class-alg-wc-ev-admin.php:227
 msgid "Verification email sent to %d user successfully."
 msgid_plural "Verification email sent to %d users successfully."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-alg-wc-ev-admin.php:224
+#: includes/class-alg-wc-ev-admin.php:234
 msgid "%d unverified users are going to be verified manually in background processing."
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:226
+#: includes/class-alg-wc-ev-admin.php:238
 msgid "%d user verified successfully."
 msgid_plural "%d users verified successfully."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-alg-wc-ev-admin.php:310
+#: includes/class-alg-wc-ev-admin.php:246
+msgid "%d verified users are going to be unverified manually in background processing."
+msgstr ""
+
+#: includes/class-alg-wc-ev-admin.php:250
+msgid "%d user unverified successfully."
+msgid_plural "%d users unverified successfully."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-alg-wc-ev-admin.php:374
 #: includes/settings/class-alg-wc-ev-settings-admin.php:121
 #: includes/settings/class-alg-wc-ev-settings-admin.php:122
 msgid "Resend verification email"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:317
+#: includes/class-alg-wc-ev-admin.php:377
 #: includes/settings/class-alg-wc-ev-settings-admin.php:128
 #: includes/settings/class-alg-wc-ev-settings-admin.php:129
 msgid "Verify users"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:460
-msgid "%d unverified users are going to be deleted in background processing. When the task is complete an e-mail is going to be sent to %s"
+#: includes/class-alg-wc-ev-admin.php:380
+#: includes/settings/class-alg-wc-ev-settings-admin.php:135
+#: includes/settings/class-alg-wc-ev-settings-admin.php:136
+msgid "Unverify users"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:468
+#: includes/class-alg-wc-ev-admin.php:522
+msgid "%d unverified users are going to be deleted in background processing."
+msgstr ""
+
+#: includes/class-alg-wc-ev-admin.php:534
 msgid "Total unverified users deleted: %d."
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:483
+#: includes/class-alg-wc-ev-admin.php:549
 msgid "Nonce not found or not verified."
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:550
+#: includes/class-alg-wc-ev-admin.php:616
 msgid "User %s: verified."
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:554
+#: includes/class-alg-wc-ev-admin.php:620
 msgid "User %s: unverified."
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:558
+#: includes/class-alg-wc-ev-admin.php:624
 msgid "User %s: activation link resent."
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:587
-#: includes/class-alg-wc-ev-core.php:881
+#: includes/class-alg-wc-ev-admin.php:653
+#: includes/class-alg-wc-ev-core.php:902
 msgid "Verified"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:603
+#: includes/class-alg-wc-ev-admin.php:669
 msgid "Are you sure?"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:622
+#: includes/class-alg-wc-ev-admin.php:688
 msgid "Email not verified"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:625
+#: includes/class-alg-wc-ev-admin.php:691
 msgid "Verify"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:627
+#: includes/class-alg-wc-ev-admin.php:693
 #: includes/settings/class-alg-wc-ev-settings-messages.php:95
 msgid "Resend"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:631
+#: includes/class-alg-wc-ev-admin.php:697
 msgid "Email verified"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:634
+#: includes/class-alg-wc-ev-admin.php:700
 msgid "Unverify"
 msgstr ""
 
@@ -164,27 +192,27 @@ msgid "You can resend the email with verification link by clicking <a href=\"%re
 msgstr ""
 
 #: includes/class-alg-wc-ev-core.php:218
-#: includes/class-alg-wc-ev-core.php:880
+#: includes/class-alg-wc-ev-core.php:901
 msgid "Verification status: "
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:779
+#: includes/class-alg-wc-ev-core.php:800
 msgid "Submit"
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:790
+#: includes/class-alg-wc-ev-core.php:811
 msgid "Email address"
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:833
+#: includes/class-alg-wc-ev-core.php:854
 msgid "User data not found."
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:849
+#: includes/class-alg-wc-ev-core.php:870
 msgid "You can resend the email with verification link by clicking <a href=\"{resend_verification_url}\">here</a>."
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:882
+#: includes/class-alg-wc-ev-core.php:903
 msgid "Unverified"
 msgstr ""
 
@@ -353,6 +381,7 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-admin.php:122
 #: includes/settings/class-alg-wc-ev-settings-admin.php:129
+#: includes/settings/class-alg-wc-ev-settings-admin.php:136
 msgid "Add %s bulk option"
 msgstr ""
 
