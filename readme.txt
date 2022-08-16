@@ -3,7 +3,7 @@ Contributors: wpcodefactory, Karzin, jaedm97, algoritmika, anbinder
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 6.0
-Stable tag: 2.3.8
+Stable tag: 2.3.9
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -205,6 +205,11 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 3. Start by visiting plugin settings at "WooCommerce > Settings > Email Verification".
 
 == Changelog ==
+
+= 2.3.9 - 16/08/2022 =
+* Dev - Compatibility - Email Customizer for WooCommerce by VillaTheme - Add option to enable placeholders on the email templates.
+* WC tested up to: 6.8.
+
 = 2.3.8 - 06/07/2022 =
 * Dev - Admin - Added bulk option to unverify users and integrate support for background processing.
 

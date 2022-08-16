@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Email Verification for WooCommerce 2.3.8\n"
+"Project-Id-Version: Email Verification for WooCommerce 2.3.9\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/emails-verification-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-07-07T00:49:16+02:00\n"
+"POT-Creation-Date: 2022-08-16T20:19:21+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: emails-verification-for-woocommerce\n"
@@ -1002,216 +1002,233 @@ msgid "Redirect to the activate account notice after logout"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:24
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:38
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:53
 msgid "Compatibility"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:39
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:54
 msgid "Compatibility with third party plugins or solutions."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:40
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:55
 msgid "If you have issues with compatibility settings try to change these other options:"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:42
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:57
 msgid "Advanced > Block auth cookies"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:43
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:169
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:58
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:194
 msgid "Advanced > Authenticate filter"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:44
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:59
 msgid "Email > Activation email > Activation email delay"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:50
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:65
 msgid "WooCommerce Social Login (SkyVerge)"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:51
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:66
 msgid "Accept verification from \"<a target=\"_blank\" href=\"%s\">WooCommerce Social Login</a>\" plugin made by Woocommerce author <a href=\"%s\" target=\"_blank\">SkyVerge</a>"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:58
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:73
 msgid "WooCommerce Social Login (wpweb)"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:59
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:74
 msgid "Accept verification from \"<a target=\"_blank\" href=\"%s\">WooCommerce Social Login</a>\" plugin made by CodeCanyon author <a href=\"%s\" target=\"_blank\">wpweb</a>"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:66
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:81
 msgid "Super Socializer"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:67
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:82
 msgid "Accept verification from \"<a target=\"_blank\" href=\"%s\">Super Socializer</a>\" plugin"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:74
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:89
 msgid "My Listing Social Login"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:75
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:90
 msgid "Accept verification from Social Login feature bundled on \"<a target=\"_blank\" href=\"%s\">My Listing</a>\" theme made by ThemeForest author <a href=\"%s\" target=\"_blank\">27collective</a>"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:82
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:97
 msgid "Nextend Social Login"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:83
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:98
 msgid "Automatically verifies a user who registers or logins from \"<a target=\"_blank\" href=\"%s\">Nextend Social Login</a>\" plugin"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:84
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:99
 msgid "Leave it empty if you don't want to automatically verify an user from Nextend Social Login."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:90
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:105
 msgid "On login"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:91
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:106
 msgid "On register new user"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:96
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:111
 msgid "WooMail - WooCommerce Email Customizer"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:97
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:112
 msgid "Append verification email to the \"Customer new account\" email customized by the \"<a target=\"_blank\" href=\"%s\">WooMail</a>\" plugin"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:99
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:114
 msgid "You need to use this shortcode in your template: %s."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:100
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:124
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:115
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:139
 msgid "It's necessary to enable %s option and use %s option as %s."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:100
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:124
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:147
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:115
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:139
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:162
 msgid "Emails > Activation email > Fine tune activation email placement"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:100
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:124
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:147
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:115
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:139
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:162
 #: includes/settings/class-alg-wc-ev-settings-general.php:58
 msgid "Emails > Activation email > Email template"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:100
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:124
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:115
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:139
 #: includes/settings/class-alg-wc-ev-settings-email.php:91
 #: includes/settings/class-alg-wc-ev-settings-email.php:98
 #: includes/settings/class-alg-wc-ev-settings-general.php:58
 msgid "Plain"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:115
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:117
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:130
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:132
 msgid "Email Customizer for WooCommerce by Themehigh"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:117
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:140
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:163
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:185
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:132
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:155
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:188
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:210
 msgid "Compatibility with %s plugin."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:121
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:144
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:136
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:159
 msgid "Activation email content"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:122
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:137
 msgid "Display the activation email content on a custom template using the %s action hook"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:123
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:138
 msgid "The action hook should be used in a %s block from the Email Customizer plugin."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:123
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:138
 msgid "Custom Hook"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:138
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:140
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:153
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:155
 msgid "Email Customizer for WooCommerce by VillaTheme"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:145
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:160
 msgid "Display the activation email content on the %s template using the %s special text"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:145
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:160
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:171
 msgid "New account"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:146
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:161
 msgid "The action hook should be used in a %s from the Email Customizer plugin."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:146
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:161
 msgid "Text element"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:147
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:162
 msgid "It's necessary to enable %s option."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:161
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:163
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:170
+msgid "Placeholders"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:171
+msgid "Enable placeholders on the Email Customizer templates related to the Email Verification plugin"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:172
+msgid "Available placeholders:"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:173
+msgid "The %s placeholder will only be available to the <strong>Activation email</strong> template."
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:186
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:188
 msgid "Essential Addons for Elementor"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:167
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:168
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:192
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:193
 msgid "Login Register form"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:168
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:193
 msgid "Verify users who register or log in from %s element"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:169
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:194
 msgid "If you have issues, try to enable %s and set the %s option as %s."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:169
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:194
 msgid "General > Account verification > Verify account for current users"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:169
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:194
 msgid "Authenticate"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:183
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:185
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:208
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:210
 msgid "Paid Memberships Pro"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:189
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:214
 #: includes/settings/class-alg-wc-ev-settings-general.php:69
 msgid "Account verification"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:190
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:215
 msgid "Verify users that signs up via Paid Memberships Pro registration process"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-compatibility.php:198
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:223
 msgid "Verify users that already have a valid membership"
 msgstr ""
 

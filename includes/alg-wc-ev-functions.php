@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Functions.
  *
- * @version 2.3.8
+ * @version 2.3.9
  * @since   1.9.0
  * @author  WPFactory
  */
@@ -225,5 +225,29 @@ if ( ! function_exists( 'alg_wc_ev_get_complete_bkg_task_msg_regarding_email' ) 
 			$msg = sprintf( __( 'When the task is complete an email is going to be sent to %s.', 'emails-verification-for-woocommerce' ), get_option( 'alg_wc_ev_bkg_process_email_to', get_option( 'admin_email' ) ) );
 		}
 		return $msg;
+	}
+}
+
+if ( ! function_exists( 'alg_wc_ev_generate_placeholders_for_villatheme_email_customizer' ) ) {
+	/**
+	 * get_placeholders_for_villatheme_email_customizer.
+	 *
+	 * @version 2.3.9
+	 * @since   2.3.9
+	 *
+	 * @param $user
+	 *
+	 * @return array|mixed
+	 */
+	function alg_wc_ev_generate_placeholders_for_villatheme_email_customizer( $user ) {
+		$placeholders     = alg_wc_ev_get_user_placeholders( array(
+			'user' => $user
+		) );
+		$new_placeholders = array_map( function ( $k, $v ) {
+			$new_key = preg_replace( '/\%$/', '}', preg_replace( '/^\%/', '{alg_wc_ev_', $k ) );
+			return array( $new_key => $v );
+		}, array_keys( $placeholders ), $placeholders );
+		$new_placeholders = call_user_func_array( 'array_merge', $new_placeholders );
+		return $new_placeholders;
 	}
 }

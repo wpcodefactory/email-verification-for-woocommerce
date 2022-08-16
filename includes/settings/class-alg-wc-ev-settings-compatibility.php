@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Compatibility Section Settings.
  *
- * @version 2.3.5
+ * @version 2.3.9
  * @since   2.1.3
  * @author  WPFactory
  */
@@ -26,9 +26,24 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 		}
 
 		/**
+		 * get_villatheme_email_customizer_placeholders.
+		 *
+		 * @version 2.3.9
+		 * @since   2.3.9
+		 *
+		 * @return array
+		 */
+		function get_villatheme_email_customizer_placeholders() {
+			$user                                         = wp_get_current_user();
+			$placeholders                                 = alg_wc_ev_generate_placeholders_for_villatheme_email_customizer( $user );
+			$placeholders['{alg_wc_ev_verification_url}'] = get_home_url() . '?alg_wc_ev_verify_email=999999';
+			return array_keys($placeholders);
+		}
+
+		/**
 		 * get_settings.
 		 *
-		 * @version 2.3.5
+		 * @version 2.3.9
 		 * @since   2.1.3
 		 * @todo    (maybe) remove `alg_wc_ev_prevent_login_after_checkout_notice` (i.e. make it always enabled)
 		 */
@@ -147,6 +162,16 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 					                       sprintf( __( 'It\'s necessary to enable %s option.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Emails > Activation email > Fine tune activation email placement', 'emails-verification-for-woocommerce' ) . '</strong>', '<strong>' . __( 'Emails > Activation email > Email template', 'emails-verification-for-woocommerce' ) . '</strong>' ) . '<br />' .
 					                       $this->separate_email_option_msg( 'disabled' ),
 					'id'                => 'alg_wc_ev_comp_email_customizer_vt_special_text_enabled',
+					'default'           => 'no',
+					'type'              => 'checkbox',
+					'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+				),
+				array(
+					'title'             => __( 'Placeholders', 'emails-verification-for-woocommerce' ),
+					'desc'              => sprintf( __( 'Enable placeholders on the Email Customizer templates related to the Email Verification plugin', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'New account', 'emails-verification-for-woocommerce' ) . '</strong>', '<code>{alg_wc_ev_viwec}</code>' ),
+					'desc_tip'          => __( 'Available placeholders:', 'emails-verification-for-woocommerce' ) . ' ' . alg_wc_ev_array_to_string( $this->get_villatheme_email_customizer_placeholders(), array( 'glue' => ', ', 'item_template' => '<code>{value}</code>' ) ) . '.' . '<br />' .
+					                       sprintf( __( 'The %s placeholder will only be available to the <strong>Activation email</strong> template.', 'emails-verification-for-woocommerce' ), '<code>{alg_wc_ev_verification_url}</code>' ),
+					'id'                => 'alg_wc_ev_comp_email_customizer_vt_placeholders_enabled',
 					'default'           => 'no',
 					'type'              => 'checkbox',
 					'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
