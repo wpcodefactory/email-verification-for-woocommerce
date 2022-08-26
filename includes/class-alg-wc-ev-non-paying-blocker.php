@@ -1,8 +1,8 @@
 <?php
 /**
- * Email Verification for WooCommerce - Non Paying Blocker
+ * Email Verification for WooCommerce - Non Paying Blocker.
  *
- * @version 2.2.6
+ * @version 2.4.0
  * @since   1.9.5
  * @author  WPFactory
  */
@@ -96,7 +96,7 @@ class Alg_WC_Email_Verification_Non_Paying_Blocker {
 	/**
 	 * prevent_sending_activation_link_on_user_register_for_non_paying_users.
 	 *
-	 * @version 2.2.4
+	 * @version 2.4.0
 	 * @since   1.9.5
 	 *
 	 * @param $can_send
@@ -113,7 +113,7 @@ class Alg_WC_Email_Verification_Non_Paying_Blocker {
 			! empty( $user = get_user_by( 'id', $user_id ) ) &&
 			( empty( $role_checking = get_option( 'alg_wc_ev_block_nonpaying_users_activation_role', array( 'customer' ) ) ) || count( array_intersect( $role_checking, $user->roles ) ) > 0 )
 		) {
-			$code = md5( time() );
+			$code = alg_wc_ev_generate_user_code();
 			alg_wc_ev()->core->emails->update_all_user_meta( $user_id, $code );
 			$can_send = false;
 		}

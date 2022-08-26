@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Emails Class.
  *
- * @version 2.3.7
+ * @version 2.4.0
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -127,7 +127,7 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * handle_activation_email_sending.
 	 *
-	 * @version 2.3.5
+	 * @version 2.4.0
 	 * @since   2.0.2
 	 *
 	 * @param $user_id
@@ -136,7 +136,7 @@ class Alg_WC_Email_Verification_Emails {
 		if ( 'yes' !== get_option( 'alg_wc_ev_delay_activation_email', 'no' ) ) {
 			$this->reset_and_mail_activation_link( $user_id );
 		} else {
-			$code = md5( time() );
+			$code = alg_wc_ev_generate_user_code();
 			$this->update_all_user_meta( $user_id, $code );
 			$delayed_email_users   = get_option( 'alg_wc_ev_send_delayed_email_users', array() );
 			$delayed_email_users[] = $user_id;
@@ -147,14 +147,35 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * get_verification_url.
 	 *
-	 * @version 2.1.1
+	 * @version 2.4.0
 	 * @since   1.8.0
 	 */
-	function get_verification_url( $user_id, $code = false ) {
-		if ( false === $code ) {
-			$code = md5( time() );
+	function get_verification_url( $args = null ) {
+		$args              = wp_parse_args( $args, array(
+			'user_id'         => '',
+			'code'            => false,
+			'encoding_method' => get_option( 'alg_wc_ev_encoding_method', 'base64_encode' ),
+		) );
+		$user_id           = intval( $args['user_id'] );
+		$code              = $args['code'];
+		$encoding_method   = $args['encoding_method'];
+		$verify_email_hash = '';
+		switch ( $encoding_method ) {
+			case 'base64_encode':
+				if ( false === $code ) {
+					$code = alg_wc_ev_generate_user_code();
+				}
+				$verify_email_hash = alg_wc_ev()->core->base64_url_encode( json_encode( array( 'id' => $user_id, 'code' => $code ) ) );
+				break;
+			case'hashids':
+				$hashids = alg_wc_ev_get_hashids();
+				if ( false === $code ) {
+					$code = alg_wc_ev_generate_user_code();
+				}
+				$verify_email_hash = $hashids->encode( $user_id, $code );
+				break;
 		}
-		return add_query_arg( 'alg_wc_ev_verify_email', alg_wc_ev()->core->base64_url_encode( json_encode( array( 'id' => $user_id, 'code' => $code ) ) ), wc_get_page_permalink( 'myaccount' ) );
+		return add_query_arg( 'alg_wc_ev_verify_email', $verify_email_hash, wc_get_page_permalink( 'myaccount' ) );
 	}
 
 	/**
@@ -179,7 +200,7 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * get_email_content.
 	 *
-	 * @version 2.3.1
+	 * @version 2.4.0
 	 * @since   1.8.0
 	 * @todo    (maybe) `$user->user_url`, `$user->user_registered`
 	 *
@@ -200,7 +221,7 @@ class Alg_WC_Email_Verification_Emails {
 		$code = $args['code'];
 		$placeholders = array_merge( $args['placeholders'], alg_wc_ev_get_user_placeholders( array( 'user_id' => $user_id ) ) );
 		if ( $args['code'] ) {
-			$placeholders['%verification_url%'] = $this->get_verification_url( $user_id, $code );
+			$placeholders['%verification_url%'] = $this->get_verification_url( array( 'user_id' => $user_id, 'code' => $code ) );
 		}
 		$content = apply_filters( 'alg_wc_ev_email_content', $args['content'], $args );
 		return apply_filters( 'alg_wc_ev_email_content_final', str_replace( array_keys( $placeholders ), $placeholders, $content ), $args );
@@ -222,13 +243,13 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * customer_new_account_reset_and_append_verification_link.
 	 *
-	 * @version 2.3.1
+	 * @version 2.4.0
 	 * @since   1.8.0
 	 * @todo    (recheck) `<p>` and plain?
 	 * @todo    (maybe) try getting new code before generating new one (i.e. `$code = get_user_meta( $user->ID, 'alg_wc_ev_activation_code', true );`)
 	 */
 	function customer_new_account_reset_and_append_verification_link( $content, $user, $email ) {
-		$code = md5( time() );
+		$code = alg_wc_ev_generate_user_code();
 		$this->update_all_user_meta( $user->ID, $code );
 		if (
 			'no' === get_option( 'alg_wc_ev_fine_tune_activation_email_placement', 'no' )
@@ -250,7 +271,7 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * append_verification_link.
 	 *
-	 * @version 2.1.8
+	 * @version 2.4.0
 	 * @since   2.0.4
 	 *
 	 * @param $user
@@ -259,7 +280,7 @@ class Alg_WC_Email_Verification_Emails {
 		if ( 'no' === get_option( 'alg_wc_ev_fine_tune_activation_email_placement', 'no' ) ) {
 			return;
 		}
-		$code = md5( time() );
+		$code = alg_wc_ev_generate_user_code();
 		$this->update_all_user_meta( $user->ID, $code );
 		if ( ! alg_wc_ev()->core->is_user_verified( $user ) ) {
 			update_user_meta( $user->ID, 'alg_wc_ev_activation_email_sent', time() );
@@ -274,7 +295,7 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * reset_and_mail_activation_link.maybe_send_wc_customer_new_account_email.
 	 *
-	 * @version 2.3.7
+	 * @version 2.4.0
 	 * @since   1.0.0
 	 * @todo    (maybe) add `%site_name%` etc. replaced value in `alg_wc_ev_email_subject`
 	 */
@@ -282,7 +303,7 @@ class Alg_WC_Email_Verification_Emails {
 		if ( $user_id && apply_filters( 'alg_wc_ev_reset_and_mail_activation_link_validation', true, $user_id, current_filter() ) ) {
 			// Get data
 			$user          = get_userdata( $user_id );
-			$code          = md5( time() );
+			$code          = alg_wc_ev_generate_user_code();
 			$email_content = $this->get_email_content( array(
 				'user_id' => $user_id,
 				'code'    => $code,

@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Section Settings.
  *
- * @version 2.2.7
+ * @version 2.4.0
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -114,6 +114,55 @@ class Alg_WC_Email_Verification_Settings_Section {
 		global $wp_roles;
 		$roles = apply_filters( 'editable_roles', ( isset( $wp_roles ) && is_object( $wp_roles ) ? $wp_roles->roles : array() ) );
 		return wp_list_pluck( $roles, 'name' );
+	}
+
+	/**
+	 * set_red_border_if_empty.
+	 *
+	 * @version 2.4.0
+	 * @since   2.4.0
+	 *
+	 * @param $option_id
+	 *
+	 * @param string $default_option
+	 *
+	 * @return string
+	 */
+	function set_red_border_if_empty( $option_id, $default_option = '' ) {
+		$css = '';
+		if ( empty( get_option( $option_id, $default_option ) ) ) {
+			$css .= 'border:1px solid red;';
+		}
+		return $css;
+	}
+
+	/**
+	 * get_empty_warning_msg.
+	 *
+	 * @version 2.4.0
+	 * @since   2.4.0
+	 *
+	 * @param null $args
+	 *
+	 * @return string
+	 */
+	function get_empty_warning_msg( $args = null ) {
+		$args           = wp_parse_args( $args, array(
+			'option_id'   => '',
+			'default_opt' => '',
+			'msg'         => '',
+			'style'       => 'color:red',
+		) );
+		$option_id      = $args['option_id'];
+		$default_option = $args['default_opt'];
+		$msg            = $args['msg'];
+		$style          = $args['style'];
+		$final_msg      = '';
+		if ( empty( get_option( $option_id, $default_option ) ) ) {
+			$msg_content = empty( $msg ) ? __( 'Please, do not leave the option empty.', 'emails-verification-for-woocommerce' ) : $msg;
+			$final_msg   = '<span style="' . $style . '">' . ' ' . $msg_content . '</span>';
+		}
+		return $final_msg;
 	}
 
 }

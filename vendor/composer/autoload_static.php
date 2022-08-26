@@ -10,6 +10,20 @@ class ComposerStaticInit365338cb4b7dc88b2ccda0d9e2eddbb6
         '20872bbaff0e3115cc7db5ab4a7d607e' => __DIR__ . '/..' . '/wpfactory/wpfactory-promoting-notice/src/php/functions.php',
     );
 
+    public static $prefixLengthsPsr4 = array (
+        'H' => 
+        array (
+            'Hashids\\' => 8,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'Hashids\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hashids/hashids/src',
+        ),
+    );
+
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'WPFactory\\Promoting_Notice\\Core' => __DIR__ . '/..' . '/wpfactory/wpfactory-promoting-notice/src/php/class-core.php',
@@ -18,6 +32,8 @@ class ComposerStaticInit365338cb4b7dc88b2ccda0d9e2eddbb6
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInit365338cb4b7dc88b2ccda0d9e2eddbb6::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit365338cb4b7dc88b2ccda0d9e2eddbb6::$prefixDirsPsr4;
             $loader->classMap = ComposerStaticInit365338cb4b7dc88b2ccda0d9e2eddbb6::$classMap;
 
         }, null, ClassLoader::class);

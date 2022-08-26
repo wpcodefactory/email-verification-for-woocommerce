@@ -1,8 +1,8 @@
 <?php
 /**
- * Email Verification for WooCommerce - Advanced Section Settings
+ * Email Verification for WooCommerce - Advanced Section Settings.
  *
- * @version 2.3.4
+ * @version 2.4.0
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -36,28 +36,28 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.3.4
+	 * @version 2.4.0
 	 * @since   1.6.0
 	 * @todo    (maybe) remove `alg_wc_ev_prevent_login_after_checkout_notice` (i.e. make it always enabled)
 	 */
 	function get_settings() {
-		return array(
+		$advanced_opts = array(
 			array(
-				'title'    => __( 'Advanced Options', 'emails-verification-for-woocommerce' ),
-				'type'     => 'title',
-				'id'       => 'alg_wc_ev_advanced_options',
+				'title' => __( 'Advanced Options', 'emails-verification-for-woocommerce' ),
+				'type'  => 'title',
+				'id'    => 'alg_wc_ev_advanced_options',
 			),
 			array(
 				'title'    => __( 'Authenticate filter', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => __( 'WordPress filter used to check user authentication.', 'emails-verification-for-woocommerce' ).'<br />'.
+				'desc_tip' => __( 'WordPress filter used to check user authentication.', 'emails-verification-for-woocommerce' ) . '<br />' .
 				              sprintf( __( 'Use the %s filter to priorize the %s message over the %s message.', 'emails-verification-for-woocommerce' ), 'authenticate', __( 'verification error', 'emails-verification-for-woocommerce' ), __( 'incorrect password', 'emails-verification-for-woocommerce' ) ),
 				'type'     => 'select',
 				'class'    => 'chosen_select',
 				'id'       => 'alg_wc_ev_auth_filter',
 				'default'  => 'wp_authenticate_user',
 				'options'  => array(
-					'wp_authenticate_user'    => sprintf( __( '%s filter', 'emails-verification-for-woocommerce' ), '"wp_authenticate_user"' ),
-					'authenticate' => sprintf( __( '%s filter', 'emails-verification-for-woocommerce' ), '"authenticate"' ),
+					'wp_authenticate_user' => sprintf( __( '%s filter', 'emails-verification-for-woocommerce' ), '"wp_authenticate_user"' ),
+					'authenticate'         => sprintf( __( '%s filter', 'emails-verification-for-woocommerce' ), '"authenticate"' ),
 				),
 			),
 			array(
@@ -80,7 +80,7 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 			array(
 				'title'    => __( 'Replace HTML tags', 'emails-verification-for-woocommerce' ),
 				'desc'     => __( 'Replace angle brackets from HTML tags by other characters', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => __( 'Enable if you have problem trying to save settings.', 'emails-verification-for-woocommerce' ).'<br />'.
+				'desc_tip' => __( 'Enable if you have problem trying to save settings.', 'emails-verification-for-woocommerce' ) . '<br />' .
 				              __( 'Update the settings page containing HTML to see the value refreshed.', 'emails-verification-for-woocommerce' ),
 				'type'     => 'checkbox',
 				'id'       => 'alg_wc_ev_replace_html_tags',
@@ -96,56 +96,102 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 				'css'      => $this->get_session_start_params_css()
 			),
 			array(
-				'type'     => 'sectionend',
-				'id'       => 'alg_wc_ev_advanced_options',
+				'type' => 'sectionend',
+				'id'   => 'alg_wc_ev_advanced_options',
+			)
+		);
+
+		$encoding_options = array(
+			array(
+				'title' => __( 'Encoding options', 'emails-verification-for-woocommerce' ),
+				'type'  => 'title',
+				'id'    => 'alg_wc_ev_encoding_options',
 			),
 			array(
-				'title'    => __( 'Prevent login after register', 'emails-verification-for-woocommerce' ),
+				'title'   => __( 'Encoding method', 'emails-verification-for-woocommerce' ),
+				'type'    => 'select',
+				'class'   => 'chosen_select',
+				'default' => 'base64_encode',
+				'options' => array(
+					'base64_encode' => __( 'Base64 encode', 'emails-verification-for-woocommerce' ),
+					'hashids'       => __( 'Hashids', 'emails-verification-for-woocommerce' ),
+				),
+				'id'      => 'alg_wc_ev_encoding_method',
+			),
+			array(
+				'title'    => __( 'Hashids', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'Hashids salt.', 'emails-verification-for-woocommerce' ) . $this->get_empty_warning_msg( array(
+						'option_id'   => $hashids_salt_id = 'alg_wc_ev_hashids_salt',
+						'default_opt' => alg_wc_ev()->core->get_default_hashids_salt_opt(),
+						'msg'         => __( 'Please, do not leave the option empty. Set an unpredictable random value.', 'emails-verification-for-woocommerce' ),
+					) ),
+				'desc_tip' => __( 'Salt adds random data to the input of a hash function to guarantee a unique output, even when the inputs are the same.', 'emails-verification-for-woocommerce' ) . ' ' . __( 'Set an unpredictable random value here.', 'emails-verification-for-woocommerce' ),
+				'default'  => alg_wc_ev()->core->get_default_hashids_salt_opt(),
+				'css'      => $this->set_red_border_if_empty( $hashids_salt_id, alg_wc_ev()->core->get_default_hashids_salt_opt() ),
+				'type'     => 'text',
+				'id'       => $hashids_salt_id,
+			),
+			array(
+				'desc'     => __( 'Hashids Alphabet.', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => __( 'The alphabet is used to setup the possible characters of the output.', 'emails-verification-for-woocommerce' ),
+				'type'     => 'text',
+				'default'  => 'abcdefghijklmnopqrstuvwxyz1234567890',
+				'id'       => 'alg_wc_ev_hashids_alphabet',
+			),
+			array(
+				'type' => 'sectionend',
+				'id'   => 'alg_wc_ev_encoding_options',
+			)
+		);
+
+		$prevent_login_after_register_opts = array(
+			array(
+				'title' => __( 'Prevent login after register', 'emails-verification-for-woocommerce' ),
 				//'desc'     => __( 'Prevents users from login automatically before their accounts are verified.', 'emails-verification-for-woocommerce' ),
-				'type'     => 'title',
-				'id'       => 'alg_wc_ev_prevent_login_after_register_options',
+				'type'  => 'title',
+				'id'    => 'alg_wc_ev_prevent_login_after_register_options',
 			),
 			// Prevent login after register
 			array(
-				'title'    => __( 'Prevent login after register', 'emails-verification-for-woocommerce' ),
-				'desc'     => __( 'Prevent automatic user login after registration on "My Account" page', 'emails-verification-for-woocommerce' ),
-				'type'     => 'checkbox',
-				'id'       => 'alg_wc_ev_prevent_login_after_register',
-				'default'  => 'yes',
+				'title'   => __( 'Prevent login after register', 'emails-verification-for-woocommerce' ),
+				'desc'    => __( 'Prevent automatic user login after registration on "My Account" page', 'emails-verification-for-woocommerce' ),
+				'type'    => 'checkbox',
+				'id'      => 'alg_wc_ev_prevent_login_after_register',
+				'default' => 'yes',
 			),
 			array(
-				'title'    => __( 'Login prevention method', 'emails-verification-for-woocommerce' ),
-				'desc'     => sprintf( __( 'Note: The %s method sets the %s filter as %s.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'login filter from WooCommerce', 'emails-verification-for-woocommerce' ) . '</strong>','<code>woocommerce_registration_auth_new_customer</code>', '<code>false</code>' ),
-				'type'     => 'select',
-				'class'    => 'chosen_select',
-				'id'       => 'alg_wc_ev_prevent_login_after_register_method',
-				'options'  => array(
-					'logout_after_login'         => __( 'Logout right after login', 'emails-verification-for-woocommerce' ),
+				'title'   => __( 'Login prevention method', 'emails-verification-for-woocommerce' ),
+				'desc'    => sprintf( __( 'Note: The %s method sets the %s filter as %s.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'login filter from WooCommerce', 'emails-verification-for-woocommerce' ) . '</strong>', '<code>woocommerce_registration_auth_new_customer</code>', '<code>false</code>' ),
+				'type'    => 'select',
+				'class'   => 'chosen_select',
+				'id'      => 'alg_wc_ev_prevent_login_after_register_method',
+				'options' => array(
+					'logout_after_login'            => __( 'Logout right after login', 'emails-verification-for-woocommerce' ),
 					'prevent_login_using_wc_filter' => __( 'Use login filter from WooCommerce', 'emails-verification-for-woocommerce' ),
 				),
-				'default'  => 'logout_after_login',
+				'default' => 'logout_after_login',
 			),
 			array(
-				'title'    => __( 'Redirect', 'emails-verification-for-woocommerce' ),
-				'type'     => 'select',
-				'class'    => 'chosen_select',
-				'id'       => 'alg_wc_ev_prevent_login_after_register_redirect',
-				'default'  => 'no',
-				'options'  => array(
+				'title'   => __( 'Redirect', 'emails-verification-for-woocommerce' ),
+				'type'    => 'select',
+				'class'   => 'chosen_select',
+				'id'      => 'alg_wc_ev_prevent_login_after_register_redirect',
+				'default' => 'no',
+				'options' => array(
 					'no'     => __( 'No redirect', 'emails-verification-for-woocommerce' ),
 					'yes'    => __( 'Force redirect to the "My Account" page', 'emails-verification-for-woocommerce' ),
 					'custom' => __( 'Custom redirect', 'emails-verification-for-woocommerce' ),
 				),
 			),
 			array(
-				'title'    => __( 'Custom redirect URL', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => sprintf( __( '"%s" must be selected for the "%s" option above.', 'emails-verification-for-woocommerce' ),
+				'title'         => __( 'Custom redirect URL', 'emails-verification-for-woocommerce' ),
+				'desc_tip'      => sprintf( __( '"%s" must be selected for the "%s" option above.', 'emails-verification-for-woocommerce' ),
 						__( 'Custom redirect', 'emails-verification-for-woocommerce' ), __( 'Redirect', 'emails-verification-for-woocommerce' ) ) . ' ' .
-				              __( 'Must be a local URL.', 'emails-verification-for-woocommerce' ),
-				'type'     => 'text',
-				'id'       => 'alg_wc_ev_prevent_login_after_register_redirect_url',
-				'default'  => '',
-				'css'      => 'width:100%;',
+				                   __( 'Must be a local URL.', 'emails-verification-for-woocommerce' ),
+				'type'          => 'text',
+				'id'            => 'alg_wc_ev_prevent_login_after_register_redirect_url',
+				'default'       => '',
+				'css'           => 'width:100%;',
 				'alg_wc_ev_raw' => true,
 			),
 			array(
@@ -157,14 +203,16 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 				'default'  => 'no',
 			),
 			array(
-				'type'     => 'sectionend',
-				'id'       => 'alg_wc_ev_prevent_login_after_register_options',
+				'type' => 'sectionend',
+				'id'   => 'alg_wc_ev_prevent_login_after_register_options',
 			),
-			// Prevent login after checkout
+		);
+
+		$prevent_login_after_checkout_opts = array(
 			array(
-				'title'    => __( 'Prevent login after checkout', 'emails-verification-for-woocommerce' ),
-				'type'     => 'title',
-				'id'       => 'alg_wc_ev_prevent_login_after_checkout_options',
+				'title' => __( 'Prevent login after checkout', 'emails-verification-for-woocommerce' ),
+				'type'  => 'title',
+				'id'    => 'alg_wc_ev_prevent_login_after_checkout_options',
 			),
 			array(
 				'title'    => __( 'Prevent login after checkout', 'emails-verification-for-woocommerce' ),
@@ -192,30 +240,33 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 				),
 			),
 			array(
-				'title'    => __( 'Prevent login notice', 'emails-verification-for-woocommerce' ),
-				'desc' => __( 'Add "Activate" notice to the WooCommerce "Thank you" (i.e. "Order received") page', 'emails-verification-for-woocommerce' ),
-				'type'     => 'checkbox',
-				'id'       => 'alg_wc_ev_prevent_login_after_checkout_notice',
-				'default'  => 'yes',
+				'title'   => __( 'Prevent login notice', 'emails-verification-for-woocommerce' ),
+				'desc'    => __( 'Add "Activate" notice to the WooCommerce "Thank you" (i.e. "Order received") page', 'emails-verification-for-woocommerce' ),
+				'type'    => 'checkbox',
+				'id'      => 'alg_wc_ev_prevent_login_after_checkout_notice',
+				'default' => 'yes',
 			),
 			array(
-				'title'    => __( 'Block thank you page', 'emails-verification-for-woocommerce' ),
-				'desc'     => __( 'Block "Thank you" (i.e. "Order received") page access for non-verified users', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => __( 'Users will be redirected to the "My account" page.', 'emails-verification-for-woocommerce' ),
-				'type'     => 'checkbox',
-				'id'       => 'alg_wc_ev_prevent_login_after_checkout_block_thankyou',
-				'default'  => 'no',
+				'title'             => __( 'Block thank you page', 'emails-verification-for-woocommerce' ),
+				'desc'              => __( 'Block "Thank you" (i.e. "Order received") page access for non-verified users', 'emails-verification-for-woocommerce' ),
+				'desc_tip'          => __( 'Users will be redirected to the "My account" page.', 'emails-verification-for-woocommerce' ),
+				'type'              => 'checkbox',
+				'id'                => 'alg_wc_ev_prevent_login_after_checkout_block_thankyou',
+				'default'           => 'no',
 				//'doc'      => array( 'dynamic_params' => array( 'pro' => array( 'active' => true ) ) ),
 				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
 			),
 			array(
-				'type'     => 'sectionend',
-				'id'       => 'alg_wc_ev_prevent_login_after_checkout_options',
+				'type' => 'sectionend',
+				'id'   => 'alg_wc_ev_prevent_login_after_checkout_options',
 			),
+		);
+
+		$bkg_processing_opts = array(
 			array(
-				'title'    => __( 'Background processing', 'emails-verification-for-woocommerce' ),
-				'type'     => 'title',
-				'id'       => 'alg_wc_ev_advanced_bkg_process_options',
+				'title' => __( 'Background processing', 'emails-verification-for-woocommerce' ),
+				'type'  => 'title',
+				'id'    => 'alg_wc_ev_advanced_bkg_process_options',
 			),
 			array(
 				'title'    => __( 'Minimum amount', 'emails-verification-for-woocommerce' ),
@@ -225,32 +276,31 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 				'type'     => 'number',
 			),
 			array(
-				'title'    => __( 'Send email', 'emails-verification-for-woocommerce' ),
-				'desc'     => __( 'Send email when a background processing is complete', 'emails-verification-for-woocommerce' ),
-				'id'       => 'alg_wc_ev_bkg_process_send_email',
-				'default'  => 'yes',
-				'type'     => 'checkbox',
+				'title'   => __( 'Send email', 'emails-verification-for-woocommerce' ),
+				'desc'    => __( 'Send email when a background processing is complete', 'emails-verification-for-woocommerce' ),
+				'id'      => 'alg_wc_ev_bkg_process_send_email',
+				'default' => 'yes',
+				'type'    => 'checkbox',
 			),
 			array(
-				'desc'       => __( 'Email to.', 'emails-verification-for-woocommerce' ),
-				'desc_tip'    => __( 'The email address that is going to receive the email when a background processing task is complete.', 'emails-verification-for-woocommerce' ). '<br />' . __( 'Requires the "Send email" option enabled in order to work.', 'emails-verification-for-woocommerce' ),
+				'desc'        => __( 'Email to.', 'emails-verification-for-woocommerce' ),
+				'desc_tip'    => __( 'The email address that is going to receive the email when a background processing task is complete.', 'emails-verification-for-woocommerce' ) . '<br />' . __( 'Requires the "Send email" option enabled in order to work.', 'emails-verification-for-woocommerce' ),
 				'id'          => 'alg_wc_ev_bkg_process_email_to',
 				'placeholder' => get_option( 'admin_email' ),
 				'default'     => get_option( 'admin_email' ),
 				'type'        => 'text',
 			),
 			array(
-				'type'     => 'sectionend',
-				'id'       => 'alg_wc_ev_advanced_bkg_process_options',
+				'type' => 'sectionend',
+				'id'   => 'alg_wc_ev_advanced_bkg_process_options',
 			),
+		);
+
+		$rest_api_options = array(
 			array(
-				'type'     => 'sectionend',
-				'id'       => 'alg_wc_ev_admin_delete_options',
-			),
-			array(
-				'title'    => __( 'REST API options', 'emails-verification-for-woocommerce' ),
-				'type'     => 'title',
-				'id'       => 'alg_wc_ev_rest_api_options',
+				'title' => __( 'REST API options', 'emails-verification-for-woocommerce' ),
+				'type'  => 'title',
+				'id'    => 'alg_wc_ev_rest_api_options',
 			),
 			array(
 				'title'             => __( 'Verify endpoint', 'emails-verification-for-woocommerce' ),
@@ -262,18 +312,26 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 				'default'           => 'no',
 			),
 			array(
-				'type'     => 'sectionend',
-				'id'       => 'alg_wc_ev_rest_api_options',
+				'type' => 'sectionend',
+				'id'   => 'alg_wc_ev_rest_api_options',
 			),
+		);
+
+		$delete_opts = array(
 			array(
-				'title'    => __( 'Delete options', 'emails-verification-for-woocommerce' ),
-				'desc' => __( 'Some notes regarding how this tool works:', 'emails-verification-for-woocommerce' ) . '<br />'
-				          . '- ' . sprintf( __( 'It will only delete unverified users which roles are not set in the %s option.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Skip email verification for user roles', 'emails-verification-for-woocommerce' ) . '</strong>' ) . '<br />'
-				          . '- ' . sprintf( __( 'If the %s option is set it will only delete unverified users whose activation have expired, so it\'s more safe to use it.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Expire time', 'emails-verification-for-woocommerce' ) . '</strong>' ) . '<br />'
-				          . '- ' . sprintf( __( 'If the %s option is enabled it may delete the current users who have not verified their account yet, so it\'s more safe to leave it <strong>disabled</strong>.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Enable email verification for already registered users', 'emails-verification-for-woocommerce' ) . '</strong>' ) . '<br />'
-				          . '- ' . '<span style="font-weight: bold; color: red;">' . __( 'Deleted users can only be restored if you have a backup.', 'emails-verification-for-woocommerce' ) . '</span>',
-				'type'     => 'title',
-				'id'       => 'alg_wc_ev_admin_delete_options',
+				'type' => 'sectionend',
+				'id'   => 'alg_wc_ev_admin_delete_options',
+			),
+
+			array(
+				'title' => __( 'Delete options', 'emails-verification-for-woocommerce' ),
+				'desc'  => __( 'Some notes regarding how this tool works:', 'emails-verification-for-woocommerce' ) . '<br />'
+				           . '- ' . sprintf( __( 'It will only delete unverified users which roles are not set in the %s option.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Skip email verification for user roles', 'emails-verification-for-woocommerce' ) . '</strong>' ) . '<br />'
+				           . '- ' . sprintf( __( 'If the %s option is set it will only delete unverified users whose activation have expired, so it\'s more safe to use it.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Expire time', 'emails-verification-for-woocommerce' ) . '</strong>' ) . '<br />'
+				           . '- ' . sprintf( __( 'If the %s option is enabled it may delete the current users who have not verified their account yet, so it\'s more safe to leave it <strong>disabled</strong>.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Enable email verification for already registered users', 'emails-verification-for-woocommerce' ) . '</strong>' ) . '<br />'
+				           . '- ' . '<span style="font-weight: bold; color: red;">' . __( 'Deleted users can only be restored if you have a backup.', 'emails-verification-for-woocommerce' ) . '</span>',
+				'type'  => 'title',
+				'id'    => 'alg_wc_ev_admin_delete_options',
 			),
 			array(
 				'title'    => __( 'Delete users', 'emails-verification-for-woocommerce' ),
@@ -305,6 +363,15 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 				'id'       => 'alg_wc_ev_delete_users_cron_frequency',
 				'default'  => 'weekly',
 			),
+		);
+		return array_merge(
+			$advanced_opts,
+			$encoding_options,
+			$prevent_login_after_register_opts,
+			$prevent_login_after_checkout_opts,
+			$bkg_processing_opts,
+			$rest_api_options,
+			$delete_opts
 		);
 	}
 

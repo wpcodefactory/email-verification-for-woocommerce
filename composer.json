@@ -6,7 +6,8 @@
     }
   ],
   "require": {
-    "wpfactory/wpfactory-promoting-notice": "*"
+    "wpfactory/wpfactory-promoting-notice": "*",
+    "hashids/hashids": "4.*"
   },
   "config": {
     "preferred-install": "dist"

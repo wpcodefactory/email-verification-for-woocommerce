@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Core Class.
  *
- * @version 2.3.8
+ * @version 2.4.0
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -28,9 +28,19 @@ class Alg_WC_Email_Verification_Core {
 	protected $success_message_displayed = false;
 
 	/**
+	 * default_hashids_salt_opt.
+	 *
+	 * @version 2.4.0
+	 * @since   2.4.0
+	 *
+	 * @var null
+	 */
+	protected $default_hashids_salt_opt = null;
+
+	/**
 	 * Constructor.
 	 *
-	 * @version 2.3.7
+	 * @version 2.4.0
 	 * @since   1.0.0
 	 * @todo    [next] (maybe) `[alg_wc_ev_translate]` to description in readme.txt
 	 */
@@ -81,6 +91,19 @@ class Alg_WC_Email_Verification_Core {
 		add_action( 'wp', array( $this, 'redirect_to_resend_verification_url' ) );
 		add_action( 'wp', array( $this, 'save_my_account_page_referer_url' ) );
 		$this->handle_shortcodes();
+		// Initialize options.
+		add_action( 'init', array( $this, 'initialize_options' ), 1 );
+		add_action( 'alg_wc_email_verification_after_reset_settings', array( $this, 'initialize_options' ), PHP_INT_MAX );
+	}
+
+	/**
+	 * initialize_options.
+	 *
+	 * @version 2.4.0
+	 * @since   2.4.0
+	 */
+	function initialize_options() {
+		add_option( 'alg_wc_ev_hashids_salt', $this->get_default_hashids_salt_opt(), '', 'yes' );
 	}
 
 	/**
@@ -614,7 +637,7 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * verify.
 	 *
-	 * @version 2.2.6
+	 * @version 2.4.0
 	 * @since   1.6.0
 	 *
 	 * @param null $args
@@ -629,12 +652,12 @@ class Alg_WC_Email_Verification_Core {
 		if (
 			! empty( $args['verify_code'] ) &&
 			! empty( $verify_code = wc_clean( $args['verify_code'] ) ) &&
-			! empty( $data = json_decode( alg_wc_ev()->core->base64_url_decode( $verify_code ), true ) )
+			! empty( $data = alg_wc_ev_decode_verify_code( array( 'verify_code' => $verify_code ) ) )
 		) {
 			if (
 				! empty( $user_id = intval( $data['id'] ) ) &&
 				! empty( $code = get_user_meta( $user_id, 'alg_wc_ev_activation_code', true ) ) &&
-				$code === $data['code'] &&
+				$code == $data['code'] &&
 				! alg_wc_ev_is_user_verified_by_user_id( $user_id )
 			) {
 				if ( apply_filters( 'alg_wc_ev_verify_email', true, $user_id, $code, $args ) ) {
@@ -745,7 +768,6 @@ class Alg_WC_Email_Verification_Core {
 			alg_wc_ev_add_notice( $this->messages->get_resend_message()['msg'] );
 		}
 	}
-
 
 	/**
 	 * Receive email address and send verification email from verification form.
@@ -994,6 +1016,21 @@ class Alg_WC_Email_Verification_Core {
 	 */
 	function base64_url_decode( $input ) {
 		return base64_decode( strtr( $input, '._-', '+/=' ) );
+	}
+
+	/**
+	 * alg_wc_ev_default_hashids_salt_opt.
+	 *
+	 * @version 2.4.0
+	 * @since   2.4.0
+	 *
+	 * @return string
+	 */
+	function get_default_hashids_salt_opt() {
+		if ( is_null( $this->default_hashids_salt_opt ) ) {
+			$this->default_hashids_salt_opt = md5( time() );
+		}
+		return $this->default_hashids_salt_opt;
 	}
 
 }

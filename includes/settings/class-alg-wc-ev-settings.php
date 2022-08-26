@@ -1,8 +1,8 @@
 <?php
 /**
- * Email Verification for WooCommerce - Settings
+ * Email Verification for WooCommerce - Settings.
  *
- * @version 2.2.0
+ * @version 2.4.0
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -140,7 +140,7 @@ class Alg_WC_Email_Verification_Settings extends WC_Settings_Page {
 	/**
 	 * maybe_reset_settings.
 	 *
-	 * @version 1.3.0
+	 * @version 2.4.0
 	 * @since   1.0.0
 	 */
 	function maybe_reset_settings() {
@@ -157,6 +157,7 @@ class Alg_WC_Email_Verification_Settings extends WC_Settings_Page {
 			} else {
 				add_action( 'admin_notices', array( $this, 'admin_notice_settings_reset' ) );
 			}
+			do_action( 'alg_wc_email_verification_after_reset_settings' );
 		}
 	}
 
