@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Emails Class.
  *
- * @version 2.4.0
+ * @version 2.4.1
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -38,47 +38,82 @@ class Alg_WC_Email_Verification_Emails {
 		add_action( 'alg_wc_ev_user_account_activated', array( $this, 'maybe_send_wc_customer_new_account_email' ) );
 		// Confirmation email.
 		add_action( 'alg_wc_ev_user_account_activated', array( $this, 'maybe_send_confirmation_email' ), 10, 2 );
+		add_action( 'alg_wc_ev_confirmation_email_delay_event', array( $this, 'send_confirmation_email' ), 10, 2 );
+	}
+
+	/**
+	 * send_confirmation_email.
+	 *
+	 * @version 2.4.1
+	 * @since   2.4.1
+	 *
+	 * @param $user_id
+	 * @param null $args
+	 */
+	function send_confirmation_email( $user_id, $args = null ) {
+		$user      = new WP_User( $user_id );
+		$recipient = $user->user_email;
+		if ( '' === $recipient ) {
+			return;
+		}
+		$content           = $this->get_email_content( array(
+			'user_id' => $user_id,
+			'context' => 'confirmation_email',
+			'content' => __( 'Your account has been activated successfully', 'emails-verification-for-woocommerce' ),
+			'heading' => __( 'Your account has been activated', 'emails-verification-for-woocommerce' )
+		) );
+		$subject           = $this->get_email_subject( array(
+			'user_id' => $user_id,
+			'context' => 'confirmation_email',
+			'subject' => __( 'Your account has been activated successfully', 'emails-verification-for-woocommerce' )
+		) );
+		$wc_email_template = get_option( 'alg_wc_ev_wc_email_template', 'simulation' );
+		$email_template    = get_option( 'alg_wc_ev_email_template', 'plain' );
+
+		if ( in_array( $email_template, array( 'wc', 'smart' ) ) && 'real_wc_email' === $wc_email_template ) {
+			do_action( 'alg_wc_ev_trigger_confirmation_wc_email', $user_id );
+		} else {
+			$this->send_mail( $recipient, $subject, $content );
+		}
+
+		$data = array( 'confirmation_email_sent' => time() );
+		alg_wc_ev()->core->update_activation_code_data( $user_id, $args['code'], $data );
 	}
 
 	/**
 	 * Send Confirmation email to the user.
 	 *
-	 * @version 2.3.6
+	 * @version 2.4.1
 	 * @since   2.2.9
 	 *
 	 * @param   $user_id
 	 * @param   $args
 	 */
-	function maybe_send_confirmation_email( $user_id, $args ) {
-		if ( 'yes' === get_option( 'alg_wc_ev_enable_confirmation_email', 'yes' ) ) {
-			$user      = new WP_User( $user_id );
-			$recipient = $user->user_email;
-			if ( '' === $recipient ) {
-				return;
-			}
-			$content            = $this->get_email_content( array(
-				'user_id' => $user_id,
-				'context' => 'confirmation_email',
-				'content' => __( 'Your account has been activated successfully', 'emails-verification-for-woocommerce' ),
-				'heading' => __( 'Your account has been activated', 'emails-verification-for-woocommerce' )
-			) );
-			$subject            = $this->get_email_subject( array(
-				'user_id' => $user_id,
-				'context' => 'confirmation_email',
-				'subject' => __( 'Your account has been activated successfully', 'emails-verification-for-woocommerce' )
-			) );
-			$wc_email_template  = get_option( 'alg_wc_ev_wc_email_template', 'simulation' );
-			$email_template     = get_option( 'alg_wc_ev_email_template', 'plain' );
-
-			if ( in_array( $email_template, array( 'wc', 'smart' ) ) && 'real_wc_email' === $wc_email_template ) {
-				do_action('alg_wc_ev_trigger_confirmation_wc_email', $user_id );
-			} else {
-				$this->send_mail( $recipient, $subject, $content );
-			}
-
-			$data = array( 'confirmation_email_sent' => time() );
-			alg_wc_ev()->core->update_activation_code_data( $user_id, $args['code'], $data );
+	function maybe_send_confirmation_email( $user_id, $args = null ) {
+		if ( 'yes' !== get_option( 'alg_wc_ev_enable_confirmation_email', 'yes' ) ) {
+			return;
 		}
+		if ( 'no' === get_option( 'alg_wc_ev_confirmation_email_delay', 'no' ) ) {
+			$this->send_confirmation_email( $user_id, $args );
+		} else {
+			wp_schedule_single_event( $this->get_confirmation_email_delay_timestamp(), 'alg_wc_ev_confirmation_email_delay_event', array( $user_id, $args ) );
+		}
+	}
+
+	/**
+	 * get_confirmation_email_delay_timestamp.
+	 *
+	 * @version 2.4.1
+	 * @since   2.4.1
+	 *
+	 * @return float|int
+	 */
+	function get_confirmation_email_delay_timestamp() {
+		$delay_value     = get_option( 'alg_wc_ev_confirmation_email_delay_value', 1 );
+		$delay_unit      = get_option( 'alg_wc_ev_confirmation_email_delay_time_unit', 'hours' );
+		$unit_in_seconds = $delay_unit === 'hours' ? HOUR_IN_SECONDS : ( $delay_unit === 'days' ? DAY_IN_SECONDS : 1 );
+		$timestamp       = time() + ( $delay_value * $unit_in_seconds );
+		return $timestamp;
 	}
 
 	/**

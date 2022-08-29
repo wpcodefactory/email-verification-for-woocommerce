@@ -3,7 +3,7 @@ Contributors: wpcodefactory, Karzin, jaedm97, algoritmika, anbinder
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 6.0
-Stable tag: 2.4.0
+Stable tag: 2.4.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -205,6 +205,12 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 3. Start by visiting plugin settings at "WooCommerce > Settings > Email Verification".
 
 == Changelog ==
+
+= 2.4.1 - 29/08/2022 =
+* Fix `.gitattributes` regarding `git-tag.sh`.
+* Dev - Emails - Confirmation email - New option: Delay - Wait for some time before sending the email.
+* Dev - Emails - Confirmation email - New option: Delay - Unit of time.
+* Dev - Emails - Confirmation email - New option: Delay - Delay value.
 
 = 2.4.0 - 26/08/2022 =
 * Dev - Advanced - Encoding options - New option: Encoding method.
