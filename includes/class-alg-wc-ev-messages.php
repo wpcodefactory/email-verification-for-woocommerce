@@ -1,8 +1,8 @@
 <?php
 /**
- * Email Verification for WooCommerce - Messages Class
+ * Email Verification for WooCommerce - Messages Class.
  *
- * @version 2.3.7
+ * @version 2.4.2
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -103,7 +103,7 @@ class Alg_WC_Email_Verification_Messages {
 	/**
 	 * get_resend_verification_url.
 	 *
-	 * @version 2.3.7
+	 * @version 2.4.2
 	 * @since   1.4.0
 	 * @todo    (maybe) `wc_get_page_permalink( 'myaccount' )` instead of current URL
 	 *
@@ -112,12 +112,16 @@ class Alg_WC_Email_Verification_Messages {
 	 *
 	 * @return string
 	 */
-	function get_resend_verification_url( $user_id, $url_params = array()  ) {
-		$resend_timestamp   = get_user_meta( $user_id, 'alg_wc_ev_activation_email_sent', true );
-		$nonce_required     = true;
-		$url_params         = wp_parse_args( (array) $url_params, array( 'alg_wc_ev_user_id' => $user_id ) );
-		if ( $nonce_required ) {
+	function get_resend_verification_url( $user_id, $url_params = array() ) {
+		$resend_timestamp = get_user_meta( $user_id, 'alg_wc_ev_activation_email_sent', true );
+		$url_params       = wp_parse_args( (array) $url_params, array( 'alg_wc_ev_user_id' => $user_id ) );
+		if ( ! empty( $resend_timestamp ) ) {
 			$url_params['alg_wc_ev_nonce'] = wp_create_nonce( "resend-{$user_id}-{$resend_timestamp}" );
+		} elseif (
+			empty( $resend_timestamp ) &&
+			'yes' === get_option( 'alg_wc_ev_verify_already_registered', 'no' )
+		) {
+			$url_params['alg_wc_ev_nonce'] = wp_create_nonce( "resend-{$user_id}-old-user" );
 		}
 		return add_query_arg( $url_params, get_option( 'alg_wc_ev_resend_verification_url', '' ) );
 	}
