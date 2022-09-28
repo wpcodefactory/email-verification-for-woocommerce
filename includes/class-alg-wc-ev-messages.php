@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Messages Class.
  *
- * @version 2.4.2
+ * @version 2.4.3
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -98,6 +98,18 @@ class Alg_WC_Email_Verification_Messages {
 		$notice = do_shortcode( get_option( 'alg_wc_ev_activation_message',
 			__( 'Thank you for your registration. Your account has to be activated before you can login. Please check your email.', 'emails-verification-for-woocommerce' ) ) );
 		return str_replace( '%resend_verification_url%', esc_url( $this->get_resend_verification_url( $user_id ) ), $notice );
+	}
+
+	/**
+	 * get_activation_message.
+	 *
+	 * @version 2.4.3
+	 * @since   2.4.3
+	 */
+	function get_already_verified_message( $user_id ) {
+		$notice = do_shortcode( get_option( 'alg_wc_ev_already_verified_message',
+			__( 'Your account is already verified.', 'emails-verification-for-woocommerce' ) ) );
+		return $notice;
 	}
 
 	/**

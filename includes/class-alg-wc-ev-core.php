@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Core Class.
  *
- * @version 2.4.2
+ * @version 2.4.3
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -637,7 +637,7 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * verify.
 	 *
-	 * @version 2.4.0
+	 * @version 2.4.3
 	 * @since   1.6.0
 	 *
 	 * @param null $args
@@ -674,7 +674,11 @@ class Alg_WC_Email_Verification_Core {
 				}
 			} else {
 				if ( $args['directly'] ) {
-					alg_wc_ev_add_notice( $this->messages->get_failed_message( $user_id ), 'error', $args );
+					if ( alg_wc_ev_is_user_verified_by_user_id( $user_id ) ) {
+						alg_wc_ev_add_notice( $this->messages->get_already_verified_message( $user_id ), 'notice', $args );
+					} else {
+						alg_wc_ev_add_notice( $this->messages->get_failed_message( $user_id ), 'error', $args );
+					}
 				}
 				return false;
 			}

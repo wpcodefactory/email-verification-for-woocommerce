@@ -12,20 +12,32 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 if ( ! class_exists( 'Alg_WC_Email_Verification_Emails' ) ) :
 
 class Alg_WC_Email_Verification_Emails {
+
+	/**
+	 * Flag that tells whether the customer new account email is enabled or disabled.
+	 *
+	 * @since 2.4.3
+	 *
+	 * @var bool
+	 */
+	protected $activate_customer_new_account_email = false;
+
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.3.6
+	 * @version 2.4.3
 	 * @since   1.6.0
 	 */
 	function __construct() {
 		if ( 'yes' === get_option( 'alg_wc_ev_send_as_separate_email', 'yes' ) ) {
-			// Activation email
+			// Activation email.
 			$new_user_action = apply_filters( 'alg_wc_ev_new_user_action', ( get_option( 'alg_wc_ev_new_user_action', 'user_register' ) ) );
 			add_action( $new_user_action, array( $this, 'handle_activation_email_sending' ), PHP_INT_MAX - 1 );
-			// Delay WC customer new account email
+			// Delay WC customer new account email.
 			if ( 'yes' === get_option( 'alg_wc_ev_delay_wc_email', 'no' ) ) {
-				add_action( 'init', array( $this, 'remove_customer_new_account_email' ), 90 );
+				add_filter( 'woocommerce_email_enabled_' . 'customer_new_account', array( $this, 'maybe_disable_customer_new_account_email' ) );
+				add_action( 'woocommerce_created_customer_notification', array( $this, 'disable_customer_new_account_email' ), 9 );
+				add_action( 'woocommerce_created_customer_notification', array( $this, 'enable_customer_new_account_email' ), 11 );
 			}
 			add_action( 'init', array( $this, 'maybe_send_delayed_activation_email' ), 100 );
 		} else {
@@ -378,16 +390,40 @@ class Alg_WC_Email_Verification_Emails {
 	}
 
 	/**
-	 * remove_customer_new_account_email.
+	 * maybe_disable_customer_new_account_email.
 	 *
-	 * @version 1.6.0
-	 * @since   1.2.0
+	 * @version 2.4.3
+	 * @since   2.4.3
+	 *
+	 * @param $enable
+	 *
+	 * @return bool
 	 */
-	function remove_customer_new_account_email() {
-		if ( class_exists( 'WC_Emails' ) && method_exists( 'WC_Emails', 'instance' ) ) {
-			$wc_emails = WC_Emails::instance();
-			remove_action( 'woocommerce_created_customer_notification', array( $wc_emails, 'customer_new_account' ), 10, 3 );
-		}
+	function maybe_disable_customer_new_account_email( $enable ) {
+		$enable = $this->activate_customer_new_account_email;
+		return $enable;
+	}
+
+	/**
+	 * disable_customer_new_account_email.
+	 *
+	 * @version 2.4.3
+	 * @since   2.4.3
+	 *
+	 */
+	function disable_customer_new_account_email() {
+		$this->activate_customer_new_account_email = false;
+	}
+
+	/**
+	 * enable_customer_new_account_email.
+	 *
+	 * @version 2.4.3
+	 * @since   2.4.3
+	 *
+	 */
+	function enable_customer_new_account_email(){
+		$this->activate_customer_new_account_email = true;
 	}
 
 	/**
@@ -395,7 +431,7 @@ class Alg_WC_Email_Verification_Emails {
 	 *
 	 * @see wc_create_new_customer()
 	 *
-	 * @version 2.0.8
+	 * @version 2.4.3
 	 * @since   1.6.0
 	 */
 	function maybe_send_wc_customer_new_account_email( $user_id ) {
@@ -405,12 +441,13 @@ class Alg_WC_Email_Verification_Emails {
 			'' == get_user_meta( $user_id, 'alg_wc_ev_customer_new_account_email_sent', true ) &&
 			class_exists( 'WC_Emails' ) && method_exists( 'WC_Emails', 'instance' )
 		) {
-			$wc_emails     = WC_Emails::instance();
 			$customer_data = ( $password_generated = 'yes' === get_option( 'woocommerce_registration_generate_password', 'yes' ) ) ? array( 'user_pass' => $user_pass = wp_generate_password() ) : array();
 			if ( $password_generated ) {
 				add_filter( 'send_password_change_email', '__return_false' );
 				wp_update_user( array( 'ID' => $user_id, 'user_pass' => $user_pass ) );
 			}
+			$wc_emails = WC_Emails::instance();
+			$this->activate_customer_new_account_email = true;
 			$wc_emails->customer_new_account( $user_id, $customer_data, $password_generated );
 			update_user_meta( $user_id, 'alg_wc_ev_customer_new_account_email_sent', time() );
 		}

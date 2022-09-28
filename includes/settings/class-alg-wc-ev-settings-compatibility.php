@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Compatibility Section Settings.
  *
- * @version 2.3.9
+ * @version 2.4.3
  * @since   2.1.3
  * @author  WPFactory
  */
@@ -43,7 +43,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 		/**
 		 * get_settings.
 		 *
-		 * @version 2.3.9
+		 * @version 2.4.3
 		 * @since   2.1.3
 		 * @todo    (maybe) remove `alg_wc_ev_prevent_login_after_checkout_notice` (i.e. make it always enabled)
 		 */
@@ -125,11 +125,32 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 					'id'       => 'alg_wc_ev_compatibility_options',
 				),
 			);
+			$polylang_opts = array(
+				array(
+					'title' => __( 'Polylang', 'emails-verification-for-woocommerce' ),
+					'type'  => 'title',
+					'desc'  => sprintf( __( 'Compatibility with the %s plugin.', 'emails-verification-for-woocommerce' ), sprintf( '<a href="%s" target="_blank">%s</a>', 'https://wordpress.org/plugins/polylang/', __( 'Polylang', 'emails-verification-for-woocommerce' ) ) ),
+					'id'    => 'alg_wc_ev_compatibility_polylang_options',
+				),
+				array(
+					'title'             => __( 'Activation link', 'emails-verification-for-woocommerce' ),
+					'desc'              => sprintf( __( 'Try to translate the activation link', 'emails-verification-for-woocommerce' ), '<code>alg_wc_ev_ec_email_content</code>' ),
+					'desc_tip'          => sprintf( __( 'Tries sending the activation link and the emails with the correct language.', 'emails-verification-for-woocommerce' ), sprintf( '<a href="https://help.themehigh.com/hc/en-us/articles/4405390768025-Add-New-Email-Template#h_01FDS804XTGFN0S9F2W736GKD6" target="_blank">%s</a>', __( 'Custom Hook', 'emails-verification-for-woocommerce' ) ) ),
+					'id'                => 'alg_wc_ev_polylang_translate_activation_link',
+					'default'           => 'no',
+					'type'              => 'checkbox',
+					'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+				),
+				array(
+					'type' => 'sectionend',
+					'id'   => 'alg_wc_ev_compatibility_polylang_options',
+				),
+			);
 			$email_customizer_themehigh_opts = array(
 				array(
 					'title' => __( 'Email Customizer for WooCommerce by Themehigh', 'emails-verification-for-woocommerce' ),
 					'type'  => 'title',
-					'desc'  => sprintf( __( 'Compatibility with %s plugin.', 'emails-verification-for-woocommerce' ), sprintf( '<a href="%s" target="_blank">%s</a>', 'https://themehigh.com/product/woocommerce-email-customizer', __( 'Email Customizer for WooCommerce by Themehigh', 'emails-verification-for-woocommerce' ) ) ),
+					'desc'  => sprintf( __( 'Compatibility with the %s plugin.', 'emails-verification-for-woocommerce' ), sprintf( '<a href="%s" target="_blank">%s</a>', 'https://themehigh.com/product/woocommerce-email-customizer', __( 'Email Customizer for WooCommerce by Themehigh', 'emails-verification-for-woocommerce' ) ) ),
 					'id'    => 'alg_wc_ev_compatibility_email_customizer_options',
 				),
 				array(
@@ -152,7 +173,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 				array(
 					'title' => __( 'Email Customizer for WooCommerce by VillaTheme', 'emails-verification-for-woocommerce' ),
 					'type'  => 'title',
-					'desc'  => sprintf( __( 'Compatibility with %s plugin.', 'emails-verification-for-woocommerce' ), sprintf( '<a href="%s" target="_blank">%s</a>', 'https://villatheme.com/extensions/woocommerce-email-template-customizer/', __( 'Email Customizer for WooCommerce by VillaTheme', 'emails-verification-for-woocommerce' ) ) ),
+					'desc'  => sprintf( __( 'Compatibility with the %s plugin.', 'emails-verification-for-woocommerce' ), sprintf( '<a href="%s" target="_blank">%s</a>', 'https://villatheme.com/extensions/woocommerce-email-template-customizer/', __( 'Email Customizer for WooCommerce by VillaTheme', 'emails-verification-for-woocommerce' ) ) ),
 					'id'    => 'alg_wc_ev_comp_email_customizer_vt_options',
 				),
 				array(
@@ -185,7 +206,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 				array(
 					'title' => __( 'Essential Addons for Elementor', 'emails-verification-for-woocommerce' ),
 					'type'  => 'title',
-					'desc'  => sprintf( __( 'Compatibility with %s plugin.', 'emails-verification-for-woocommerce' ), sprintf( '<a href="%s" target="_blank">%s</a>', 'https://essential-addons.com/elementor/', __( __( 'Essential Addons for Elementor', 'emails-verification-for-woocommerce' ), 'emails-verification-for-woocommerce' ) ) ),
+					'desc'  => sprintf( __( 'Compatibility with the %s plugin.', 'emails-verification-for-woocommerce' ), sprintf( '<a href="%s" target="_blank">%s</a>', 'https://essential-addons.com/elementor/', __( __( 'Essential Addons for Elementor', 'emails-verification-for-woocommerce' ), 'emails-verification-for-woocommerce' ) ) ),
 					'id'    => 'alg_wc_ev_compatibility_elementor_ea_options',
 				),
 				array(
@@ -207,7 +228,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 				array(
 					'title' => __( 'Paid Memberships Pro', 'emails-verification-for-woocommerce' ),
 					'type'  => 'title',
-					'desc'  => sprintf( __( 'Compatibility with %s plugin.', 'emails-verification-for-woocommerce' ), sprintf( '<a href="%s" target="_blank">%s</a>', 'https://wordpress.org/plugins/paid-memberships-pro/', __( 'Paid Memberships Pro', 'emails-verification-for-woocommerce' ) ) ),
+					'desc'  => sprintf( __( 'Compatibility with the %s plugin.', 'emails-verification-for-woocommerce' ), sprintf( '<a href="%s" target="_blank">%s</a>', 'https://wordpress.org/plugins/paid-memberships-pro/', __( 'Paid Memberships Pro', 'emails-verification-for-woocommerce' ) ) ),
 					'id'    => 'alg_wc_ev_compatibility_paid_memberships_pro_options',
 				),
 				array(
@@ -233,7 +254,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 				),
 			);
 			return array_merge(
-				$general, $elementor_essential_addons_opts, $email_customizer_themehigh_opts, $email_customizer_villatheme_opts, $paid_memberships_pro_opts
+				$general, $polylang_opts, $elementor_essential_addons_opts, $email_customizer_themehigh_opts, $email_customizer_villatheme_opts, $paid_memberships_pro_opts
 			);
 		}
 

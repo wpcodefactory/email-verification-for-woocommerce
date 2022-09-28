@@ -1,8 +1,8 @@
 <?php
 /**
- * Email Verification for WooCommerce - Messages Section Settings
+ * Email Verification for WooCommerce - Messages Section Settings.
  *
- * @version 2.0.9
+ * @version 2.4.3
  * @since   1.3.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_Email_Verification_Settings_Messages extends Alg_WC_Email_Verificat
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.0.9
+	 * @version 2.4.3
 	 * @since   1.3.0
 	 */
 	function get_settings() {
@@ -79,6 +79,14 @@ class Alg_WC_Email_Verification_Settings_Messages extends Alg_WC_Email_Verificat
 				'type'     => 'textarea',
 				'id'       => 'alg_wc_ev_failed_message',
 				'default'  => __( '<strong>Error:</strong> Activation failed, please contact our administrator. You can resend the email with verification link by clicking <a href="%resend_verification_url%">here</a>.', 'emails-verification-for-woocommerce' ),
+				'css'      => 'width:100%;',
+				'alg_wc_ev_raw' => true,
+			),
+			array(
+				'title'    => __( 'Already verified', 'emails-verification-for-woocommerce' ),
+				'type'     => 'textarea',
+				'id'       => 'alg_wc_ev_already_verified_message',
+				'default'  => __( 'Your account is already verified.', 'emails-verification-for-woocommerce' ),
 				'css'      => 'width:100%;',
 				'alg_wc_ev_raw' => true,
 			),
