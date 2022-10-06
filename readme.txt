@@ -3,7 +3,7 @@ Contributors: wpcodefactory, Karzin, jaedm97, algoritmika, anbinder
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 6.0
-Stable tag: 2.4.3
+Stable tag: 2.4.4
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -205,6 +205,10 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 3. Start by visiting plugin settings at "WooCommerce > Settings > Email Verification".
 
 == Changelog ==
+
+= 2.4.4 - 06/10/2022 =
+* Fix - Email domain on translation function is not correct.
+* Fix - Add untranslated strings to POT.
 
 = 2.4.3 - 28/09/2022 =
 * Dev - Messages - New option: "Already verified" message.

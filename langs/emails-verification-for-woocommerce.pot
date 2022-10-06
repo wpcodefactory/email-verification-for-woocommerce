@@ -2,20 +2,21 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Email Verification for WooCommerce 2.4.3\n"
+"Project-Id-Version: emails-verification-for-woocommerce 2.4.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/emails-verification-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-09-28T21:46:48+02:00\n"
+"POT-Creation-Date: 2022-10-06T21:01:15+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: emails-verification-for-woocommerce\n"
 
 #. Plugin Name of the plugin
-msgid "Email Verification for WooCommerce"
+#: includes/settings/class-alg-wc-ev-settings.php:82
+msgid "Email Verification for WooCommerce Pro"
 msgstr ""
 
 #. Plugin URI of the plugin
@@ -34,7 +35,7 @@ msgstr ""
 msgid "https://wpfactory.com"
 msgstr ""
 
-#: email-verification-for-woocommerce.php:197
+#: email-verification-for-woocommerce-pro.php:197
 msgid "Go Pro"
 msgstr ""
 
@@ -218,26 +219,36 @@ msgstr ""
 
 #: includes/class-alg-wc-ev-emails.php:74
 #: includes/class-alg-wc-ev-emails.php:80
+#: includes/pro/class-alg-wc-ev-confirmation-wc-email-pro.php:140
+#: includes/pro/class-alg-wc-ev-pro.php:104
 #: includes/settings/class-alg-wc-ev-settings-email.php:241
 msgid "Your account has been activated successfully"
 msgstr ""
 
 #: includes/class-alg-wc-ev-emails.php:75
+#: includes/pro/class-alg-wc-ev-confirmation-wc-email-pro.php:152
+#: includes/pro/class-alg-wc-ev-pro.php:91
 #: includes/settings/class-alg-wc-ev-settings-email.php:251
 msgid "Your account has been activated"
 msgstr ""
 
 #: includes/class-alg-wc-ev-emails.php:262
+#: includes/pro/class-alg-wc-ev-pro.php:748
 #: includes/settings/class-alg-wc-ev-settings-email.php:194
 msgid "<p>Please <a href=\"%verification_url%\" target=\"_blank\">click here</a> to verify your email.</p>"
 msgstr ""
 
 #: includes/class-alg-wc-ev-emails.php:263
+#: includes/pro/class-alg-wc-ev-activation-wc-email-pro.php:165
+#: includes/pro/class-alg-wc-ev-pro.php:591
+#: includes/pro/class-alg-wc-ev-pro.php:766
 #: includes/settings/class-alg-wc-ev-settings-email.php:204
 msgid "Activate your account"
 msgstr ""
 
 #: includes/class-alg-wc-ev-emails.php:362
+#: includes/pro/class-alg-wc-ev-activation-wc-email-pro.php:129
+#: includes/pro/class-alg-wc-ev-pro.php:735
 #: includes/settings/class-alg-wc-ev-settings-email.php:175
 msgid "Please activate your account"
 msgstr ""
@@ -308,6 +319,109 @@ msgstr ""
 
 #: includes/class-alg-wc-ev-verification-info-widget.php:66
 msgid "New title"
+msgstr ""
+
+#: includes/pro/class-alg-wc-ev-activation-wc-email-pro.php:32
+#: includes/settings/class-alg-wc-ev-settings-blocking.php:240
+#: includes/settings/class-alg-wc-ev-settings-email.php:135
+msgid "Activation email"
+msgstr ""
+
+#: includes/pro/class-alg-wc-ev-activation-wc-email-pro.php:33
+#: includes/settings/class-alg-wc-ev-settings-email.php:138
+msgid "An email sent to the user with an activation link."
+msgstr ""
+
+#: includes/pro/class-alg-wc-ev-compatibility-pro.php:212
+msgid "Email verification"
+msgstr ""
+
+#: includes/pro/class-alg-wc-ev-confirmation-wc-email-pro.php:31
+#: includes/settings/class-alg-wc-ev-settings-email.php:225
+#: includes/settings/class-alg-wc-ev-settings-email.php:231
+msgid "Confirmation email"
+msgstr ""
+
+#: includes/pro/class-alg-wc-ev-confirmation-wc-email-pro.php:32
+#: includes/settings/class-alg-wc-ev-settings-email.php:228
+msgid "An email sent to the user when the account is verified."
+msgstr ""
+
+#: includes/pro/class-alg-wc-ev-pro.php:121
+#: includes/pro/templates/emails/customer-account-confirmation.php:18
+msgid "Your account has been activated successfully."
+msgstr ""
+
+#: includes/pro/class-alg-wc-ev-pro.php:278
+#: includes/settings/class-alg-wc-ev-settings-general.php:123
+msgid "Your email has been changed. In order to verify your account please check the activation email that was sent to your new email."
+msgstr ""
+
+#: includes/pro/class-alg-wc-ev-pro.php:353
+#: includes/settings/class-alg-wc-ev-settings-blocking.php:176
+msgid "You need to log in and verify your email to place an order."
+msgstr ""
+
+#: includes/pro/class-alg-wc-ev-pro.php:402
+#: includes/settings/class-alg-wc-ev-settings-general.php:267
+msgid "Link has expired. You can resend the email with verification link by clicking <a href=\"%resend_verification_url%\">here</a>."
+msgstr ""
+
+#: includes/pro/class-alg-wc-ev-pro.php:444
+#: includes/settings/class-alg-wc-ev-settings-blocking.php:329
+msgid "Your email is denied."
+msgstr ""
+
+#: includes/pro/class-alg-wc-ev-pro.php:526
+#: includes/settings/class-alg-wc-ev-settings-blocking.php:214
+msgid "You need to <a href=\"%myaccount_url%\" target=\"_blank\">register</a> and verify your email before adding products to the cart."
+msgstr ""
+
+#: includes/pro/class-alg-wc-ev-pro.php:714
+#: includes/settings/class-alg-wc-ev-settings-email.php:341
+msgid "User account has been activated"
+msgstr ""
+
+#: includes/pro/class-alg-wc-ev-pro.php:715
+#: includes/settings/class-alg-wc-ev-settings-email.php:350
+msgid "User %s has just verified his email (%s)."
+msgstr ""
+
+#: includes/pro/class-alg-wc-ev-pro.php:720
+#: includes/settings/class-alg-wc-ev-settings-email.php:333
+msgid "User email has been verified"
+msgstr ""
+
+#: includes/pro/class-alg-wc-ev-rest-api-pro.php:50
+msgid "You must provide the verification code %s parameter."
+msgstr ""
+
+#: includes/pro/class-alg-wc-ev-rest-api-pro.php:57
+msgid "Verification failed."
+msgstr ""
+
+#: includes/pro/class-alg-wc-ev-rest-api-pro.php:60
+msgid "Account verified successfully."
+msgstr ""
+
+#. translators: %s: Customer username
+#: includes/pro/templates/emails/customer-account-activation.php:17
+#: includes/pro/templates/emails/customer-account-confirmation.php:17
+msgid "Hi %s,"
+msgstr ""
+
+#. translators: %1$s: Site title, %2$s: Username, %3$s: My account link
+#: includes/pro/templates/emails/customer-account-activation.php:19
+msgid "Please <a href=\"%1$s\" target=\"_blank\">click here</a> to verify your email."
+msgstr ""
+
+#. translators: %s: Customer billing full name
+#: includes/pro/templates/emails/plain/customer-account-activation.php:21
+msgid "Please %s to verify your email."
+msgstr ""
+
+#: includes/pro/templates/emails/plain/customer-account-confirmation.php:19
+msgid "Your account is activated successfully."
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-admin.php:24
@@ -859,10 +973,6 @@ msgstr ""
 msgid "Blocks checkout process for unverified users (including guests)."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-blocking.php:176
-msgid "You need to log in and verify your email to place an order."
-msgstr ""
-
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:186
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:192
 msgid "Block adding products to cart"
@@ -882,10 +992,6 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:202
 msgid "Leave it empty if you don't want to redirect."
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-blocking.php:214
-msgid "You need to <a href=\"%myaccount_url%\" target=\"_blank\">register</a> and verify your email before adding products to the cart."
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:224
@@ -920,11 +1026,6 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:233
 msgid "The order status should be marked as %s to be considered paid."
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-blocking.php:240
-#: includes/settings/class-alg-wc-ev-settings-email.php:135
-msgid "Activation email"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:241
@@ -1013,10 +1114,6 @@ msgstr ""
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:326
 #: includes/settings/class-alg-wc-ev-settings-general.php:264
 msgid "Notice will appear when user will try to verify his email by clicking the email activation link."
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-blocking.php:329
-msgid "Your email is denied."
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:339
@@ -1412,10 +1509,6 @@ msgstr ""
 msgid "Native - Using %s function"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-email.php:138
-msgid "An email sent to the user with an activation link."
-msgstr ""
-
 #: includes/settings/class-alg-wc-ev-settings-email.php:141
 #: includes/settings/class-alg-wc-ev-settings-section.php:104
 msgid "Send as a separate email"
@@ -1484,15 +1577,6 @@ msgstr ""
 msgid "It's necessary to add %s to the %s email template."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-email.php:225
-#: includes/settings/class-alg-wc-ev-settings-email.php:231
-msgid "Confirmation email"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-email.php:228
-msgid "An email sent to the user when the account is verified."
-msgstr ""
-
 #: includes/settings/class-alg-wc-ev-settings-email.php:232
 msgid "Send confirmation email to users who have just verified their accounts"
 msgstr ""
@@ -1555,24 +1639,12 @@ msgstr ""
 msgid "Subject"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-email.php:333
-msgid "User email has been verified"
-msgstr ""
-
 #: includes/settings/class-alg-wc-ev-settings-email.php:337
 msgid "Heading"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-email.php:341
-msgid "User account has been activated"
-msgstr ""
-
 #: includes/settings/class-alg-wc-ev-settings-email.php:346
 msgid "Content"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-email.php:350
-msgid "User %s has just verified his email (%s)."
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-general.php:24
@@ -1662,10 +1734,6 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-general.php:112
 msgid "Unverify, logout and resend activation link to accounts that changed the emails"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-general.php:123
-msgid "Your email has been changed. In order to verify your account please check the activation email that was sent to your new email."
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-general.php:131
@@ -1801,10 +1869,6 @@ msgstr ""
 msgid "Expire notice"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:267
-msgid "Link has expired. You can resend the email with verification link by clicking <a href=\"%resend_verification_url%\">here</a>."
-msgstr ""
-
 #: includes/settings/class-alg-wc-ev-settings-messages.php:24
 #: includes/settings/class-alg-wc-ev-settings-messages.php:55
 msgid "Messages"
@@ -1890,10 +1954,6 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings.php:24
 msgid "Email Verification"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings.php:82
-msgid "Email Verification for WooCommerce Pro"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings.php:83
