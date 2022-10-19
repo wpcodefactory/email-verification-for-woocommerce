@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Admin Class.
  *
- * @version 2.3.8
+ * @version 2.4.5
  * @since   1.5.0
  * @author  WPFactory
  */
@@ -72,63 +72,45 @@ class Alg_WC_Email_Verification_Admin {
 	 *
 	 * @param WP_User_Query $query
 	 *
-	 * @version 2.3.3
+	 * @version 2.4.5
 	 * @since   2.3.3
 	 */
 	function filter_users_based_on_verification_status( WP_User_Query $query ) {
-
 		global $pagenow, $wpdb;
-
 		if ( is_admin() && 'users.php' === $pagenow ) {
-
 			$user_status_top    = isset( $_GET['alg_wc_ev_verification_status_top'] ) ? sanitize_text_field( $_GET['alg_wc_ev_verification_status_top'] ) : '';
 			$user_status_bottom = isset( $_GET['alg_wc_ev_verification_status_bottom'] ) ? sanitize_text_field( $_GET['alg_wc_ev_verification_status_bottom'] ) : '';
-
 			if ( ! empty( $user_status_top ) or ! empty( $user_status_bottom ) ) {
-
-				$skip_user_roles    = get_option( 'alg_wc_ev_skip_user_roles', array( 'administrator' ) );
-                $user_status        = ! empty( $user_status_top ) ? $user_status_top : $user_status_bottom;
-				$meta_query         = array();
-
+				$skip_user_roles = get_option( 'alg_wc_ev_skip_user_roles', array( 'administrator' ) );
+				$user_status     = ! empty( $user_status_top ) ? $user_status_top : $user_status_bottom;
+				$meta_query      = array();
 				if ( 'verified' === $user_status ) {
-
-                    if ( is_array( $skip_user_roles ) && ! empty( $skip_user_roles ) ) {
-
-                        $meta_query[ 'relation' ] = 'OR';
-
-                        foreach ( $skip_user_roles as $role ) {
-                            $meta_query[] = array(
-                                'key'     => $wpdb->prefix . 'capabilities',
-                                'value'   => '"' . $role . '"',
-                                'compare' => 'LIKE'
-                            );
-                        }
-                    }
-
+					if ( is_array( $skip_user_roles ) && ! empty( $skip_user_roles ) ) {
+						$meta_query['relation'] = 'OR';
+						$meta_query[] = array(
+							'key'     => $wpdb->prefix . 'capabilities',
+							'value'   => '"' . implode( $skip_user_roles ) . '"',
+							'compare' => 'REGEXP'
+						);
+					}
 					$meta_query[] = array(
 						'key'     => 'alg_wc_ev_is_activated',
 						'value'   => '1',
 						'compare' => '='
 					);
-
 				} else if ( 'unverified' === $user_status ) {
-
-                    $meta_query[ 'relation' ] = 'OR';
-
+					$meta_query['relation'] = 'OR';
 					$meta_query[] = array(
 						'key'     => 'alg_wc_ev_is_activated',
 						'value'   => '1',
 						'compare' => '!='
 					);
-
 					$meta_query[] = array(
 						'key'     => 'alg_wc_ev_is_activated',
 						'compare' => 'NOT EXISTS'
 					);
-
 					$query->set( 'role__not_in', $skip_user_roles );
 				}
-
 				if ( ! empty( $meta_query ) ) {
 					$query->set( 'meta_query', $meta_query );
 				}
