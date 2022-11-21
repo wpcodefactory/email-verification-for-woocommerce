@@ -100,7 +100,7 @@ class Alg_WC_Email_Verification_Settings_Admin extends Alg_WC_Email_Verification
 			),
 			array(
 				'title'    => __( 'Actions', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => sprintf( __( '%s option must be enabled.', 'emails-verification-for-woocommerce' ), '"' . __( 'Verified column', 'emails-verification-for-woocommerce' ) . '""' ),
+				'desc_tip' => sprintf( __( '%s option must be enabled.', 'emails-verification-for-woocommerce' ), '"' . __( 'Verified column', 'emails-verification-for-woocommerce' ) . '"' ),
 				'desc'     => __( 'Add links for manual email verification, unverification and email resend by admin', 'emails-verification-for-woocommerce' ),
 				'type'     => 'checkbox',
 				'id'       => 'alg_wc_ev_admin_manual',

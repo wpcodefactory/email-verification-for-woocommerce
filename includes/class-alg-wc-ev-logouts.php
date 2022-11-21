@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Logouts Class.
  *
- * @version 2.3.4
+ * @version 2.4.6
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -192,7 +192,7 @@ class Alg_WC_Email_Verification_Logouts {
 	/**
 	 * redirect_on_new_user_created_and_login_prevented.
 	 *
-	 * @version 2.3.4
+	 * @version 2.4.6
 	 * @since   2.3.4
 	 *
 	 * @param $user_id
@@ -200,7 +200,9 @@ class Alg_WC_Email_Verification_Logouts {
 	function redirect_on_new_user_created_and_login_prevented( $user_id ) {
 		if (
 			'prevent_login_using_wc_filter' === get_option( 'alg_wc_ev_prevent_login_after_register_method', 'logout_after_login' ) &&
-			! empty( $user_id )
+			! empty( $user_id ) &&
+			isset( $_POST['_wp_http_referer'] ) &&
+			false === strpos( $_POST['_wp_http_referer'], 'update_order_review' )
 		) {
 			$redirect_url = add_query_arg( 'alg_wc_ev_activate_account_message', $user_id, $this->get_redirect_url_on_registration() );
 			wp_redirect( wp_validate_redirect( $redirect_url ) );
