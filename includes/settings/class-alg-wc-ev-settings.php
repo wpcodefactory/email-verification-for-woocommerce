@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Settings.
  *
- * @version 2.4.0
+ * @version 2.4.7
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -16,7 +16,7 @@ class Alg_WC_Email_Verification_Settings extends WC_Settings_Page {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.2.0
+	 * @version 2.4.7
 	 * @since   1.0.0
 	 */
 	function __construct() {
@@ -24,6 +24,7 @@ class Alg_WC_Email_Verification_Settings extends WC_Settings_Page {
 		$this->label = __( 'Email Verification', 'emails-verification-for-woocommerce' );
 		parent::__construct();
 		add_filter( 'woocommerce_admin_settings_sanitize_option', array( $this, 'sanitize_raw_parameter' ), 10, 3 );
+		add_filter( 'woocommerce_admin_settings_sanitize_option', array( $this, 'sanitize_textarea_url_parameter' ), 10, 3 );
 		// Sections
 		require_once( 'class-alg-wc-ev-settings-section.php' );
 		require_once( 'class-alg-wc-ev-settings-general.php' );
@@ -106,6 +107,32 @@ class Alg_WC_Email_Verification_Settings extends WC_Settings_Page {
 		}
 		$new_value = wp_kses_post( trim( $raw_value ) );
 		return $new_value;
+	}
+
+	/**
+	 * sanitize_url_parameter.
+	 *
+	 * @version 2.4.7
+	 * @since   2.4.7
+	 *
+	 * @param $value
+	 * @param $option
+	 * @param $raw_value
+	 *
+	 * @return string
+	 */
+	function sanitize_textarea_url_parameter( $value, $option, $raw_value ) {
+		if ( ! isset( $option['alg_wc_ev_textarea_url'] ) || empty( $option['alg_wc_ev_textarea_url'] ) || empty( $raw_value ) ) {
+			return $value;
+		}
+		$sanitized_urls = array();
+		foreach ( explode( PHP_EOL, $raw_value ) as $url ) {
+			if ( ! empty( $url ) ) {
+				$url_sanitized    = sanitize_url( wp_strip_all_tags( trim( $url ) ) );
+				$sanitized_urls[] = preg_replace( '/(?<!\/)\?/', '/?', $url_sanitized );
+			}
+		}
+		return implode( PHP_EOL, array_unique( $sanitized_urls ) );
 	}
 
 	/**

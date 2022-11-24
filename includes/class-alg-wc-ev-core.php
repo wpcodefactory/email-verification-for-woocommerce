@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Core Class.
  *
- * @version 2.4.3
+ * @version 2.4.7
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -155,14 +155,14 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * show_blocked_content_notice.
 	 *
-	 * @version 2.1.1
+	 * @version 2.4.7
 	 * @since   2.1.1
 	 */
 	function show_blocked_content_notice() {
 		if ( isset( $_GET['alg_wc_ev_blocked_content'] ) ) {
 			$error_msg_options = array(
-				'alg_wc_ev_block_content_notice_guests' => __( 'You need to verify your account to access this content.', 'emails-verification-for-woocommerce' ),
-				'alg_wc_ev_block_content_notice'        => __( 'You need to verify your account to access this content.', 'emails-verification-for-woocommerce' ) . ' ' . __( 'You can resend the email with verification link by clicking <a href="%resend_verification_url%">here</a>.', 'emails-verification-for-woocommerce' )
+				'alg_wc_ev_block_content_notice_guests' => __( 'You need to <a href="%myaccount_url%">verify your account</a> to access this content.', 'emails-verification-for-woocommerce' ),
+				'alg_wc_ev_block_content_notice'        => __( 'You need to <a href="%myaccount_url%">verify your account</a> to access this content.', 'emails-verification-for-woocommerce' ) . ' ' . __( 'You can resend the email with verification link by clicking <a href="%resend_verification_url%">here</a>.', 'emails-verification-for-woocommerce' )
 			);
 			$error_msg_option  = ! is_user_logged_in() ? 'alg_wc_ev_block_content_notice_guests' : 'alg_wc_ev_block_content_notice';
 			$msg               = get_option( $error_msg_option, $error_msg_options[ $error_msg_option ] );

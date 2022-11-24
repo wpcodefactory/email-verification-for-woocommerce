@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Blocking Section Settings.
  *
- * @version 2.2.4
+ * @version 2.4.7
  * @since   2.1.1
  * @author  WPFactory
  */
@@ -73,7 +73,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Blocking' ) ) :
 		/**
 		 * get_settings.
 		 *
-		 * @version 2.2.4
+		 * @version 2.4.7
 		 * @since   2.1.1
 		 */
 		function get_settings() {
@@ -90,6 +90,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Blocking' ) ) :
 					'type'     => 'multiselect',
 					'id'       => 'alg_wc_ev_blocked_pages',
 					'class'    => 'chosen_select',
+					'css'      => 'width:100%;',
 					'default'  => array(),
 					'options'  => wp_list_pluck( get_pages(), 'post_title', 'ID' ),
 				),
@@ -98,6 +99,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Blocking' ) ) :
 					'type'              => 'multiselect',
 					'id'                => $blocked_products_id = 'alg_wc_ev_blocked_products',
 					'class'             => 'wc-product-search',
+					'css'      => 'width:100%;',
 					'custom_attributes' => $this->get_blocked_products_custom_attributes(),
 					'default'           => $blocked_products_default = array(),
 					'options'           => $this->get_products_options( array( 'option_id' => $blocked_products_id, 'default' => $blocked_products_default ) ),
@@ -108,6 +110,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Blocking' ) ) :
 					'type'              => 'multiselect',
 					'id'                => 'alg_wc_ev_blocked_conditionals',
 					'class'             => 'chosen_select',
+					'css'      => 'width:100%;',
 					'default'           => array(),
 					'options'           => array(
 						'is_woocommerce'      => __( 'Is WooCommerce', 'popup-notices-for-woocommerce' ),
@@ -124,6 +127,16 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Blocking' ) ) :
 					'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
 				),
 				array(
+					'title'                  => __( 'Blocked URL(s)', 'emails-verification-for-woocommerce' ),
+					'desc_tip'               => __( 'Blocks content by checking the current URL. Use 1 URL per line.', 'emails-verification-for-woocommerce' ),
+					'type'                   => 'textarea',
+					'id'                     => 'alg_wc_ev_blocked_urls',
+					'default'                => '',
+					'css'                    => 'width:100%;min-height:70px;',
+					'alg_wc_ev_textarea_url' => true,
+					'custom_attributes'      => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+				),
+				array(
 					'title'    => __( 'Redirect', 'emails-verification-for-woocommerce' ),
 					'type'     => 'text',
 					'id'       => 'alg_wc_ev_block_content_redirect',
@@ -137,7 +150,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Blocking' ) ) :
 					'type'     => 'textarea',
 					'id'       => 'alg_wc_ev_block_content_notice',
 					'desc'     => __( 'Error for logged in unverified users.', 'emails-verification-for-woocommerce' ).' '.$this->available_placeholders_desc( array( '%myaccount_url%','%resend_verification_url%' ) ),
-					'default'  => __( 'You need to verify your account to access this content.', 'emails-verification-for-woocommerce' ) . ' ' . __( 'You can resend the email with verification link by clicking <a href="%resend_verification_url%">here</a>.', 'emails-verification-for-woocommerce' ),
+					'default'  => __( 'You need to <a href="%myaccount_url%">verify your account</a> to access this content.', 'emails-verification-for-woocommerce' ) . ' ' . __( 'You can resend the email with verification link by clicking <a href="%resend_verification_url%">here</a>.', 'emails-verification-for-woocommerce' ),
 					'css'      => 'width:100%;',
 					'alg_wc_ev_raw' => true,
 					'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'readonly' => 'readonly' ) ),
