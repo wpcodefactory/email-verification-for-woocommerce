@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: emails-verification-for-woocommerce 2.4.7\n"
+"Project-Id-Version: emails-verification-for-woocommerce 2.4.8\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/emails-verification-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-11-25T00:23:17+01:00\n"
+"POT-Creation-Date: 2022-11-30T21:00:25+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: emails-verification-for-woocommerce\n"
@@ -139,45 +139,45 @@ msgstr ""
 msgid "Nonce not found or not verified."
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:598
+#: includes/class-alg-wc-ev-admin.php:602
 msgid "User %s: verified."
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:602
+#: includes/class-alg-wc-ev-admin.php:606
 msgid "User %s: unverified."
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:606
+#: includes/class-alg-wc-ev-admin.php:610
 msgid "User %s: activation link resent."
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:635
-#: includes/class-alg-wc-ev-core.php:933
+#: includes/class-alg-wc-ev-admin.php:639
+#: includes/class-alg-wc-ev-core.php:934
 msgid "Verified"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:651
+#: includes/class-alg-wc-ev-admin.php:655
 msgid "Are you sure?"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:670
+#: includes/class-alg-wc-ev-admin.php:674
 msgid "Email not verified"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:673
+#: includes/class-alg-wc-ev-admin.php:677
 msgid "Verify"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:675
+#: includes/class-alg-wc-ev-admin.php:679
 #: includes/settings/class-alg-wc-ev-settings-messages.php:103
 msgid "Resend"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:679
+#: includes/class-alg-wc-ev-admin.php:683
 msgid "Email verified"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:682
+#: includes/class-alg-wc-ev-admin.php:686
 msgid "Unverify"
 msgstr ""
 
@@ -194,27 +194,27 @@ msgid "You can resend the email with verification link by clicking <a href=\"%re
 msgstr ""
 
 #: includes/class-alg-wc-ev-core.php:241
-#: includes/class-alg-wc-ev-core.php:932
+#: includes/class-alg-wc-ev-core.php:933
 msgid "Verification status: "
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:831
+#: includes/class-alg-wc-ev-core.php:832
 msgid "Submit"
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:842
+#: includes/class-alg-wc-ev-core.php:843
 msgid "Email address"
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:885
+#: includes/class-alg-wc-ev-core.php:886
 msgid "User data not found."
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:901
+#: includes/class-alg-wc-ev-core.php:902
 msgid "You can resend the email with verification link by clicking <a href=\"{resend_verification_url}\">here</a>."
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:934
+#: includes/class-alg-wc-ev-core.php:935
 msgid "Unverified"
 msgstr ""
 
@@ -222,47 +222,47 @@ msgstr ""
 #: includes/class-alg-wc-ev-emails.php:80
 #: includes/pro/class-alg-wc-ev-confirmation-wc-email-pro.php:140
 #: includes/pro/class-alg-wc-ev-pro.php:105
-#: includes/settings/class-alg-wc-ev-settings-email.php:241
+#: includes/settings/class-alg-wc-ev-settings-email.php:250
 msgid "Your account has been activated successfully"
 msgstr ""
 
 #: includes/class-alg-wc-ev-emails.php:75
 #: includes/pro/class-alg-wc-ev-confirmation-wc-email-pro.php:152
 #: includes/pro/class-alg-wc-ev-pro.php:92
-#: includes/settings/class-alg-wc-ev-settings-email.php:251
+#: includes/settings/class-alg-wc-ev-settings-email.php:260
 msgid "Your account has been activated"
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:262
-#: includes/pro/class-alg-wc-ev-pro.php:775
+#: includes/class-alg-wc-ev-emails.php:270
+#: includes/pro/class-alg-wc-ev-pro.php:785
 #: includes/settings/class-alg-wc-ev-settings-email.php:194
 msgid "<p>Please <a href=\"%verification_url%\" target=\"_blank\">click here</a> to verify your email.</p>"
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:263
+#: includes/class-alg-wc-ev-emails.php:271
 #: includes/pro/class-alg-wc-ev-activation-wc-email-pro.php:165
 #: includes/pro/class-alg-wc-ev-pro.php:618
-#: includes/pro/class-alg-wc-ev-pro.php:793
+#: includes/pro/class-alg-wc-ev-pro.php:803
 #: includes/settings/class-alg-wc-ev-settings-email.php:204
 msgid "Activate your account"
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:362
+#: includes/class-alg-wc-ev-emails.php:370
 #: includes/pro/class-alg-wc-ev-activation-wc-email-pro.php:129
-#: includes/pro/class-alg-wc-ev-pro.php:762
+#: includes/pro/class-alg-wc-ev-pro.php:772
 #: includes/settings/class-alg-wc-ev-settings-email.php:175
 msgid "Please activate your account"
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:476
+#: includes/class-alg-wc-ev-emails.php:484
 msgid "Error sending mail."
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:477
+#: includes/class-alg-wc-ev-emails.php:485
 msgid "Mail function: %s."
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:480
+#: includes/class-alg-wc-ev-emails.php:488
 msgid "Last error: %s."
 msgstr ""
 
@@ -378,18 +378,18 @@ msgstr ""
 msgid "You need to <a href=\"%myaccount_url%\" target=\"_blank\">register</a> and verify your email before adding products to the cart."
 msgstr ""
 
-#: includes/pro/class-alg-wc-ev-pro.php:741
-#: includes/settings/class-alg-wc-ev-settings-email.php:341
+#: includes/pro/class-alg-wc-ev-pro.php:751
+#: includes/settings/class-alg-wc-ev-settings-email.php:359
 msgid "User account has been activated"
 msgstr ""
 
-#: includes/pro/class-alg-wc-ev-pro.php:742
-#: includes/settings/class-alg-wc-ev-settings-email.php:350
+#: includes/pro/class-alg-wc-ev-pro.php:752
+#: includes/settings/class-alg-wc-ev-settings-email.php:368
 msgid "User %s has just verified his email (%s)."
 msgstr ""
 
-#: includes/pro/class-alg-wc-ev-pro.php:747
-#: includes/settings/class-alg-wc-ev-settings-email.php:333
+#: includes/pro/class-alg-wc-ev-pro.php:757
+#: includes/settings/class-alg-wc-ev-settings-email.php:351
 msgid "User email has been verified"
 msgstr ""
 
@@ -460,6 +460,8 @@ msgstr ""
 #: includes/settings/class-alg-wc-ev-settings-admin.php:82
 #: includes/settings/class-alg-wc-ev-settings-admin.php:88
 #: includes/settings/class-alg-wc-ev-settings-admin.php:103
+#: includes/settings/class-alg-wc-ev-settings-email.php:240
+#: includes/settings/class-alg-wc-ev-settings-email.php:332
 msgid "Verified column"
 msgstr ""
 
@@ -480,6 +482,8 @@ msgid "The position of the column."
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-admin.php:102
+#: includes/settings/class-alg-wc-ev-settings-email.php:240
+#: includes/settings/class-alg-wc-ev-settings-email.php:332
 msgid "Actions"
 msgstr ""
 
@@ -1552,17 +1556,17 @@ msgid "Try to enable it if the activation emails are getting sent to authenticat
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-email.php:172
-#: includes/settings/class-alg-wc-ev-settings-email.php:238
+#: includes/settings/class-alg-wc-ev-settings-email.php:247
 msgid "Email subject"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-email.php:181
-#: includes/settings/class-alg-wc-ev-settings-email.php:257
+#: includes/settings/class-alg-wc-ev-settings-email.php:266
 msgid "Email content"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-email.php:182
-#: includes/settings/class-alg-wc-ev-settings-email.php:258
+#: includes/settings/class-alg-wc-ev-settings-email.php:267
 msgid "Placeholders: %s"
 msgstr ""
 
@@ -1586,69 +1590,82 @@ msgstr ""
 msgid "Send confirmation email to users who have just verified their accounts"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-email.php:247
+#: includes/settings/class-alg-wc-ev-settings-email.php:239
+msgid "Send confirmation email to the user manually verified by admin"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-email.php:240
+#: includes/settings/class-alg-wc-ev-settings-email.php:332
+msgid "Only useful if the options %s, %s are enabled."
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-email.php:256
 msgid "Email Heading"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-email.php:269
+#: includes/settings/class-alg-wc-ev-settings-email.php:278
 msgid "<p>Your account has been activated successfully.</p>"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-email.php:275
+#: includes/settings/class-alg-wc-ev-settings-email.php:284
 msgid "Delay"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-email.php:276
+#: includes/settings/class-alg-wc-ev-settings-email.php:285
 msgid "Wait for some time before sending the email"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-email.php:282
+#: includes/settings/class-alg-wc-ev-settings-email.php:291
 msgid "Unit of time."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-email.php:288
+#: includes/settings/class-alg-wc-ev-settings-email.php:297
 msgid "Hours"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-email.php:289
+#: includes/settings/class-alg-wc-ev-settings-email.php:298
 #: includes/settings/class-alg-wc-ev-settings-general.php:256
 msgid "Days"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-email.php:293
+#: includes/settings/class-alg-wc-ev-settings-email.php:302
 msgid "Delay value."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-email.php:306
-#: includes/settings/class-alg-wc-ev-settings-email.php:312
+#: includes/settings/class-alg-wc-ev-settings-email.php:315
+#: includes/settings/class-alg-wc-ev-settings-email.php:321
 msgid "Admin email"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-email.php:308
-msgid "An email that can be sent to the admin when a new user verifies his email."
+#: includes/settings/class-alg-wc-ev-settings-email.php:317
+msgid "An email sent to the admin when a user verifies his email."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-email.php:314
-msgid "Enable"
+#: includes/settings/class-alg-wc-ev-settings-email.php:323
+msgid "Send email to the admin when a user verifies his email"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-email.php:321
+#: includes/settings/class-alg-wc-ev-settings-email.php:331
+msgid "Send admin email when a user has been manually verified by admin"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-email.php:339
 msgid "Recipient"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-email.php:322
+#: includes/settings/class-alg-wc-ev-settings-email.php:340
 msgid "Leave empty to send to %s."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-email.php:329
+#: includes/settings/class-alg-wc-ev-settings-email.php:347
 msgid "Subject"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-email.php:337
+#: includes/settings/class-alg-wc-ev-settings-email.php:355
 msgid "Heading"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-email.php:346
+#: includes/settings/class-alg-wc-ev-settings-email.php:364
 msgid "Content"
 msgstr ""
 

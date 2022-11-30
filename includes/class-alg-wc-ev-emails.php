@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Emails Class.
  *
- * @version 2.4.1
+ * @version 2.4.8
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -95,7 +95,7 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * Send Confirmation email to the user.
 	 *
-	 * @version 2.4.1
+	 * @version 2.4.8
 	 * @since   2.2.9
 	 *
 	 * @param   $user_id
@@ -103,6 +103,14 @@ class Alg_WC_Email_Verification_Emails {
 	 */
 	function maybe_send_confirmation_email( $user_id, $args = null ) {
 		if ( 'yes' !== get_option( 'alg_wc_ev_enable_confirmation_email', 'yes' ) ) {
+			return;
+		}
+		if (
+			isset( $args['context'] ) &&
+			! empty( $args['context'] ) &&
+			'admin_verification' === $args['context'] &&
+			'no' === get_option( 'alg_wc_ev_send_confirmation_email_to_manually_verified_users', 'no' )
+		) {
 			return;
 		}
 		if ( 'no' === get_option( 'alg_wc_ev_confirmation_email_delay', 'no' ) ) {

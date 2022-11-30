@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Core Class.
  *
- * @version 2.4.7
+ * @version 2.4.8
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -689,7 +689,7 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * activate_user.
 	 *
-	 * @version 2.3.7
+	 * @version 2.4.8
 	 * @since   2.2.6
 	 *
 	 * @param null $args
@@ -697,6 +697,7 @@ class Alg_WC_Email_Verification_Core {
 	function activate_user( $args = null ) {
 		$args = wp_parse_args( $args, array(
 			'user_id'     => '',
+			'context'     => '',
 			'code'        => '',
 			'directly'    => true, // Should be false when the user account is activated indirectly, like if the user is auto activated after its order is paid. Should be true when user account is directly activated, like if the user has accessed the activation link.
 			'verify_args' => array()

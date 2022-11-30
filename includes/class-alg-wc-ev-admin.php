@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Admin Class.
  *
- * @version 2.4.5
+ * @version 2.4.8
  * @since   1.5.0
  * @author  WPFactory
  */
@@ -570,14 +570,18 @@ class Alg_WC_Email_Verification_Admin {
 	/**
 	 * admin_manual_actions.
 	 *
-	 * @version 1.8.0
+	 * @version 2.4.8
 	 * @since   1.1.0
 	 * @todo    [next] (maybe) new action: "expire" (i.e. make link expired) (i.e. remove `alg_wc_ev_activation_code_time` meta)
 	 */
 	function admin_manual_actions() {
 		// Actions
 		if ( $user_id = $this->get_user_id_from_action( 'alg_wc_ev_admin_verify' ) ) {
-			update_user_meta( $user_id, 'alg_wc_ev_is_activated', '1' );
+			alg_wc_ev()->core->activate_user( array(
+				'user_id'  => $user_id,
+				'context'  => 'admin_verification',
+				'directly' => false,
+			) );
 			wp_safe_redirect( add_query_arg( 'alg_wc_ev_admin_verify_done', $user_id, remove_query_arg( $this->actions ) ) );
 			exit;
 		}

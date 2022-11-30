@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Email Section Settings.
  *
- * @version 2.4.1
+ * @version 2.4.8
  * @since   1.3.0
  * @author  WPFactory
  */
@@ -52,7 +52,7 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.4.1
+	 * @version 2.4.8
 	 * @since   1.3.0
 	 */
 	function get_settings() {
@@ -228,11 +228,20 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 				'desc'  => __( 'An email sent to the user when the account is verified.', 'emails-verification-for-woocommerce' ),
 			),
 			array(
-				'title'   => __( 'Confirmation email', 'emails-verification-for-woocommerce' ),
-				'desc'    => __( 'Send confirmation email to users who have just verified their accounts', 'emails-verification-for-woocommerce' ),
-				'type'    => 'checkbox',
-				'id'      => 'alg_wc_ev_enable_confirmation_email',
-				'default' => 'yes',
+				'title'         => __( 'Confirmation email', 'emails-verification-for-woocommerce' ),
+				'desc'          => __( 'Send confirmation email to users who have just verified their accounts', 'emails-verification-for-woocommerce' ),
+				'type'          => 'checkbox',
+				'checkboxgroup' => 'start',
+				'id'            => 'alg_wc_ev_enable_confirmation_email',
+				'default'       => 'yes',
+			),
+			array(
+				'desc'          => __( 'Send confirmation email to the user manually verified by admin', 'emails-verification-for-woocommerce' ),
+				'desc_tip'      => sprintf( __( 'Only useful if the options %s, %s are enabled.', 'emails-verification-for-woocommerce' ), '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=alg_wc_ev&section=admin' ) . '">' . __( 'Verified column', 'emails-verification-for-woocommerce' ) . '</a>', '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=alg_wc_ev&section=admin' ) . '">' . __( 'Actions', 'emails-verification-for-woocommerce' ) . '</a>' ),
+				'checkboxgroup' => 'end',
+				'type'          => 'checkbox',
+				'id'            => 'alg_wc_ev_send_confirmation_email_to_manually_verified_users',
+				'default'       => 'no',
 			),
 			array(
 				'title'             => __( 'Email subject', 'emails-verification-for-woocommerce' ),
@@ -305,17 +314,26 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 			array(
 				'title' => __( 'Admin email', 'emails-verification-for-woocommerce' ),
 				'type'  => 'title',
-				'desc'  => __( 'An email that can be sent to the admin when a new user verifies his email.', 'emails-verification-for-woocommerce' ),
+				'desc'  => __( 'An email sent to the admin when a user verifies his email.', 'emails-verification-for-woocommerce' ),
 				'id'    => 'alg_wc_ev_email_options',
 			),
 			array(
 				'title'             => __( 'Admin email', 'emails-verification-for-woocommerce' ),
 				$this->pro_msg(),
-				'desc'              => __( 'Enable', 'emails-verification-for-woocommerce' ),
+				'desc'              => __( 'Send email to the admin when a user verifies his email', 'emails-verification-for-woocommerce' ),
 				'type'              => 'checkbox',
+				'checkboxgroup'     => 'start',
 				'id'                => 'alg_wc_ev_admin_email',
 				'default'           => 'no',
 				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+			),
+			array(
+				'desc'          => __( 'Send admin email when a user has been manually verified by admin', 'emails-verification-for-woocommerce' ),
+				'desc_tip'      => sprintf( __( 'Only useful if the options %s, %s are enabled.', 'emails-verification-for-woocommerce' ), '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=alg_wc_ev&section=admin' ) . '">' . __( 'Verified column', 'emails-verification-for-woocommerce' ) . '</a>', '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=alg_wc_ev&section=admin' ) . '">' . __( 'Actions', 'emails-verification-for-woocommerce' ) . '</a>' ),
+				'checkboxgroup' => 'end',
+				'type'          => 'checkbox',
+				'id'            => 'alg_wc_ev_send_admin_email_to_manually_verified_users',
+				'default'       => 'no',
 			),
 			array(
 				'title'    => __( 'Recipient', 'emails-verification-for-woocommerce' ),
