@@ -10,6 +10,7 @@
     "hashids/hashids": "4.*"
   },
   "config": {
-    "preferred-install": "dist"
+    "preferred-install": "dist",
+    "platform-check": false
   }
 }
