@@ -3,13 +3,13 @@
 Plugin Name: Email Verification for WooCommerce
 Plugin URI: https://wpfactory.com/item/email-verification-for-woocommerce/
 Description: Verify user emails in WooCommerce. Beautifully.
-Version: 2.4.9
+Version: 2.5.0
 Author: WPFactory
 Author URI: https://wpfactory.com
 Text Domain: emails-verification-for-woocommerce
 Domain Path: /langs
-Copyright: © 2022 WPFactory
-WC tested up to: 7.1
+Copyright: © 2023 WPFactory
+WC tested up to: 7.2
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 */
@@ -62,7 +62,7 @@ final class Alg_WC_Email_Verification {
 	 * @var   string
 	 * @since 1.0.0
 	 */
-	public $version = '2.4.9';
+	public $version = '2.5.0';
 	
 	/**
 	 * @var   Alg_WC_Email_Verification The single instance of the class
@@ -95,13 +95,13 @@ final class Alg_WC_Email_Verification {
 	}
 
 	/**
-	 * Alg_WC_Email_Verification Constructor.
+	 * Initializes the plugin.
 	 *
-	 * @version 2.1.0
+	 * @version 2.5.0
 	 * @since   1.0.0
 	 * @access  public
 	 */
-	function __construct() {
+	function init() {
 
 		// Localization
 		add_action( 'init', array( $this, 'localize' ) );
@@ -284,4 +284,24 @@ if ( ! function_exists( 'alg_wc_ev' ) ) {
 	}
 }
 
-alg_wc_ev();
+// Initializes the plugin.
+add_action( 'plugins_loaded', function () {
+	$cog = alg_wc_ev();
+	$cog->init();
+} );
+
+// Custom deactivation/activation hooks.
+$activation_hook   = 'alg_wc_ev_on_activation';
+$deactivation_hook = 'alg_wc_ev_on_deactivation';
+register_activation_hook( __FILE__, function () use ( $activation_hook ) {
+	add_option( $activation_hook, 'yes' );
+} );
+register_deactivation_hook( __FILE__, function () use ( $deactivation_hook ) {
+	do_action( $deactivation_hook );
+} );
+add_action( 'admin_init', function () use ( $activation_hook ) {
+	if ( is_admin() && get_option( $activation_hook ) === 'yes' ) {
+		delete_option( $activation_hook );
+		do_action( $activation_hook );
+	}
+} );

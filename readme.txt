@@ -3,7 +3,7 @@ Contributors: wpcodefactory, Karzin, jaedm97, algoritmika, anbinder
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 6.1
-Stable tag: 2.4.9
+Stable tag: 2.5.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -205,6 +205,11 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 3. Start by visiting plugin settings at "WooCommerce > Settings > Email Verification".
 
 == Changelog ==
+
+= 2.5.0 - 04/01/2023 =
+* Fix - Email - Email options - Delay Customer new account email forces the email to be always active.
+* Dev - Improve the way of initializing the main class.
+* WC tested up to: 7.2.
 
 = 2.4.9 - 15/12/2022 =
 * Fix - Possible error regarding composer dependencies.

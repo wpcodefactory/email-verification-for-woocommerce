@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Admin Class.
  *
- * @version 2.4.8
+ * @version 2.5.0
  * @since   1.5.0
  * @author  WPFactory
  */
@@ -18,7 +18,7 @@ class Alg_WC_Email_Verification_Admin {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.2.0
+	 * @version 2.5.0
 	 * @since   1.5.0
 	 * @todo    (maybe) move more stuff here, e.g. settings, action links etc.
 	 */
@@ -51,16 +51,16 @@ class Alg_WC_Email_Verification_Admin {
 		} else {
 			add_action( 'init', array( $this, 'unschedule_delete_unverified_users_cron' ) );
 		}
-		add_action( 'init', array( $this, 'unschedule_delete_unverified_users_cron_on_deactivation' ) );
+		add_action( 'alg_wc_ev_on_deactivation', array( $this, 'unschedule_delete_unverified_users_cron' ) );
 		// Users Bulk Actions
 		add_filter( 'bulk_actions-users', array( $this, 'add_bulk_user_actions' ) );
 		add_filter( 'handle_bulk_actions-users', array( $this, 'handle_bulk_user_actions' ), 10, 3 );
 		add_action( 'admin_notices', array( $this, 'manage_bulk_notices' ) );
-		// Bkg Process
-		add_action( 'plugins_loaded', array( $this, 'init_bkg_process' ) );
+		// Bkg Process.
+		add_action( 'alg_wc_ev_core_loaded', array( $this, 'init_bkg_process' ) );
 		// Hides admin interface.
 		add_filter( 'alg_wc_ev_add_woocommerce_settings_tab_validation', array( $this, 'hide_woocommerce_settings_tab' ) );
-		// Users filter
+		// Users filter.
         if( 'yes' === get_option( 'alg_wc_ev_admin_users_filter', 'no' ) ) {
 	        add_action( 'manage_users_extra_tablenav', array( $this, 'add_user_verification_status_filter_options' ), 10, 1 );
 	        add_action( 'pre_get_users', array( $this, 'filter_users_based_on_verification_status' ), 10, 1 );
@@ -421,16 +421,6 @@ class Alg_WC_Email_Verification_Admin {
 		if ( ! wp_next_scheduled( 'alg_wc_ev_delete_unverified_users' ) ) {
 			wp_schedule_event( time(), get_option( 'alg_wc_ev_delete_users_cron_frequency', 'weekly' ), 'alg_wc_ev_delete_unverified_users' );
 		}
-	}
-
-	/**
-	 * unschedule_delete_unverified_users_cron_on_deactivation.
-	 *
-	 * @version 2.1.0
-	 * @since   1.7.0
-	 */
-	function unschedule_delete_unverified_users_cron_on_deactivation() {
-		register_deactivation_hook( alg_wc_ev()->get_filesystem_path(), array( $this, 'unschedule_delete_unverified_users_cron' ) );
 	}
 
 	/**

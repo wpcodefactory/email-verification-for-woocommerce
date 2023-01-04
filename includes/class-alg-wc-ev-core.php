@@ -45,6 +45,8 @@ class Alg_WC_Email_Verification_Core {
 	 * @todo    [next] (maybe) `[alg_wc_ev_translate]` to description in readme.txt
 	 */
 	function __construct() {
+		// Background process
+		$this->init_bkg_process();
 		// Functions
 		require_once( 'alg-wc-ev-functions.php' );
 		// Verification actions
@@ -65,8 +67,6 @@ class Alg_WC_Email_Verification_Core {
 		require_once( 'class-alg-wc-ev-non-paying-blocker.php' );
 		// HTML tags converter
 		$this->setup_html_tags_converter();
-		// Background process
-		add_action( 'plugins_loaded', array( $this, 'init_bkg_process' ), 9 );
 		// Core loaded
 		do_action( 'alg_wc_ev_core_loaded', $this );
 		// Login the user automatically

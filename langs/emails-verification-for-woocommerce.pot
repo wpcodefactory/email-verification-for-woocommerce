@@ -1,15 +1,15 @@
-# Copyright (C) 2022 WPFactory
+# Copyright (C) 2023 WPFactory
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: emails-verification-for-woocommerce 2.4.9\n"
+"Project-Id-Version: emails-verification-for-woocommerce 2.5.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/emails-verification-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-12-15T20:21:55+01:00\n"
+"POT-Creation-Date: 2023-01-04T21:11:20+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: emails-verification-for-woocommerce\n"
@@ -127,57 +127,57 @@ msgstr ""
 msgid "Unverify users"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:504
+#: includes/class-alg-wc-ev-admin.php:494
 msgid "%d unverified users are going to be deleted in background processing."
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:516
+#: includes/class-alg-wc-ev-admin.php:506
 msgid "Total unverified users deleted: %d."
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:531
+#: includes/class-alg-wc-ev-admin.php:521
 msgid "Nonce not found or not verified."
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:602
+#: includes/class-alg-wc-ev-admin.php:592
 msgid "User %s: verified."
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:606
+#: includes/class-alg-wc-ev-admin.php:596
 msgid "User %s: unverified."
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:610
+#: includes/class-alg-wc-ev-admin.php:600
 msgid "User %s: activation link resent."
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:639
+#: includes/class-alg-wc-ev-admin.php:629
 #: includes/class-alg-wc-ev-core.php:934
 msgid "Verified"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:655
+#: includes/class-alg-wc-ev-admin.php:645
 msgid "Are you sure?"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:674
+#: includes/class-alg-wc-ev-admin.php:664
 msgid "Email not verified"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:677
+#: includes/class-alg-wc-ev-admin.php:667
 msgid "Verify"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:679
+#: includes/class-alg-wc-ev-admin.php:669
 #: includes/settings/class-alg-wc-ev-settings-messages.php:103
 msgid "Resend"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:683
+#: includes/class-alg-wc-ev-admin.php:673
 msgid "Email verified"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:686
+#: includes/class-alg-wc-ev-admin.php:676
 msgid "Unverify"
 msgstr ""
 
@@ -254,15 +254,15 @@ msgstr ""
 msgid "Please activate your account"
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:484
+#: includes/class-alg-wc-ev-emails.php:491
 msgid "Error sending mail."
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:485
+#: includes/class-alg-wc-ev-emails.php:492
 msgid "Mail function: %s."
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:488
+#: includes/class-alg-wc-ev-emails.php:495
 msgid "Last error: %s."
 msgstr ""
 

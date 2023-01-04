@@ -400,7 +400,7 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * maybe_disable_customer_new_account_email.
 	 *
-	 * @version 2.4.3
+	 * @version 2.5.0
 	 * @since   2.4.3
 	 *
 	 * @param $enable
@@ -408,8 +408,15 @@ class Alg_WC_Email_Verification_Emails {
 	 * @return bool
 	 */
 	function maybe_disable_customer_new_account_email( $enable ) {
-		$enable = $this->activate_customer_new_account_email;
-		return $enable;
+		if (
+			isset( $_GET['page'] ) &&
+			'wc-settings' === $_GET['page'] &&
+			isset( $_GET['tab'] ) &&
+			'email' === $_GET['tab']
+		) {
+			return $enable;
+		}
+		return $enable && $this->activate_customer_new_account_email;
 	}
 
 	/**
