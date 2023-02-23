@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: emails-verification-for-woocommerce 2.5.0\n"
+"Project-Id-Version: emails-verification-for-woocommerce 2.5.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/emails-verification-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-01-04T21:11:20+01:00\n"
+"POT-Creation-Date: 2023-02-23T20:44:46+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: emails-verification-for-woocommerce\n"
@@ -333,7 +333,7 @@ msgstr ""
 msgid "An email sent to the user with an activation link."
 msgstr ""
 
-#: includes/pro/class-alg-wc-ev-compatibility-pro.php:212
+#: includes/pro/class-alg-wc-ev-compatibility-pro.php:264
 msgid "Email verification"
 msgstr ""
 
@@ -1245,24 +1245,28 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:115
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:160
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:267
 msgid "It's necessary to enable %s option and use %s option as %s."
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:115
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:160
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:183
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:267
 msgid "Emails > Activation email > Fine tune activation email placement"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:115
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:160
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:183
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:267
 #: includes/settings/class-alg-wc-ev-settings-general.php:58
 msgid "Emails > Activation email > Email template"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:115
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:160
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:267
 #: includes/settings/class-alg-wc-ev-settings-email.php:90
 #: includes/settings/class-alg-wc-ev-settings-email.php:97
 #: includes/settings/class-alg-wc-ev-settings-general.php:58
@@ -1279,6 +1283,7 @@ msgstr ""
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:176
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:209
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:231
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:260
 msgid "Compatibility with the %s plugin."
 msgstr ""
 
@@ -1404,6 +1409,20 @@ msgstr ""
 msgid "Verify users that already have a valid membership"
 msgstr ""
 
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:258
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:260
+msgid "YayMail – WooCommerce Email Customizer"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:264
+#: includes/settings/class-alg-wc-ev-settings-email.php:80
+msgid "Customer new account email"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:265
+msgid "Append the Activation email message to the \"Customer new account\" email using the %s shortcode"
+msgstr ""
+
 #: includes/settings/class-alg-wc-ev-settings-email.php:24
 #: includes/settings/class-alg-wc-ev-settings-section.php:104
 msgid "Email"
@@ -1425,10 +1444,6 @@ msgstr ""
 #: includes/settings/class-alg-wc-ev-settings-email.php:75
 #: includes/settings/class-alg-wc-ev-settings-email.php:76
 msgid "%s function"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-email.php:80
-msgid "Customer new account email"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-email.php:81

@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Compatibility Section Settings.
  *
- * @version 2.4.3
+ * @version 2.5.1
  * @since   2.1.3
  * @author  WPFactory
  */
@@ -43,7 +43,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 		/**
 		 * get_settings.
 		 *
-		 * @version 2.4.3
+		 * @version 2.5.1
 		 * @since   2.1.3
 		 * @todo    (maybe) remove `alg_wc_ev_prevent_login_after_checkout_notice` (i.e. make it always enabled)
 		 */
@@ -253,8 +253,38 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 					'id'   => 'alg_wc_ev_compatibility_paid_memberships_pro_options',
 				),
 			);
+			$yaymail_opts = array(
+				array(
+					'title' => __( 'YayMail – WooCommerce Email Customizer', 'emails-verification-for-woocommerce' ),
+					'type'  => 'title',
+					'desc'  => sprintf( __( 'Compatibility with the %s plugin.', 'emails-verification-for-woocommerce' ), sprintf( '<a href="%s" target="_blank">%s</a>', 'https://wordpress.org/plugins/yaymail/', __( 'YayMail – WooCommerce Email Customizer', 'emails-verification-for-woocommerce' ) ) ),
+					'id'    => 'alg_wc_ev_compatibility_yaymail_options',
+				),
+				array(
+					'title'             => __( 'Customer new account email', 'emails-verification-for-woocommerce' ),
+					'desc'              => sprintf(__( 'Append the Activation email message to the "Customer new account" email using the %s shortcode', 'emails-verification-for-woocommerce' ),'<code>[yaymail_custom_shortcode_alg_wc_ev_aem]</code>'),
+					'desc_tip'          => alg_wc_ev_array_to_string( array(
+						sprintf( __( 'It\'s necessary to enable %s option and use %s option as %s.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Emails > Activation email > Fine tune activation email placement', 'emails-verification-for-woocommerce' ) . '</strong>', '<strong>' . __( 'Emails > Activation email > Email template', 'emails-verification-for-woocommerce' ) . '</strong>', '<strong>' . __( 'Plain', 'emails-verification-for-woocommerce' ) . '</strong>' ),
+						$this->separate_email_option_msg( 'disabled' ),
+					), array( 'glue' => '<br />', 'item_template' => '{value}' ) ),
+					'id'                => 'alg_wc_ev_yaymail_activation_email_msg_sc',
+					'default'           => 'no',
+					'type'              => 'checkbox',
+					'checkboxgroup'     => 'start',
+					'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+				),
+				array(
+					'type' => 'sectionend',
+					'id'   => 'alg_wc_ev_compatibility_yaymail_options',
+				),
+			);
 			return array_merge(
-				$general, $polylang_opts, $elementor_essential_addons_opts, $email_customizer_themehigh_opts, $email_customizer_villatheme_opts, $paid_memberships_pro_opts
+				$general, $polylang_opts,
+				$elementor_essential_addons_opts,
+				$email_customizer_themehigh_opts,
+				$email_customizer_villatheme_opts,
+				$paid_memberships_pro_opts,
+				$yaymail_opts
 			);
 		}
 
