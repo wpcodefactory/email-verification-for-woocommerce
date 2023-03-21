@@ -190,8 +190,8 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 				array(
 					'title'             => __( 'Placeholders', 'emails-verification-for-woocommerce' ),
 					'desc'              => sprintf( __( 'Enable placeholders on the Email Customizer templates related to the Email Verification plugin', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'New account', 'emails-verification-for-woocommerce' ) . '</strong>', '<code>{alg_wc_ev_viwec}</code>' ),
-					'desc_tip'          => __( 'Available placeholders:', 'emails-verification-for-woocommerce' ) . ' ' . alg_wc_ev_array_to_string( $this->get_villatheme_email_customizer_placeholders(), array( 'glue' => ', ', 'item_template' => '<code>{value}</code>' ) ) . '.' . '<br />' .
-					                       sprintf( __( 'The %s placeholder will only be available to the <strong>Activation email</strong> template.', 'emails-verification-for-woocommerce' ), '<code>{alg_wc_ev_verification_url}</code>' ),
+					'desc_tip'          => sprintf( __( 'In order to enable the %s and %s email types, it\'s necessary to set the option %s as %s.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Activation', 'emails-verification-for-woocommerce' ) . '</strong>', '<strong>' . __( 'Confirmation', 'emails-verification-for-woocommerce' ) . '</strong>', '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=alg_wc_ev&section=emails' ) . '">' . __( 'Email > WC email template', 'emails-verification-for-woocommerce' ) . '</a>', '<code>' . __( 'WooCommerce > Emails', 'emails-verification-for-woocommerce' ) . '</code>' ) . '<br />' .
+					                       '<strong>' . __( 'Note:', 'emails-verification-for-woocommerce' ) . '</strong>' . ' ' . sprintf( __( 'The %s placeholder will only be available to the <strong>Activation email</strong> template.', 'emails-verification-for-woocommerce' ), '<code>{alg_wc_ev_verification_url}</code>' ),
 					'id'                => 'alg_wc_ev_comp_email_customizer_vt_placeholders_enabled',
 					'default'           => 'no',
 					'type'              => 'checkbox',

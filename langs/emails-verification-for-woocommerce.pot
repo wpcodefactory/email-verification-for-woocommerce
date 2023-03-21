@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: emails-verification-for-woocommerce 2.5.1\n"
+"Project-Id-Version: emails-verification-for-woocommerce 2.5.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/emails-verification-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-02-23T20:44:46+01:00\n"
+"POT-Creation-Date: 2023-03-22T00:40:48+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: emails-verification-for-woocommerce\n"
@@ -323,6 +323,7 @@ msgid "New title"
 msgstr ""
 
 #: includes/pro/class-alg-wc-ev-activation-wc-email-pro.php:32
+#: includes/pro/class-alg-wc-ev-compatibility-pro.php:265
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:253
 #: includes/settings/class-alg-wc-ev-settings-email.php:135
 msgid "Activation email"
@@ -333,10 +334,7 @@ msgstr ""
 msgid "An email sent to the user with an activation link."
 msgstr ""
 
-#: includes/pro/class-alg-wc-ev-compatibility-pro.php:264
-msgid "Email verification"
-msgstr ""
-
+#: includes/pro/class-alg-wc-ev-compatibility-pro.php:266
 #: includes/pro/class-alg-wc-ev-confirmation-wc-email-pro.php:31
 #: includes/settings/class-alg-wc-ev-settings-email.php:225
 #: includes/settings/class-alg-wc-ev-settings-email.php:231
@@ -1013,6 +1011,7 @@ msgid "Prevents non-paying users from activating their accounts until they becom
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:238
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:194
 msgid "Note:"
 msgstr ""
 
@@ -1358,7 +1357,27 @@ msgid "Enable placeholders on the Email Customizer templates related to the Emai
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:193
-msgid "Available placeholders:"
+msgid "In order to enable the %s and %s email types, it's necessary to set the option %s as %s."
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:193
+#: includes/settings/class-alg-wc-ev-settings-email.php:106
+msgid "Activation"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:193
+#: includes/settings/class-alg-wc-ev-settings-email.php:106
+msgid "Confirmation"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:193
+msgid "Email > WC email template"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-compatibility.php:193
+#: includes/settings/class-alg-wc-ev-settings-email.php:106
+#: includes/settings/class-alg-wc-ev-settings-email.php:114
+msgid "WooCommerce > Emails"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:194
@@ -1497,19 +1516,6 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-email.php:106
 msgid "%s option will create new emails (%s) on %s."
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-email.php:106
-#: includes/settings/class-alg-wc-ev-settings-email.php:114
-msgid "WooCommerce > Emails"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-email.php:106
-msgid "Activation"
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-email.php:106
-msgid "Confirmation"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-email.php:107
