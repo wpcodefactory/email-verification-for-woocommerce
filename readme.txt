@@ -2,8 +2,8 @@
 Contributors: wpcodefactory, Karzin, jaedm97, algoritmika, anbinder
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
-Tested up to: 6.1
-Stable tag: 2.5.2
+Tested up to: 6.2
+Stable tag: 2.5.3
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -206,9 +206,15 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 
 == Changelog ==
 
+= 2.5.3 - 15/04/2023 =
+* Dev - Compatibility - Woodmart - Auto verify users from WoodMart social authentication.
+* Dev - Advanced - Authenticate filter - New option: `send_auth_cookies`.
+* WC tested up to: 7.6.
+* Tested up to: 6.2.
+
 = 2.5.2 - 21/03/2023 =
 * Fix - Compatibility - VillaTheme Email Customizer - Activation/Confirmation email don't get available as Email types.
-* Dev - WC tested up to: 7.5.
+* WC tested up to: 7.5.
 
 = 2.5.1 - 23/02/2023 =
 * Dev - Compatibility - YayMail - New option: Append the Activation email message to the "Customer new account" email using the `[yaymail_custom_shortcode_alg_wc_ev_aem]` shortcode.

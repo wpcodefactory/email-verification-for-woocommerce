@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Advanced Section Settings.
  *
- * @version 2.4.0
+ * @version 2.5.3
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -36,7 +36,7 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.4.0
+	 * @version 2.5.3
 	 * @since   1.6.0
 	 * @todo    (maybe) remove `alg_wc_ev_prevent_login_after_checkout_notice` (i.e. make it always enabled)
 	 */
@@ -58,6 +58,7 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 				'options'  => array(
 					'wp_authenticate_user' => sprintf( __( '%s filter', 'emails-verification-for-woocommerce' ), '"wp_authenticate_user"' ),
 					'authenticate'         => sprintf( __( '%s filter', 'emails-verification-for-woocommerce' ), '"authenticate"' ),
+					'send_auth_cookies'    => sprintf( __( '%s filter', 'emails-verification-for-woocommerce' ), '"send_auth_cookies"' ),
 				),
 			),
 			array(

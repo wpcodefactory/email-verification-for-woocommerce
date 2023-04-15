@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Logouts Class.
  *
- * @version 2.4.6
+ * @version 2.5.3
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -24,16 +24,17 @@ class Alg_WC_Email_Verification_Logouts {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.3.4
+	 * @version 2.5.3
 	 * @since   1.6.0
 	 * @todo    (maybe) force "activate" notice for guest users also
 	 * @todo    (maybe) `alg_wc_ev_prevent_login_after_register`: `woocommerce_account_navigation` (doesn't seem to work though...)
 	 */
 	function __construct() {
-		// Block unverified user login
+		// Blocks unverified user login.
 		foreach ( array( 'wp_authenticate_user', 'authenticate' ) as $auth_filter ) {
 			add_filter( $auth_filter, array( $this, 'block_unverified_user_login' ), PHP_INT_MAX, 2 );
 		}
+		add_filter( 'send_auth_cookies', array( $this, 'block_unverified_user_login_by_wp_set_cookie' ), 90, 4 );
 		add_action( 'set_logged_in_cookie', array( $this, 'block_auth_cookies' ), 10, 4 );
 		// Prevent login: After registration
 		if ( 'yes' === get_option( 'alg_wc_ev_prevent_login_after_register', 'yes' ) ) {
@@ -258,6 +259,36 @@ class Alg_WC_Email_Verification_Logouts {
 			}
 		}
 		return $user;
+	}
+
+	/**
+     * block_unverified_user_login_by_wp_set_cookie.
+     *
+	 * @version 2.5.3
+	 * @since   2.5.3
+     *
+	 * @param $valid
+	 * @param $expire
+	 * @param $expiration
+	 * @param $user_id
+	 *
+	 * @return mixed|void
+	 */
+	function block_unverified_user_login_by_wp_set_cookie( $valid, $expire, $expiration, $user_id ) {
+		if (
+			'yes' === get_option( 'alg_wc_ev_block_unverified_login', 'yes' ) &&
+			'send_auth_cookies' === get_option( 'alg_wc_ev_auth_filter', 'wp_authenticate_user' ) &&
+			false !== ( $user = get_user_by( 'ID', $user_id ) ) &&
+			is_a( $user, 'WP_User' ) &&
+			! alg_wc_ev()->core->is_user_verified( $user )
+		) {
+			wp_redirect( add_query_arg( array(
+				'alg_wc_ev_email_verified_error' => $user_id
+			), get_option( 'alg_wc_ev_redirect_on_failure_url', '' ) ) );
+			exit;
+		}
+
+		return $valid;
 	}
 
 	/**

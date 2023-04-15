@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Compatibility Section Settings.
  *
- * @version 2.5.1
+ * @version 2.5.3
  * @since   2.1.3
  * @author  WPFactory
  */
@@ -43,7 +43,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 		/**
 		 * get_settings.
 		 *
-		 * @version 2.5.1
+		 * @version 2.5.3
 		 * @since   2.1.3
 		 * @todo    (maybe) remove `alg_wc_ev_prevent_login_after_checkout_notice` (i.e. make it always enabled)
 		 */
@@ -278,13 +278,36 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 					'id'   => 'alg_wc_ev_compatibility_yaymail_options',
 				),
 			);
+			$woodmart_opts = array(
+				array(
+					'title' => __( 'WoodMart', 'emails-verification-for-woocommerce' ),
+					'type'  => 'title',
+					'desc'  => sprintf( __( 'Compatibility with the %s theme.', 'emails-verification-for-woocommerce' ), sprintf( '<a href="%s" target="_blank">%s</a>', 'https://themeforest.net/item/woodmart-woocommerce-wordpress-theme/20264492', __( 'WoodMart', 'emails-verification-for-woocommerce' ) ) ),
+					'id'    => 'alg_wc_ev_compatibility_woodmart_options',
+				),
+				array(
+					'title'             => __( 'Social authentication', 'emails-verification-for-woocommerce' ),
+					'desc'              => sprintf(__( 'Auto verify users from WoodMart social authentication', 'emails-verification-for-woocommerce' ),'<code>[yaymail_custom_shortcode_alg_wc_ev_aem]</code>'),
+					'desc_tip'          => sprintf( __( 'If you want to block login from unverified WoodMart users, try the option %s set as %s.', 'emails-verification-for-woocommerce' ), '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=alg_wc_ev&section=advanced' ) . '">' . __( 'Authenticate filter', 'emails-verification-for-woocommerce' ) . '</a>', '<code>' . __( 'Send auth cookies', 'emails-verification-for-woocommerce' ) . '</code>' ),
+					'id'                => 'alg_wc_ev_woodmart_auth_auto_verify',
+					'default'           => 'no',
+					'type'              => 'checkbox',
+					'checkboxgroup'     => 'start',
+					'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+				),
+				array(
+					'type' => 'sectionend',
+					'id'   => 'alg_wc_ev_compatibility_woodmart_options',
+				),
+			);
 			return array_merge(
 				$general, $polylang_opts,
 				$elementor_essential_addons_opts,
 				$email_customizer_themehigh_opts,
 				$email_customizer_villatheme_opts,
 				$paid_memberships_pro_opts,
-				$yaymail_opts
+				$yaymail_opts,
+				$woodmart_opts
 			);
 		}
 
