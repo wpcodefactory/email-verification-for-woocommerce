@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Core Class.
  *
- * @version 2.4.8
+ * @version 2.5.5
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -892,13 +892,14 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * alg_wc_ev_resend_verification_url.
 	 *
-	 * @version 2.1.1
+	 * @version 2.5.5
 	 * @since   2.1.1
 	 */
 	function alg_wc_ev_resend_verification_url( $atts = null ) {
 		$atts                     = shortcode_atts( array(
 			'wrapper_template' => '<div class="alg-wc-ev-resend-verification-url">{content_template}</div>',
-			'hide_if_verified' => true,
+			'hide_if_verified' => 'yes',
+			'hide_for_guests' => 'no',
 			'content_template' => __( 'You can resend the email with verification link by clicking <a href="{resend_verification_url}">here</a>.', 'emails-verification-for-woocommerce' ),
 		), $atts, 'alg_wc_ev_verification_status' );
 		$atts['hide_if_verified'] = filter_var( $atts['hide_if_verified'], FILTER_VALIDATE_BOOLEAN );
@@ -920,7 +921,7 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * alg_wc_ev_verification_status.
 	 *
-	 * @version 2.1.1
+	 * @version 2.5.5
 	 * @since   2.1.1
 	 *
 	 * @param null $atts
@@ -933,8 +934,8 @@ class Alg_WC_Email_Verification_Core {
 			'content_template'  => __( 'Verification status: ', 'emails-verification-for-woocommerce' ) . '{verification_status}',
 			'verified_status'   => '<strong>' . __( 'Verified', 'emails-verification-for-woocommerce' ) . '</strong>',
 			'unverified_status' => '<strong>' . __( 'Unverified', 'emails-verification-for-woocommerce' ) . '</strong>',
-			'hide_if_verified'  => false,
-			'hide_for_guests'   => false
+			'hide_if_verified'  => 'no',
+			'hide_for_guests'   => 'no'
 		), $atts, 'alg_wc_ev_verification_status' );
 		$atts['hide_if_verified'] = filter_var( $atts['hide_if_verified'], FILTER_VALIDATE_BOOLEAN );
 		$atts['hide_for_guests']  = filter_var( $atts['hide_for_guests'], FILTER_VALIDATE_BOOLEAN );

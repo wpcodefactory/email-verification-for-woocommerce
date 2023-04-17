@@ -3,7 +3,7 @@ Contributors: wpcodefactory, Karzin, jaedm97, algoritmika, anbinder
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 6.2
-Stable tag: 2.5.4
+Stable tag: 2.5.5
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -205,6 +205,9 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 3. Start by visiting plugin settings at "WooCommerce > Settings > Email Verification".
 
 == Changelog ==
+
+= 2.5.5 - 17/04/2023 =
+* Fix - Undefined array key "hide_for_guests" on `Alg_WC_Email_Verification_Core`.
 
 = 2.5.4 - 17/04/2023 =
 * Dev - Improve the `send_auth_cookies` filter.

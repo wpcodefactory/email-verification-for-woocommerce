@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: emails-verification-for-woocommerce 2.5.4\n"
+"Project-Id-Version: emails-verification-for-woocommerce 2.5.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/emails-verification-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-04-17T21:09:09+02:00\n"
+"POT-Creation-Date: 2023-04-17T22:31:56+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: emails-verification-for-woocommerce\n"
@@ -152,7 +152,7 @@ msgid "User %s: activation link resent."
 msgstr ""
 
 #: includes/class-alg-wc-ev-admin.php:629
-#: includes/class-alg-wc-ev-core.php:934
+#: includes/class-alg-wc-ev-core.php:935
 msgid "Verified"
 msgstr ""
 
@@ -194,7 +194,7 @@ msgid "You can resend the email with verification link by clicking <a href=\"%re
 msgstr ""
 
 #: includes/class-alg-wc-ev-core.php:241
-#: includes/class-alg-wc-ev-core.php:933
+#: includes/class-alg-wc-ev-core.php:934
 msgid "Verification status: "
 msgstr ""
 
@@ -210,11 +210,11 @@ msgstr ""
 msgid "User data not found."
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:902
+#: includes/class-alg-wc-ev-core.php:903
 msgid "You can resend the email with verification link by clicking <a href=\"{resend_verification_url}\">here</a>."
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:935
+#: includes/class-alg-wc-ev-core.php:936
 msgid "Unverified"
 msgstr ""
 
