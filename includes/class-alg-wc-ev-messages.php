@@ -138,6 +138,30 @@ class Alg_WC_Email_Verification_Messages {
 		return add_query_arg( $url_params, get_option( 'alg_wc_ev_resend_verification_url', '' ) );
 	}
 
+	/**
+	 * get_guest_verified_message.
+	 *
+	 * @version 2.5.8
+	 * @since   2.5.8
+	 */
+	function get_guest_verified_message( $user_id = 0 ) {
+		$notice = do_shortcode( __( 'Your email is verified.', 'emails-verification-for-woocommerce' ) );
+		return $notice;
+	}
+	
+	
+	
+	/**
+	 * get_activation_message.
+	 *
+	 * @version 2.5.8
+	 * @since   2.5.8
+	 */
+	function get_guest_unverified_message( $user_id = 0 ) {
+		$notice = do_shortcode( __( 'Your email is not verified. Please click on verify link sent on your email.', 'emails-verification-for-woocommerce' ) );
+		return $notice;
+	}
+
 }
 
 endif;

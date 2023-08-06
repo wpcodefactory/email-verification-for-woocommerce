@@ -40,7 +40,7 @@ class Alg_WC_Email_Verification_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.4.0
+	 * @version 2.5.8
 	 * @since   1.0.0
 	 * @todo    [next] (maybe) `[alg_wc_ev_translate]` to description in readme.txt
 	 */
@@ -94,6 +94,17 @@ class Alg_WC_Email_Verification_Core {
 		// Initialize options.
 		add_action( 'init', array( $this, 'initialize_options' ), 1 );
 		add_action( 'alg_wc_email_verification_after_reset_settings', array( $this, 'initialize_options' ), PHP_INT_MAX );
+
+		if( 'yes' === get_option( 'alg_wc_ev_verify_guest_email', 'no' ) ) {
+			if ( !is_user_logged_in() ) {
+				add_action( 'wp_footer', 													 array( $this, 'add_this_script_footer' ), PHP_INT_MAX );
+			
+				add_action( 'wp_ajax_alg_wc_ev_send_guest_verification_email_action',        array( $this, 'alg_wc_ev_send_guest_verification_email_action' ) );
+				add_action( 'wp_ajax_nopriv_alg_wc_ev_send_guest_verification_email_action', array( $this, 'alg_wc_ev_send_guest_verification_email_action' ) );
+				add_action( 'woocommerce_after_checkout_validation',                     	 array( $this, 'checkout_validate_guest_email' ), PHP_INT_MAX );
+				add_action( 'template_redirect', 											 array( $this, 'checkout_validate_guest_email_message'));
+			}
+		}
 	}
 
 	/**
@@ -645,6 +656,10 @@ class Alg_WC_Email_Verification_Core {
 	 * @return bool
 	 */
 	function verify( $args = null ) {
+		if(is_checkout()){
+			return false;
+		}
+		
 		$args = wp_parse_args( $args, array(
 			'verify_code' => isset( $_GET['alg_wc_ev_verify_email'] ) ? $_GET['alg_wc_ev_verify_email'] : '',
 			'directly'    => true
@@ -1043,6 +1058,315 @@ class Alg_WC_Email_Verification_Core {
 		}
 		return $this->default_hashids_salt_opt;
 	}
+	
+	/**
+	 * add_this_script_footer.
+	 *
+	 * @version 2.5.8
+	 * @since   2.5.8
+	 *
+	 * @return string
+	 */
+	function add_this_script_footer() { 
+		?>
+		<script>
+		jQuery( function( $ ) {
+			
+			
+			
+			var billing_email_input  = $( 'input[name="billing_email"]' );
+			
+			<?php 
+			if ( is_checkout() && ! is_wc_endpoint_url() ) {
+			$args = wp_parse_args( null, array(
+				'verify_code' => isset( $_GET['alg_wc_ev_verify_email'] ) ? $_GET['alg_wc_ev_verify_email'] : '',
+				'directly'    => true
+			) );
+			
+			if (
+				! empty( $args['verify_code'] ) &&
+				! empty( $verify_code = wc_clean( $args['verify_code'] ) ) &&
+				! empty( $data = alg_wc_ev_decode_verify_code( array( 'verify_code' => $verify_code ) ) )
+			) {
+				  
+					// guest user verified by email
+					if (isset($data['id']) && filter_var($data['id'], FILTER_VALIDATE_EMAIL) && isset($data['code'])) {
+						?>
+						billing_email_input.val('<?php echo $data['id']; ?>');
+						<?php
+					}
+			}
+			}
+			?>
+			
+			var current_billing_email = billing_email_input.val();
+			var billing_email_paragraph  = $( 'p[id="billing_email_field"]' );
+			billing_email_paragraph.append( '<div id="alg_wc_ev_activation_guest_verify"></div>' );
+			var guest_email_verify_text = $( 'div[id="alg_wc_ev_activation_guest_verify"]' );
+			var resend_email_verify = $( 'a[id="alg_wc_ev_resend_verify"]' );
+			send_alg_wc_ev_guest_verification_email("new", current_billing_email);
+			billing_email_input.on( 'input change paste keyup blur', function() {
+				send_alg_wc_ev_guest_verification_email("new", $(this).val());
+			});
+	
+			
+			function send_alg_wc_ev_guest_verification_email( send, email ) {
+				if(send == 'resend'){
+					guest_email_verify_text.html('Resending....');
+				}else{
+					guest_email_verify_text.html('');
+				}
+				var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+				var isValid  = regex.test(email);
+				if(isValid){
+					var alg_wc_ev_data = {
+						'action': 'alg_wc_ev_send_guest_verification_email_action',
+						'alg_wc_ev_email': email,
+						'send': send
+					};
+					$.ajax({
+						type: "POST",
+						url: woocommerce_params.ajax_url,
+						data: alg_wc_ev_data,
+						success: function( response ) {
+							if ( 'notsent' == response ) {
+								
+							}else if ( 'sent' == response ){
+								guest_email_verify_text.html( 'Verification mail sent successfully to billing email, please check inbox and verify ! <a href="javascript:;" id="alg_wc_ev_resend_verify">Resend</a>' );
+								guest_email_verify_text.removeClass();
+								guest_email_verify_text.addClass( 'alg-wc-ev-guest-verify-button' );
+								
+								// $( 'body' ).trigger( 'update_checkout' );
+								// jQuery( "#place_order" ).trigger( "click" );
+							}else if ( 'already_verified' == response ){
+								guest_email_verify_text.html( 'Email id verified !' );
+								guest_email_verify_text.removeClass();
+								guest_email_verify_text.addClass( 'alg-wc-ev-guest-verify-button' );
+								// $( 'body' ).trigger( 'update_checkout' );
+								// jQuery( "#place_order" ).trigger( "click" );
+							}
+						}
+					});
+				}
+			}
+			
+			$("body").on("click", "#alg_wc_ev_resend_verify", function() {
+				send_alg_wc_ev_guest_verification_email("resend", $( 'input[name="billing_email"]' ).val());
+			});
+		});
+		</script>
+		<style>
+		.alg-wc-ev-guest-verify-button{ color: green; }
+		</style>
+		<?php
+		}
+		
+		/**
+		 * alg_wc_ev_send_guest_verification_email_action.
+		 *
+		 * @version 2.5.8
+		 * @since   2.5.8
+		 *
+		 * @return string
+		 */
+		function alg_wc_ev_send_guest_verification_email_action( $param ) {
+			
+			if ( isset( $_POST['alg_wc_ev_email'] ) && '' != $_POST['alg_wc_ev_email'] ) {
+				$email = $_POST['alg_wc_ev_email'];
+				$send = $_POST['send'];
+				if($this->is_guest_email_already_verified($email)){
+					echo "already_verified";
+					die;
+				}else{
+					$this->send_guest_verification($email, $send);
+					echo "sent";
+					die;
+				}
+			}
+			echo "notsent";
+			die;
+		}
+		
+		/**
+		 * send_guest_verification.
+		 *
+		 * @version 2.5.8
+		 * @since   2.5.8
+		 *
+		 * @return string
+		 */
+		function send_guest_verification( $email, $send ) {
+			global $wpdb;
+			$code = alg_wc_ev_generate_user_code();
+			$table_name = $wpdb->prefix . 'alg_wc_ev_guest_verify';
+			$current_date_time = date("Y-m-d H:i:s");
+			
+			if( $wpdb->get_var("SHOW TABLES LIKE '$table_name'") == $table_name ) {
+				
+				$result_arr = $wpdb->get_row("SELECT * FROM " . $table_name . " WHERE email = '" . $email . "' AND status = '0'");
+	
+				$inser_new_row = true;
+				
+				
+				if($send == 'resend'){
+					$inser_new_row = true;
+				}
+				
+				if(!empty($result_arr)){
+					$result_time = $result_arr->date;
+					
+					$min_diff = (int) $this->get_time_diff($current_date_time, $result_time);
+					if($min_diff <= 15){
+						$inser_new_row = false;
+						$code = $result_arr->code;
+					}
+				}
+		
+				if($inser_new_row){
+					$wpdb->delete( $table_name, array( 'email' => $email ) );
+					$wpdb->insert($table_name, array(
+					   "code" => $code,
+					   "email" => $email,
+					   "status" => '0',
+					   "date" => $current_date_time
+					));
+					if($send != 'resend'){
+						$this->emails->send_guest_verify_email( $email, $code );
+					}
+				}
+				
+				if($send == 'resend' && !$inser_new_row){
+					$this->emails->send_guest_verify_email( $email, $code );
+				}
+			}
+		}
+		
+		/**
+		 * get_time_diff.
+		 *
+		 * @version 2.5.8
+		 * @since   2.5.8
+		 *
+		 * @return string
+		 */
+		function get_time_diff( $to_time, $from_time ) {
+			$to_time = strtotime($to_time);
+			$from_time = strtotime($from_time);
+			return round(abs($to_time - $from_time) / 60,2);
+			
+		}
+		
+		/**
+		 * is_guest_user_verified_by_email.
+		 *
+		 * @version 2.5.8
+		 * @since   2.5.8
+		 *
+		 * @return string
+		 */
+		function is_guest_user_verified_by_email( $email, $code ) {
+			global $wpdb;
+			
+			$table_name = $wpdb->prefix . 'alg_wc_ev_guest_verify';
+			$current_date_time = date("Y-m-d H:i:s");
+			
+			if( $wpdb->get_var("SHOW TABLES LIKE '$table_name'") == $table_name ) {
+				
+				$result_arr = $wpdb->get_row("SELECT * FROM " . $table_name . " WHERE email = '" . $email . "'");
+				
+				if(!empty($result_arr)){
+					$result_code = $result_arr->code;
+					
+					if($code === $result_code){
+						$wpdb->update( $table_name, array( 'status' => '1' ),array( 'email'=>$email ));
+						return true;
+					}
+				}
+				
+			}
+			return false;
+		}
+		
+		/**
+		 * is_guest_email_already_verified.
+		 *
+		 * @version 2.5.8
+		 * @since   2.5.8
+		 *
+		 * @return string
+		 */
+		function is_guest_email_already_verified( $email ) {
+			global $wpdb;
+			
+			$table_name = $wpdb->prefix . 'alg_wc_ev_guest_verify';
+			$current_date_time = date("Y-m-d H:i:s");
+			
+			if( $wpdb->get_var("SHOW TABLES LIKE '$table_name'") == $table_name ) {
+				
+				$result_arr = $wpdb->get_row("SELECT * FROM " . $table_name . " WHERE email = '" . $email . "'");
+				
+				if(!empty($result_arr)){
+					$result_status = $result_arr->status;
+					
+					if('1' == $result_status){
+						return true;
+					}
+				}
+				
+			}
+			return false;
+		}
+		
+		/**
+		 * checkout_validate_guest_email.
+		 *
+		 * @version 2.5.8
+		 * @since   2.5.8
+		 *
+		 * @return string
+		 */
+		function checkout_validate_guest_email( $_posted ) {
+			if(isset($_posted['billing_email']) && !empty($_posted['billing_email'])){
+				if(!$this->is_guest_email_already_verified($_posted['billing_email'])){
+					alg_wc_ev_add_notice( $this->messages->get_guest_unverified_message(), 'error' );
+					return false;
+				}
+			}
+			return true;
+		}
+
+		/**
+		 * checkout_validate_guest_email_message.
+		 *
+		 * @version 2.5.8
+		 * @since   2.5.8
+		 *
+		 * @return string
+		 */
+		function checkout_validate_guest_email_message(){
+			if ( is_checkout() && ! is_wc_endpoint_url() ) {
+			$args = wp_parse_args( null, array(
+				'verify_code' => isset( $_GET['alg_wc_ev_verify_email'] ) ? $_GET['alg_wc_ev_verify_email'] : '',
+				'directly'    => true
+			) );
+			
+			if (
+				! empty( $args['verify_code'] ) &&
+				! empty( $verify_code = wc_clean( $args['verify_code'] ) ) &&
+				! empty( $data = alg_wc_ev_decode_verify_code( array( 'verify_code' => $verify_code ) ) )
+			) {
+				  
+					// guest user verified by email
+					if (isset($data['id']) && filter_var($data['id'], FILTER_VALIDATE_EMAIL) && isset($data['code'])) {
+						$is_guest_verified = $this->is_guest_user_verified_by_email( $data['id'], $data['code'] );
+						
+						if($is_guest_verified){
+							alg_wc_ev_add_notice( $this->messages->get_guest_verified_message( $data['id'] ), 'notice', $args );
+						}
+					}
+				}
+			}
+		}
 
 }
 

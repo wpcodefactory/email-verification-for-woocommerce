@@ -3,13 +3,13 @@
 Plugin Name: Email Verification for WooCommerce
 Plugin URI: https://wpfactory.com/item/email-verification-for-woocommerce/
 Description: Verify user emails in WooCommerce. Beautifully.
-Version: 2.5.6
+Version: 2.5.8
 Author: WPFactory
 Author URI: https://wpfactory.com
 Text Domain: emails-verification-for-woocommerce
 Domain Path: /langs
 Copyright: © 2023 WPFactory
-WC tested up to: 7.8
+WC tested up to: 7.9
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 */
@@ -62,8 +62,8 @@ final class Alg_WC_Email_Verification {
 	 * @var   string
 	 * @since 1.0.0
 	 */
-	public $version = '2.5.6';
-	
+	public $version = '2.5.7';
+
 	/**
 	 * @var   Alg_WC_Email_Verification The single instance of the class
 	 * @since 1.0.0
@@ -97,31 +97,48 @@ final class Alg_WC_Email_Verification {
 	/**
 	 * Initializes the plugin.
 	 *
-	 * @version 2.5.0
+	 * @version 2.5.7
 	 * @since   1.0.0
 	 * @access  public
 	 */
 	function init() {
 
-		// Localization
+		// Localization.
 		add_action( 'init', array( $this, 'localize' ) );
 
-		// Pro
+		// Pro.
 		if ( 'email-verification-for-woocommerce-pro.php' === basename( __FILE__ ) ) {
 			require_once( 'includes/pro/class-alg-wc-ev-pro.php' );
 		}
 
-		// Include required files
+		// Declare compatibility with custom order tables for WooCommerce.
+		add_action( 'before_woocommerce_init', array( $this, 'wc_declare_compatibility' ) );
+
+		// Include required files.
 		$this->includes();
 
-		// Admin
+		// Admin.
 		if ( is_admin() ) {
 			$this->admin();
-		}	
+		}
 
 		// Generate documentation
 		add_filter( 'wpfpdh_documentation_params_' . plugin_basename( $this->get_filesystem_path() ), array( $this, 'handle_documentation_params' ), 10 );
-	}	
+	}
+
+	/**
+	 * wc_declare_compatibility.
+	 *
+	 * @version 2.5.7
+	 * @since   2.5.7
+	 *
+	 * @see     https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#declaring-extension-incompatibility
+	 */
+	function wc_declare_compatibility() {
+		if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', alg_wc_ev()->get_filesystem_path(), true );
+		}
+	}
 
 	/**
 	 * Handle documentation params managed by the WP Factory
@@ -303,5 +320,11 @@ add_action( 'admin_init', function () use ( $activation_hook ) {
 	if ( is_admin() && get_option( $activation_hook ) === 'yes' ) {
 		delete_option( $activation_hook );
 		do_action( $activation_hook );
+	}
+} );
+
+add_action( 'before_woocommerce_init', function() {
+	if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', dirname(__FILE__), true );
 	}
 } );

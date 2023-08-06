@@ -255,9 +255,9 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 			);
 			$yaymail_opts = array(
 				array(
-					'title' => __( 'YayMail – WooCommerce Email Customizer', 'emails-verification-for-woocommerce' ),
+					'title' => __( 'YayMail - WooCommerce Email Customizer', 'emails-verification-for-woocommerce' ),
 					'type'  => 'title',
-					'desc'  => sprintf( __( 'Compatibility with the %s plugin.', 'emails-verification-for-woocommerce' ), sprintf( '<a href="%s" target="_blank">%s</a>', 'https://wordpress.org/plugins/yaymail/', __( 'YayMail – WooCommerce Email Customizer', 'emails-verification-for-woocommerce' ) ) ),
+					'desc'  => sprintf( __( 'Compatibility with the %s plugin.', 'emails-verification-for-woocommerce' ), sprintf( '<a href="%s" target="_blank">%s</a>', 'https://wordpress.org/plugins/yaymail/', __( 'YayMail - WooCommerce Email Customizer', 'emails-verification-for-woocommerce' ) ) ),
 					'id'    => 'alg_wc_ev_compatibility_yaymail_options',
 				),
 				array(

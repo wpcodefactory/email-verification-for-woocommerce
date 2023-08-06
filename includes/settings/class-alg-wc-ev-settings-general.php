@@ -28,7 +28,7 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.1.4
+	 * @version 2.5.8
 	 * @since   1.0.0
 	 * @todo    [next] Logout unverified users on every page: better description
 	 * @todo    [next] (maybe) `alg_wc_ev_delay_wc_email`: default to `yes`?
@@ -79,6 +79,14 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 				'id'       => 'alg_wc_ev_skip_user_roles',
 				'default'  => array( 'administrator' ),
 				'class'    => 'chosen_select',
+			),
+			array(
+				'title'    => __( 'Guest users', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'Verify guest users', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => __( 'If enabled, checkout as guest user billing address will be verified.', 'emails-verification-for-woocommerce' ),
+				'type'     => 'checkbox',
+				'id'       => 'alg_wc_ev_verify_guest_email',
+				'default'  => 'no',
 			),
 			array(
 				'title'    => __( 'Current registered users', 'emails-verification-for-woocommerce' ),

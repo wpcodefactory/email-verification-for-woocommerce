@@ -3,7 +3,7 @@ Contributors: wpcodefactory, Karzin, jaedm97, algoritmika, anbinder, omardabbas,
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 6.2
-Stable tag: 2.5.6
+Stable tag: 2.5.8
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -205,6 +205,13 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 3. Start by visiting plugin settings at "WooCommerce > Settings > Email Verification".
 
 == Changelog ==
+
+= 2.5.8 - 06/08/2023 =
+* Dev - New option: General > Account Verification > Guest users.
+* WC tested up to: 7.9.
+
+= 2.5.7 - 03/07/2023 =
+* Dev - Declare compatibility with HPOS.
 
 = 2.5.6 - 17/06/2023 =
 * WC tested up to: 7.8.
