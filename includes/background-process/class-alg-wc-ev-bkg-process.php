@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Background Process
  *
- * @version 2.2.1
+ * @version 2.6.0
  * @since   2.0.1
  *
  * @see WC_Background_Process;
@@ -83,7 +83,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Bkg_Process' ) ) :
 		 *
 		 * @see https://gist.github.com/tameemsafi/81725f0b8687244e3f4fcf2a0e46662e
 		 *
-		 * @version 2.0.1
+		 * @version 2.6.0
 		 * @since   2.0.1
 		 */
 		protected function send_email() {
@@ -104,7 +104,10 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Bkg_Process' ) ) :
 			$wrapped_message = $mailer->wrap_message( $this->get_email_heading(), $message );
 
 			// Create new WC_Email instance
-			$wc_email = new WC_Email;
+			if ( ! class_exists( '\WC_Email' ) ) {
+				WC()->mailer();
+			}
+			$wc_email = new \WC_Email;
 
 			// Style the wrapped message with woocommerce inline styles
 			$html_message = $wc_email->style_inline( $wrapped_message );

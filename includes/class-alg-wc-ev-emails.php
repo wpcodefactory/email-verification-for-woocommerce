@@ -202,20 +202,20 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * get_verification_url.
 	 *
-	 * @version 2.5.8
+	 * @version 2.6.0
 	 * @since   1.8.0
 	 */
 	function get_verification_url( $args = null, $checkout = false ) {
-		$args              = wp_parse_args( $args, array(
+		$args = wp_parse_args( $args, array(
 			'user_id'         => '',
 			'code'            => false,
 			'encoding_method' => get_option( 'alg_wc_ev_encoding_method', 'base64_encode' ),
 		) );
 
-		if (filter_var($args['user_id'], FILTER_VALIDATE_EMAIL)) {
-			$user_id       = $args['user_id'];
+		if ( filter_var( $args['user_id'], FILTER_VALIDATE_EMAIL ) ) {
+			$user_id = $args['user_id'];
 		} else {
-			$user_id       = intval( $args['user_id'] );
+			$user_id = intval( $args['user_id'] );
 		}
 
 		$code              = $args['code'];
@@ -226,9 +226,12 @@ class Alg_WC_Email_Verification_Emails {
 				if ( false === $code ) {
 					$code = alg_wc_ev_generate_user_code();
 				}
-				$verify_email_hash = alg_wc_ev()->core->base64_url_encode( json_encode( array( 'id' => $user_id, 'code' => $code ) ) );
+				$verify_email_hash = alg_wc_ev()->core->base64_url_encode( json_encode( array(
+					'id'   => $user_id,
+					'code' => $code
+				) ) );
 				break;
-			case'hashids':
+			case 'hashids':
 				$hashids = alg_wc_ev_get_hashids();
 				if ( false === $code ) {
 					$code = alg_wc_ev_generate_user_code();
@@ -236,10 +239,10 @@ class Alg_WC_Email_Verification_Emails {
 				$verify_email_hash = $hashids->encode( $user_id, $code );
 				break;
 		}
-		if( $checkout ) {
-			return add_query_arg( 'alg_wc_ev_verify_email', $verify_email_hash, wc_get_checkout_url() );
-		}else{
-			return add_query_arg( 'alg_wc_ev_verify_email', $verify_email_hash, wc_get_page_permalink( 'myaccount' ) );
+		if ( $checkout ) {
+			return add_query_arg( alg_wc_ev_get_verification_param(), $verify_email_hash, wc_get_checkout_url() );
+		} else {
+			return add_query_arg( alg_wc_ev_get_verification_param(), $verify_email_hash, wc_get_page_permalink( 'myaccount' ) );
 		}
 	}
 

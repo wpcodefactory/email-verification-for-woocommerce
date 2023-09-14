@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Functions.
  *
- * @version 2.4.7
+ * @version 2.6.0
  * @since   1.9.0
  * @author  WPFactory
  */
@@ -256,14 +256,13 @@ if ( ! function_exists( 'alg_wc_ev_get_hashids' ) ) {
 	/**
 	 * alg_wc_ev_get_hashids.
 	 *
-	 * @version 2.4.0
+	 * @version 2.6.0
 	 * @since   2.4.0
 	 *
 	 * @return \Hashids\Hashids
 	 */
 	function alg_wc_ev_get_hashids() {
-		$hashids = new \Hashids\Hashids( get_option( 'alg_wc_ev_hashids_salt', '' ), 6, get_option( 'alg_wc_ev_hashids_alphabet', 'abcdefghijklmnopqrstuvwxyz1234567890' ) );
-		return $hashids;
+		return alg_wc_ev()->core->get_hashids();
 	}
 }
 
@@ -339,5 +338,20 @@ if ( ! function_exists( 'alg_wc_ev_get_current_url' ) ) {
 		$query_string = ! empty( $_SERVER['QUERY_STRING'] ) ? '?' . $_SERVER['QUERY_STRING'] : '';
 		$current_url  = trailingslashit( home_url( $wp->request ) ) . $query_string;
 		return $current_url;
+	}
+}
+
+if ( ! function_exists( 'alg_wc_ev_get_verification_param' ) ) {
+
+	/**
+	 * alg_wc_ev_get_verification_param.
+	 *
+	 * @version 2.6.0
+	 * @since   2.6.0
+	 *
+	 * @return string
+	 */
+	function alg_wc_ev_get_verification_param() {
+		return apply_filters( 'alg_wc_ev_verification_param', 'alg_wc_ev_verify_email' );
 	}
 }

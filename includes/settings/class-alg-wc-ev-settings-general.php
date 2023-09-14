@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - General Section Settings
  *
- * @version 2.1.1
+ * @version 2.6.0
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.5.8
+	 * @version 2.6.0
 	 * @since   1.0.0
 	 * @todo    [next] Logout unverified users on every page: better description
 	 * @todo    [next] (maybe) `alg_wc_ev_delay_wc_email`: default to `yes`?
@@ -69,6 +69,15 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 				'title'    => __( 'Account verification', 'emails-verification-for-woocommerce' ),
 				'type'     => 'title',
 				'id'       => 'alg_wc_ev_account_verification',
+			),
+			array(
+				'title'             => __( 'Verification parameter', 'emails-verification-for-woocommerce' ),
+				'desc'              => sprintf( __( 'Ex: <code>%s</code>', 'emails-verification-for-woocommerce' ), alg_wc_ev()->core->emails->get_verification_url( array( 'user_id' => get_current_user_id(), 'code' => 'eyJpZCI6MSwiY' ) ) ),
+				'desc_tip'          => __( 'The parameter used on the URL to verify the user account.', 'emails-verification-for-woocommerce' ),
+				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+				'type'              => 'text',
+				'id'                => 'alg_wc_ev_verification_parameter',
+				'default'           => 'alg_wc_ev_verify_email',
 			),
 			array(
 				'title'    => __( 'Ignore user roles', 'emails-verification-for-woocommerce' ),
