@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Admin Class.
  *
- * @version 2.5.0
+ * @version 2.6.2
  * @since   1.5.0
  * @author  WPFactory
  */
@@ -15,6 +15,46 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Admin' ) ) :
 
 class Alg_WC_Email_Verification_Admin {
 
+	/**
+	 * is_admin_manual_actions.
+	 *
+	 * @version 2.6.2
+	 * @since 	2.6.2
+	 *
+	 * @var is_admin_manual_actions
+	 */
+	public $is_admin_manual_actions;
+	
+	/**
+	 * delete_users_bkg_process.
+	 *
+	 * @version 2.6.2
+	 * @since 	2.6.2
+	 *
+	 * @var Alg_WC_Email_Verification_Import_Tool_Bkg_Process
+	 */
+	public $delete_users_bkg_process;
+	
+	/**
+	 * verify_users_bkg_process.
+	 *
+	 * @version 2.6.2
+	 * @since 	2.6.2
+	 *
+	 * @var Alg_WC_Email_Verification_Verify_Users
+	 */
+	public $verify_users_bkg_process;
+	
+	/**
+	 * unverify_users_bkg_process.
+	 *
+	 * @version 2.6.2
+	 * @since 	2.6.2
+	 *
+	 * @var Alg_WC_Email_Verification_Unverify_Users
+	 */
+	public $unverify_users_bkg_process;
+	
 	/**
 	 * Constructor.
 	 *

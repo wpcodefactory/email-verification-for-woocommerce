@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Core Class.
  *
- * @version 2.6.0
+ * @version 2.6.2
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -23,6 +23,26 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		 * @var Alg_WC_Email_Verification_Emails
 		 */
 		public $emails;
+
+		/**
+		 * html_tags_converter.
+		 *
+		 * @version 2.6.2
+		 * @since 	2.6.2
+		 *
+		 * @var Alg_WC_Email_Verification_HTML_Tags_Converter
+		 */
+		public $html_tags_converter;
+		
+		/**
+		 * messages.
+		 *
+		 * @version 2.6.2
+		 * @since 	2.6.2
+		 *
+		 * @var Alg_WC_Email_Verification_Messages
+		 */
+		public $messages;
 
 		/**
 		 * Hashids
