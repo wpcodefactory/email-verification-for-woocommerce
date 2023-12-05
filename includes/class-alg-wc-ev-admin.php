@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'Alg_WC_Email_Verification_Admin' ) ) :
 
 class Alg_WC_Email_Verification_Admin {
-
+	
 	/**
 	 * is_admin_manual_actions.
 	 *
@@ -55,6 +55,7 @@ class Alg_WC_Email_Verification_Admin {
 	 */
 	public $unverify_users_bkg_process;
 	
+		
 	/**
 	 * Constructor.
 	 *

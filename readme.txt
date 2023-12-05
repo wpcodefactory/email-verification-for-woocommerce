@@ -2,8 +2,8 @@
 Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmukherjeeli
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
-Tested up to: 6.3
-Stable tag: 2.6.2
+Tested up to: 6.4
+Stable tag: 2.6.3
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -205,6 +205,11 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 3. Start by visiting plugin settings at "WooCommerce > Settings > Email Verification".
 
 == Changelog ==
+
+= 2.6.3 - 05/12/2023 =
+* Fix - When the option "WC email template" is set to "WooCommerce > Emails", the activation and confirmation emails can't have their content changed via settings.
+* WC tested up to: 8.3.
+* Tested up to: 6.4.
 
 = 2.6.2 - 22/10/2023 =
 * WC tested up to: 8.2.

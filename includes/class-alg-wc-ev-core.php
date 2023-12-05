@@ -23,7 +23,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		 * @var Alg_WC_Email_Verification_Emails
 		 */
 		public $emails;
-
+		
 		/**
 		 * html_tags_converter.
 		 *

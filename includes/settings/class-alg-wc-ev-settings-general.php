@@ -71,15 +71,6 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 				'id'       => 'alg_wc_ev_account_verification',
 			),
 			array(
-				'title'             => __( 'Verification parameter', 'emails-verification-for-woocommerce' ),
-				'desc'              => sprintf( __( 'Ex: <code>%s</code>', 'emails-verification-for-woocommerce' ), alg_wc_ev()->core->emails->get_verification_url( array( 'user_id' => get_current_user_id(), 'code' => 'eyJpZCI6MSwiY' ) ) ),
-				'desc_tip'          => __( 'The parameter used on the URL to verify the user account.', 'emails-verification-for-woocommerce' ),
-				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
-				'type'              => 'text',
-				'id'                => 'alg_wc_ev_verification_parameter',
-				'default'           => 'alg_wc_ev_verify_email',
-			),
-			array(
 				'title'    => __( 'Ignore user roles', 'emails-verification-for-woocommerce' ),
 				'desc_tip' => __( 'The following user roles won\'t need to be berified', 'emails-verification-for-woocommerce' ),
 				'desc'     => __( 'Skipped user roles', 'emails-verification-for-woocommerce' ),
@@ -138,6 +129,15 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 				'type'              => 'text',
 				'id'                => 'alg_wc_ev_unverify_email_changing_msg',
 				'default'           => __( 'Your email has been changed. In order to verify your account please check the activation email that was sent to your new email.', 'emails-verification-for-woocommerce' ),
+			),
+			array(
+				'title'             => __( 'Verification parameter', 'emails-verification-for-woocommerce' ),
+				'desc'              => sprintf( __( 'Ex: <code>%s</code>', 'emails-verification-for-woocommerce' ), alg_wc_ev()->core->emails->get_verification_url( array( 'user_id' => get_current_user_id(), 'code' => 'a' ) ) ),
+				'desc_tip'          => __( 'The parameter used on the URL to verify the user account.', 'emails-verification-for-woocommerce' ),
+				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+				'type'              => 'text',
+				'id'                => 'alg_wc_ev_verification_parameter',
+				'default'           => 'alg_wc_ev_verify_email',
 			),
 			array(
 				'type'     => 'sectionend',
