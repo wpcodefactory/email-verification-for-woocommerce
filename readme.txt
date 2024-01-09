@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 6.4
-Stable tag: 2.6.3
+Stable tag: 2.6.5
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -205,6 +205,12 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 3. Start by visiting plugin settings at "WooCommerce > Settings > Email Verification".
 
 == Changelog ==
+
+= 2.6.5 - 09/01/2024 =
+* Dev - Email - Add `%site_title%` and `%site_url%` placeholders to emails. This should help with deliverability problems and emails sent to Spam.
+
+= 2.6.4 - 03/01/2024 =
+* Fix - Guest verification email change to do action on click "Send Mail" link.
 
 = 2.6.3 - 05/12/2023 =
 * Fix - When the option "WC email template" is set to "WooCommerce > Emails", the activation and confirmation emails can't have their content changed via settings.

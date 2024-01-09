@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Core Class.
  *
- * @version 2.6.2
+ * @version 2.6.4
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -1134,7 +1134,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		/**
 		 * add_this_script_footer.
 		 *
-		 * @version 2.6.0
+		 * @version 2.6.4
 		 * @since   2.5.8
 		 *
 		 * @return string
@@ -1144,6 +1144,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
             <script>
                 jQuery(function ($) {
                     var billing_email_input = $('input[name="billing_email"]');
+					
 
 					<?php
 					if ( is_checkout() && ! is_wc_endpoint_url() ) {
@@ -1170,12 +1171,21 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 
                     var current_billing_email = billing_email_input.val();
                     var billing_email_paragraph = $('p[id="billing_email_field"]');
-                    billing_email_paragraph.append('<div id="alg_wc_ev_activation_guest_verify"></div>');
+					billing_email_paragraph.append('<div id="alg_wc_ev_activation_guest_verify"></div>');
+					
                     var guest_email_verify_text = $('div[id="alg_wc_ev_activation_guest_verify"]');
+					
+					
                     var resend_email_verify = $('a[id="alg_wc_ev_resend_verify"]');
                     send_alg_wc_ev_guest_verification_email("new", current_billing_email);
                     billing_email_input.on('input change paste keyup blur', function () {
-                        send_alg_wc_ev_guest_verification_email("new", $(this).val());
+                        // send_alg_wc_ev_guest_verification_email("new", $(this).val());
+						guest_email_verify_text.html('');
+						var regexo = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                        var isValido = regexo.test($(this).val());
+                        if (isValido) {
+							guest_email_verify_text.html('<a href="javascript:;" id="alg_wc_ev_send_verify">Send Verify Email</a>');
+						}
                     });
 
 
@@ -1221,6 +1231,10 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 
                     $("body").on("click", "#alg_wc_ev_resend_verify", function () {
                         send_alg_wc_ev_guest_verification_email("resend", $('input[name="billing_email"]').val());
+                    });
+					
+					$("body").on("click", "#alg_wc_ev_send_verify", function () {
+                        send_alg_wc_ev_guest_verification_email("new", $('input[name="billing_email"]').val());
                     });
                 });
             </script>

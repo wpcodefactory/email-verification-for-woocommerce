@@ -249,7 +249,7 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * get_email_subject.
 	 *
-	 * @version 2.3.1
+	 * @version 2.6.5
 	 * @since   2.3.1
 	 */
 	function get_email_subject( $args ) {
@@ -257,7 +257,7 @@ class Alg_WC_Email_Verification_Emails {
 			'user_id'      => '',
 			'subject'      => '',
 			'context'      => 'activation_email_separate',
-			'placeholders' => array()
+			'placeholders' => alg_wc_ev_get_common_placeholders()
 		) );
 		$user_id      = $args['user_id'];
 		$placeholders = array_merge( $args['placeholders'], alg_wc_ev_get_user_placeholders( array( 'user_id' => $user_id ) ) );
@@ -268,7 +268,7 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * get_email_content.
 	 *
-	 * @version 2.4.0
+	 * @version 2.6.5
 	 * @since   1.8.0
 	 * @todo    (maybe) `$user->user_url`, `$user->user_registered`
 	 *
@@ -283,7 +283,7 @@ class Alg_WC_Email_Verification_Emails {
 			'content' => __( '<p>Please <a href="%verification_url%" target="_blank">click here</a> to verify your email.</p>', 'emails-verification-for-woocommerce' ),
 			'heading' => __( 'Activate your account', 'emails-verification-for-woocommerce' ),
 			'context' => 'activation_email_separate',
-			'placeholders' => array()
+			'placeholders' => alg_wc_ev_get_common_placeholders()
 		) );
 		$user_id = $args['user_id'];
 		$code = $args['code'];
@@ -497,8 +497,8 @@ class Alg_WC_Email_Verification_Emails {
 		 * `wc_mail( $to, $subject, $message, $headers = "Content-Type: text/html\r\n", $attachments = '' )`
 		 * `wp_mail( string|array $to, string $subject, string $message, string|array $headers = '', string|array $attachments = array() )`
 		 */
-		$func    = get_option( 'alg_wc_ev_mail_function', 'wc_mail' );
-		$message = apply_filters( 'alg_wc_ev_send_mail_message', $message, $func );
+		$func                 = get_option( 'alg_wc_ev_mail_function', 'wc_mail' );
+		$message              = apply_filters( 'alg_wc_ev_send_mail_message', $message, $func );
 		$res     = $func( $to, $subject, $message, "Content-Type: text/html\r\n" );
 		if ( ! $res ) {
 			$error_message  = __( 'Error sending mail.', 'emails-verification-for-woocommerce' );
