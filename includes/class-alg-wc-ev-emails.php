@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Emails Class.
  *
- * @version 2.4.8
+ * @version 2.6.6
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -56,7 +56,7 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * send_confirmation_email.
 	 *
-	 * @version 2.4.1
+	 * @version 2.6.6
 	 * @since   2.4.1
 	 *
 	 * @param $user_id
@@ -71,13 +71,13 @@ class Alg_WC_Email_Verification_Emails {
 		$content           = $this->get_email_content( array(
 			'user_id' => $user_id,
 			'context' => 'confirmation_email',
-			'content' => __( 'Your account has been activated successfully', 'emails-verification-for-woocommerce' ),
+			'content' => '[%site_title%]: ' . __( 'Your account has been activated successfully', 'emails-verification-for-woocommerce' ),
 			'heading' => __( 'Your account has been activated', 'emails-verification-for-woocommerce' )
 		) );
 		$subject           = $this->get_email_subject( array(
 			'user_id' => $user_id,
 			'context' => 'confirmation_email',
-			'subject' => __( 'Your account has been activated successfully', 'emails-verification-for-woocommerce' )
+			'subject' => '[%site_title%]: ' . __( 'Your account has been activated successfully', 'emails-verification-for-woocommerce' )
 		) );
 		$wc_email_template = get_option( 'alg_wc_ev_wc_email_template', 'simulation' );
 		$email_template    = get_option( 'alg_wc_ev_email_template', 'plain' );
@@ -363,7 +363,7 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * reset_and_mail_activation_link.maybe_send_wc_customer_new_account_email.
 	 *
-	 * @version 2.4.0
+	 * @version 2.6.6
 	 * @since   1.0.0
 	 * @todo    (maybe) add `%site_name%` etc. replaced value in `alg_wc_ev_email_subject`
 	 */
@@ -380,7 +380,7 @@ class Alg_WC_Email_Verification_Emails {
 			$email_subject = $this->get_email_subject( array(
 				'user_id' => $user_id,
 				'context' => 'activation_email_separate',
-				'subject' => __( 'Please activate your account', 'emails-verification-for-woocommerce' )
+				'subject' => '[%site_title%]: ' . __( 'Please activate your account', 'emails-verification-for-woocommerce' )
 			) );
 			// Set user meta
 			$this->update_all_user_meta( $user_id, $code );

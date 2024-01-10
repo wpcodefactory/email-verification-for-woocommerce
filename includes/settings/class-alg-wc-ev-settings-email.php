@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Email Section Settings.
  *
- * @version 2.6.5
+ * @version 2.6.6
  * @since   1.3.0
  * @author  WPFactory
  */
@@ -54,7 +54,7 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.6.5
+	 * @version 2.6.6
 	 * @since   1.3.0
 	 */
 	function get_settings() {
@@ -132,12 +132,28 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 				'id'   => 'alg_wc_ev_email_options',
 			)
 		);
+		$email_placeholder_opts = array(
+			array(
+				'title' => __( 'Common placeholders', 'emails-verification-for-woocommerce' ),
+				'desc'  => sprintf( __( 'These placeholders can be used on the Email Subject or Content options: %s.', 'emails-verification-for-woocommerce' ), '<code>' . implode( '</code>, <code>', $this->get_default_email_placeholders() ) . '</code>' ).' '.
+				           sprintf( __( 'If you\'re having deliverability problems or emails being sent to Spam, try using the placeholders %s and %s on the Email Content or subject.', 'emails-verification-for-woocommerce' ), '<code>%site_title%</code>','<code>%site_url%</code>'),
+
+				'type'  => 'title',
+				'id'    => 'alg_wc_ev_common_email_placeholder_options',
+			),
+			array(
+				'type' => 'sectionend',
+				'id'   => 'alg_wc_ev_common_email_placeholder_options',
+			)
+		);
 		$activation_email_opts   = array(
 			array(
 				'title' => __( 'Activation email', 'emails-verification-for-woocommerce' ),
 				'type'  => 'title',
 				'id'    => 'alg_wc_ev_activation_email',
-				'desc'  => __( 'An email sent to the user with an activation link.', 'emails-verification-for-woocommerce' ),
+				'desc'  => __( 'An email sent to the user with an activation link.', 'emails-verification-for-woocommerce' ) . ' ' .
+				           sprintf( __( 'Additional placeholders: %s.', 'emails-verification-for-woocommerce' ), '<code>' . implode( '</code>, <code>', array( '%verification_url%' ) ) . '</code>' ),
+
 			),
 			array(
 				'title'    => __( 'Send as a separate email', 'emails-verification-for-woocommerce' ),
@@ -174,26 +190,30 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 				'title'             => __( 'Email subject', 'emails-verification-for-woocommerce' ),
 				'type'              => 'textarea',
 				'id'                => 'alg_wc_ev_email_subject',
-				'default'           => __( 'Please activate your account', 'emails-verification-for-woocommerce' ),
+				'default'           => '[%site_title%]: ' . __( 'Please activate your account', 'emails-verification-for-woocommerce' ),
 				'css'               => 'width:100%;',
 				'alg_wc_ev_raw'     => true,
 				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'readonly' => 'readonly' ) ),
 			),
+
+			'%site_title%',
+			'%site_url%',
+			'%user_id%',
+			'%user_login%',
+			'%user_nicename%',
+			'%user_email%',
+			'%user_url%',
+			'%user_registered%',
+			'%user_display_name%',
+			'%user_roles%',
+			'%user_first_name%',
+			'%user_last_name%',
+			'%admin_user_profile_url%',
+
 			array(
 				'title'             => __( 'Email content', 'emails-verification-for-woocommerce' ),
-				'desc'              => sprintf( __( 'Placeholders: %s', 'emails-verification-for-woocommerce' ), '<code>' . implode( '</code>, <code>', array(
-						'%site_title%',
-						'%site_url%',
-						'%verification_url%',
-						'%user_id%',
-						'%user_first_name%',
-						'%user_last_name%',
-						'%user_login%',
-						'%user_nicename%',
-						'%user_email%',
-						'%user_display_name%',
-					) ) . '</code>' ),
-				'desc_tip'          => sprintf( __( 'If you\'re having deliverability problems or emails being sent to Spam, please try using the placeholders %s and %s on the Email Content or subject.', 'emails-verification-for-woocommerce' ), '<code>%site_title%</code>','<code>%site_url%</code>'),
+				'desc'              => '',
+				'desc_tip'          => '',
 				'type'              => 'textarea',
 				'id'                => 'alg_wc_ev_email_content',
 				'default'           => __( '<p>Please <a href="%verification_url%" target="_blank">click here</a> to verify your email.</p>', 'emails-verification-for-woocommerce' ),
@@ -252,14 +272,13 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 				'title'             => __( 'Email subject', 'emails-verification-for-woocommerce' ),
 				'type'              => 'textarea',
 				'id'                => 'alg_wc_ev_confirmation_email_subject',
-				'default'           => __( 'Your account has been activated successfully', 'emails-verification-for-woocommerce' ),
+				'default'           => '[%site_title%]: ' . __( 'Your account has been activated successfully', 'emails-verification-for-woocommerce' ),
 				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'readonly' => 'readonly' ) ),
 				'css'               => 'width:100%;',
 				'alg_wc_ev_raw'     => true,
 			),
 			array(
 				'title'             => __( 'Email Heading', 'emails-verification-for-woocommerce' ),
-				'desc'              => $this->available_placeholders_desc( $this->get_default_email_placeholders() ),
 				'type'              => 'textarea',
 				'id'                => 'alg_wc_ev_confirmation_email_heading',
 				'default'           => __( 'Your account has been activated', 'emails-verification-for-woocommerce' ),
@@ -269,18 +288,6 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 			),
 			array(
 				'title'             => __( 'Email content', 'emails-verification-for-woocommerce' ),
-				'desc'              => sprintf( __( 'Placeholders: %s', 'emails-verification-for-woocommerce' ), '<code>' . implode( '</code>, <code>', array(
-						'%site_title%',
-						'%site_url%',
-						'%user_id%',
-						'%user_first_name%',
-						'%user_last_name%',
-						'%user_login%',
-						'%user_nicename%',
-						'%user_email%',
-						'%user_display_name%',
-					) ) . '</code>' ),
-				'desc_tip'          => sprintf( __( 'If you\'re having deliverability problems or emails being sent to Spam, please try using the placeholders %s and %s on the Email Content or subject.', 'emails-verification-for-woocommerce' ), '<code>%site_title%</code>','<code>%site_url%</code>'),
 				'type'              => 'textarea',
 				'id'                => 'alg_wc_ev_confirmation_email_content',
 				'default'           => __( '<p>Your account has been activated successfully.</p>', 'emails-verification-for-woocommerce' ),
@@ -353,15 +360,13 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 			),
 			array(
 				'title'   => __( 'Subject', 'emails-verification-for-woocommerce' ),
-				'desc'    => $this->available_placeholders_desc( $this->get_default_email_placeholders() ),
 				'type'    => 'text',
 				'id'      => 'alg_wc_ev_admin_email_subject',
-				'default' => __( 'User email has been verified', 'emails-verification-for-woocommerce' ),
+				'default' => '[%site_title%]: ' . __( 'User email has been verified', 'emails-verification-for-woocommerce' ),
 				'css'     => 'width:100%;',
 			),
 			array(
 				'title'         => __( 'Heading', 'emails-verification-for-woocommerce' ),
-				'desc'          => $this->available_placeholders_desc( $this->get_default_email_placeholders() ),
 				'type'          => 'textarea',
 				'id'            => 'alg_wc_ev_admin_email_heading',
 				'default'       => __( 'User account has been activated', 'emails-verification-for-woocommerce' ),
@@ -370,8 +375,6 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 			),
 			array(
 				'title'         => __( 'Content', 'emails-verification-for-woocommerce' ),
-				'desc'          => $this->available_placeholders_desc( $this->get_default_email_placeholders() ),
-				'desc_tip'          => sprintf( __( 'If you\'re having deliverability problems or emails being sent to Spam, please try using the placeholders %s and %s on the Email Content content or subject.', 'emails-verification-for-woocommerce' ), '<code>%site_title%</code>','<code>%site_url%</code>'),
 				'type'          => 'textarea',
 				'id'            => 'alg_wc_ev_admin_email_content',
 				'default'       => sprintf( __( 'User %s has just verified his email (%s).', 'emails-verification-for-woocommerce' ),
@@ -384,7 +387,7 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 				'id'   => 'alg_wc_ev_email_options',
 			),
 		);
-		return array_merge( $general_opts, $activation_email_opts, $confirmation_email_opts, $admin_email_opts );
+		return array_merge( $general_opts, $email_placeholder_opts, $activation_email_opts, $confirmation_email_opts, $admin_email_opts );
 	}
 
 }

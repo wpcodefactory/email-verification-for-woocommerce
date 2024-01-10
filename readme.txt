@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 6.4
-Stable tag: 2.6.5
+Stable tag: 2.6.6
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -205,6 +205,9 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 3. Start by visiting plugin settings at "WooCommerce > Settings > Email Verification".
 
 == Changelog ==
+
+= 2.6.6 - 10/01/2024 =
+* Dev - Email - Add `%site_title%` to email subjects by default.
 
 = 2.6.5 - 09/01/2024 =
 * Dev - Email - Add `%site_title%` and `%site_url%` placeholders to emails. This should help with deliverability problems and emails sent to Spam.
