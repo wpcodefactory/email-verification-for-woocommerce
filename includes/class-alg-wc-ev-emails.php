@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Emails Class.
  *
- * @version 2.6.6
+ * @version 2.6.7
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -56,7 +56,7 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * send_confirmation_email.
 	 *
-	 * @version 2.6.6
+	 * @version 2.6.7
 	 * @since   2.4.1
 	 *
 	 * @param $user_id
@@ -71,7 +71,7 @@ class Alg_WC_Email_Verification_Emails {
 		$content           = $this->get_email_content( array(
 			'user_id' => $user_id,
 			'context' => 'confirmation_email',
-			'content' => '[%site_title%]: ' . __( 'Your account has been activated successfully', 'emails-verification-for-woocommerce' ),
+			'content' => alg_wc_ev()->core->emails->get_default_email_content('confirmation'),
 			'heading' => __( 'Your account has been activated', 'emails-verification-for-woocommerce' )
 		) );
 		$subject           = $this->get_email_subject( array(
@@ -268,7 +268,7 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * get_email_content.
 	 *
-	 * @version 2.6.5
+	 * @version 2.6.7
 	 * @since   1.8.0
 	 * @todo    (maybe) `$user->user_url`, `$user->user_registered`
 	 *
@@ -280,7 +280,7 @@ class Alg_WC_Email_Verification_Emails {
 		$args = wp_parse_args( $args, array(
 			'user_id' => '',
 			'code'    => false,
-			'content' => __( '<p>Please <a href="%verification_url%" target="_blank">click here</a> to verify your email.</p>', 'emails-verification-for-woocommerce' ),
+			'content' => alg_wc_ev()->core->emails->get_default_email_content('activation'),
 			'heading' => __( 'Activate your account', 'emails-verification-for-woocommerce' ),
 			'context' => 'activation_email_separate',
 			'placeholders' => alg_wc_ev_get_common_placeholders()
@@ -334,6 +334,46 @@ class Alg_WC_Email_Verification_Emails {
 				       ) ) ) . "\n\n" . $content;
 		}
 		return $content;
+	}
+
+	/**
+	 * get_default_email_content.
+	 *
+	 * @version 2.6.7
+	 * @since   2.6.7
+	 *
+	 * @param $email_type 'activation' | confirmation | admin
+	 *
+	 * @return string
+	 */
+	function get_default_email_content( $email_type ) {
+		$default_content = '';
+		switch ( $email_type ) {
+			case 'activation':
+				$default_content = sprintf(
+					__( '<p>Please <a href="%s" target="_blank">click here</a> to verify your email on %s.</p>', 'emails-verification-for-woocommerce' ),
+					'%verification_url%',
+					'<a href="%site_url%" target="_blank">%site_title%</a>'
+				);
+				break;
+			case 'confirmation':
+				$default_content = sprintf(
+					__( '<p>Your account has been activated successfully on %s.</p>', 'emails-verification-for-woocommerce' ),
+					'<a href="%site_url%" target="_blank">%site_title%</a>'
+				);
+				break;
+			case 'admin':
+				$default_content =
+					sprintf(
+						__( 'User %s has just verified his email (%s) on %s.', 'emails-verification-for-woocommerce' ),
+						'<a href="%admin_user_profile_url%">%user_login%</a>',
+						'%user_email%',
+						'<a href="%site_url%" target="_blank">%site_title%</a>'
+					);
+				break;
+		}
+
+		return $default_content;
 	}
 
 	/**
@@ -531,20 +571,20 @@ class Alg_WC_Email_Verification_Emails {
 		$subject      = $args['subject'];
 		return apply_filters( 'alg_wc_ev_email_subject_final', str_replace( array_keys( $placeholders ), $placeholders, $subject ), $args );
 	}
-	
+
 	/**
 	 * send verify email function.
 	 *
 	 * @see guest_checkout_content()
 	 *
-	 * @version 2.5.8
+	 * @version 2.6.7
 	 * @since   2.5.8
 	 */
 	function guest_checkout_content( $args = null ) {
 		$args = wp_parse_args( $args, array(
 			'user_id' => '',
 			'code'    => false,
-			'content' => __( '<p>Please <a href="%verification_url%" target="_blank">click here</a> to verify your email.</p>', 'emails-verification-for-woocommerce' ),
+			'content' => alg_wc_ev()->core->emails->get_default_email_content('activation'),
 			'heading' => __( 'Activate your account', 'emails-verification-for-woocommerce' ),
 			'context' => 'activation_email_separate',
 			'placeholders' => array()
@@ -558,7 +598,7 @@ class Alg_WC_Email_Verification_Emails {
 		$content = apply_filters( 'alg_wc_ev_email_content', $args['content'], $args );
 		return apply_filters( 'alg_wc_ev_email_content_final', str_replace( array_keys( $placeholders ), $placeholders, $content ), $args );
 	}
-	
+
 	/**
 	 * send verify email function.
 	 *
@@ -568,21 +608,21 @@ class Alg_WC_Email_Verification_Emails {
 	 * @since   2.5.8
 	 */
 	function send_guest_verify_email($email, $code){
-		
+
 			$email_content = $this->guest_checkout_content( array(
 				'user_id' => $email,
 				'code'    => $code,
 				'context' => 'activation_email_separate',
 			) );
-			
+
 			$email_subject = $this->guest_checkout_subject( array(
 				'user_id' => $email,
 				'context' => 'activation_email_separate',
 				'subject' => __( 'Please verify your email', 'emails-verification-for-woocommerce' )
 			) );
-			
+
 			// Send email
-			
+
 			$this->send_mail( $email, $email_subject, $email_content );
 	}
 

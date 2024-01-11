@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Email Section Settings.
  *
- * @version 2.6.6
+ * @version 2.6.7
  * @since   1.3.0
  * @author  WPFactory
  */
@@ -54,7 +54,7 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.6.6
+	 * @version 2.6.7
 	 * @since   1.3.0
 	 */
 	function get_settings() {
@@ -195,28 +195,13 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 				'alg_wc_ev_raw'     => true,
 				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'readonly' => 'readonly' ) ),
 			),
-
-			'%site_title%',
-			'%site_url%',
-			'%user_id%',
-			'%user_login%',
-			'%user_nicename%',
-			'%user_email%',
-			'%user_url%',
-			'%user_registered%',
-			'%user_display_name%',
-			'%user_roles%',
-			'%user_first_name%',
-			'%user_last_name%',
-			'%admin_user_profile_url%',
-
 			array(
 				'title'             => __( 'Email content', 'emails-verification-for-woocommerce' ),
 				'desc'              => '',
 				'desc_tip'          => '',
 				'type'              => 'textarea',
 				'id'                => 'alg_wc_ev_email_content',
-				'default'           => __( '<p>Please <a href="%verification_url%" target="_blank">click here</a> to verify your email.</p>', 'emails-verification-for-woocommerce' ),
+				'default'           => alg_wc_ev()->core->emails->get_default_email_content('activation'),
 				'css'               => 'width:100%;height:150px;',
 				'alg_wc_ev_raw'     => true,
 				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'readonly' => 'readonly' ) ),
@@ -290,7 +275,7 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 				'title'             => __( 'Email content', 'emails-verification-for-woocommerce' ),
 				'type'              => 'textarea',
 				'id'                => 'alg_wc_ev_confirmation_email_content',
-				'default'           => __( '<p>Your account has been activated successfully.</p>', 'emails-verification-for-woocommerce' ),
+				'default'           => alg_wc_ev()->core->emails->get_default_email_content('confirmation'),
 				'css'               => 'width:100%;height:150px;',
 				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'readonly' => 'readonly' ) ),
 				'alg_wc_ev_raw'     => true,
@@ -377,8 +362,7 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 				'title'         => __( 'Content', 'emails-verification-for-woocommerce' ),
 				'type'          => 'textarea',
 				'id'            => 'alg_wc_ev_admin_email_content',
-				'default'       => sprintf( __( 'User %s has just verified his email (%s).', 'emails-verification-for-woocommerce' ),
-					'<a href="%admin_user_profile_url%">%user_login%</a>', '%user_email%' ),
+				'default'       => alg_wc_ev()->core->emails->get_default_email_content('admin'),
 				'css'           => 'width:100%;height:100px;',
 				'alg_wc_ev_raw' => true,
 			),
