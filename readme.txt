@@ -1,106 +1,243 @@
-=== Email Verification for WooCommerce ===
+=== Customer Email Verification for WooCommerce ===
 Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmukherjeeli
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 6.4
-Stable tag: 2.6.4
+Stable tag: 2.6.8
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Verify user emails in WooCommerce. Beautifully.
+Enhance WooCommerce security and credibility with Email Verification best plugin. Ensure genuine customer interactions, eliminate spam, and elevate email marketing efficiency
 
 == Description ==
 
-**Email Verification for WooCommerce** plugin lets you add email verification to WooCommerce.
+> > “Amazing support and plugin: Support helped me integrate their plugin with another plugin and I am really grateful for it. The best verification plugin out there at the moment with awesome support” – ⭐⭐⭐⭐⭐  [mountainbirb](https://wordpress.org/support/topic/amazing-support-and-plugin-25/)
 
-### &#9989; Main Features ###
+In the dynamic world of e-commerce, ensuring the authenticity and engagement of your customer base is crucial. 
 
-* Require **email verification** for new user registrations.
+That's where the "Email Verification for WooCommerce" plugin comes in, addressing a vital aspect of customer management. 
 
+By integrating email verification into your WooCommerce setup, this plugin enhances the security and reliability of user registrations. 
 
-* Optionally enable email verification for **already registered users**.
+It's designed not just to verify new users but also to streamline customer management for existing accounts. Let's take a quick look into how this plugin can transform your WooCommerce experience:
 
+**1. New User Registration Verification:** New user accounts require email verification, bolstering the security and authenticity of each registration.
 
-* Skip email verification for selected **user roles**.
+**2. Verification for Existing Users:** Have an existing user base? The plugin offers the flexibility to implement email verification for already registered users, enhancing the integrity of your existing customer base.
 
+**3. Role-Based Verification Flexibility:** Skip the email verification process for selected user roles, allowing you to customize the verification process based on user hierarchy.
 
-* Customize **verification messages** on frontend.
+**4. Customizable Emails & Messages:** Tailor the verification messages displayed to users on your site and emails, ensuring a seamless and brand-consistent experience on the frontend of your store.
 
+**5. Admin Control and Management:** Admins gain significant control, including options to manually verify or unverify users, resend activation links, and even delete unverified users either manually or on an automated schedule.
 
-* Optionally manually **verify**, **unverify**, **resend** email activation link **by admin**.
-
-
-* Optionally **delete unverified users** from the database (manually or automatically once per week, day or hour).
-
-
-* Select if you want to send verification as a **separate email**, or **append** it to the standard WooCommerce "Customer new account" email.
+By integrating these features, the "Email Verification for WooCommerce" plugin not only secures your user registration process but also offers significant flexibility and control in managing your customer base.
 
 
-* **Delay** standard WooCommerce **"Customer new account" email** until after successful verification (in a separate email).
+#### Useful Links ####
+* [**Plugin Main Page**](https://wpfactory.com/item/email-verification-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Plugin Main Page**")
+* [**Plugin Support Forum**](https://wpfactory.com/support/item/email-verification-for-woocommerce//?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Plugin Support Forum**")
+* [**Documentation & How to**](https://wpfactory.com/docs/email-verification-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Documentation & How to**")
+
+___
+## 🤝 Recommended By##
+
+* [ThriveDesk: Best WooCommerce Email Verification Plugins in 2024](https://www.thrivedesk.com/woocommerce-email-verification-plugin/ "ThriveDesk: Best WooCommerce Email Verification Plugins in 2024")
+* [YayCommerce: How to Validate Email Address in WooCommerce](https://yaycommerce.com/how-to-validate-email-address-in-woocommerce/ "YayCommerce: How to Validate Email Address in WooCommerce")
+* [WPGlob: Best WordPress Email Verification Plugins for Your Business](https://wpglob.com/best-wordpress-email-verification-plugin-for-your-business/ "WPGlob: Best WordPress Email Verification Plugins for Your Business")
+* [LearnWoo: Why and How to Protect WooCommerce Order Page](https://learnwoo.com/protect-woocommerce-order-page-ip-address/ "LearnWoo: Why and How to Protect WooCommerce Order Page")
+* [Edward Le - LinkedIn: Top 3 Best WooCommerce Email Verification Plugins](https://www.linkedin.com/pulse/top-3-best-woocommerce-email-verification-plugins-edward-le "Edward Le - LinkedIn: Top 3 Best WooCommerce Email Verification Plugins")
+* [WhiteWP: The Best WordPress Email Verification Plugins to Confirm Contact Information](https://whitewp.com/wordpress-email-verification/#email-verification-for-woocommerce "WhiteWP: The Best WordPress Email Verification Plugins to Confirm Contact Information")
 
 
-* **Prevent** automatic user **login after registration**, including registration during checkout.
+## 🚀 Main Features: FREE Version##
 
 
-* **Content blocking**: Block content from unverified users.
+### 🚀 Verify Customers Emails on Signup ###
+
+* Require new users to verify their emails on signup
+* Block login from unverified users
+* Login the user automatically after the account is verified
+* Verify guest user billing address on checkout
+
+### 🚀 Enforce Email Verification for Current Customers ###
+
+* Enforce all your current users to verify their email addresses before logging back in to your store
+* Resend verification emails by admin when needed 
+
+### 🚀 Skip Validation based on user role () ###
+
+Select to skip validation for any user role based on your store needs (wholesalers, admins, authors, etc.)
+
+### 🚀 Add Verification status to "My Account" Page ###
+
+* Show account verification info on "My Account" page
+* Add account verification info widget
+* Customize verification message text (Pro)
+
+### 🚀 Control Redirection On Verification Status ###
+
+* Redirects customers after **successful** verification
+* Select where to redirect: Homepage, "My Account", Shop, previous URL or Custom URL
+* Redirects customers after **unsuccessful** verification
+* Select a custom URL after unverified customer tries to login
+
+### 🚀 Control Activation/Verification Link Expiration ###
+
+* Expire link immediately after first click
+* Define a custom period (in seconds, days) when the link will be expired (Pro)
+* Customize text message to show when has expired (Pro)
+
+### 🚀 Activation Email Customization ###
+
+The plugin allows you to effortlessly customize emails that will be sent to your customers to activate their accounts, you can:
+
+* Delay WooCommerce "Customer new account" email until account is verified
+* Select to customize the email from plugin template, or create new email type in WooCommerce >> Emails 
+* Select from 15+ placeholder (like site_title, user_id, user_email) to be used in email subject & body
+* Choose to send separate activation email or embed it in the standard WooCommerce "Customer new account" email
+* Configure your preferred mail function (PHP, WordPress, WooCommerce)
+
+### 🚀 Verification Confirmation Email Customization ###
+
+Once your customers are verified, you can customize the confirmation email that will be sent to them, you can:
+
+* Send a verification email immediately once customer activates their account
+* Delay sending the emails so customers don't get too many emails in short time
+* Send notification email to admin (or any email) when a user is manually verified by admin
+* Customize admin email title & body
+
+### 🚀 Block Unverified Users ###
+
+* You can block content for unverified users (including guests) by preventing access to any page of your site
+* Block non-paying users: Block activation link until the customer places an order and its status is considered paid
+* Check & Logout unverified users on "My Account" page or any other page
+
+### 🚀 Handy Admin Tools ###
+
+* Allow any user role (non admins) to manage & interact with the admin interface of the plugin
+* Add a "Verified" column in "All users" page
+* Filter users on "All users" page based on verification status
+* Add links for manual email verification, un-verification and email resend by admin
+* Bulk action options to Resend email, Verify, or Un-verify users in "All users" page
+
+### 🚀 Customize Verification Messages ###
+
+Once your user clicks on activation link, you can customize messages that appear based on activation status, you can customize:
+
+* Success messages appearing after customer verifies their account
+* Messages appearing after signup if you block login for unverified users
+* Failed activation messages (expiry, broken link, etc) and include a %resend_verification_url%
+* Resend link, error & already-verified messages
+
+### 🚀 Delete Unverified Users (Manual & Automatic) ###
+
+* Delete unverified users from the database for one time
+* Delete unverified users from the database automatically (Hourly, Daily, Twice a day, Weekly)
+
+### 🚀 More Advanced Options ###
+
+* More options to control authentication filters, auth cookies, custom logout function
+* Encoding options (Base64 or HashIDs)
+* Prevent user automatic login after registration on "My Account" page
+* Prevent user automatic login after registration on "Checkout" page
+
+> “Excellent Support + Plugin: As the title states, brilliant plugin with great free functionality – support was excellent and very helpful in solving a customisation issue.” – ⭐⭐⭐⭐⭐ [Masidus](https://wordpress.org/support/topic/excellent-support-plugin-15/)
+
+> “Good flexibility and support: Plugin does what it says, and provides lots of configuration options. Had a minor issue that required support, and the problem was resolved very quickly, with great communication. Highly recommended.” – ⭐⭐⭐⭐⭐ [reefables](https://wordpress.org/support/topic/good-flexibility-and-support/)
+
+___
+## 🏆 Do More: PRO Version##
+
+All what's listed above (and more) is available in the free version, but for those who would like to go further and beyond, we have a premium version of [Customer Email Verification for WooCommerce](https://wpfactory.com/item/email-verification-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme) plugin.
+
+🏆 The Pro version unlocks more advanced features like:
+
+### 🏆 Block Content for Unverified & Guest Users  ###
+
+* Block unverified users from accessing specific products
+* Block unverified users from accessing all shop pages, categories, tags, or cart
+* Block by custom URLs
+* Customize messages appearing when unverified customers try to access blocked content
+* Blocks checkout process for unverified users
+* Blocks guests from adding any products to the cart
+* Block WooCommerce order emails for all non-verified users
+* Block account verification by email (and customize the message for them)
+* Block "Thank you" (i.e. "Order received") page access for non-verified users
+
+### 🏆 Customization Options  ###
+
+* Verify the user on password reset
+* Verify customers as soon as any of their non-free orders are considered paid
+* Unverify, logout and resend activation link when a customer changes their email
+* Customize email template to be used (Plain, WooCommerce, or Smart)
+* Customize titles, heading & content for activation & verification emails
+* REST API: Add endpoint allowing to verify users via REST API
+* Premium support
 
 
-* And more...
+### 🏆 Compatibility Options  ###
 
-### &#127942; Premium Version ###
+Our plugin offers several compatibility options with third party plugins, like:
 
-[Email Verification for WooCommerce Pro](https://wpfactory.com/item/email-verification-for-woocommerce/) features:
+* [WooCommerce Social Login](https://woocommerce.com/products/woocommerce-social-login/ "WooCommerce Social Login") by SkyVerge
+* [WooCommerce Social Login](https://codecanyon.net/item/woocommerce-social-login-wordpress-plugin/8495883 "WooCommerce Social Login") by wpweb
+* [Super Socializer](https://wordpress.org/plugins/super-socializer/ "Super Socializer") by Team Heateor
+* [MyListing](https://themeforest.net/item/mylisting-directory-listing-wordpress-theme/20593226 "My Listing") theme by 27collective
+* [Nextend Social Login](https://wordpress.org/plugins/nextend-facebook-connect/ "Nextend Social Login") by Nextendweb
+* [WooMail](https://codecanyon.net/item/email-customizer-for-woocommerce-with-drag-drop-builder-woo-email-editor/22400984 "WooMail") by CidCode (to append verification email with their email)
+* [Polylang](https://wordpress.org/plugins/polylang/ "Polylang") (multi-language) compatibility
+*  [Essential Addons for Elementor](https://essential-addons.com/elementor/ "Essential Addons for Elementor") by WPDeveloper
+* [Email Customizer for WooCommerce](https://themehigh.com/product/woocommerce-email-customizer "Email Customizer for WooCommerce") by Themehigh
+* [Email Customizer for WooCommerce](https://villatheme.com/extensions/woocommerce-email-template-customizer/ "Email Customizer for WooCommerce") by VillaTheme
+* [Paid Memberships Pro](https://wordpress.org/plugins/paid-memberships-pro/ "Paid Memberships Pro")
+* [YayMail - WooCommerce Email Customizer](https://wordpress.org/plugins/yaymail/ "YayMail - WooCommerce Email Customizer") by YayCommerce
+* [WoodMart](https://themeforest.net/item/woodmart-woocommerce-wordpress-theme/20264492 "WoodMart") theme by xtemos
 
-* **Activation email customization options**, including wrapping in standard WooCommerce email template.
+And much more to come soon.
 
+___
+## 💯 Why WPFactory?##
 
-* **Block "Thank you"** (i.e. "Order received") **page** access for non-verified users.
+* **Experience You Can Trust:** Over a decade in the business
+* **Wide Plugin Selection:** Offering 65+ unique and powerful plugins
+* **Highly-Rated Support:** Backed by hundreds of 5-star reviews
+* **Expert Team:** Dedicated developers and technical support at your service
 
+___
 
-* **Block** standard WooCommerce customer **order emails** ("Order on-hold", "Processing order", "Completed order") for all non-verified users.
+## What's Next? Check More Plugins by WPFactory##
 
+If you're enjoying our plugin, we'd love for you to explore our other offerings. WPFactory has a diverse range of plugins tailored to enhance your experience. 
 
-* **Block guests** from adding products to the cart.
-
-
-* **Block checkout process** for non-verified users.
-
-
-* **Content blocking customization**: Block content from unverified users like products or block content by function, as shop pages, category pages and more. Customize the error notice and the page the unverified user is going to be redirected to in case he tries to access the content.
-
-
-* Set activation link **expiration time**.
-
-
-* Send **email to the admin** when a new user verifies his email.
-
-
-* Set emails on a **denylist**.
-
-
-* Automatically unverify users who have **changed their emails**.
-
-
-* Automatically verify users on **password reset**.
+Dive in and discover more tools to empower your WooCommerce Store!
 
 
-* **Customize** the **verification info** completely.
+* [**Min Max Step Quantity**](https://wpfactory.com/item/product-quantity-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Min Max Step Quantity**"): Define a min max, step and default quantity for products, show a dropdown, quantities on archive/categories pages, use decimal quantities, and much more on WooCommerce stores (**[Try our Free version](https://wordpress.org/plugins/product-quantity-for-woocommerce/ "Try our Free version")**)
 
+* [**Cost of Goods for WooCommerce**](https://wpfactory.com/item/cost-of-goods-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Cost of Goods WooCommerce**"): Make informed decisions to maximize profits, correctly calculate Cost of Goods Sold (COGS) for your WooCommerce store and enhance your financial management capabilities (**[Try our Free version](https://wordpress.org/plugins/cost-of-goods-for-woocommerce/ "Try our Free version")**)
 
-* **REST API**: Verify users using the REST API with the `alg_wc_ev/v1/verify` endpoint.
+* [**Maximum Products per User**](https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Maximum Products per User**"): Set personalized purchase limits for your customers, define maximum product quantities, catered to specific user roles & selected date range (**[Try our Free version](https://wordpress.org/plugins/maximum-products-per-user-for-woocommerce/ "Try our Free version")**)
 
+* [**Order Minimum/Maximum Amount**](https://wpfactory.com/item/order-minimum-maximum-amount-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Order Minimum/Maximum Amount**"): Set tailored minimum and maximum order thresholds, by sum, quantity, weight, or volume, customize limits by user role, specific user, product category, shipping method, payment gateway, or even by currency (**[Try our Free version](https://wordpress.org/plugins/order-minimum-amount-for-woocommerce/ "Try our Free version")**)
 
-* **Compatibility** options with:
-  * [Social Login - WPWeb](https://woocommerce.com/products/woocommerce-social-login/) plugin.
-  * [Social Login - SkyVerge](https://codecanyon.net/item/woocommerce-social-login-wordpress-plugin/8495883) plugin.
-  * [Super Socializer](https://wordpress.org/plugins/super-socializer/) plugin.
-  * [Nextend Social Login](https://codecanyon.net/item/woocommerce-social-login-wordpress-plugin/8495883) plugin.
-  * [WooMail](https://codecanyon.net/item/email-customizer-for-woocommerce-with-drag-drop-builder-woo-email-editor/22400984) plugin.
+* [**EU/UK VAT Manager for WooCommerce**](https://wpfactory.com/item/eu-vat-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**EU/UK VAT Manager for WooCommerce**"): Streamline your WooCommerce store’s EU/UK VAT compliance effortlessly, automate VAT settings, validation (VIES), and how to apply taxes, ensuring a seamless and compliant customer experience (**[Try our Free version](https://wordpress.org/plugins/eu-vat-for-woocommerce/ "Try our Free version")**)
 
-= Feedback =
+* [**Email Verification for WooCommerce**](https://wpfactory.com/item/email-verification-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Email Verification for WooCommerce**"): Enhance WooCommerce security and credibility with Email Verification best plugin. Ensure genuine customer interactions, eliminate spam, and elevate email marketing efficiency (**[Try our Free version](https://wordpress.org/plugins/maximum-products-per-user-for-woocommerce/ "Try our Free version")**)
 
-* We are open to your suggestions and feedback. Thank you for using or trying out one of our plugins!
-* [Visit plugin site](https://wpfactory.com/item/email-verification-for-woocommerce/).
+* [**Free Shipping Over Amount for WooCommerce**](https://wpfactory.com/item/amount-left-free-shipping-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Free Shipping Over Amount for WooCommerce**"): WooCommerce Advanced Free Shipping plugin, use our plugin to quality customers for free shipping when they spend specific amount, by showing a bar on remaining amounts they need to spend to qualify for free shipping (**[Try our Free version](https://wordpress.org/plugins/amount-left-free-shipping-woocommerce/ "Try our Free version")**)
+
+* [**Dynamic Pricing & Bulk Quantity Discounts**](https://wpfactory.com/item/product-price-by-quantity-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Dynamic Pricing & Bulk Quantity Discounts**"): Create and manage advanced dynamic pricing and bulk discount rules for WooCommerce, encouraging bulk purchases and driving your sales to new heights (**[Try our Free version](https://wordpress.org/plugins/wholesale-pricing-woocommerce/ "Try our Free version")**)
+___
+## ❤️ User Testimonials: See What Others Are Saying!##
+
+> “The best verification plugin at the moment with amazing support - they helped me with compatibility with Yaymail.” – ⭐⭐⭐⭐⭐ [Mr Bird](https://wpfactory.com/item/email-verification-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme)
+
+> “Friendly Author fast response to fixed the problems and high efficiency to dev "Smart" template.” – ⭐⭐⭐⭐⭐ [pvpasia](https://wpfactory.com/item/email-verification-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme)
+
+> “Very good plugin, which is perfectly suited to WooCommerce. The support is really responsive and very competent! Do not hesitate to invest in this plugin if you want to set up an activation system.” – ⭐⭐⭐⭐⭐ [Michel Pompas](https://wpfactory.com/item/email-verification-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme)
+
+> “Excellent Plugin: Great plugin, it works perfectly, it’s light and has great management options. Fantastic support as well. It’s worth it!” – ⭐⭐⭐⭐⭐ [Therus](https://wordpress.org/support/topic/excelent-plugin-445/)
 
 == Frequently Asked Questions ==
 = User registration clears shopping cart? =
@@ -200,11 +337,30 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 
 == Installation ==
 
-1. Upload the entire plugin folder to the `/wp-content/plugins/` directory.
-2. Activate the plugin through the "Plugins" menu in WordPress.
-3. Start by visiting plugin settings at "WooCommerce > Settings > Email Verification".
+You can either download the plugin from WordPress.org plugins and then upload it (as .zip file) to the `/wp-content/plugins/` directory.
+
+Or search for it in the plugins directory from inside your WordPress website (Plugins >> Add New) and install it.
+
+Then activate the plugin through the "Plugins" menu in WordPress.
+
+Finally, you can start using it directly at "WooCommerce > Settings > Product Quantity".
+
 
 == Changelog ==
+
+= 2.6.8 - 25/01/2024 =
+* WC tested up to: 8.5.
+* Update readme file.
+
+= 2.6.7 - 11/01/2024 =
+* Fix - Email - Some plain text email has placeholders missing.
+* Dev - Email - Add `%site_title%` and `%site_url%` to email contents by default.
+
+= 2.6.6 - 10/01/2024 =
+* Dev - Email - Add `%site_title%` to email subjects by default.
+
+= 2.6.5 - 09/01/2024 =
+* Dev - Email - Add `%site_title%` and `%site_url%` placeholders to emails. This should help with deliverability problems and emails sent to Spam.
 
 = 2.6.4 - 03/01/2024 =
 * Fix - Guest verification email change to do action on click "Send Mail" link.

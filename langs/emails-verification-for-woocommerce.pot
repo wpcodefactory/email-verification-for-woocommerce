@@ -1,4 +1,4 @@
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\alg-wc-ev-functions.php:225
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\alg-wc-ev-functions.php:244
 #, php-format
 msgid "When the task is complete an email is going to be sent to %s."
 msgstr ""
@@ -201,61 +201,68 @@ msgstr ""
 msgid "Unverified"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\class-alg-wc-ev-emails.php:74
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\class-alg-wc-ev-emails.php:80
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\pro\class-alg-wc-ev-confirmation-wc-email-pro.php:164
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\pro\class-alg-wc-ev-pro.php:121
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:250
-msgid "Your account has been activated successfully"
-msgstr ""
-
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\class-alg-wc-ev-emails.php:75
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\pro\class-alg-wc-ev-confirmation-wc-email-pro.php:176
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\pro\class-alg-wc-ev-pro.php:108
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:260
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:269
 msgid "Your account has been activated"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\class-alg-wc-ev-emails.php:283
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\class-alg-wc-ev-emails.php:547
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\pro\class-alg-wc-ev-pro.php:804
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:194
-msgid ""
-"<p>Please <a href=\"%verification_url%\" target=\"_blank\">click here</a> to "
-"verify your email.</p>"
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\class-alg-wc-ev-emails.php:80
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\pro\class-alg-wc-ev-confirmation-wc-email-pro.php:164
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\pro\class-alg-wc-ev-pro.php:121
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:260
+msgid "Your account has been activated successfully"
 msgstr ""
 
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\class-alg-wc-ev-emails.php:284
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\class-alg-wc-ev-emails.php:548
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\pro\class-alg-wc-ev-activation-wc-email-pro.php:196
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\class-alg-wc-ev-emails.php:588
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\pro\class-alg-wc-ev-activation-wc-email-pro.php:198
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\pro\class-alg-wc-ev-pro.php:634
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\pro\class-alg-wc-ev-pro.php:822
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:204
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:214
 msgid "Activate your account"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\class-alg-wc-ev-emails.php:383
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\class-alg-wc-ev-emails.php:354
+#, php-format
+msgid ""
+"<p>Please <a href=\"%s\" target=\"_blank\">click here</a> to verify your "
+"email on %s.</p>"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\class-alg-wc-ev-emails.php:361
+#, php-format
+msgid "<p>Your account has been activated successfully on %s.</p>"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\class-alg-wc-ev-emails.php:368
+#, php-format
+msgid "User %s has just verified his email (%s) on %s."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\class-alg-wc-ev-emails.php:423
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\pro\class-alg-wc-ev-activation-wc-email-pro.php:157
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\pro\class-alg-wc-ev-pro.php:791
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:175
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:193
 msgid "Please activate your account"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\class-alg-wc-ev-emails.php:504
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\class-alg-wc-ev-emails.php:544
 msgid "Error sending mail."
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\class-alg-wc-ev-emails.php:505
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\class-alg-wc-ev-emails.php:545
 #, php-format
 msgid "Mail function: %s."
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\class-alg-wc-ev-emails.php:508
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\class-alg-wc-ev-emails.php:548
 #, php-format
 msgid "Last error: %s."
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\class-alg-wc-ev-emails.php:581
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\class-alg-wc-ev-emails.php:621
 msgid "Please verify your email"
 msgstr ""
 
@@ -341,19 +348,19 @@ msgstr ""
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\pro\class-alg-wc-ev-activation-wc-email-pro.php:32
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\pro\class-alg-wc-ev-compatibility-pro.php:300
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-blocking.php:253
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:135
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:151
 msgid "Activation email"
 msgstr ""
 
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\pro\class-alg-wc-ev-activation-wc-email-pro.php:33
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:138
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:154
 msgid "An email sent to the user with an activation link."
 msgstr ""
 
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\pro\class-alg-wc-ev-compatibility-pro.php:301
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\pro\class-alg-wc-ev-confirmation-wc-email-pro.php:31
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:225
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:231
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:235
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:241
 msgid "Confirmation email"
 msgstr ""
 
@@ -362,12 +369,8 @@ msgid "You are logged in successfully"
 msgstr ""
 
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\pro\class-alg-wc-ev-confirmation-wc-email-pro.php:32
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:228
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:238
 msgid "An email sent to the user when the account is verified."
-msgstr ""
-
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\pro\class-alg-wc-ev-pro.php:138
-msgid "Your account has been activated successfully."
 msgstr ""
 
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\pro\class-alg-wc-ev-pro.php:321
@@ -402,18 +405,12 @@ msgid ""
 msgstr ""
 
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\pro\class-alg-wc-ev-pro.php:770
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:359
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:357
 msgid "User account has been activated"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\pro\class-alg-wc-ev-pro.php:771
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:368
-#, php-format
-msgid "User %s has just verified his email (%s)."
-msgstr ""
-
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\pro\class-alg-wc-ev-pro.php:776
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:351
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:350
 msgid "User email has been verified"
 msgstr ""
 
@@ -432,11 +429,12 @@ msgstr ""
 
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\pro\templates\emails\plain\customer-account-activation.php:21
 #, php-format
-msgid "Please %s to verify your email."
+msgid "Please click on the following link to verify your email on %s:"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\pro\templates\emails\plain\customer-account-confirmation.php:19
-msgid "Your account is activated successfully."
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\pro\templates\emails\plain\customer-account-confirmation.php:20
+#, php-format
+msgid "Your account has been activated successfully on %s."
 msgstr ""
 
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-admin.php:24
@@ -478,7 +476,7 @@ msgstr ""
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-admin.php:82
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-admin.php:88
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-admin.php:103
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:240
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:250
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:332
 msgid "Verified column"
 msgstr ""
@@ -503,7 +501,7 @@ msgid "The position of the column."
 msgstr ""
 
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-admin.php:102
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:240
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:250
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:332
 msgid "Actions"
 msgstr ""
@@ -783,8 +781,8 @@ msgid ""
 msgstr ""
 
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-advanced.php:232
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:68
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:150
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:70
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:168
 msgid "Leave the default value if unsure."
 msgstr ""
 
@@ -1433,8 +1431,8 @@ msgstr ""
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-compatibility.php:115
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-compatibility.php:160
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-compatibility.php:267
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:90
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:97
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:92
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:99
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-general.php:58
 msgid "Plain"
 msgstr ""
@@ -1547,12 +1545,12 @@ msgid ""
 msgstr ""
 
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-compatibility.php:193
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:106
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:108
 msgid "Activation"
 msgstr ""
 
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-compatibility.php:193
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:106
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:108
 msgid "Confirmation"
 msgstr ""
 
@@ -1561,8 +1559,8 @@ msgid "Email > WC email template"
 msgstr ""
 
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-compatibility.php:193
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:106
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:114
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:108
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:116
 msgid "WooCommerce > Emails"
 msgstr ""
 
@@ -1626,7 +1624,7 @@ msgid "YayMail - WooCommerce Email Customizer"
 msgstr ""
 
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-compatibility.php:264
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:80
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:82
 msgid "Customer new account email"
 msgstr ""
 
@@ -1671,59 +1669,59 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:61
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:63
 msgid "Email options"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:66
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:68
 msgid "Mail function"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:67
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:69
 msgid "Function used for sending the plugin's emails."
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:74
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:75
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:76
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:77
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:78
 #, php-format
 msgid "%s function"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:81
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:83
 msgid "Delay WooCommerce \"Customer new account\" email"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:82
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:84
 msgid "\"Customer new account\" email is only sent on successful verification."
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:89
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:119
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:200
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:91
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:121
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:210
 msgid "Email template"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:90
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:92
 #, php-format
 msgid "Possible values: %s, %s, %s."
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:90
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:98
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:119
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:200
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:92
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:100
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:121
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:210
 msgid "WooCommerce"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:90
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:99
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:119
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:200
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:92
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:101
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:121
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:210
 msgid "Smart"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:91
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:93
 msgid ""
 "\"Smart\" will automatically send a \"Plain\" email when appended to other "
 "email, like the \"Customer new account\" email, and will send a \"WooCommerce"
@@ -1731,148 +1729,160 @@ msgid ""
 "be the best choice."
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:104
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:106
 msgid "WC email template"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:105
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:107
 #, php-format
 msgid "%s will use the template options from this page."
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:105
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:113
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:107
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:115
 msgid "Email Verification plugin"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:106
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:108
 #, php-format
 msgid "%s option will create new emails (%s) on %s."
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:107
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:109
 msgid ""
 "This option will only be useful if the Email Template option is set as "
 "<code>WooCommerce</code> or <code>Smart</code>."
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:118
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:120
 msgid "Email wrap method"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:119
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:200
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:121
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:210
 #, php-format
 msgid ""
 "If \"%s\" option is selected as \"%s\" or \"%s\", set the email wrap method "
 "here."
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:124
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:126
 msgid "Manual - Adding WooCommerce header and footer manually"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:125
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:127
 #, php-format
 msgid "Native - Using %s function"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:141
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:137
+msgid "Common placeholders"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:138
+#, php-format
+msgid ""
+"These placeholders can be used on the Email Subject or Content options: %s."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:139
+#, php-format
+msgid ""
+"If you're having deliverability problems or emails being sent to Spam, try "
+"using the placeholders %s and %s on the Email Content or subject."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:155
+#, php-format
+msgid "Additional placeholders: %s."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:159
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-section.php:104
 msgid "Send as a separate email"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:142
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:160
 msgid "Send verification as a separate email"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:143
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:161
 msgid ""
 "Disable it if you want to append it to the standard WooCommerce \"Customer "
 "new account\" email."
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:149
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:167
 msgid "Email sending trigger"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:157
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:175
 msgid "On \"user register\""
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:158
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:176
 msgid "On \"WooCommerce created customer\""
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:163
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:181
 msgid "Activation email delay"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:164
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:182
 msgid "Delay the activation email"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:165
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:183
 msgid ""
 "Try to enable it if the activation emails are getting sent to authenticated "
 "users."
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:172
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:247
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:190
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:257
 msgid "Email subject"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:181
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:266
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:199
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:275
 msgid "Email content"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:182
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:267
-#, php-format
-msgid "Placeholders: %s"
-msgstr ""
-
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:201
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:211
 msgid "Email heading"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:210
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:220
 msgid "Fine tune placement"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:211
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:221
 msgid ""
 "Choose precisely where the activation email will be appended to the "
 "\"Customer new account\" email"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:212
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:222
 #, php-format
 msgid "It's necessary to add %s to the %s email template."
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:232
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:242
 msgid "Send confirmation email to users who have just verified their accounts"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:239
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:249
 msgid "Send confirmation email to the user manually verified by admin"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:240
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:250
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:332
 #, php-format
 msgid "Only useful if the options %s, %s are enabled."
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:256
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:266
 msgid "Email Heading"
-msgstr ""
-
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:278
-msgid "<p>Your account has been activated successfully.</p>"
 msgstr ""
 
 #: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:284
@@ -1930,11 +1940,11 @@ msgstr ""
 msgid "Subject"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:355
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:354
 msgid "Heading"
 msgstr ""
 
-#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:364
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\email-verification-for-woocommerce-pro\includes\settings\class-alg-wc-ev-settings-email.php:362
 msgid "Content"
 msgstr ""
 
