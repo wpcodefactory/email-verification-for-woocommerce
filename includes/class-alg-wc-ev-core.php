@@ -1255,7 +1255,6 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		 * @return string
 		 */
 		function alg_wc_ev_send_guest_verification_email_action( $param ) {
-
 			if ( isset( $_POST['alg_wc_ev_email'] ) && '' != $_POST['alg_wc_ev_email'] ) {
 				$email = $_POST['alg_wc_ev_email'];
 				$send  = $_POST['send'];

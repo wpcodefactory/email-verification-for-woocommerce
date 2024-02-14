@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 6.4
-Stable tag: 2.6.8
+Stable tag: 2.6.9
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -347,6 +347,12 @@ Finally, you can start using it directly at "WooCommerce > Settings > Product Qu
 
 
 == Changelog ==
+
+= 2.6.9 - 30/01/2024 =
+* Fix - Guest users option sends the verification email with empty placeholders.
+* Fix - Remove unnecessary guest functions.
+* Update readme file.
+* Fix - Sync the guest user's verification status after registering with the same email ID.
 
 = 2.6.8 - 25/01/2024 =
 * WC tested up to: 8.5.

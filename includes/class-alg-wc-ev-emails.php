@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Emails Class.
  *
- * @version 2.6.7
+ * @version 2.6.9
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -25,7 +25,7 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.4.3
+	 * @version 2.6.9
 	 * @since   1.6.0
 	 */
 	function __construct() {
@@ -51,6 +51,8 @@ class Alg_WC_Email_Verification_Emails {
 		// Confirmation email.
 		add_action( 'alg_wc_ev_user_account_activated', array( $this, 'maybe_send_confirmation_email' ), 10, 2 );
 		add_action( 'alg_wc_ev_confirmation_email_delay_event', array( $this, 'send_confirmation_email' ), 10, 2 );
+		
+		add_action( 'user_register', array( $this, 'sync_verification_if_guest' ), PHP_INT_MAX - 1 );
 	}
 
 	/**
@@ -202,14 +204,15 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * get_verification_url.
 	 *
-	 * @version 2.6.0
+	 * @version 2.6.9
 	 * @since   1.8.0
 	 */
-	function get_verification_url( $args = null, $checkout = false ) {
+	function get_verification_url( $args = null ) {
 		$args = wp_parse_args( $args, array(
-			'user_id'         => '',
-			'code'            => false,
-			'encoding_method' => get_option( 'alg_wc_ev_encoding_method', 'base64_encode' ),
+			'user_id'                 => '',
+			'code'                    => false,
+			'verification_check_page' => 'myaccount', // myaccount | checkout
+			'encoding_method'         => get_option( 'alg_wc_ev_encoding_method', 'base64_encode' ),
 		) );
 
 		if ( filter_var( $args['user_id'], FILTER_VALIDATE_EMAIL ) ) {
@@ -218,9 +221,11 @@ class Alg_WC_Email_Verification_Emails {
 			$user_id = intval( $args['user_id'] );
 		}
 
-		$code              = $args['code'];
-		$encoding_method   = $args['encoding_method'];
-		$verify_email_hash = '';
+		$code                    = $args['code'];
+		$encoding_method         = $args['encoding_method'];
+		$verify_email_hash       = '';
+		$verification_check_page = $args['verification_check_page'];
+
 		switch ( $encoding_method ) {
 			case 'base64_encode':
 				if ( false === $code ) {
@@ -239,11 +244,15 @@ class Alg_WC_Email_Verification_Emails {
 				$verify_email_hash = $hashids->encode( $user_id, $code );
 				break;
 		}
-		if ( $checkout ) {
-			return add_query_arg( alg_wc_ev_get_verification_param(), $verify_email_hash, wc_get_checkout_url() );
-		} else {
-			return add_query_arg( alg_wc_ev_get_verification_param(), $verify_email_hash, wc_get_page_permalink( 'myaccount' ) );
+		switch ( $verification_check_page ) {
+			case 'checkout':
+				$verification_check_page = wc_get_checkout_url();
+				break;
+			default:
+				$verification_check_page = wc_get_page_permalink( 'myaccount' );
 		}
+
+		return add_query_arg( alg_wc_ev_get_verification_param(), $verify_email_hash, $verification_check_page );
 	}
 
 	/**
@@ -268,7 +277,7 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * get_email_content.
 	 *
-	 * @version 2.6.7
+	 * @version 2.6.9
 	 * @since   1.8.0
 	 * @todo    (maybe) `$user->user_url`, `$user->user_registered`
 	 *
@@ -277,21 +286,28 @@ class Alg_WC_Email_Verification_Emails {
 	 * @return string
 	 */
 	function get_email_content( $args = null ) {
-		$args = wp_parse_args( $args, array(
-			'user_id' => '',
-			'code'    => false,
-			'content' => alg_wc_ev()->core->emails->get_default_email_content('activation'),
-			'heading' => __( 'Activate your account', 'emails-verification-for-woocommerce' ),
-			'context' => 'activation_email_separate',
-			'placeholders' => alg_wc_ev_get_common_placeholders()
+		$args                    = wp_parse_args( $args, array(
+			'user_id'                 => '',
+			'code'                    => false,
+			'content'                 => alg_wc_ev()->core->emails->get_default_email_content( 'activation' ),
+			'heading'                 => __( 'Activate your account', 'emails-verification-for-woocommerce' ),
+			'context'                 => 'activation_email_separate',
+			'placeholders'            => alg_wc_ev_get_common_placeholders(),
+			'verification_check_page' => 'myaccount', // myaccount | checkout
 		) );
-		$user_id = $args['user_id'];
-		$code = $args['code'];
-		$placeholders = array_merge( $args['placeholders'], alg_wc_ev_get_user_placeholders( array( 'user_id' => $user_id ) ) );
+		$verification_check_page = $args['verification_check_page'];
+		$user_id                 = $args['user_id'];
+		$code                    = $args['code'];
+		$placeholders            = array_merge( $args['placeholders'], alg_wc_ev_get_user_placeholders( array( 'user_id' => $user_id ) ) );
 		if ( $args['code'] ) {
-			$placeholders['%verification_url%'] = $this->get_verification_url( array( 'user_id' => $user_id, 'code' => $code ) );
+			$placeholders['%verification_url%'] = $this->get_verification_url( array(
+				'user_id'                 => $user_id,
+				'code'                    => $code,
+				'verification_check_page' => $verification_check_page
+			) );
 		}
 		$content = apply_filters( 'alg_wc_ev_email_content', $args['content'], $args );
+
 		return apply_filters( 'alg_wc_ev_email_content_final', str_replace( array_keys( $placeholders ), $placeholders, $content ), $args );
 	}
 
@@ -552,78 +568,71 @@ class Alg_WC_Email_Verification_Emails {
 	}
 
 	/**
-	 * guest checkout subject.
-	 *
-	 * @see guest_checkout_subject()
-	 *
-	 * @version 2.5.8
-	 * @since   2.5.8
-	 */
-	function guest_checkout_subject( $args = null ) {
-		$args         = wp_parse_args( $args, array(
-			'user_id'      => '',
-			'subject'      => '',
-			'context'      => 'activation_email_separate',
-			'placeholders' => array()
-		) );
-		$user_id      = $args['user_id'];
-		$placeholders = array();
-		$subject      = $args['subject'];
-		return apply_filters( 'alg_wc_ev_email_subject_final', str_replace( array_keys( $placeholders ), $placeholders, $subject ), $args );
-	}
-
-	/**
-	 * send verify email function.
-	 *
-	 * @see guest_checkout_content()
-	 *
-	 * @version 2.6.7
-	 * @since   2.5.8
-	 */
-	function guest_checkout_content( $args = null ) {
-		$args = wp_parse_args( $args, array(
-			'user_id' => '',
-			'code'    => false,
-			'content' => alg_wc_ev()->core->emails->get_default_email_content('activation'),
-			'heading' => __( 'Activate your account', 'emails-verification-for-woocommerce' ),
-			'context' => 'activation_email_separate',
-			'placeholders' => array()
-		) );
-		$user_id = $args['user_id'];
-		$code = $args['code'];
-		$placeholders = array();
-		if ( $args['code'] ) {
-			$placeholders['%verification_url%'] = $this->get_verification_url( array( 'user_id' => $user_id, 'code' => $code ), true );
-		}
-		$content = apply_filters( 'alg_wc_ev_email_content', $args['content'], $args );
-		return apply_filters( 'alg_wc_ev_email_content_final', str_replace( array_keys( $placeholders ), $placeholders, $content ), $args );
-	}
-
-	/**
 	 * send verify email function.
 	 *
 	 * @see send_guest_verify_email()
 	 *
-	 * @version 2.5.8
+	 * @version 2.6.9
 	 * @since   2.5.8
 	 */
-	function send_guest_verify_email($email, $code){
+	function send_guest_verify_email( $email, $code ) {
+		$email_content = $this->get_email_content( array(
+			'user_id'                 => $email,
+			'code'                    => $code,
+			'context'                 => 'activation_email_separate',
+			'verification_check_page' => 'checkout'
+		) );
 
-			$email_content = $this->guest_checkout_content( array(
-				'user_id' => $email,
-				'code'    => $code,
-				'context' => 'activation_email_separate',
-			) );
+		$email_subject = $this->get_email_subject( array(
+			'user_id' => $email,
+			'context' => 'activation_email_separate',
+			'subject' => '[%site_title%]: ' . __( 'Please activate your account', 'emails-verification-for-woocommerce' )
+		) );
 
-			$email_subject = $this->guest_checkout_subject( array(
-				'user_id' => $email,
-				'context' => 'activation_email_separate',
-				'subject' => __( 'Please verify your email', 'emails-verification-for-woocommerce' )
-			) );
+		// Send email.
+		$this->send_mail( $email, $email_subject, $email_content );
+	}
+	
+	/**
+	 * sync verification if guest function.
+	 *
+	 * @see sync_verification_if_guest()
+	 *
+	 * @version 2.6.9
+	 * @since   2.6.9
+	 */
+	function sync_verification_if_guest( $user_id ) {
+		
+		global $wpdb;
+		
+		$user_obj = get_user_by( 'id', $user_id );
+		if( $user_obj ) {
+			$email 	= $user_obj->user_email;
+			$code 	= '';
+			$table_name = $wpdb->prefix . 'alg_wc_ev_guest_verify';
+			
+			if ( $wpdb->get_var( "SHOW TABLES LIKE '$table_name'" ) == $table_name ) {
 
-			// Send email
+					$result_arr = $wpdb->get_row( "SELECT * FROM " . $table_name . " WHERE email = '" . $email . "' AND status = '1'" );
 
-			$this->send_mail( $email, $email_subject, $email_content );
+					if ( ! empty( $result_arr ) ) {
+						
+						$code = $result_arr->code;
+					}
+					
+					if ( alg_wc_ev()->core->is_guest_email_already_verified( $email ) ) {
+				
+						update_user_meta( $user_id, 'alg_wc_ev_is_activated', '1' );
+						update_user_meta( $user_id, 'alg_wc_ev_activation_code',      $code );
+						update_user_meta( $user_id, 'alg_wc_ev_activation_code_time', time() );
+						if ( ! empty( $code ) ) {
+							alg_wc_ev()->core->save_activation_info( $code, $user_id );
+						}
+						
+					}
+			}
+			
+		}
 	}
 
 }
