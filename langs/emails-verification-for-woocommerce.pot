@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: emails-verification-for-woocommerce 2.7.0\n"
+"Project-Id-Version: emails-verification-for-woocommerce 2.7.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/emails-verification-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-03-19T16:49:43+01:00\n"
+"POT-Creation-Date: 2024-03-19T19:36:07+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: emails-verification-for-woocommerce\n"
@@ -1463,7 +1463,7 @@ msgid "Send auth cookies"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-email.php:24
-#: includes/settings/class-alg-wc-ev-settings-section.php:104
+#: includes/settings/class-alg-wc-ev-settings-section.php:118
 msgid "Email"
 msgstr ""
 
@@ -1576,7 +1576,7 @@ msgid "Additional placeholders: %s."
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-email.php:159
-#: includes/settings/class-alg-wc-ev-settings-section.php:104
+#: includes/settings/class-alg-wc-ev-settings-section.php:118
 msgid "Send as a separate email"
 msgstr ""
 
@@ -1734,7 +1734,7 @@ msgid "Login the user automatically after the account is verified"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-general.php:54
-#: includes/settings/class-alg-wc-ev-settings-section.php:40
+#: includes/settings/class-alg-wc-ev-settings-section.php:54
 msgid "Block unverified login"
 msgstr ""
 
@@ -2016,33 +2016,33 @@ msgstr ""
 msgid "If empty the URL will be the current page the user is at the moment the link was clicked."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-section.php:39
-#: includes/settings/class-alg-wc-ev-settings-section.php:100
+#: includes/settings/class-alg-wc-ev-settings-section.php:53
+#: includes/settings/class-alg-wc-ev-settings-section.php:114
 msgid "enabled"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-section.php:39
-#: includes/settings/class-alg-wc-ev-settings-section.php:101
+#: includes/settings/class-alg-wc-ev-settings-section.php:53
+#: includes/settings/class-alg-wc-ev-settings-section.php:115
 msgid "disabled"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-section.php:40
+#: includes/settings/class-alg-wc-ev-settings-section.php:54
 msgid "This will probably make more sense with the %s option %s, where the account verification becomes optional."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-section.php:52
+#: includes/settings/class-alg-wc-ev-settings-section.php:66
 msgid "Paid statuses:"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-section.php:73
+#: includes/settings/class-alg-wc-ev-settings-section.php:87
 msgid "Available placeholder(s): %s"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-section.php:103
+#: includes/settings/class-alg-wc-ev-settings-section.php:117
 msgid "The option \"%s > %s\" needs to be %s."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-section.php:162
+#: includes/settings/class-alg-wc-ev-settings-section.php:176
 msgid "Please, do not leave the option empty."
 msgstr ""
 

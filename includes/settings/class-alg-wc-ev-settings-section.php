@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Section Settings.
  *
- * @version 2.4.0
+ * @version 2.7.1
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -12,6 +12,20 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Section' ) ) :
 
 class Alg_WC_Email_Verification_Settings_Section {
+
+	/**
+	 * ID.
+	 *
+	 * @since 2.7.1
+	 */
+	public $id;
+
+	/**
+	 * Description.
+	 *
+	 * @since 2.7.1
+	 */
+	public $desc;
 
 	/**
 	 * Constructor.
