@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 6.4
-Stable tag: 2.7.1
+Stable tag: 2.7.2
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -347,6 +347,10 @@ Finally, you can start using it directly at "WooCommerce > Settings > Product Qu
 
 
 == Changelog ==
+
+= 2.7.2 - 25/03/2024 =
+* Fix - Remove PHP warnings.
+* WC tested up to: 8.7.
 
 = 2.7.1 - 19/03/2024 =
 * Fix - Remove PHP warnings.

@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Admin Class.
  *
- * @version 2.6.2
+ * @version 2.7.2
  * @since   1.5.0
  * @author  WPFactory
  */
@@ -54,7 +54,24 @@ class Alg_WC_Email_Verification_Admin {
 	 * @var Alg_WC_Email_Verification_Unverify_Users
 	 */
 	public $unverify_users_bkg_process;
-	
+
+	/**
+	 * actions.
+	 *
+	 * @version 2.7.2
+	 * @since 	2.7.2
+	 *
+	 */
+	public $actions;
+
+	/**
+	 * actions.
+	 *
+	 * @version 2.7.2
+	 * @since 	2.7.2
+	 *
+	 */
+	public $admin_notice;
 		
 	/**
 	 * Constructor.
