@@ -2,8 +2,8 @@
 Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmukherjeeli
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
-Tested up to: 6.4
-Stable tag: 2.7.2
+Tested up to: 6.5
+Stable tag: 2.7.3
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -12,6 +12,8 @@ Enhance WooCommerce security and credibility with Email Verification best plugin
 == Description ==
 
 > > “Amazing support and plugin: Support helped me integrate their plugin with another plugin and I am really grateful for it. The best verification plugin out there at the moment with awesome support” – ⭐⭐⭐⭐⭐  [mountainbirb](https://wordpress.org/support/topic/amazing-support-and-plugin-25/)
+
+[Main Page](https://wpfactory.com/item/email-verification-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Main Page**") | [Support Forum](https://wpfactory.com/support/item/email-verification-for-woocommerce//?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Support Forum**") | [Documentation & How to](https://wpfactory.com/docs/email-verification-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Documentation & How to**") | [Demo](https://emailverificationwoo.instawp.xyz/shop/)
 
 In the dynamic world of e-commerce, ensuring the authenticity and engagement of your customer base is crucial. 
 
@@ -33,11 +35,6 @@ It's designed not just to verify new users but also to streamline customer manag
 
 By integrating these features, the "Email Verification for WooCommerce" plugin not only secures your user registration process but also offers significant flexibility and control in managing your customer base.
 
-
-#### Useful Links ####
-* [**Plugin Main Page**](https://wpfactory.com/item/email-verification-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Plugin Main Page**")
-* [**Plugin Support Forum**](https://wpfactory.com/support/item/email-verification-for-woocommerce//?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Plugin Support Forum**")
-* [**Documentation & How to**](https://wpfactory.com/docs/email-verification-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Documentation & How to**")
 
 ___
 ## 🤝 Recommended By##
@@ -206,28 +203,25 @@ ___
 
 ___
 
-## What's Next? Check More Plugins by WPFactory##
+## What's Next? Discover More Plugins by WPFactory ##
 
-If you're enjoying our plugin, we'd love for you to explore our other offerings. WPFactory has a diverse range of plugins tailored to enhance your experience. 
+WPFactory has a diverse range of plugins tailored to enhance your experience, some of our top-selling plugins are:
 
-Dive in and discover more tools to empower your WooCommerce Store!
+* [**Min Max Step Quantity**](https://wpfactory.com/item/product-quantity-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Min Max Step Quantity**"): Set minimum, maximum, step, and default product quantities, including dropdowns and decimal options on WooCommerce (**[Free version](https://wordpress.org/plugins/product-quantity-for-woocommerce/ "Free version")**)
 
+* [**Cost of Goods for WooCommerce**](https://wpfactory.com/item/cost-of-goods-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Cost of Goods WooCommerce**"): Enhance profit maximization and financial management by accurately calculating your WooCommerce store's COGS (**[Free version](https://wordpress.org/plugins/cost-of-goods-for-woocommerce/ "Free version")**)
 
-* [**Min Max Step Quantity**](https://wpfactory.com/item/product-quantity-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Min Max Step Quantity**"): Define a min max, step and default quantity for products, show a dropdown, quantities on archive/categories pages, use decimal quantities, and much more on WooCommerce stores (**[Try our Free version](https://wordpress.org/plugins/product-quantity-for-woocommerce/ "Try our Free version")**)
+* [**Maximum Products per User**](https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Maximum Products per User**"): Impose personalized purchase limits based on user roles and date ranges to manage customer buying behavior (**[Free version](https://wordpress.org/plugins/maximum-products-per-user-for-woocommerce/ "Free version")**)
 
-* [**Cost of Goods for WooCommerce**](https://wpfactory.com/item/cost-of-goods-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Cost of Goods WooCommerce**"): Make informed decisions to maximize profits, correctly calculate Cost of Goods Sold (COGS) for your WooCommerce store and enhance your financial management capabilities (**[Try our Free version](https://wordpress.org/plugins/cost-of-goods-for-woocommerce/ "Try our Free version")**)
+* [**Order Minimum/Maximum Amount**](https://wpfactory.com/item/order-minimum-maximum-amount-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Order Minimum/Maximum Amount**"): Customize order limits by amount, quantity, weight, or volume, including user role, category, and more (**[Free version](https://wordpress.org/plugins/order-minimum-amount-for-woocommerce/ "Free version")**)
 
-* [**Maximum Products per User**](https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Maximum Products per User**"): Set personalized purchase limits for your customers, define maximum product quantities, catered to specific user roles & selected date range (**[Try our Free version](https://wordpress.org/plugins/maximum-products-per-user-for-woocommerce/ "Try our Free version")**)
+* [**EU/UK VAT Manager for WooCommerce**](https://wpfactory.com/item/eu-vat-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**EU/UK VAT Manager for WooCommerce**"): Automate VAT compliance for your WooCommerce store, including settings and VIES validation for a seamless experience (**[Free version](https://wordpress.org/plugins/eu-vat-for-woocommerce/ "Free version")**)
 
-* [**Order Minimum/Maximum Amount**](https://wpfactory.com/item/order-minimum-maximum-amount-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Order Minimum/Maximum Amount**"): Set tailored minimum and maximum order thresholds, by sum, quantity, weight, or volume, customize limits by user role, specific user, product category, shipping method, payment gateway, or even by currency (**[Try our Free version](https://wordpress.org/plugins/order-minimum-amount-for-woocommerce/ "Try our Free version")**)
+* [**Email Verification for WooCommerce**](https://wpfactory.com/item/email-verification-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Email Verification for WooCommerce**"): Boost security and credibility by verifying customer emails, reducing spam, and improving email marketing (**[Free version](https://wordpress.org/plugins/maximum-products-per-user-for-woocommerce/ "Free version")**)
 
-* [**EU/UK VAT Manager for WooCommerce**](https://wpfactory.com/item/eu-vat-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**EU/UK VAT Manager for WooCommerce**"): Streamline your WooCommerce store’s EU/UK VAT compliance effortlessly, automate VAT settings, validation (VIES), and how to apply taxes, ensuring a seamless and compliant customer experience (**[Try our Free version](https://wordpress.org/plugins/eu-vat-for-woocommerce/ "Try our Free version")**)
+* [**Free Shipping Over Amount for WooCommerce**](https://wpfactory.com/item/amount-left-free-shipping-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Free Shipping Over Amount for WooCommerce**"): Encourage higher spending by offering free shipping based on amount, with a progress bar for customers (**[Free version](https://wordpress.org/plugins/amount-left-free-shipping-woocommerce/ "Free version")**)
 
-* [**Email Verification for WooCommerce**](https://wpfactory.com/item/email-verification-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Email Verification for WooCommerce**"): Enhance WooCommerce security and credibility with Email Verification best plugin. Ensure genuine customer interactions, eliminate spam, and elevate email marketing efficiency (**[Try our Free version](https://wordpress.org/plugins/maximum-products-per-user-for-woocommerce/ "Try our Free version")**)
-
-* [**Free Shipping Over Amount for WooCommerce**](https://wpfactory.com/item/amount-left-free-shipping-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Free Shipping Over Amount for WooCommerce**"): WooCommerce Advanced Free Shipping plugin, use our plugin to quality customers for free shipping when they spend specific amount, by showing a bar on remaining amounts they need to spend to qualify for free shipping (**[Try our Free version](https://wordpress.org/plugins/amount-left-free-shipping-woocommerce/ "Try our Free version")**)
-
-* [**Dynamic Pricing & Bulk Quantity Discounts**](https://wpfactory.com/item/product-price-by-quantity-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Dynamic Pricing & Bulk Quantity Discounts**"): Create and manage advanced dynamic pricing and bulk discount rules for WooCommerce, encouraging bulk purchases and driving your sales to new heights (**[Try our Free version](https://wordpress.org/plugins/wholesale-pricing-woocommerce/ "Try our Free version")**)
+* [**Dynamic Pricing & Bulk Quantity Discounts**](https://wpfactory.com/item/product-price-by-quantity-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Dynamic Pricing & Bulk Quantity Discounts**"): Advanced dynamic pricing and discount rules for WooCommerce, encouraging bulk purchases and driving more sales (**[Free version](https://wordpress.org/plugins/wholesale-pricing-woocommerce/ "Free version")**)
 ___
 ## ❤️ User Testimonials: See What Others Are Saying!##
 
@@ -337,16 +331,34 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 
 == Installation ==
 
-You can either download the plugin from WordPress.org plugins and then upload it (as .zip file) to the `/wp-content/plugins/` directory.
+**Follow these simplified steps to get your plugin up and running:**
 
-Or search for it in the plugins directory from inside your WordPress website (Plugins >> Add New) and install it.
+**From the WordPress Admin Panel:**
+1. Navigate to “Plugins” > “Add New”.
+2. Use the search bar and find the plugin using the exact name.
+3. Click “Install Now” for the desired plugin.
+4. Once the installation is finished, and click “Activate”.
 
-Then activate the plugin through the "Plugins" menu in WordPress.
+**Manual Installation Using FTP:**
+1. Download the desired plugin from WordPress.org.
+2. Using your preferred FTP client, upload the entire plugin folder to the /wp-content/plugins/ directory of your WordPress installation.
+3. Go to “Plugins” > “Installed Plugins” in your dashboard and click “Activate”.
 
-Finally, you can start using it directly at "WooCommerce > Settings > Product Quantity".
+**Manual download & upload from the WordPress Admin Panel:**
+1. Download the desired plugin in a ZIP format.
+2. On your site, navigate to “Plugins” > “Add New” and click the “Upload Plugin” button.
+3. Choose the downloaded plugin file and click “Install Now.”
+4. After the installation is complete, click “Activate”.
+
+**Post-Activation:**
+Once activated, access the plugin's settings by navigating to “WooCommerce > Settings” and look for the relevant tab.
 
 
 == Changelog ==
+
+= 2.7.3 - 04/04/2024 =
+* Update - readm.txt
+* Tested up to: 6.5.
 
 = 2.7.2 - 25/03/2024 =
 * Fix - Remove PHP warnings.
