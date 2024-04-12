@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: emails-verification-for-woocommerce 2.7.3\n"
+"Project-Id-Version: emails-verification-for-woocommerce 2.7.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/emails-verification-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-04-04T12:10:43+02:00\n"
+"POT-Creation-Date: 2024-04-12T17:39:10+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: emails-verification-for-woocommerce\n"
@@ -152,7 +152,7 @@ msgid "User %s: activation link resent."
 msgstr ""
 
 #: includes/class-alg-wc-ev-admin.php:725
-#: includes/class-alg-wc-ev-core.php:1019
+#: includes/class-alg-wc-ev-core.php:1031
 msgid "Verified"
 msgstr ""
 
@@ -181,40 +181,56 @@ msgstr ""
 msgid "Unverify"
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:228
-#: includes/class-alg-wc-ev-core.php:229
+#: includes/class-alg-wc-ev-core.php:161
+msgid "<a href=\"javascript:;\" id=\"alg_wc_ev_send_verify\">Send Verify Email</a>"
+msgstr ""
+
+#: includes/class-alg-wc-ev-core.php:162
+msgid "Resending...."
+msgstr ""
+
+#: includes/class-alg-wc-ev-core.php:163
+msgid "Verification mail sent successfully to billing email, please check inbox and verify ! <a href=\"javascript:;\" id=\"alg_wc_ev_resend_verify\">Resend</a>"
+msgstr ""
+
+#: includes/class-alg-wc-ev-core.php:164
+msgid "Email id verified !"
+msgstr ""
+
+#: includes/class-alg-wc-ev-core.php:240
+#: includes/class-alg-wc-ev-core.php:241
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:153
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:162
 msgid "You need to <a href=\"%myaccount_url%\">verify your account</a> to access this content."
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:229
+#: includes/class-alg-wc-ev-core.php:241
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:153
 msgid "You can resend the email with verification link by clicking <a href=\"%resend_verification_url%\">here</a>."
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:305
-#: includes/class-alg-wc-ev-core.php:1018
+#: includes/class-alg-wc-ev-core.php:317
+#: includes/class-alg-wc-ev-core.php:1030
 msgid "Verification status: "
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:912
+#: includes/class-alg-wc-ev-core.php:924
 msgid "Submit"
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:923
+#: includes/class-alg-wc-ev-core.php:935
 msgid "Email address"
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:969
+#: includes/class-alg-wc-ev-core.php:981
 msgid "User data not found."
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:986
+#: includes/class-alg-wc-ev-core.php:998
 msgid "You can resend the email with verification link by clicking <a href=\"{resend_verification_url}\">here</a>."
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:1020
+#: includes/class-alg-wc-ev-core.php:1032
 msgid "Unverified"
 msgstr ""
 

@@ -141,7 +141,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 
 			if ( 'yes' === get_option( 'alg_wc_ev_verify_guest_email', 'no' ) ) {
 				if ( ! is_user_logged_in() ) {
-					add_action( 'wp_footer', array( $this, 'add_this_script_footer' ), PHP_INT_MAX );
+					add_action( 'wp_footer', array( $this, 'verify_guest_at_checkout_script_footer' ), PHP_INT_MAX );
 
 					add_action( 'wp_ajax_alg_wc_ev_send_guest_verification_email_action', array(
 						$this,
@@ -156,6 +156,18 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 						'checkout_validate_guest_email'
 					), PHP_INT_MAX );
 					add_action( 'template_redirect', array( $this, 'checkout_validate_guest_email_message' ) );
+					
+					$wc_ev_options = array(
+						'send'    			=> __( '<a href="javascript:;" id="alg_wc_ev_send_verify">Send Verify Email</a>', 'emails-verification-for-woocommerce' ),
+						'resend'  			=> __( 'Resending....', 'emails-verification-for-woocommerce' ),
+						'sent'  		=> __( 'Verification mail sent successfully to billing email, please check inbox and verify ! <a href="javascript:;" id="alg_wc_ev_resend_verify">Resend</a>', 'emails-verification-for-woocommerce' ),
+						'already_verified'  => __( 'Email id verified !', 'emails-verification-for-woocommerce' )
+					);
+					
+					
+					wp_enqueue_script(  'alg-wc-ev-guest-verify',
+					trailingslashit( alg_wc_ev()->plugin_url() ) . 'includes/js/alg-wc-ev-guest-verify.js', array( 'jquery' ), alg_wc_ev()->version, true );
+					wp_localize_script( 'alg-wc-ev-guest-verify', 'email_verification_options', $wc_ev_options );
 				}
 			}
 		}
@@ -1132,14 +1144,14 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		}
 
 		/**
-		 * add_this_script_footer.
+		 * verify_guest_at_checkout_script_footer.
 		 *
-		 * @version 2.6.4
+		 * @version 2.7.4
 		 * @since   2.5.8
 		 *
 		 * @return string
 		 */
-		function add_this_script_footer() {
+		function verify_guest_at_checkout_script_footer() {
 			?>
             <script>
                 jQuery(function ($) {
@@ -1153,89 +1165,21 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 						'directly'    => true
 					) );
 
-					if (
-					! empty( $args['verify_code'] ) &&
-					! empty( $verify_code = wc_clean( $args['verify_code'] ) ) &&
-					! empty( $data = alg_wc_ev_decode_verify_code( array( 'verify_code' => $verify_code ) ) )
-					) {
+						if (
+						! empty( $args['verify_code'] ) &&
+						! empty( $verify_code = wc_clean( $args['verify_code'] ) ) &&
+						! empty( $data = alg_wc_ev_decode_verify_code( array( 'verify_code' => $verify_code ) ) )
+						) {
 
-					// guest user verified by email
-					if (isset( $data['id'] ) && filter_var( $data['id'], FILTER_VALIDATE_EMAIL ) && isset( $data['code'] )) {
-					?>
-                    billing_email_input.val('<?php echo $data['id']; ?>');
-					<?php
-					}
-					}
-					}
-					?>
-
-                    var current_billing_email = billing_email_input.val();
-                    var billing_email_paragraph = $('p[id="billing_email_field"]');
-					billing_email_paragraph.append('<div id="alg_wc_ev_activation_guest_verify"></div>');
-					
-                    var guest_email_verify_text = $('div[id="alg_wc_ev_activation_guest_verify"]');
-					
-					
-                    var resend_email_verify = $('a[id="alg_wc_ev_resend_verify"]');
-                    send_alg_wc_ev_guest_verification_email("new", current_billing_email);
-                    billing_email_input.on('input change paste keyup blur', function () {
-                        // send_alg_wc_ev_guest_verification_email("new", $(this).val());
-						guest_email_verify_text.html('');
-						var regexo = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-                        var isValido = regexo.test($(this).val());
-                        if (isValido) {
-							guest_email_verify_text.html('<a href="javascript:;" id="alg_wc_ev_send_verify">Send Verify Email</a>');
+							// guest user verified by email
+							if (isset( $data['id'] ) && filter_var( $data['id'], FILTER_VALIDATE_EMAIL ) && isset( $data['code'] )) {
+							?>
+							billing_email_input.val('<?php echo $data['id']; ?>');
+							<?php
+							}
 						}
-                    });
-
-
-                    function send_alg_wc_ev_guest_verification_email(send, email) {
-                        if (send == 'resend') {
-                            guest_email_verify_text.html('Resending....');
-                        } else {
-                            guest_email_verify_text.html('');
-                        }
-                        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-                        var isValid = regex.test(email);
-                        if (isValid) {
-                            var alg_wc_ev_data = {
-                                'action': 'alg_wc_ev_send_guest_verification_email_action',
-                                'alg_wc_ev_email': email,
-                                'send': send
-                            };
-                            $.ajax({
-                                type: "POST",
-                                url: woocommerce_params.ajax_url,
-                                data: alg_wc_ev_data,
-                                success: function (response) {
-                                    if ('notsent' == response) {
-
-                                    } else if ('sent' == response) {
-                                        guest_email_verify_text.html('Verification mail sent successfully to billing email, please check inbox and verify ! <a href="javascript:;" id="alg_wc_ev_resend_verify">Resend</a>');
-                                        guest_email_verify_text.removeClass();
-                                        guest_email_verify_text.addClass('alg-wc-ev-guest-verify-button');
-
-                                        // $( 'body' ).trigger( 'update_checkout' );
-                                        // jQuery( "#place_order" ).trigger( "click" );
-                                    } else if ('already_verified' == response) {
-                                        guest_email_verify_text.html('Email id verified !');
-                                        guest_email_verify_text.removeClass();
-                                        guest_email_verify_text.addClass('alg-wc-ev-guest-verify-button');
-                                        // $( 'body' ).trigger( 'update_checkout' );
-                                        // jQuery( "#place_order" ).trigger( "click" );
-                                    }
-                                }
-                            });
-                        }
-                    }
-
-                    $("body").on("click", "#alg_wc_ev_resend_verify", function () {
-                        send_alg_wc_ev_guest_verification_email("resend", $('input[name="billing_email"]').val());
-                    });
-					
-					$("body").on("click", "#alg_wc_ev_send_verify", function () {
-                        send_alg_wc_ev_guest_verification_email("new", $('input[name="billing_email"]').val());
-                    });
+					}
+					?>
                 });
             </script>
             <style>

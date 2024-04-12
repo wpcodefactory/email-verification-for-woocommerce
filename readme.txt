@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 6.5
-Stable tag: 2.7.3
+Stable tag: 2.7.4
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -355,6 +355,10 @@ Once activated, access the plugin's settings by navigating to “WooCommerce > S
 
 
 == Changelog ==
+
+= 2.7.4 - 12/04/2024 =
+* Fix - Add js string to language files.
+* Fix - Move footer js script to js file.
 
 = 2.7.3 - 04/04/2024 =
 * Update - readm.txt
