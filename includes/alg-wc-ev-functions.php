@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Functions.
  *
- * @version 2.6.5
+ * @version 2.7.5
  * @since   1.9.0
  * @author  WPFactory
  */
@@ -289,7 +289,7 @@ if ( ! function_exists( 'alg_wc_ev_generate_user_code' ) ) {
 	/**
 	 * generate_user_code.
 	 *
-	 * @version 2.4.0
+	 * @version 2.7.5
 	 * @since   2.4.0
 	 *
 	 * @param null $args
@@ -302,10 +302,11 @@ if ( ! function_exists( 'alg_wc_ev_generate_user_code' ) ) {
 		) );
 		$code = '';
 		if ( 'base64_encode' === $args['encoding_method'] ) {
-			$code = md5( time() );
+			$code = md5( wp_generate_password() );
 		} elseif ( 'hashids' === $args['encoding_method'] ) {
-			$code = time();
+			$code = wp_rand( 100 );
 		}
+
 		return $code;
 	}
 }

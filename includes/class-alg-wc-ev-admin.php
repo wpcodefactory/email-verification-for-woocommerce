@@ -219,7 +219,7 @@ class Alg_WC_Email_Verification_Admin {
 	 *
 	 * @param $which
 	 *
-	 * @version 2.3.3
+	 * @version 2.7.5
 	 * @since   2.3.3
 	 */
 	function add_user_verification_status_filter_options( $which ) {
@@ -233,7 +233,7 @@ class Alg_WC_Email_Verification_Admin {
 
 		printf( '<select name="alg_wc_ev_verification_status_%s" style="float:none;margin-left:10px; margin-right: 6px;">%s</select>', $which, implode( '', $options ) );
 
-		submit_button( esc_html__( 'Filter', 'emails-verification-for-woocommerce' ), null, $which, false );
+		submit_button( esc_html__( 'Filter', 'emails-verification-for-woocommerce' ), '', $which, false );
 	}
 
 	/**
