@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Compatibility Section Settings.
  *
- * @version 2.5.3
+ * @version 2.7.6
  * @since   2.1.3
  * @author  WPFactory
  */
@@ -43,7 +43,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 		/**
 		 * get_settings.
 		 *
-		 * @version 2.5.3
+		 * @version 2.7.6
 		 * @since   2.1.3
 		 * @todo    (maybe) remove `alg_wc_ev_prevent_login_after_checkout_notice` (i.e. make it always enabled)
 		 */
@@ -125,6 +125,37 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 					'id'       => 'alg_wc_ev_compatibility_options',
 				),
 			);
+
+			$xoo_login_signup_popup_opts = array(
+				array(
+					'title' => __( 'Login/Signup Popup ( Inline Form + Woocommerce )', 'emails-verification-for-woocommerce' ),
+					'type'  => 'title',
+					'desc'  => sprintf( __( 'Compatibility with the %s plugin.', 'emails-verification-for-woocommerce' ), sprintf( '<a href="%s" target="_blank">%s</a>', 'https://wordpress.org/plugins/easy-login-woocommerce/', __( 'Login/Signup Popup', 'emails-verification-for-woocommerce' ) ) ),
+					'id'    => 'alg_wc_ev_compatibility_xoo_lsp_opts',
+				),
+				array(
+					'title'             => __( 'Prevent auto login', 'emails-verification-for-woocommerce' ),
+					'desc'              => __( 'Prevent auto login on sign up from the Login/Signup plugin', 'emails-verification-for-woocommerce' ),
+					'desc_tip'          => __( 'Also disables Register Redirect from the Login/Signup plugin.', 'emails-verification-for-woocommerce' ),
+					'id'                => 'alg_wc_ev_compatibility_xoo_lsp_prevent_auto_login',
+					'default'           => 'no',
+					'type'              => 'checkbox',
+					'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+				),
+				array(
+					'title'             => __( 'Activate message', 'emails-verification-for-woocommerce' ),
+					'desc'              => __( 'Replace registration message from Login/Signup plugin by the Activate message', 'emails-verification-for-woocommerce' ),
+					'id'                => 'alg_wc_ev_compatibility_xoo_lsp_replace_registration_msg',
+					'default'           => 'no',
+					'type'              => 'checkbox',
+					'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+				),
+				array(
+					'type' => 'sectionend',
+					'id'   => 'alg_wc_ev_compatibility_xoo_lsp_opts',
+				),
+			);
+
 			$polylang_opts = array(
 				array(
 					'title' => __( 'Polylang', 'emails-verification-for-woocommerce' ),
@@ -301,7 +332,9 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 				),
 			);
 			return array_merge(
-				$general, $polylang_opts,
+				$general,
+				$xoo_login_signup_popup_opts,
+				$polylang_opts,
 				$elementor_essential_addons_opts,
 				$email_customizer_themehigh_opts,
 				$email_customizer_villatheme_opts,

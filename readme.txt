@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 6.5
-Stable tag: 2.7.5
+Stable tag: 2.7.6
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -355,6 +355,10 @@ Once activated, access the plugin's settings by navigating to “WooCommerce > S
 
 
 == Changelog ==
+
+= 2.7.6 - 30/04/2024 =
+* Dev - Compatibility - Login/Signup Popup - Create option to prevent auto login on sign up from the Login/Signup plugin.
+* Dev - Compatibility - Login/Signup Popup - Create option to replace registration message from Login/Signup plugin by the Activate message.
 
 = 2.7.5 - 29/04/2024 =
 * Fix - Admin - Users Filter - PHP Deprecated:  explode(): Passing null to parameter #2 ($string) of type string is deprecated.
