@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Emails Class.
  *
- * @version 2.7.5
+ * @version 2.7.7
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -204,7 +204,7 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * get_verification_url.
 	 *
-	 * @version 2.7.5
+	 * @version 2.7.7
 	 * @since   1.8.0
 	 */
 	function get_verification_url( $args = null ) {
@@ -221,7 +221,7 @@ class Alg_WC_Email_Verification_Emails {
 			$user_id = intval( $args['user_id'] );
 		}
 		$code                    = $args['code'];
-		$code                    = false === $code && ! empty( $activation_code = get_user_meta( $user_id, 'alg_wc_ev_activation_code', true ) ) ? $activation_code : false;
+		$code                    = false === $code && ! empty( $activation_code = get_user_meta( $user_id, 'alg_wc_ev_activation_code', true ) ) ? $activation_code : ( ! empty( $code ) ? $code : false );
 		$encoding_method         = $args['encoding_method'];
 		$verify_email_hash       = '';
 		$verification_check_page = $args['verification_check_page'];
