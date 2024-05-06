@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Messages Class.
  *
- * @version 2.4.3
+ * @version 2.7.8
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -26,13 +26,18 @@ class Alg_WC_Email_Verification_Messages {
 	/**
 	 * get_error_message.
 	 *
-	 * @version 2.0.7
+	 * @version 2.7.8
 	 * @since   1.6.0
 	 */
 	function get_error_message( $user_id ) {
-		$notice = do_shortcode( get_option( 'alg_wc_ev_error_message',
+		$notice       = do_shortcode( get_option( 'alg_wc_ev_error_message',
 			__( 'Your account has to be activated before you can login. You can resend the email with verification link by clicking <a href="%resend_verification_url%">here</a>.', 'emails-verification-for-woocommerce' ) ) );
-		return str_replace( '%resend_verification_url%', esc_url( $this->get_resend_verification_url( $user_id ) ), $notice );
+		$placeholders = array(
+			'%resend_verification_url%' => esc_url( $this->get_resend_verification_url( $user_id ) )
+		);
+		$placeholders = array_merge( $placeholders, alg_wc_ev_get_user_placeholders( array( 'user_id' => $user_id ) ) );
+
+		return str_replace( array_keys( $placeholders ), $placeholders, $notice );
 	}
 
 	/**
@@ -68,13 +73,18 @@ class Alg_WC_Email_Verification_Messages {
 	/**
 	 * get_failed_message.
 	 *
-	 * @version 2.0.7
+	 * @version 2.7.8
 	 * @since   1.6.0
 	 */
 	function get_failed_message( $user_id ) {
 		$notice = do_shortcode( get_option( 'alg_wc_ev_failed_message',
 			__( '<strong>Error:</strong> Activation failed, please contact our administrator. You can resend the email with verification link by clicking <a href="%resend_verification_url%">here</a>.', 'emails-verification-for-woocommerce' ) ) );
-		return str_replace( '%resend_verification_url%', esc_url( $this->get_resend_verification_url( $user_id ) ), $notice );
+		$placeholders = array(
+			'%resend_verification_url%' => esc_url( $this->get_resend_verification_url( $user_id ) )
+		);
+		$placeholders = array_merge( $placeholders, alg_wc_ev_get_user_placeholders( array( 'user_id' => $user_id ) ) );
+
+		return str_replace( array_keys( $placeholders ), $placeholders, $notice );
 	}
 
 	/**
@@ -91,25 +101,35 @@ class Alg_WC_Email_Verification_Messages {
 	/**
 	 * get_activation_message.
 	 *
-	 * @version 2.0.7
+	 * @version 2.7.8
 	 * @since   1.5.0
 	 */
 	function get_activation_message( $user_id ) {
 		$notice = do_shortcode( get_option( 'alg_wc_ev_activation_message',
 			__( 'Thank you for your registration. Your account has to be activated before you can login. Please check your email.', 'emails-verification-for-woocommerce' ) ) );
-		return str_replace( '%resend_verification_url%', esc_url( $this->get_resend_verification_url( $user_id ) ), $notice );
+		$placeholders = array(
+			'%resend_verification_url%' => esc_url( $this->get_resend_verification_url( $user_id ) )
+		);
+		$placeholders = array_merge( $placeholders, alg_wc_ev_get_user_placeholders( array( 'user_id' => $user_id ) ) );
+
+		return str_replace( array_keys( $placeholders ), $placeholders, $notice );
 	}
 
 	/**
 	 * get_activation_message.
 	 *
-	 * @version 2.4.3
+	 * @version 2.7.8
 	 * @since   2.4.3
 	 */
 	function get_already_verified_message( $user_id ) {
 		$notice = do_shortcode( get_option( 'alg_wc_ev_already_verified_message',
 			__( 'Your account is already verified.', 'emails-verification-for-woocommerce' ) ) );
-		return $notice;
+		$placeholders = array(
+			'%resend_verification_url%' => esc_url( $this->get_resend_verification_url( $user_id ) )
+		);
+		$placeholders = array_merge( $placeholders, alg_wc_ev_get_user_placeholders( array( 'user_id' => $user_id ) ) );
+
+		return str_replace( array_keys( $placeholders ), $placeholders, $notice );
 	}
 
 	/**

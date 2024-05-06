@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Messages Section Settings.
  *
- * @version 2.4.3
+ * @version 2.7.8
  * @since   1.3.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_Email_Verification_Settings_Messages extends Alg_WC_Email_Verificat
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.4.3
+	 * @version 2.7.8
 	 * @since   1.3.0
 	 */
 	function get_settings() {
@@ -66,7 +66,7 @@ class Alg_WC_Email_Verification_Settings_Messages extends Alg_WC_Email_Verificat
 			),
 			array(
 				'title'    => __( 'Error', 'emails-verification-for-woocommerce' ),
-				'desc'     => $this->available_placeholders_desc( array( '%resend_verification_url%' ) ),
+				'desc'     => $this->available_placeholders_desc( array_merge( array( '%resend_verification_url%' ), $this->get_default_user_placeholders() ) ),
 				'type'     => 'textarea',
 				'id'       => 'alg_wc_ev_error_message',
 				'default'  => __( 'Your account has to be activated before you can login. You can resend the email with verification link by clicking <a href="%resend_verification_url%">here</a>.', 'emails-verification-for-woocommerce' ),
@@ -75,7 +75,7 @@ class Alg_WC_Email_Verification_Settings_Messages extends Alg_WC_Email_Verificat
 			),
 			array(
 				'title'    => __( 'Failed', 'emails-verification-for-woocommerce' ),
-				'desc'     => $this->available_placeholders_desc( array( '%resend_verification_url%' ) ),
+				'desc'     => $this->available_placeholders_desc( array_merge( array( '%resend_verification_url%' ), $this->get_default_user_placeholders() ) ),
 				'type'     => 'textarea',
 				'id'       => 'alg_wc_ev_failed_message',
 				'default'  => __( '<strong>Error:</strong> Activation failed, please contact our administrator. You can resend the email with verification link by clicking <a href="%resend_verification_url%">here</a>.', 'emails-verification-for-woocommerce' ),
@@ -84,6 +84,7 @@ class Alg_WC_Email_Verification_Settings_Messages extends Alg_WC_Email_Verificat
 			),
 			array(
 				'title'    => __( 'Already verified', 'emails-verification-for-woocommerce' ),
+				'desc'     => $this->available_placeholders_desc( $this->get_default_user_placeholders() ),
 				'type'     => 'textarea',
 				'id'       => 'alg_wc_ev_already_verified_message',
 				'default'  => __( 'Your account is already verified.', 'emails-verification-for-woocommerce' ),
@@ -92,7 +93,7 @@ class Alg_WC_Email_Verification_Settings_Messages extends Alg_WC_Email_Verificat
 			),
 			array(
 				'title'    => __( 'Activate', 'emails-verification-for-woocommerce' ),
-				'desc'     => $this->available_placeholders_desc( array( '%resend_verification_url%' ) ),
+				'desc'     => $this->available_placeholders_desc( array_merge( array( '%resend_verification_url%' ), $this->get_default_user_placeholders() ) ),
 				'type'     => 'textarea',
 				'id'       => 'alg_wc_ev_activation_message',
 				'default'  => __( 'Thank you for your registration. Your account has to be activated before you can login. Please check your email.', 'emails-verification-for-woocommerce' ),

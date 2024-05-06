@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Email Section Settings.
  *
- * @version 2.6.7
+ * @version 2.7.8
  * @since   1.3.0
  * @author  WPFactory
  */
@@ -25,36 +25,12 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 		parent::__construct();
 	}
 
-	/**
-	 * get_default_email_placeholders.
-	 *
-	 * @version 1.9.7
-	 * @since   1.9.7
-	 *
-	 * @return array
-	 */
-	function get_default_email_placeholders(){
-		return array(
-			'%site_title%',
-			'%site_url%',
-			'%user_id%',
-			'%user_login%',
-			'%user_nicename%',
-			'%user_email%',
-			'%user_url%',
-			'%user_registered%',
-			'%user_display_name%',
-			'%user_roles%',
-			'%user_first_name%',
-			'%user_last_name%',
-			'%admin_user_profile_url%',
-		);
-	}
+
 
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.6.7
+	 * @version 2.7.8
 	 * @since   1.3.0
 	 */
 	function get_settings() {
@@ -135,7 +111,7 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 		$email_placeholder_opts = array(
 			array(
 				'title' => __( 'Common placeholders', 'emails-verification-for-woocommerce' ),
-				'desc'  => sprintf( __( 'These placeholders can be used on the Email Subject or Content options: %s.', 'emails-verification-for-woocommerce' ), '<code>' . implode( '</code>, <code>', $this->get_default_email_placeholders() ) . '</code>' ).' '.
+				'desc'  => sprintf( __( 'These placeholders can be used on the Email Subject or Content options: %s.', 'emails-verification-for-woocommerce' ), '<code>' . implode( '</code>, <code>', $this->get_default_email_placeholders() ) . '</code>' ) . ' ' .
 				           sprintf( __( 'If you\'re having deliverability problems or emails being sent to Spam, try using the placeholders %s and %s on the Email Content or subject.', 'emails-verification-for-woocommerce' ), '<code>%site_title%</code>','<code>%site_url%</code>'),
 
 				'type'  => 'title',

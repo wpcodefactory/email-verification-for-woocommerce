@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Section Settings.
  *
- * @version 2.7.1
+ * @version 2.7.8
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -36,6 +36,44 @@ class Alg_WC_Email_Verification_Settings_Section {
 	function __construct() {
 		add_filter( 'woocommerce_get_sections_alg_wc_ev',              array( $this, 'settings_section' ) );
 		add_filter( 'woocommerce_get_settings_alg_wc_ev_' . $this->id, array( $this, 'get_settings' ), PHP_INT_MAX );
+	}
+
+	/**
+	 * get_default_user_id_placeholders.
+	 *
+	 * @version 2.7.8
+	 * @since   2.7.8
+	 *
+	 * @return array
+	 */
+	function get_default_user_placeholders(){
+		return array(
+			'%user_login%',
+			'%user_nicename%',
+			'%user_email%',
+			'%user_url%',
+			'%user_registered%',
+			'%user_display_name%',
+			'%user_roles%',
+			'%user_first_name%',
+			'%user_last_name%',
+			'%admin_user_profile_url%',
+		);
+	}
+
+	/**
+	 * get_default_user_id_placeholders.
+	 *
+	 * @version 2.7.8
+	 * @since   1.9.7
+	 *
+	 * @return array
+	 */
+	function get_default_email_placeholders() {
+		return array_merge( $this->get_default_user_placeholders(), array(
+			'%site_title%',
+			'%site_url%',
+		) );
 	}
 
 	/**
