@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Advanced Section Settings.
  *
- * @version 2.5.3
+ * @version 2.7.9
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -36,7 +36,7 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.5.3
+	 * @version 2.7.9
 	 * @since   1.6.0
 	 * @todo    (maybe) remove `alg_wc_ev_prevent_login_after_checkout_notice` (i.e. make it always enabled)
 	 */
@@ -320,13 +320,9 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 
 		$delete_opts = array(
 			array(
-				'type' => 'sectionend',
-				'id'   => 'alg_wc_ev_admin_delete_options',
-			),
-
-			array(
 				'title' => __( 'Delete options', 'emails-verification-for-woocommerce' ),
 				'desc'  => __( 'Some notes regarding how this tool works:', 'emails-verification-for-woocommerce' ) . '<br />'
+				           . '- ' . sprintf( __( 'Every deleted user  will be registered on %s page over the source %s.', 'emails-verification-for-woocommerce' ), sprintf( '<a href="%s">' . __( 'WooCommerce logs', 'emails-verification-for-woocommerce' ) . '</a>', admin_url( 'admin.php?page=wc-status&tab=logs' ) ), '<code>alg_wc_ev_delete_users_tool</code>' ) . '<br />'
 				           . '- ' . sprintf( __( 'It will only delete unverified users which roles are not set in the %s option.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Skip email verification for user roles', 'emails-verification-for-woocommerce' ) . '</strong>' ) . '<br />'
 				           . '- ' . sprintf( __( 'If the %s option is set it will only delete unverified users whose activation have expired, so it\'s more safe to use it.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Expire time', 'emails-verification-for-woocommerce' ) . '</strong>' ) . '<br />'
 				           . '- ' . sprintf( __( 'If the %s option is enabled it may delete the current users who have not verified their account yet, so it\'s more safe to leave it <strong>disabled</strong>.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Enable email verification for already registered users', 'emails-verification-for-woocommerce' ) . '</strong>' ) . '<br />'
@@ -363,6 +359,10 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 				),
 				'id'       => 'alg_wc_ev_delete_users_cron_frequency',
 				'default'  => 'weekly',
+			),
+			array(
+				'type' => 'sectionend',
+				'id'   => 'alg_wc_ev_admin_delete_options',
 			),
 		);
 		return array_merge(

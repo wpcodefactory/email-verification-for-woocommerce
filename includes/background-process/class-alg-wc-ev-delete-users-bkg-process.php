@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Background Process - Delete users
  *
- * @version 2.0.1
+ * @version 2.7.9
  * @since   2.0.1
  * @author  WPFactory
  */
@@ -11,9 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly
 
-if ( ! class_exists( 'Alg_WC_Email_Verification_Import_Tool_Bkg_Process' ) ) :
+if ( ! class_exists( 'Alg_WC_Email_Verification_Delete_Tool_Bkg_Process' ) ) :
 
-	class Alg_WC_Email_Verification_Import_Tool_Bkg_Process extends Alg_WC_Email_Verification_Bkg_Process {
+	class Alg_WC_Email_Verification_Delete_Tool_Bkg_Process extends Alg_WC_Email_Verification_Bkg_Process {
 
 		/**
 		 * @var string
@@ -31,7 +31,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Import_Tool_Bkg_Process' ) ) :
 		}
 
 		/**
-		 * @version 2.0.1
+		 * @version 2.7.9
 		 * @since   2.0.1
 		 *
 		 * @param mixed $item
@@ -43,10 +43,13 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Import_Tool_Bkg_Process' ) ) :
 			if ( ! function_exists( 'wp_delete_user' ) ) {
 				require_once( ABSPATH . 'wp-admin/includes/user.php' );
 			}
+			$user       = get_user_by( 'ID', $item['user_id'] );
+			$user_email = $user->user_email;
 			if ( wp_delete_user( $item['user_id'], $item['current_user_id'] ) ) {
 				$logger = wc_get_logger();
-				$logger->info( sprintf( __( 'User deleted: %d.', 'emails-verification-for-woocommerce' ), $item['user_id'] ), array( 'source' => $this->get_logger_context() ) );
+				$logger->info( sprintf( __( 'User deleted: (ID: %d, Email: %s).', 'emails-verification-for-woocommerce' ), $item['user_id'], $user_email ), array( 'source' => $this->get_logger_context() ) );
 			}
+
 			return false;
 		}
 

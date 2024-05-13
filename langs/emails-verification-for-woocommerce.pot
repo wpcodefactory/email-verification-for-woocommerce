@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: emails-verification-for-woocommerce 2.7.8\n"
+"Project-Id-Version: emails-verification-for-woocommerce 2.7.9\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/emails-verification-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-05-06T20:55:00+02:00\n"
+"POT-Creation-Date: 2024-05-13T19:29:08+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: emails-verification-for-woocommerce\n"
@@ -47,8 +47,9 @@ msgstr ""
 msgid "Email Verification for WooCommerce - Delete users tool"
 msgstr ""
 
-#: includes/background-process/class-alg-wc-ev-delete-users-bkg-process.php:48
-msgid "User deleted: %d."
+#: includes/background-process/class-alg-wc-ev-delete-users-bkg-process.php:50
+#: includes/class-alg-wc-ev-admin.php:600
+msgid "User deleted: (ID: %d, Email: %s)."
 msgstr ""
 
 #: includes/background-process/class-alg-wc-ev-unverify-users.php:26
@@ -131,53 +132,53 @@ msgstr ""
 msgid "%d unverified users are going to be deleted in background processing."
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:602
+#: includes/class-alg-wc-ev-admin.php:604
 msgid "Total unverified users deleted: %d."
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:617
+#: includes/class-alg-wc-ev-admin.php:619
 msgid "Nonce not found or not verified."
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:688
+#: includes/class-alg-wc-ev-admin.php:690
 msgid "User %s: verified."
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:692
+#: includes/class-alg-wc-ev-admin.php:694
 msgid "User %s: unverified."
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:696
+#: includes/class-alg-wc-ev-admin.php:698
 msgid "User %s: activation link resent."
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:725
+#: includes/class-alg-wc-ev-admin.php:727
 #: includes/class-alg-wc-ev-core.php:1031
 msgid "Verified"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:741
+#: includes/class-alg-wc-ev-admin.php:743
 msgid "Are you sure?"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:760
+#: includes/class-alg-wc-ev-admin.php:762
 msgid "Email not verified"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:763
+#: includes/class-alg-wc-ev-admin.php:765
 msgid "Verify"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:765
+#: includes/class-alg-wc-ev-admin.php:767
 #: includes/settings/class-alg-wc-ev-settings-messages.php:104
 msgid "Resend"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:769
+#: includes/class-alg-wc-ev-admin.php:771
 msgid "Email verified"
 msgstr ""
 
-#: includes/class-alg-wc-ev-admin.php:772
+#: includes/class-alg-wc-ev-admin.php:774
 msgid "Unverify"
 msgstr ""
 
@@ -829,88 +830,96 @@ msgstr ""
 msgid "Full URL example: %s"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:328
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:323
 msgid "Delete options"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:329
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:324
 msgid "Some notes regarding how this tool works:"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:330
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:325
+msgid "Every deleted user  will be registered on %s page over the source %s."
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:325
+msgid "WooCommerce logs"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:326
 msgid "It will only delete unverified users which roles are not set in the %s option."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:330
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:326
 msgid "Skip email verification for user roles"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:331
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:327
 msgid "If the %s option is set it will only delete unverified users whose activation have expired, so it's more safe to use it."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:331
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:327
 #: includes/settings/class-alg-wc-ev-settings-general.php:259
 msgid "Expire time"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:332
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:328
 msgid "If the %s option is enabled it may delete the current users who have not verified their account yet, so it's more safe to leave it <strong>disabled</strong>."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:332
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:328
 msgid "Enable email verification for already registered users"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:333
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:329
 msgid "Deleted users can only be restored if you have a backup."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:338
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:334
 msgid "Delete users"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:339
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:335
 msgid "Delete unverified users from the database"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:340
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:336
 msgid "Check the box and save changes to run the tool."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:346
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:342
 msgid "Delete users automatically"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:347
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:343
 msgid "Delete unverified users from the database automatically"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:348
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:344
 msgid "Deletes based on the frequency option below."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:355
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:351
 msgid "Frequency"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:357
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:353
 msgid "If the frequency is changed after the Delete users automatically option is enabled, it will be necessary to disable and enable it again to see the frequency updated."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:359
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:355
 msgid "Hourly"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:360
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:356
 msgid "Daily"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:361
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:357
 msgid "Twice daily"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:362
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:358
 msgid "Weekly"
 msgstr ""
 

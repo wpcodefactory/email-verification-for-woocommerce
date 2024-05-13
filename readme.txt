@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 6.5
-Stable tag: 2.7.8
+Stable tag: 2.7.9
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -355,6 +355,11 @@ Once activated, access the plugin's settings by navigating to “WooCommerce > S
 
 
 == Changelog ==
+
+= 2.7.9 - 13/05/2024 =
+* Fix - Delete users in background class doesn't have the proper name.
+* Dev - Advanced - Delete users - Show the user id and email of the deleted user in logs.
+* Dev - Advanced - Delete users - Always show deleted user info in logs.
 
 = 2.7.8 - 06/05/2024 =
 * Dev - Add User placeholders to some message options, such as `%user_login%`, `%user_nicename%`, `%user_email%`, `%user_url%`, `%user_registered%`, `%user_display_name%`, `%user_roles%`, `%user_first_name%`, `%user_last_name%`, `%admin_user_profile_url%`.

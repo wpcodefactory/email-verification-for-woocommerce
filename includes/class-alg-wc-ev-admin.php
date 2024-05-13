@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Admin Class.
  *
- * @version 2.7.2
+ * @version 2.7.9
  * @since   1.5.0
  * @author  WPFactory
  */
@@ -28,10 +28,10 @@ class Alg_WC_Email_Verification_Admin {
 	/**
 	 * delete_users_bkg_process.
 	 *
-	 * @version 2.6.2
+	 * @version 2.7.9
 	 * @since 	2.6.2
 	 *
-	 * @var Alg_WC_Email_Verification_Import_Tool_Bkg_Process
+	 * @var Alg_WC_Email_Verification_Delete_Tool_Bkg_Process
 	 */
 	public $delete_users_bkg_process;
 	
@@ -255,12 +255,12 @@ class Alg_WC_Email_Verification_Admin {
 	/**
 	 * init_bkg_process.
 	 *
-	 * @version 2.3.8
+	 * @version 2.7.9
 	 * @since   2.0.1
 	 */
 	function init_bkg_process() {
 		require_once( alg_wc_ev()->plugin_path() . '/includes/background-process/class-alg-wc-ev-delete-users-bkg-process.php' );
-		$this->delete_users_bkg_process = new Alg_WC_Email_Verification_Import_Tool_Bkg_Process();
+		$this->delete_users_bkg_process = new Alg_WC_Email_Verification_Delete_Tool_Bkg_Process();
 
 		require_once( alg_wc_ev()->plugin_path() . '/includes/background-process/class-alg-wc-ev-verify-users.php' );
 		$this->verify_users_bkg_process = new Alg_WC_Email_Verification_Verify_Users();
@@ -547,7 +547,7 @@ class Alg_WC_Email_Verification_Admin {
 	/**
 	 * delete_unverified_users.
 	 *
-	 * @version 2.3.8
+	 * @version 2.7.9
 	 * @since   1.3.0
 	 * @todo    add "preview"
 	 */
@@ -596,6 +596,8 @@ class Alg_WC_Email_Verification_Admin {
 		} else {
 			foreach ( $users_query as $user ) {
 				if ( wp_delete_user( $user->ID, $current_user_id ) ) {
+					$logger = wc_get_logger();
+					$logger->info( sprintf( __( 'User deleted: (ID: %d, Email: %s).', 'emails-verification-for-woocommerce' ), $user->ID, $user->user_email ), array( 'source' => 'alg_wc_ev_delete_users_tool' ) );
 					$total ++;
 				}
 			}
