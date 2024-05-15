@@ -73,65 +73,71 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		protected $default_hashids_salt_opt = null;
 
 		/**
+		 * $user_deletion.
+		 *
+		 * @since 2.8.0
+		 *
+		 * @var Alg_WC_Email_Verification_Users_Deletion
+		 */
+		public $user_deletion;
+
+		/**
 		 * Constructor.
 		 *
-		 * @version 2.5.8
+		 * @version 2.8.0
 		 * @since   1.0.0
 		 * @todo    [next] (maybe) `[alg_wc_ev_translate]` to description in readme.txt
 		 */
 		function __construct() {
-			// Background process
-			$this->init_bkg_process();
-			// Functions
-			require_once( 'alg-wc-ev-functions.php' );
-			// Verification actions
+			$this->includes();
+
+			// Verification actions.
 			add_action( 'init', array( $this, 'verify' ), PHP_INT_MAX );
 			add_action( 'wp', array( $this, 'activate_message' ), PHP_INT_MAX );
 			add_action( 'init', array( $this, 'resend' ), PHP_INT_MAX );
-			// Verification info widget
-			require_once( 'class-alg-wc-ev-verification-info-widget.php' );
-			// Prevent login
-			require_once( 'class-alg-wc-ev-logouts.php' );
-			// Emails
-			$this->emails = require_once( 'class-alg-wc-ev-emails.php' );
-			// Messages
-			$this->messages = require_once( 'class-alg-wc-ev-messages.php' );
-			// Admin stuff
-			require_once( 'class-alg-wc-ev-admin.php' );
-			// Non Paying Blocker
-			require_once( 'class-alg-wc-ev-non-paying-blocker.php' );
-			// HTML tags converter
+
+			// HTML tags converter.
 			$this->setup_html_tags_converter();
-			// Core loaded
+
+			// Core loaded.
 			do_action( 'alg_wc_ev_core_loaded', $this );
-			// Login the user automatically
+
+			// Login the user automatically.
 			add_action( 'alg_wc_ev_user_account_activated', array(
 				$this,
 				'login_user_automatically_on_success_activation'
 			), 10, 2 );
-			// Redirect on success activation
+
+			// Redirect on success activation.
 			add_action( 'alg_wc_ev_user_account_activated', array( $this, 'redirect_on_success_activation' ), 100, 2 );
-			// Success activation message
+
+			// Success activation message.
 			add_action( 'alg_wc_ev_user_account_activated', array(
 				$this,
 				'maybe_display_success_activation_message_via_hook'
 			), 10, 2 );
 			add_action( 'init', array( $this, 'maybe_display_success_activation_message_via_query_string' ) );
 			add_filter( 'wp_redirect', array( $this, 'remove_success_activation_message' ) );
-			// Error message
+
+			// Error message.
 			add_action( 'init', array( $this, 'display_error_activation_message' ) );
-			// Redirects on failure
+
+			// Redirects on failure.
 			add_action( 'wp_login_failed', array( $this, 'redirect_on_failure' ), 10, 2 );
-			// Add verification info to my account page
+
+			// Add verification info to my account page.
 			add_action( 'woocommerce_account_dashboard', array( $this, 'add_verification_info_to_my_account_page' ) );
-			// Verification info widget
+
+			// Verification info widget.
 			add_action( 'widgets_init', array( $this, 'add_verification_info_widget' ) );
-			// Blocks content for unverified users
+
+			// Blocks content for unverified users.
 			add_action( 'template_redirect', array( $this, 'block_pages_for_unverified_users' ) );
 			add_action( 'init', array( $this, 'show_blocked_content_notice' ) );
 			add_action( 'wp', array( $this, 'redirect_to_resend_verification_url' ) );
 			add_action( 'wp', array( $this, 'save_my_account_page_referer_url' ) );
 			$this->handle_shortcodes();
+
 			// Initialize options.
 			add_action( 'init', array( $this, 'initialize_options' ), 1 );
 			add_action( 'alg_wc_email_verification_after_reset_settings', array(
@@ -142,7 +148,6 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 			if ( 'yes' === get_option( 'alg_wc_ev_verify_guest_email', 'no' ) ) {
 				if ( ! is_user_logged_in() ) {
 					add_action( 'wp_footer', array( $this, 'verify_guest_at_checkout_script_footer' ), PHP_INT_MAX );
-
 					add_action( 'wp_ajax_alg_wc_ev_send_guest_verification_email_action', array(
 						$this,
 						'alg_wc_ev_send_guest_verification_email_action'
@@ -164,12 +169,42 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 						'already_verified'  => __( 'Email id verified !', 'emails-verification-for-woocommerce' )
 					);
 					
-					
 					wp_enqueue_script(  'alg-wc-ev-guest-verify',
 					trailingslashit( alg_wc_ev()->plugin_url() ) . 'includes/js/alg-wc-ev-guest-verify.js', array( 'jquery' ), alg_wc_ev()->version, true );
 					wp_localize_script( 'alg-wc-ev-guest-verify', 'email_verification_options', $wc_ev_options );
 				}
 			}
+		}
+
+		/**
+		 * Includes.
+		 *
+		 * @version 2.8.0
+		 * @since   2.8.0
+		 *
+		 * @return void
+		 */
+		function includes(){
+			// Background process
+			$this->init_bkg_process();
+			// Functions.
+			require_once( 'alg-wc-ev-functions.php' );
+			// Verification info widget.
+			require_once( 'class-alg-wc-ev-verification-info-widget.php' );
+			// Prevent login.
+			require_once( 'class-alg-wc-ev-logouts.php' );
+			// Emails.
+			$this->emails = require_once( 'class-alg-wc-ev-emails.php' );
+			// Messages.
+			$this->messages = require_once( 'class-alg-wc-ev-messages.php' );
+			// Admin stuff.
+			require_once( 'class-alg-wc-ev-admin.php' );
+			// Non Paying Blocker.
+			require_once( 'class-alg-wc-ev-non-paying-blocker.php' );
+			// User deletion.
+			require_once( 'class-alg-wc-ev-user-deletion.php' );
+			$this->user_deletion = new Alg_WC_Email_Verification_Users_Deletion();
+			$this->user_deletion->init();
 		}
 
 		/**

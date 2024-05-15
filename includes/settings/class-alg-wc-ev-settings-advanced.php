@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Advanced Section Settings.
  *
- * @version 2.7.9
+ * @version 2.8.0
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -36,7 +36,7 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.7.9
+	 * @version 2.8.0
 	 * @since   1.6.0
 	 * @todo    (maybe) remove `alg_wc_ev_prevent_login_after_checkout_notice` (i.e. make it always enabled)
 	 */
@@ -359,6 +359,13 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 				),
 				'id'       => 'alg_wc_ev_delete_users_cron_frequency',
 				'default'  => 'weekly',
+			),
+			array(
+				'title'    => __( 'Network deletion', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'Delete users from network', 'emails-verification-for-woocommerce' ),
+				'type'     => 'checkbox',
+				'id'       => 'alg_wc_ev_delete_users_from_network',
+				'default'  => 'no',
 			),
 			array(
 				'type' => 'sectionend',

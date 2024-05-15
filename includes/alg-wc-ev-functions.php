@@ -343,7 +343,6 @@ if ( ! function_exists( 'alg_wc_ev_decode_verify_code' ) ) {
 }
 
 if ( ! function_exists( 'alg_wc_ev_get_current_url' ) ) {
-
 	/**
 	 * alg_wc_ev_get_current_url.
 	 *
@@ -362,7 +361,6 @@ if ( ! function_exists( 'alg_wc_ev_get_current_url' ) ) {
 }
 
 if ( ! function_exists( 'alg_wc_ev_get_verification_param' ) ) {
-
 	/**
 	 * alg_wc_ev_get_verification_param.
 	 *

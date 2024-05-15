@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 6.5
-Stable tag: 2.7.9
+Stable tag: 2.8.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -355,6 +355,10 @@ Once activated, access the plugin's settings by navigating to “WooCommerce > S
 
 
 == Changelog ==
+
+= 2.8.0 - 15/05/2024 =
+* Dev - Advanced - Delete options - Add option to delete users from network.
+* Dev - Add new class to handle user deletion.
 
 = 2.7.9 - 13/05/2024 =
 * Fix - Delete users in background class doesn't have the proper name.
