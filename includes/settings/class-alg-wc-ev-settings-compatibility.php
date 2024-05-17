@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Compatibility Section Settings.
  *
- * @version 2.7.6
+ * @version 2.8.1
  * @since   2.1.3
  * @author  WPFactory
  */
@@ -43,7 +43,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 		/**
 		 * get_settings.
 		 *
-		 * @version 2.7.6
+		 * @version 2.8.1
 		 * @since   2.1.3
 		 * @todo    (maybe) remove `alg_wc_ev_prevent_login_after_checkout_notice` (i.e. make it always enabled)
 		 */
@@ -51,7 +51,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 			$general =  array(
 				array(
 					'title' => __( 'Compatibility', 'emails-verification-for-woocommerce' ),
-					'desc'  => __( 'Compatibility with third party plugins or solutions.', 'emails-verification-for-woocommerce' ) . '<br />' .
+					'desc'  => __( 'Compatibility with third party plugins or solutions.', 'emails-verification-for-woocommerce' ) .' '.
 					           __( 'If you have issues with compatibility settings try to change these other options:', 'emails-verification-for-woocommerce' ) . '<br /><br />' .
 					           alg_wc_ev_array_to_string( array(
 						           __( 'Advanced > Block auth cookies', 'emails-verification-for-woocommerce' ),
@@ -123,6 +123,28 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 				array(
 					'type'     => 'sectionend',
 					'id'       => 'alg_wc_ev_compatibility_options',
+				),
+			);
+
+			$wp_social_login_opts = array(
+				array(
+					'title' => __( 'Wp Social Login and Register Social Counter', 'emails-verification-for-woocommerce' ),
+					'type'  => 'title',
+					'desc'  => sprintf( __( 'Compatibility with the %s plugin.', 'emails-verification-for-woocommerce' ), sprintf( '<a href="%s" target="_blank">%s</a>', 'https://wordpress.org/plugins/wp-social/', __( 'Wp Social Login', 'emails-verification-for-woocommerce' ) ) ),
+					'id'    => 'alg_wc_ev_compatibility_wslu_opts',
+				),
+				array(
+					'title'             => __( 'Verify on signup', 'emails-verification-for-woocommerce' ),
+					'desc'              => __( 'Verify user on WP Social sign up', 'emails-verification-for-woocommerce' ),
+					'desc_tip'          => __( 'Prevents verification email sending on WP Social sign up.', 'emails-verification-for-woocommerce' ),
+					'id'                => 'alg_wc_ev_wslu_verify_user_on_sign_up',
+					'default'           => 'no',
+					'type'              => 'checkbox',
+					'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+				),
+				array(
+					'type' => 'sectionend',
+					'id'   => 'alg_wc_ev_compatibility_wslu_opts',
 				),
 			);
 
@@ -333,6 +355,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 			);
 			return array_merge(
 				$general,
+				$wp_social_login_opts,
 				$xoo_login_signup_popup_opts,
 				$polylang_opts,
 				$elementor_essential_addons_opts,
