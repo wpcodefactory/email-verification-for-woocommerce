@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Settings.
  *
- * @version 2.4.7
+ * @version 2.8.2
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -16,7 +16,7 @@ class Alg_WC_Email_Verification_Settings extends WC_Settings_Page {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.4.7
+	 * @version 2.8.2
 	 * @since   1.0.0
 	 */
 	function __construct() {
@@ -28,6 +28,7 @@ class Alg_WC_Email_Verification_Settings extends WC_Settings_Page {
 		// Sections
 		require_once( 'class-alg-wc-ev-settings-section.php' );
 		require_once( 'class-alg-wc-ev-settings-general.php' );
+		require_once( 'class-alg-wc-ev-settings-shortcodes.php' );
 		require_once( 'class-alg-wc-ev-settings-email.php' );
 		require_once( 'class-alg-wc-ev-settings-blocking.php' );
 		require_once( 'class-alg-wc-ev-settings-admin.php' );

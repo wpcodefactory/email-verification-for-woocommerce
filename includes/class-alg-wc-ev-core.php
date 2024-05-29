@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Core Class.
  *
- * @version 2.6.4
+ * @version 2.8.2
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -309,15 +309,17 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		 * @since   2.1.1
 		 */
 		function handle_shortcodes() {
-			// Language translate shortcode
+			// Language translate shortcode.
 			add_shortcode( 'alg_wc_ev_translate', array( $this, 'language_shortcode' ) );
-			// Verification status shortcode
+			// Verification status shortcode.
 			add_shortcode( 'alg_wc_ev_verification_status', array( $this, 'alg_wc_ev_verification_status' ) );
-			// Resend verification url shortcode
+			// Custom message.
+			add_shortcode( 'alg_wc_ev_custom_msg', array( $this, 'alg_wc_ev_custom_msg' ) );
+			// Resend verification url shortcode.
 			add_shortcode( 'alg_wc_ev_resend_verification_url', array( $this, 'alg_wc_ev_resend_verification_url' ) );
-			// Display new user information
+			// Display new user information.
 			add_shortcode( 'alg_wc_ev_new_user_info', array( $this, 'alg_wc_ev_new_user_info' ) );
-			// Resend verification form
+			// Resend verification form.
 			add_shortcode( 'alg_wc_ev_resend_verification_form', array( $this, 'alg_wc_ev_resend_verification_form' ) );
 		}
 
@@ -336,7 +338,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		/**
 		 * get_verification_info_default.
 		 *
-		 * @version 2.1.1
+		 * @version 2.8.2
 		 * @since   2.1.1
 		 *
 		 * @param   null  $args
@@ -349,8 +351,9 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 			) );
 			$option =
 				'<div class="alg-wc-ev-verification-info">
-				[alg_wc_ev_verification_status content_template="' . __( 'Verification status: ', 'emails-verification-for-woocommerce' ) . '{verification_status}' . '"]
-			</div>';
+	[alg_wc_ev_custom_msg content_template="Verification status: %verification_status%."]
+	[alg_wc_ev_custom_msg hide_clauses="verified,guests" content_template="Hi %user_display_name%, You can resend the email with verification link by clicking <a href=\'%resend_verification_url%\'>here</a>."]
+</div>';
 			if ( is_int( $args['tabs_to_remove'] ) && $args['tabs_to_remove'] > 0 ) {
 				$option = preg_replace( '/\t{' . $args['tabs_to_remove'] . '}/', '', $option );
 			}
@@ -1052,38 +1055,67 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		/**
 		 * alg_wc_ev_verification_status.
 		 *
-		 * @version 2.5.5
-		 * @since   2.1.1
+		 * @version    2.8.2
+		 * @since      2.1.1
+		 * @deprecated 2.8.2 Use [alg_wc_ev_custom_msg] shortcode instead.
 		 *
 		 * @param   null  $atts
 		 *
 		 * @return string
 		 */
 		function alg_wc_ev_verification_status( $atts = null ) {
-			$atts                     = shortcode_atts( array(
-				'wrapper_template'  => '<div class="alg-wc-ev-verification-status">{content_template}</div>',
-				'content_template'  => __( 'Verification status: ', 'emails-verification-for-woocommerce' ) . '{verification_status}',
+			_deprecated_function('[alg_wc_ev_verification_status]', '2.8.2', '[alg_wc_ev_custom_msg]');
+
+			return $this->alg_wc_ev_custom_msg( $atts );
+		}
+
+		/**
+		 * alg_wc_ev_custom_msg.
+		 *
+		 * @version 2.8.2
+		 * @since   2.8.2
+		 *
+		 * @param $atts
+		 *
+		 * @return string
+		 */
+		function alg_wc_ev_custom_msg( $atts = null ) {
+			if ( 'yes' !== get_option( 'alg_wc_ev_sc_custom_msg', 'yes' ) ) {
+				return '[alg_wc_ev_custom_msg]';
+			}
+			$atts = shortcode_atts( array(
+				'wrapper_template'  => '<div class="alg-wc-ev-custom-msg">{content_template}</div>',
+				'content_template'  => __( 'Verification status: ', 'emails-verification-for-woocommerce' ) . '%verification_status%',
 				'verified_status'   => '<strong>' . __( 'Verified', 'emails-verification-for-woocommerce' ) . '</strong>',
 				'unverified_status' => '<strong>' . __( 'Unverified', 'emails-verification-for-woocommerce' ) . '</strong>',
-				'hide_if_verified'  => 'no',
-				'hide_for_guests'   => 'no'
-			), $atts, 'alg_wc_ev_verification_status' );
+				'hide_clauses'      => '', // Possible values: verified, unverified, guests.
+				'hide_if_verified'  => 'false', // @Deprecated. Use hide_clauses="verified" instead
+				'hide_for_guests'   => 'false' // @Deprecated. Use hide_clauses="guests" instead.
+			), $atts, 'alg_wc_ev_custom_msg' );
+
+			$hide_clauses_array = array_map( 'trim', array_map( 'sanitize_text_field', explode( ',', $atts['hide_clauses'] ) ) );
+
 			$atts['hide_if_verified'] = filter_var( $atts['hide_if_verified'], FILTER_VALIDATE_BOOLEAN );
 			$atts['hide_for_guests']  = filter_var( $atts['hide_for_guests'], FILTER_VALIDATE_BOOLEAN );
+			$is_user_verified         = alg_wc_ev_is_user_verified_by_user_id( get_current_user_id() );
+
 			if (
-				( ! is_user_logged_in() && $atts['hide_for_guests'] )
-				|| ( ( $is_user_verified = alg_wc_ev_is_user_verified_by_user_id( get_current_user_id() ) ) && $atts['hide_if_verified'] )
+				( ! is_user_logged_in() && ( $atts['hide_for_guests'] || in_array( 'guests', $hide_clauses_array ) ) ) ||
+				( $is_user_verified && ( $atts['hide_if_verified'] || in_array( 'verified', $hide_clauses_array ) ) ) ||
+				( ! $is_user_verified && in_array( 'unverified', $hide_clauses_array ) )
 			) {
 				return '';
 			}
-			$user    = wp_get_current_user();
-			$from_to = array(
-				'{verification_status}' => $is_user_verified ? $atts['verified_status'] : $atts['unverified_status'],
-				'{user_display_name}'   => $user->display_name,
-				'{user_nicename}'       => $user->user_nicename,
-			);
-			$content = str_replace( array_keys( $from_to ), $from_to, $atts['content_template'] );
-			$output  = str_replace( '{content_template}', $content, $atts['wrapper_template'] );
+			$user         = wp_get_current_user();
+			$placeholders = array_merge( alg_wc_ev_get_common_placeholders(), alg_wc_ev_get_user_placeholders( array( 'user' => $user ) ) );
+			$placeholders = array_merge( $placeholders, array(
+				'%verification_status%' => $is_user_verified ? $atts['verified_status'] : $atts['unverified_status']
+			) );
+			$content      = alg_wc_ev_associative_array_replace( array(
+				'from_to' => $placeholders,
+				'subject' => $atts['content_template']
+			) );
+			$output       = str_replace( '{content_template}', $content, $atts['wrapper_template'] );
 
 			return wp_kses_post( $output );
 		}

@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Emails Class.
  *
- * @version 2.7.7
+ * @version 2.8.2
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -141,7 +141,7 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * alg_wc_ev_email_content_placeholder.
 	 *
-	 * @version 2.1.3
+	 * @version 2.8.2
 	 * @since   2.1.3
 	 *
 	 * @param $atts
@@ -149,6 +149,9 @@ class Alg_WC_Email_Verification_Emails {
 	 * @return false|string
 	 */
 	function alg_wc_ev_email_content_placeholder( $atts ) {
+		if ( 'yes' !== get_option( 'alg_wc_ev_sc_email_content_placeholder', 'yes' ) ) {
+			return '[alg_wc_ev_email_content_placeholder]';
+		}
 		$atts = shortcode_atts( array(
 			'user_email' => '',
 		), $atts, 'alg_wc_ev_email_content_placeholder' );
@@ -157,8 +160,10 @@ class Alg_WC_Email_Verification_Emails {
 			$this->customer_new_account_reset_and_append_verification_link_fine_tune( $user );
 			$content = ob_get_contents();
 			ob_end_clean();
+
 			return $content;
 		}
+
 		return '';
 	}
 

@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - General Section Settings
  *
- * @version 2.6.0
+ * @version 2.8.2
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.6.0
+	 * @version 2.8.2
 	 * @since   1.0.0
 	 * @todo    [next] Logout unverified users on every page: better description
 	 * @todo    [next] (maybe) `alg_wc_ev_delay_wc_email`: default to `yes`?
@@ -145,7 +145,7 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 			),
 			array(
 				'title'    => __( 'Verification info', 'emails-verification-for-woocommerce' ),
-				'desc'     => __( 'Prepare a verification info to your customers like the verification status and a link to resend the verification email.', 'emails-verification-for-woocommerce' ).'<br />'.
+				'desc'     => __( 'Prepare verification information to users, including the verification status and a link to resend the verification email.', 'emails-verification-for-woocommerce' ).' '.
 				$this->get_block_unverify_login_option_warning(),
 				'type'     => 'title',
 				'id'       => 'alg_wc_ev_verification_info',
@@ -166,7 +166,7 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 			),
 			array(
 				'title'             => __( 'Customization', 'emails-verification-for-woocommerce' ),
-				'desc'              => sprintf( __( 'Documentation on <a target="_blank" href="%s">plugin\'s FAQ</a>.', 'emails-verification-for-woocommerce' ), 'https://wordpress.org/plugins/emails-verification-for-woocommerce/' ),
+				'desc'              => sprintf( __( 'Documentation on <a href="%s">shortcodes</a> section.', 'emails-verification-for-woocommerce' ), admin_url('admin.php?page=wc-settings&tab=alg_wc_ev&section=shortcodes') ),
 				'desc_tip'          => sprintf( __( 'You can use %s and %s shortcodes here and any other one you\'d like.', 'emails-verification-for-woocommerce' ), '<strong>' . '[alg_wc_ev_verification_status]' . '</strong>', '<strong>' . '[alg_wc_ev_resend_verification_url]' . '</strong>' ),
 				'type'              => 'textarea',
 				'css'               => 'width:100%;height:83px;',

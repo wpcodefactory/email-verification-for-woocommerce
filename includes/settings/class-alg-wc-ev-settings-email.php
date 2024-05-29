@@ -25,8 +25,6 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 		parent::__construct();
 	}
 
-
-
 	/**
 	 * get_settings.
 	 *

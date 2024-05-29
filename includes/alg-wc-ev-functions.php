@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Functions.
  *
- * @version 2.7.5
+ * @version 2.8.2
  * @since   1.9.0
  * @author  WPFactory
  */
@@ -147,7 +147,7 @@ if ( ! function_exists( 'alg_wc_ev_get_user_placeholders' ) ) {
 	/**
 	 * converts array to string.
 	 *
-	 * @version 2.3.1
+	 * @version 2.8.2
 	 * @since   2.3.1
 	 *
 	 * @param array $args
@@ -160,21 +160,23 @@ if ( ! function_exists( 'alg_wc_ev_get_user_placeholders' ) ) {
 			'user'    => '',
 		) );
 		$args         = apply_filters( 'alg_wc_ev_user_placeholders_args', $args );
-		$user_id      = intval( $args['user_id'] );
-		$user         = ! empty( $args['user'] ) && is_a( $args['user'], 'WP_User' ) ? $args['user'] : new WP_User( $user_id );
+		$user         = ! empty( $args['user'] ) && is_a( $args['user'], 'WP_User' ) ? $args['user'] : new WP_User( intval( $args['user_id'] ) );
+		$user_id      = is_a( $user, 'WP_User' ) ? $user->ID : intval( $args['user_id'] );
 		$placeholders = array(
-			'%user_id%'                => $user_id,
-			'%user_login%'             => $user->user_login,
-			'%user_nicename%'          => $user->user_nicename,
-			'%user_email%'             => $user->user_email,
-			'%user_url%'               => $user->user_url,
-			'%user_registered%'        => $user->user_registered,
-			'%user_display_name%'      => $user->display_name,
-			'%user_roles%'             => implode( ', ', $user->roles ),
-			'%user_first_name%'        => $user->first_name,
-			'%user_last_name%'         => $user->last_name,
-			'%admin_user_profile_url%' => admin_url( 'user-edit.php?user_id=' . $user_id ),
+			'%user_id%'                 => $user_id,
+			'%user_login%'              => $user->user_login,
+			'%user_nicename%'           => $user->user_nicename,
+			'%user_email%'              => $user->user_email,
+			'%user_url%'                => $user->user_url,
+			'%user_registered%'         => $user->user_registered,
+			'%user_display_name%'       => $user->display_name,
+			'%user_roles%'              => implode( ', ', $user->roles ),
+			'%user_first_name%'         => $user->first_name,
+			'%user_last_name%'          => $user->last_name,
+			'%resend_verification_url%' => alg_wc_ev()->core->messages->get_resend_verification_url( $user_id ),
+			'%admin_user_profile_url%'  => admin_url( 'user-edit.php?user_id=' . $user_id ),
 		);
+
 		return apply_filters( 'alg_wc_ev_user_placeholders_args', $placeholders, $args );
 	}
 }
@@ -195,6 +197,71 @@ if ( ! function_exists( 'alg_wc_ev_get_common_placeholders' ) ) {
 		);
 
 		return apply_filters( 'alg_wc_ev_common_placeholders', $placeholders );
+	}
+}
+
+if ( ! function_exists( 'alg_wc_ev_associative_array_replace' ) ) {
+	/**
+	 * alg_wc_ev_associative_array_replace.
+	 *
+	 * @version 2.8.2
+	 * @since   2.8.2
+	 *
+	 * @param $args
+	 *
+	 * @return array|mixed|string|string[]
+	 */
+	function alg_wc_ev_associative_array_replace( $args = null ) {
+		$args       = wp_parse_args( $args, array(
+			'from_to'    => array(),
+			'delimiters' => array( array( '{', '}' ), array( '%', '%' ) ),
+			'subject'    => ''
+		) );
+		$from_to    = $args['from_to'];
+		$delimiters = $args['delimiters'];
+		$subject    = $args['subject'];
+		// Sanitizes from to.
+		foreach ( $from_to as $from => $to ) {
+			foreach ( $delimiters as $v ) {
+				$delimiter_start = $v[0];
+				$delimiter_end   = $v[1];
+				$new_from        = $from;
+				if ( $delimiter_start === substr( $from, 0, 1 ) ) {
+					unset( $from_to[ $from ] );
+					$new_from = substr( $from, 1 );
+				}
+				if ( $delimiter_end === substr( $from, - 1 ) ) {
+					unset( $from_to[ $from ] );
+					$new_from = substr( $new_from, 0, - 1 );
+				}
+				$from_to[ $new_from ] = $to;
+			}
+		}
+		// Adds delimiters.
+		foreach ( $from_to as $from => $to ) {
+			foreach ( $delimiters as $v ) {
+				$delimiter_start      = $v[0];
+				$delimiter_end        = $v[1];
+				$new_from             = $delimiter_start . $from . $delimiter_end;
+				$from_to[ $new_from ] = $to;
+			}
+		}
+		// Removes entries with no delimiters.
+		foreach ( $from_to as $from => $to ) {
+			$delimeters_check_count = 0;
+			foreach ( $delimiters as $v ) {
+				$delimiter_start = $v[0];
+				$delimiter_end   = $v[1];
+				if ( $delimiter_start !== substr( $from, 0, 1 ) || $delimiter_end !== substr( $from, - 1 ) ) {
+					$delimeters_check_count ++;
+				}
+			}
+			if ( $delimeters_check_count == count( $delimiters ) ) {
+				unset( $from_to[ $from ] );
+			}
+		}
+
+		return str_replace( array_keys( $from_to ), $from_to, $subject );
 	}
 }
 

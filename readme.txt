@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 6.5
-Stable tag: 2.8.1
+Stable tag: 2.8.2
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -355,6 +355,11 @@ Once activated, access the plugin's settings by navigating to “WooCommerce > S
 
 
 == Changelog ==
+
+= 2.8.2 - 29/05/2024 =
+* Dev - Shortcode `[alg_wc_ev_verification_status]` is deprecated in favor of `[alg_wc_ev_custom_msg]`.
+* Dev - Shortcodes - Create the shortcodes section on admin.
+* WC tested up to: 8.9
 
 = 2.8.1 - 17/05/2024 =
 * Dev - Advanced - Create option to verify user on WP Social sign up.
