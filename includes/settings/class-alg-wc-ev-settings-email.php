@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Email Section Settings.
  *
- * @version 2.7.8
+ * @version 2.8.3
  * @since   1.3.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.7.8
+	 * @version 2.8.3
 	 * @since   1.3.0
 	 */
 	function get_settings() {
@@ -132,7 +132,8 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 			array(
 				'title'    => __( 'Send as a separate email', 'emails-verification-for-woocommerce' ),
 				'desc'     => __( 'Send verification as a separate email', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => __( 'Disable it if you want to append it to the standard WooCommerce "Customer new account" email.', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => __( 'Disable it if you want to append it to the standard WooCommerce "Customer new account" email.', 'emails-verification-for-woocommerce' ) . ' ' .
+				              sprintf( __( 'If the %s email is not being sent, try to change the option %s.', 'emails-verification-for-woocommerce' ), __( 'New account', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Email sending trigger', 'emails-verification-for-woocommerce' ) . '</strong>' ),
 				'type'     => 'checkbox',
 				'id'       => 'alg_wc_ev_send_as_separate_email',
 				'default'  => 'yes',

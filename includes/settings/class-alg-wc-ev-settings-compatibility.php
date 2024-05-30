@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Compatibility Section Settings.
  *
- * @version 2.8.1
+ * @version 2.8.3
  * @since   2.1.3
  * @author  WPFactory
  */
@@ -43,7 +43,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 		/**
 		 * get_settings.
 		 *
-		 * @version 2.8.1
+		 * @version 2.8.3
 		 * @since   2.1.3
 		 * @todo    (maybe) remove `alg_wc_ev_prevent_login_after_checkout_notice` (i.e. make it always enabled)
 		 */
@@ -230,7 +230,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 					'id'    => 'alg_wc_ev_comp_email_customizer_vt_options',
 				),
 				array(
-					'title'             => __( 'Activation email content', 'emails-verification-for-woocommerce' ),
+					'title'             => __( 'New account template', 'emails-verification-for-woocommerce' ),
 					'desc'              => sprintf( __( 'Display the activation email content on the %s template using the %s special text', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'New account', 'emails-verification-for-woocommerce' ) . '</strong>', '<code>{alg_wc_ev_viwec}</code>' ),
 					'desc_tip'          => sprintf( __( 'The action hook should be used in a %s from the Email Customizer plugin.', 'emails-verification-for-woocommerce' ), sprintf( '<a href="https://docs.villatheme.com/woocommerce-email-template-customizer/#configuration_child_menu_4653" target="_blank">%s</a>', __( 'Text element', 'emails-verification-for-woocommerce' ) ) ) . '<br />' .
 					                       sprintf( __( 'It\'s necessary to enable %s option.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Emails > Activation email > Fine tune activation email placement', 'emails-verification-for-woocommerce' ) . '</strong>', '<strong>' . __( 'Emails > Activation email > Email template', 'emails-verification-for-woocommerce' ) . '</strong>' ) . '<br />' .

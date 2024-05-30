@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Emails Class.
  *
- * @version 2.8.2
+ * @version 2.8.3
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -399,7 +399,7 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * append_verification_link.
 	 *
-	 * @version 2.4.0
+	 * @version 2.8.3
 	 * @since   2.0.4
 	 *
 	 * @param $user
@@ -408,9 +408,12 @@ class Alg_WC_Email_Verification_Emails {
 		if ( 'no' === get_option( 'alg_wc_ev_fine_tune_activation_email_placement', 'no' ) ) {
 			return;
 		}
-		$code = alg_wc_ev_generate_user_code();
-		$this->update_all_user_meta( $user->ID, $code );
 		if ( ! alg_wc_ev()->core->is_user_verified( $user ) ) {
+			$code = ! empty( $activation_code = get_user_meta( $user->ID, 'alg_wc_ev_activation_code', true ) ) ? $activation_code : false;
+			if ( empty( $code ) ) {
+				$code = alg_wc_ev_generate_user_code();
+				$this->update_all_user_meta( $user->ID, $code );
+			}
 			update_user_meta( $user->ID, 'alg_wc_ev_activation_email_sent', time() );
 			echo wp_kses_post( wpautop( wptexturize( $this->get_email_content( array(
 				'user_id' => $user->ID,
