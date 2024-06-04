@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: emails-verification-for-woocommerce 2.8.3\n"
+"Project-Id-Version: emails-verification-for-woocommerce 2.8.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/emails-verification-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-05-30T22:27:06+02:00\n"
+"POT-Creation-Date: 2024-06-04T23:20:47+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: emails-verification-for-woocommerce\n"
@@ -242,7 +242,7 @@ msgstr ""
 #: includes/class-alg-wc-ev-emails.php:297
 #: includes/pro/class-alg-wc-ev-activation-wc-email-pro.php:198
 #: includes/pro/class-alg-wc-ev-pro.php:661
-#: includes/pro/class-alg-wc-ev-pro.php:849
+#: includes/pro/class-alg-wc-ev-pro.php:853
 #: includes/settings/class-alg-wc-ev-settings-email.php:189
 msgid "Activate your account"
 msgstr ""
@@ -262,7 +262,7 @@ msgstr ""
 #: includes/class-alg-wc-ev-emails.php:446
 #: includes/class-alg-wc-ev-emails.php:596
 #: includes/pro/class-alg-wc-ev-activation-wc-email-pro.php:157
-#: includes/pro/class-alg-wc-ev-pro.php:818
+#: includes/pro/class-alg-wc-ev-pro.php:822
 #: includes/settings/class-alg-wc-ev-settings-email.php:168
 msgid "Please activate your account"
 msgstr ""
@@ -404,12 +404,12 @@ msgstr ""
 msgid "You need to <a href=\"%myaccount_url%\" target=\"_blank\">register</a> and verify your email before adding products to the cart."
 msgstr ""
 
-#: includes/pro/class-alg-wc-ev-pro.php:797
+#: includes/pro/class-alg-wc-ev-pro.php:801
 #: includes/settings/class-alg-wc-ev-settings-email.php:332
 msgid "User account has been activated"
 msgstr ""
 
-#: includes/pro/class-alg-wc-ev-pro.php:803
+#: includes/pro/class-alg-wc-ev-pro.php:807
 #: includes/settings/class-alg-wc-ev-settings-email.php:325
 msgid "User email has been verified"
 msgstr ""
