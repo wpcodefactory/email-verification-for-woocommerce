@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Admin Class.
  *
- * @version 2.8.0
+ * @version 2.8.5
  * @since   1.5.0
  * @author  WPFactory
  */
@@ -147,7 +147,7 @@ class Alg_WC_Email_Verification_Admin {
 	 *
 	 * @param WP_User_Query $query
 	 *
-	 * @version 2.4.5
+	 * @version 2.8.5
 	 * @since   2.3.3
 	 */
 	function filter_users_based_on_verification_status( WP_User_Query $query ) {
@@ -155,6 +155,7 @@ class Alg_WC_Email_Verification_Admin {
 		if ( is_admin() && 'users.php' === $pagenow ) {
 			$user_status_top    = isset( $_GET['alg_wc_ev_verification_status_top'] ) ? sanitize_text_field( $_GET['alg_wc_ev_verification_status_top'] ) : '';
 			$user_status_bottom = isset( $_GET['alg_wc_ev_verification_status_bottom'] ) ? sanitize_text_field( $_GET['alg_wc_ev_verification_status_bottom'] ) : '';
+			$do_verify_already_registered = ( 'yes' === get_option( 'alg_wc_ev_verify_already_registered', 'no' ) );
 			if ( ! empty( $user_status_top ) or ! empty( $user_status_bottom ) ) {
 				$skip_user_roles = get_option( 'alg_wc_ev_skip_user_roles', array( 'administrator' ) );
 				$user_status     = ! empty( $user_status_top ) ? $user_status_top : $user_status_bottom;
@@ -162,17 +163,35 @@ class Alg_WC_Email_Verification_Admin {
 				if ( 'verified' === $user_status ) {
 					if ( is_array( $skip_user_roles ) && ! empty( $skip_user_roles ) ) {
 						$meta_query['relation'] = 'OR';
+						/*
+						// Regexp solution.
 						$meta_query[] = array(
 							'key'     => $wpdb->prefix . 'capabilities',
-							'value'   => '"' . implode( $skip_user_roles ) . '"',
+							'value'   => '"' . implode( '|', $skip_user_roles ) . '"',
 							'compare' => 'REGEXP'
 						);
+						*/
+						// Like solution.
+						foreach ( $skip_user_roles as $skipped_role ) {
+							$meta_query[] = array(
+								'key'     => $wpdb->prefix . 'capabilities',
+								'value'   => $skipped_role,
+								'compare' => 'LIKE'
+							);
+						}
 					}
 					$meta_query[] = array(
 						'key'     => 'alg_wc_ev_is_activated',
 						'value'   => '1',
 						'compare' => '='
 					);
+					if ( ! $do_verify_already_registered ) {
+						$meta_query['relation'] = 'OR';
+						$meta_query[]           = array(
+							'key'     => 'alg_wc_ev_is_activated',
+							'compare' => 'NOT EXISTS'
+						);
+					}
 				} else if ( 'unverified' === $user_status ) {
 					$meta_query['relation'] = 'OR';
 					$meta_query[] = array(
@@ -180,10 +199,12 @@ class Alg_WC_Email_Verification_Admin {
 						'value'   => '1',
 						'compare' => '!='
 					);
-					$meta_query[] = array(
-						'key'     => 'alg_wc_ev_is_activated',
-						'compare' => 'NOT EXISTS'
-					);
+					if ( $do_verify_already_registered ) {
+						$meta_query[] = array(
+							'key'     => 'alg_wc_ev_is_activated',
+							'compare' => 'NOT EXISTS'
+						);
+					}
 					$query->set( 'role__not_in', $skip_user_roles );
 				}
 				if ( ! empty( $meta_query ) ) {

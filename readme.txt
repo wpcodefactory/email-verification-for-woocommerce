@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 6.5
-Stable tag: 2.8.4
+Stable tag: 2.8.5
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -355,6 +355,10 @@ Once activated, access the plugin's settings by navigating to “WooCommerce > S
 
 
 == Changelog ==
+
+= 2.8.5 - 10/06/2024 =
+* Fix - Admin - Users filter - Improve performance for verified users filter.
+* Fix - Admin - Users filter - Users display might not work so well with the "Current registered users" option.
 
 = 2.8.4 - 04/06/2024 =
 * Fix - Compatibility - Email Customizer by VillaTheme - Prevent `{alg_wc_ev_viwec}` from wrapping the WooCommerce email around the Activation email content.
