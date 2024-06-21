@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Emails Class.
  *
- * @version 2.8.3
+ * @version 2.8.6
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -170,7 +170,7 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * maybe_send_delayed_activation_email.
 	 *
-	 * @version 2.0.4
+	 * @version 2.8.6
 	 * @since   2.0.2
 	 */
 	function maybe_send_delayed_activation_email() {
@@ -181,7 +181,7 @@ class Alg_WC_Email_Verification_Emails {
 			$delayed_email_users_update = array_diff( get_option( 'alg_wc_ev_send_delayed_email_users', array() ), $delayed_email_users );
 			empty( $delayed_email_users_update ) ? delete_option( 'alg_wc_ev_send_delayed_email_users' ) : update_option( 'alg_wc_ev_send_delayed_email_users', $delayed_email_users_update );
 			foreach ( $delayed_email_users as $user_id ) {
-				$this->reset_and_mail_activation_link( $user_id );
+				$this->reset_and_mail_activation_link( array( 'user_id' => $user_id ) );
 			}
 		}
 	}
@@ -189,14 +189,14 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * handle_activation_email_sending.
 	 *
-	 * @version 2.4.0
+	 * @version 2.8.6
 	 * @since   2.0.2
 	 *
 	 * @param $user_id
 	 */
 	function handle_activation_email_sending( $user_id ) {
 		if ( 'yes' !== get_option( 'alg_wc_ev_delay_activation_email', 'no' ) ) {
-			$this->reset_and_mail_activation_link( $user_id );
+			$this->reset_and_mail_activation_link( array( 'user_id' => $user_id ) );
 		} else {
 			$code = alg_wc_ev_generate_user_code();
 			$this->update_all_user_meta( $user_id, $code );
@@ -426,13 +426,20 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * reset_and_mail_activation_link.maybe_send_wc_customer_new_account_email.
 	 *
-	 * @version 2.6.6
+	 * @version 2.8.6
 	 * @since   1.0.0
 	 * @todo    (maybe) add `%site_name%` etc. replaced value in `alg_wc_ev_email_subject`
 	 */
-	function reset_and_mail_activation_link( $user_id ) {
+	function reset_and_mail_activation_link( $args = null ) {
+		$args    = wp_parse_args( $args, array(
+			'user_id' => '',
+			'context' => '',
+		) );
+		$user_id = intval( $args['user_id'] );
+		$context = $args['context'];
 		if ( $user_id && apply_filters( 'alg_wc_ev_reset_and_mail_activation_link_validation', true, $user_id, current_filter() ) ) {
-			// Get data
+			do_action('alg_wc_ev_reset_and_mail_activation_link', $args );
+			// Get data.
 			$user          = get_userdata( $user_id );
 			$code          = alg_wc_ev_generate_user_code();
 			$email_content = $this->get_email_content( array(
@@ -451,7 +458,6 @@ class Alg_WC_Email_Verification_Emails {
 			if ( ! alg_wc_ev()->core->is_user_verified_by_user_id( $user_id ) ) {
 				$wc_email_template  = get_option( 'alg_wc_ev_wc_email_template', 'simulation' );
 				$email_template     = get_option( 'alg_wc_ev_email_template', 'plain' );
-
 				if ( in_array( $email_template, array( 'wc', 'smart' ) ) && 'real_wc_email' === $wc_email_template ) {
 					do_action('alg_wc_ev_trigger_activation_wc_email', $user_id );
 				} else {

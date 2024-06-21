@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Core Class.
  *
- * @version 2.8.2
+ * @version 2.8.6
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -883,14 +883,14 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		/**
 		 * resend.
 		 *
-		 * @version         2.4.2
+		 * @version         2.8.6
 		 * @since           1.6.0
 		 * @todo    (maybe) rename `alg_wc_ev_user_id`
 		 */
 		function resend() {
 			if (
 				isset( $_GET['alg_wc_ev_user_id'] ) &&
-				! empty( $user_id = $_GET['alg_wc_ev_user_id'] ) &&
+				! empty( $user_id = intval( $_GET['alg_wc_ev_user_id'] ) ) &&
 				isset( $_GET['alg_wc_ev_nonce'] ) &&
 				! empty( $nonce = $_GET['alg_wc_ev_nonce'] ) &&
 				(
@@ -904,7 +904,10 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 					)
 				)
 			) {
-				$this->emails->reset_and_mail_activation_link( $_GET['alg_wc_ev_user_id'] );
+				alg_wc_ev()->core->emails->reset_and_mail_activation_link( array(
+					'user_id' => $user_id,
+					'context' => 'own_user_resend'
+				) );
 				alg_wc_ev_add_notice( $this->messages->get_resend_message()['msg'] );
 			}
 		}

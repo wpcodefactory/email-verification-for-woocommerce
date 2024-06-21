@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Email Section Settings.
  *
- * @version 2.8.3
+ * @version 2.8.6
  * @since   1.3.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.8.3
+	 * @version 2.8.6
 	 * @since   1.3.0
 	 */
 	function get_settings() {
@@ -201,6 +201,43 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 				'default'  => 'no',
 			),
 			array(
+				'title'             => __( 'Automatic resending', 'emails-verification-for-woocommerce' ),
+				'desc'              => __( 'Resend the activation email automatically if the user has not yet been verified', 'emails-verification-for-woocommerce' ),
+				'desc_tip'          => __( 'Works for future users, or if a current unverified user receives the activation email manually.', 'emails-verification-for-woocommerce' ),
+				'type'              => 'checkbox',
+				'id'                => 'alg_wc_ev_activation_email_automatic_sending',
+				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+				'default'           => 'no',
+			),
+			array(
+				'desc'              => __( 'Frequency.', 'emails-verification-for-woocommerce' ) . ' ' .
+				                       $this->get_frequency_description(),
+				'type'              => 'number',
+				//'custom_attributes' => array( 'min' => 1 ),
+				'id'                => 'alg_wc_ev_activation_email_automatic_sending_frequency',
+				'default'           => 1,
+				'custom_attributes' => array_merge( empty( $disabled_arr = apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ) ) ? array() : $disabled_arr, array( 'min' => 1 ) ),
+			),
+			array(
+				'desc'     => __( 'Unit of time.', 'emails-verification-for-woocommerce' ),
+				'type'     => 'select',
+				'id'       => 'alg_wc_ev_activation_email_automatic_sending_frequency_unit',
+				'options'  => array(
+					'hour' => __( 'Hours', 'emails-verification-for-woocommerce' ),
+					'day'  => __( 'Days', 'emails-verification-for-woocommerce' ),
+				),
+				'class'    => 'chosen_select',
+				'default'  => 'day',
+				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+			),
+			array(
+				'desc'              => __( 'Max attempts.', 'emails-verification-for-woocommerce' ),
+				'type'              => 'number',
+				'id'                => 'alg_wc_ev_activation_email_automatic_sending_count_max',
+				'default'           => 3,
+				'custom_attributes' => array_merge( empty( $disabled_arr = apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ) ) ? array() : $disabled_arr, array( 'min' => 1 ) ),
+			),
+			array(
 				'type' => 'sectionend',
 				'id'   => 'alg_wc_ev_activation_email',
 			)
@@ -347,6 +384,25 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 			),
 		);
 		return array_merge( $general_opts, $email_placeholder_opts, $activation_email_opts, $confirmation_email_opts, $admin_email_opts );
+	}
+
+	/**
+	 * get_frequency_description.
+	 *
+	 * @version 2.8.6
+	 * @since   2.8.6
+	 *
+	 * @return string
+	 */
+	function get_frequency_description() {
+		$frequency       = get_option( 'alg_wc_ev_activation_email_automatic_sending_frequency', '1' );
+		$unit            = get_option( 'alg_wc_ev_activation_email_automatic_sending_frequency_unit', 'day' );
+		$formatted_words = array(
+			'hour' => _n( 'hour', 'hours', $frequency, 'emails-verification-for-woocommerce' ),
+			'day'  => _n( 'day', 'days', $frequency, 'emails-verification-for-woocommerce' ),
+		);
+
+		return sprintf( __( 'Send email every %s %s.', 'emails-verification-for-woocommerce' ), (int)$frequency === 1 ? '' : $frequency, $formatted_words[ $unit ] );
 	}
 
 }

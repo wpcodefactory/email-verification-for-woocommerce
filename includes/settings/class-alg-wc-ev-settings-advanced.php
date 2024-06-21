@@ -357,6 +357,7 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 					'twicedaily' => __( 'Twice daily', 'emails-verification-for-woocommerce' ),
 					'weekly'     => __( 'Weekly', 'emails-verification-for-woocommerce' ),
 				),
+				'class'    => 'chosen_select',
 				'id'       => 'alg_wc_ev_delete_users_cron_frequency',
 				'default'  => 'weekly',
 			),

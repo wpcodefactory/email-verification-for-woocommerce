@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Admin Class.
  *
- * @version 2.8.5
+ * @version 2.8.6
  * @since   1.5.0
  * @author  WPFactory
  */
@@ -332,7 +332,7 @@ class Alg_WC_Email_Verification_Admin {
 	/**
 	 * handle_bulk_actions_users.
 	 *
-	 * @version 2.3.8
+	 * @version 2.8.6
 	 * @since   1.9.6
 	 *
 	 * @param $redirect_to
@@ -352,7 +352,7 @@ class Alg_WC_Email_Verification_Admin {
 					if ( $user && ! is_wp_error( $user ) ) {
 						if ( ! alg_wc_ev()->core->is_user_verified( $user ) ) {
 							$count ++;
-							alg_wc_ev()->core->emails->reset_and_mail_activation_link( $user_id );
+							alg_wc_ev()->core->emails->reset_and_mail_activation_link( array( 'user_id' => $user_id ) );
 						}
 					}
 				}
@@ -530,7 +530,7 @@ class Alg_WC_Email_Verification_Admin {
 	/**
 	 * admin_manual_actions.
 	 *
-	 * @version 2.4.8
+	 * @version 2.8.6
 	 * @since   1.1.0
 	 * @todo    [next] (maybe) new action: "expire" (i.e. make link expired) (i.e. remove `alg_wc_ev_activation_code_time` meta)
 	 */
@@ -553,7 +553,10 @@ class Alg_WC_Email_Verification_Admin {
 			exit;
 		}
 		if ( $user_id = $this->get_user_id_from_action( 'alg_wc_ev_admin_resend' ) ) {
-			alg_wc_ev()->core->emails->reset_and_mail_activation_link( $user_id );
+			alg_wc_ev()->core->emails->reset_and_mail_activation_link( array(
+				'user_id' => $user_id,
+				'context' => 'admin_resend',
+			) );
 			wp_safe_redirect( add_query_arg( 'alg_wc_ev_admin_resend_done', $user_id, remove_query_arg( $this->actions ) ) );
 			exit;
 		}

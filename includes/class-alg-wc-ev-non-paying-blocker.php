@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Non Paying Blocker.
  *
- * @version 2.4.0
+ * @version 2.8.6
  * @since   1.9.5
  * @author  WPFactory
  */
@@ -123,7 +123,7 @@ class Alg_WC_Email_Verification_Non_Paying_Blocker {
 	/**
 	 * mail_activation_link_on_paid_status.
 	 *
-	 * @version 2.2.4
+	 * @version 2.8.6
 	 * @since   2.2.4
 	 *
 	 * @param $order_id
@@ -143,7 +143,7 @@ class Alg_WC_Email_Verification_Non_Paying_Blocker {
 			in_array( $to, $statuses ) &&
 			! alg_wc_ev_is_user_verified_by_user_id( $customer_id )
 		) {
-			alg_wc_ev()->core->emails->reset_and_mail_activation_link( $customer_id );
+			alg_wc_ev()->core->emails->reset_and_mail_activation_link( array( 'user_id' => $customer_id ) );
 		}
 	}
 
