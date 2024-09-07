@@ -3,7 +3,7 @@
 Plugin Name: Email Verification for WooCommerce
 Plugin URI: https://wpfactory.com/item/email-verification-for-woocommerce/
 Description: Verify user emails in WooCommerce. Beautifully.
-Version: 2.8.9
+Version: 2.8.10
 Author: WPFactory
 Author URI: https://wpfactory.com
 Text Domain: emails-verification-for-woocommerce
@@ -52,7 +52,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification' ) ) :
  * Main Alg_WC_Email_Verification Class
  *
  * @class   Alg_WC_Email_Verification
- * @version 2.7.4
+ * @version 2.8.10
  * @since   1.0.0
  */
 final class Alg_WC_Email_Verification {
@@ -63,7 +63,7 @@ final class Alg_WC_Email_Verification {
 	 * @var   string
 	 * @since 1.0.0
 	 */
-	public $version = '2.8.9';
+	public $version = '2.8.10';
 
 	/**
 	 * @var   Alg_WC_Email_Verification The single instance of the class
@@ -100,7 +100,7 @@ final class Alg_WC_Email_Verification {
 	/**
 	 * Initializes the plugin.
 	 *
-	 * @version 2.5.7
+	 * @version 2.8.10
 	 * @since   1.0.0
 	 * @access  public
 	 */
@@ -114,8 +114,6 @@ final class Alg_WC_Email_Verification {
 			require_once( 'includes/pro/class-alg-wc-ev-pro.php' );
 		}
 
-		// Declare compatibility with custom order tables for WooCommerce.
-		// add_action( 'before_woocommerce_init', array( $this, 'wc_declare_compatibility' ) );
 
 		// Include required files.
 		$this->includes();
@@ -129,19 +127,6 @@ final class Alg_WC_Email_Verification {
 		add_filter( 'wpfpdh_documentation_params_' . plugin_basename( $this->get_filesystem_path() ), array( $this, 'handle_documentation_params' ), 10 );
 	}
 
-	/**
-	 * wc_declare_compatibility.
-	 *
-	 * @version 2.5.7
-	 * @since   2.5.7
-	 *
-	 * @see     https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#declaring-extension-incompatibility
-	 */
-	function wc_declare_compatibility() {
-		if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
-			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', alg_wc_ev()->get_filesystem_path(), true );
-		}
-	}
 
 	/**
 	 * Handle documentation params managed by the WP Factory
