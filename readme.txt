@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 6.6
-Stable tag: 2.8.10
+Stable tag: 2.9.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -355,6 +355,16 @@ Once activated, access the plugin's settings by navigating to “WooCommerce > S
 
 
 == Changelog ==
+
+= 2.9.0 - 22/10/2024 =
+* Fix - Vulnerability issue fixed.
+* Fix - Function wp_enqueue_script was called incorrectly.
+* Dev - Email content / Messages options - Integrated a rich text editor.
+* Dev - Reorder General and Email setting options.
+* Dev - Add Cross-selling library.
+* Dev - Move settings to WPFactory menu.
+* Dev - Added the License Key Manager library.
+* WC tested up to: 9.3.
 
 = 2.8.10 - 07/09/2024 =
 * Fix - completely delete duplicate code.

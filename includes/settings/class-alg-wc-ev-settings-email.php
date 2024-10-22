@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Email Section Settings.
  *
- * @version 2.8.6
+ * @version 2.9.0
  * @since   1.3.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.8.6
+	 * @version 2.9.0
 	 * @since   1.3.0
 	 */
 	function get_settings() {
@@ -37,29 +37,6 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 				'title' => __( 'Email options', 'emails-verification-for-woocommerce' ),
 				'type'  => 'title',
 				'id'    => 'alg_wc_ev_email_options',
-			),
-			array(
-				'title'    => __( 'Mail function', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => __( 'Function used for sending the plugin\'s emails.', 'emails-verification-for-woocommerce' ) . ' ' .
-				              __( 'Leave the default value if unsure.', 'emails-verification-for-woocommerce' ),
-				'type'     => 'select',
-				'class'    => 'chosen_select',
-				'id'       => 'alg_wc_ev_mail_function',
-				'default'  => 'wc_mail',
-				'options'  => array(
-					'mail'    => sprintf( __( '%s function', 'emails-verification-for-woocommerce' ), 'PHP "mail()"' ),
-					'wc_mail' => sprintf( __( '%s function', 'emails-verification-for-woocommerce' ), 'WooCommerce "wc_mail()"' ),
-					'wp_mail' => sprintf( __( '%s function', 'emails-verification-for-woocommerce' ), 'WordPress "wp_mail()"' ),
-				),
-			),
-			array(
-				'title'    => __( 'Customer new account email', 'emails-verification-for-woocommerce' ),
-				'desc'     => __( 'Delay WooCommerce "Customer new account" email', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => __( '"Customer new account" email is only sent on successful verification.', 'emails-verification-for-woocommerce' ) . ' ' .
-				              $this->separate_email_option_msg(),
-				'type'     => 'checkbox',
-				'id'       => 'alg_wc_ev_delay_wc_email',
-				'default'  => 'no',
 			),
 			array(
 				'title'             => __( 'Email template', 'emails-verification-for-woocommerce' ),
@@ -89,17 +66,6 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 					'simulation'    => __( 'Email Verification plugin', 'emails-verification-for-woocommerce' ),
 					'real_wc_email' => __( 'WooCommerce > Emails', 'emails-verification-for-woocommerce' ),
 				),
-			),
-			array(
-				'title'    => __( 'Email wrap method', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => sprintf( __( 'If "%s" option is selected as "%s" or "%s", set the email wrap method here.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Email template', 'emails-verification-for-woocommerce' ) . '</strong>', '<strong>' . __( 'WooCommerce', 'emails-verification-for-woocommerce' ) . '</strong>', '<strong>' . __( 'Smart', 'emails-verification-for-woocommerce' ) . '</strong>' ),
-				'id'       => 'alg_wc_ev_email_template_wc_wrap_method',
-				'type'     => 'radio',
-				'default'  => 'manual', // Maybe put default as native?
-				'options'  => array(
-					'manual' => __( 'Manual - Adding WooCommerce header and footer manually', 'emails-verification-for-woocommerce' ),
-					'native' => sprintf( __( 'Native - Using %s function', 'emails-verification-for-woocommerce' ), 'WC_Emails::wrap_message()' )
-				)
 			),
 			array(
 				'type' => 'sectionend',
@@ -139,26 +105,12 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 				'default'  => 'yes',
 			),
 			array(
-				'title'    => __( 'Email sending trigger', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => __( 'Leave the default value if unsure.', 'emails-verification-for-woocommerce' ) . ' ' .
-				              $this->separate_email_option_msg(),
-				'type'     => 'select',
-				'class'    => 'chosen_select',
-				'id'       => 'alg_wc_ev_new_user_action',
-				'default'  => 'user_register',
-				'options'  => array(
-					'user_register'                => __( 'On "user register"', 'emails-verification-for-woocommerce' ),
-					'woocommerce_created_customer' => __( 'On "WooCommerce created customer"', 'emails-verification-for-woocommerce' ),
-					//'on_order_payment'             => __( 'On order payment', 'emails-verification-for-woocommerce' ),
-				),
-			),
-			array(
-				'title'    => __( 'Activation email delay', 'emails-verification-for-woocommerce' ),
-				'desc'     => __( 'Delay the activation email', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => __( 'Try to enable it if the activation emails are getting sent to authenticated users.', 'emails-verification-for-woocommerce' ) . '<br />' .
+				'title'    => __( 'Customer new account email', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'Delay WooCommerce "Customer new account" email', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => __( '"Customer new account" email is only sent on successful verification.', 'emails-verification-for-woocommerce' ) . ' ' .
 				              $this->separate_email_option_msg(),
 				'type'     => 'checkbox',
-				'id'       => 'alg_wc_ev_delay_activation_email',
+				'id'       => 'alg_wc_ev_delay_wc_email',
 				'default'  => 'no',
 			),
 			array(
@@ -174,7 +126,7 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 				'title'             => __( 'Email content', 'emails-verification-for-woocommerce' ),
 				'desc'              => '',
 				'desc_tip'          => '',
-				'type'              => 'textarea',
+				'type'              => 'alg_wc_ev_editor',
 				'id'                => 'alg_wc_ev_email_content',
 				'default'           => alg_wc_ev()->core->emails->get_default_email_content('activation'),
 				'css'               => 'width:100%;height:150px;',
@@ -198,6 +150,29 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 				              $this->separate_email_option_msg( 'disabled' ),
 				'type'     => 'checkbox',
 				'id'       => 'alg_wc_ev_fine_tune_activation_email_placement',
+				'default'  => 'no',
+			),
+			array(
+				'title'    => __( 'Email sending trigger', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => __( 'Leave the default value if unsure.', 'emails-verification-for-woocommerce' ) . ' ' .
+				              $this->separate_email_option_msg(),
+				'type'     => 'select',
+				'class'    => 'chosen_select',
+				'id'       => 'alg_wc_ev_new_user_action',
+				'default'  => 'user_register',
+				'options'  => array(
+					'user_register'                => __( 'On "user register"', 'emails-verification-for-woocommerce' ),
+					'woocommerce_created_customer' => __( 'On "WooCommerce created customer"', 'emails-verification-for-woocommerce' ),
+					//'on_order_payment'             => __( 'On order payment', 'emails-verification-for-woocommerce' ),
+				),
+			),
+			array(
+				'title'    => __( 'Activation email delay', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'Delay the activation email', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => __( 'Try to enable it if the activation emails are getting sent to authenticated users.', 'emails-verification-for-woocommerce' ) . '<br />' .
+				              $this->separate_email_option_msg(),
+				'type'     => 'checkbox',
+				'id'       => 'alg_wc_ev_delay_activation_email',
 				'default'  => 'no',
 			),
 			array(
@@ -275,20 +250,20 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 				'alg_wc_ev_raw'     => true,
 			),
 			array(
+				'title'             => __( 'Email content', 'emails-verification-for-woocommerce' ),
+				'type'              => 'alg_wc_ev_editor',
+				'id'                => 'alg_wc_ev_confirmation_email_content',
+				'default'           => alg_wc_ev()->core->emails->get_default_email_content('confirmation'),
+				'css'               => 'width:100%;height:150px;',
+				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'readonly' => 'readonly' ) ),
+				'alg_wc_ev_raw'     => true,
+			),
+			array(
 				'title'             => __( 'Email Heading', 'emails-verification-for-woocommerce' ),
 				'type'              => 'textarea',
 				'id'                => 'alg_wc_ev_confirmation_email_heading',
 				'default'           => __( 'Your account has been activated', 'emails-verification-for-woocommerce' ),
 				'css'               => 'width:100%;',
-				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'readonly' => 'readonly' ) ),
-				'alg_wc_ev_raw'     => true,
-			),
-			array(
-				'title'             => __( 'Email content', 'emails-verification-for-woocommerce' ),
-				'type'              => 'textarea',
-				'id'                => 'alg_wc_ev_confirmation_email_content',
-				'default'           => alg_wc_ev()->core->emails->get_default_email_content('confirmation'),
-				'css'               => 'width:100%;height:150px;',
 				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'readonly' => 'readonly' ) ),
 				'alg_wc_ev_raw'     => true,
 			),
@@ -363,14 +338,6 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 				'css'     => 'width:100%;',
 			),
 			array(
-				'title'         => __( 'Heading', 'emails-verification-for-woocommerce' ),
-				'type'          => 'textarea',
-				'id'            => 'alg_wc_ev_admin_email_heading',
-				'default'       => __( 'User account has been activated', 'emails-verification-for-woocommerce' ),
-				'css'           => 'width:100%;',
-				'alg_wc_ev_raw' => true,
-			),
-			array(
 				'title'         => __( 'Content', 'emails-verification-for-woocommerce' ),
 				'type'          => 'textarea',
 				'id'            => 'alg_wc_ev_admin_email_content',
@@ -379,11 +346,55 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 				'alg_wc_ev_raw' => true,
 			),
 			array(
+				'title'         => __( 'Heading', 'emails-verification-for-woocommerce' ),
+				'type'          => 'textarea',
+				'id'            => 'alg_wc_ev_admin_email_heading',
+				'default'       => __( 'User account has been activated', 'emails-verification-for-woocommerce' ),
+				'css'           => 'width:100%;',
+				'alg_wc_ev_raw' => true,
+			),
+			array(
 				'type' => 'sectionend',
 				'id'   => 'alg_wc_ev_email_options',
 			),
 		);
-		return array_merge( $general_opts, $email_placeholder_opts, $activation_email_opts, $confirmation_email_opts, $admin_email_opts );
+		$advance_opts = array(
+			array(
+				'title' => __( 'Advanced', 'emails-verification-for-woocommerce' ),
+				'type'  => 'title',
+				'id'    => 'alg_wc_ev_advance_options',
+			),
+			array(
+				'title'    => __( 'Mail function', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => __( 'Function used for sending the plugin\'s emails.', 'emails-verification-for-woocommerce' ) . ' ' .
+				              __( 'Leave the default value if unsure.', 'emails-verification-for-woocommerce' ),
+				'type'     => 'select',
+				'class'    => 'chosen_select',
+				'id'       => 'alg_wc_ev_mail_function',
+				'default'  => 'wc_mail',
+				'options'  => array(
+					'mail'    => sprintf( __( '%s function', 'emails-verification-for-woocommerce' ), 'PHP "mail()"' ),
+					'wc_mail' => sprintf( __( '%s function', 'emails-verification-for-woocommerce' ), 'WooCommerce "wc_mail()"' ),
+					'wp_mail' => sprintf( __( '%s function', 'emails-verification-for-woocommerce' ), 'WordPress "wp_mail()"' ),
+				),
+			),
+			array(
+				'title'    => __( 'Email wrap method', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => sprintf( __( 'If "%s" option is selected as "%s" or "%s", set the email wrap method here.', 'emails-verification-for-woocommerce' ), '<strong>' . __( 'Email template', 'emails-verification-for-woocommerce' ) . '</strong>', '<strong>' . __( 'WooCommerce', 'emails-verification-for-woocommerce' ) . '</strong>', '<strong>' . __( 'Smart', 'emails-verification-for-woocommerce' ) . '</strong>' ),
+				'id'       => 'alg_wc_ev_email_template_wc_wrap_method',
+				'type'     => 'radio',
+				'default'  => 'manual', // Maybe put default as native?
+				'options'  => array(
+					'manual' => __( 'Manual - Adding WooCommerce header and footer manually', 'emails-verification-for-woocommerce' ),
+					'native' => sprintf( __( 'Native - Using %s function', 'emails-verification-for-woocommerce' ), 'WC_Emails::wrap_message()' )
+				)
+			),
+			array(
+				'type' => 'sectionend',
+				'id'   => 'alg_wc_ev_advance_options',
+			),
+		);
+		return array_merge( $general_opts, $email_placeholder_opts, $activation_email_opts, $confirmation_email_opts, $admin_email_opts, $advance_opts );
 	}
 
 	/**

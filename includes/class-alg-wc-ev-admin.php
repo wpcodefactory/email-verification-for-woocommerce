@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Admin Class.
  *
- * @version 2.8.6
+ * @version 2.9.0
  * @since   1.5.0
  * @author  WPFactory
  */
@@ -65,7 +65,7 @@ class Alg_WC_Email_Verification_Admin {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.5.8
+	 * @version 2.9.0
 	 * @since   1.5.0
 	 * @todo    (maybe) move more stuff here, e.g. settings, action links etc.
 	 */
@@ -104,6 +104,13 @@ class Alg_WC_Email_Verification_Admin {
         }
 
 		add_filter( 'pre_update_option_alg_wc_ev_verify_guest_email', array( $this, 'create_guest_verification_table' ), 10, 2 );
+
+		// Hooks the Rich Text Editor field into WooCommerce settings API.
+		add_action( 'woocommerce_admin_field_alg_wc_ev_editor', array( $this, 'generate_editor_html' ) );
+
+		// Hooks the custom script into the 'admin_footer' for the editor field.
+		add_action( 'admin_footer', array( $this, 'enqueue_ev_setting_style_and_script' ) );
+
 	}
 
 	/**
@@ -654,6 +661,83 @@ class Alg_WC_Email_Verification_Admin {
 		}
 
 		return $output;
+	}
+
+	/**
+	 * Generate Rich Text Editor HTML.
+	 *
+	 * @version 2.9.0
+	 * @since   2.9.0
+	 */
+	function generate_editor_html( $value ) {
+		$option_value = $value['value'];
+
+		// Get the description and tooltip HTML for the field.
+		$field_description = WC_Admin_Settings::get_field_description( $value );
+		$description       = $field_description['description'];
+		$tooltip_html      = $field_description['tooltip_html'];
+		?>
+		<tr class="<?php echo esc_attr( $value['row_class'] ); ?>">
+			<th scope="row" class="titledesc">
+				<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?><?php echo $tooltip_html; ?></label>
+			</th>
+			<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?> alg-wc-editor">
+				<?php echo $description; ?>
+				<?php
+				$editor_id = esc_attr( $value['id'] );
+				$settings  = array(
+					'textarea_name' => esc_attr( $value['field_name'] ),
+					'editor_class'  => esc_attr( $value['class'] ),
+					'editor_height' => '',
+				);
+				wp_editor( htmlspecialchars_decode( $option_value, ENT_QUOTES ), $editor_id, $settings );
+				?>
+			</td>
+		</tr>
+
+		<?php
+	}
+
+	/**
+	 * Enqueue styles and scripts for settings page.
+	 *
+	 * @version 2.9.0
+	 * @since   2.9.0
+	 */
+	function enqueue_ev_setting_style_and_script() {
+		if (
+			isset( $_GET['page'], $_GET['tab'], $_GET['section'] ) &&
+			'wc-settings' === wc_clean( $_GET['page'] ) && 'alg_wc_ev' === wc_clean( $_GET['tab'] ) && in_array( wc_clean( $_GET['section'] ), array( 'emails', 'messages' ), true )
+		) {
+			?>
+			<style>
+				.woocommerce table.form-table .alg-wc-editor textarea {
+					width: 100%;
+				}
+			</style>
+			<script>
+				jQuery( document ).ready( function ( $ ) {
+
+					// Listen for changes in TinyMCE editor (Visual Editor).
+					if ( typeof tinyMCE !== "undefined" ) {
+
+						$( '.alg-wc-editor' ).each( function () {
+							const editor_container = $( this );
+							const editor_id = editor_container.find( '.wp-editor-area' ).attr( 'id' );
+
+							const editor = tinyMCE.get( editor_id );
+
+							if ( editor ) {
+								editor.on( 'Change', function () {
+									$( `#${editor_id}` ).trigger( 'input' );
+								} );
+							}
+						} );
+					}
+				} );
+			</script>
+			<?php
+		}
 	}
 
 }

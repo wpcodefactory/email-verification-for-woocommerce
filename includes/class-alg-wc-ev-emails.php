@@ -611,40 +611,39 @@ class Alg_WC_Email_Verification_Emails {
 	 *
 	 * @see sync_verification_if_guest()
 	 *
-	 * @version 2.6.9
+	 * @version 2.9.0
 	 * @since   2.6.9
 	 */
 	function sync_verification_if_guest( $user_id ) {
-		
 		global $wpdb;
-		
 		$user_obj = get_user_by( 'id', $user_id );
-		if( $user_obj ) {
-			$email 	= $user_obj->user_email;
-			$code 	= '';
+		if ( $user_obj ) {
+			$email      = $user_obj->user_email;
+			$code       = '';
 			$table_name = $wpdb->prefix . 'alg_wc_ev_guest_verify';
-			
-			if ( $wpdb->get_var( "SHOW TABLES LIKE '$table_name'" ) == $table_name ) {
 
-					$result_arr = $wpdb->get_row( "SELECT * FROM " . $table_name . " WHERE email = '" . $email . "' AND status = '1'" );
-
-					if ( ! empty( $result_arr ) ) {
-						
-						$code = $result_arr->code;
+			if (
+				$wpdb->get_var( "SHOW TABLES LIKE '$table_name'" ) == $table_name &&
+				filter_var( $email, FILTER_VALIDATE_EMAIL )
+			) {
+				$prepared_sql = $wpdb->prepare(
+					"SELECT * FROM {$table_name} WHERE email = %s AND status = %d",
+					$email,
+					1       //
+				);
+				$result_arr   = $wpdb->get_row( $prepared_sql );
+				if ( ! empty( $result_arr ) ) {
+					$code = $result_arr->code;
+				}
+				if ( alg_wc_ev()->core->is_guest_email_already_verified( $email ) && ! empty( $code ) ) {
+					update_user_meta( $user_id, 'alg_wc_ev_is_activated', '1' );
+					update_user_meta( $user_id, 'alg_wc_ev_activation_code', $code );
+					update_user_meta( $user_id, 'alg_wc_ev_activation_code_time', time() );
+					if ( ! empty( $code ) ) {
+						alg_wc_ev()->core->save_activation_info( $code, $user_id );
 					}
-					
-					if ( alg_wc_ev()->core->is_guest_email_already_verified( $email ) ) {
-				
-						update_user_meta( $user_id, 'alg_wc_ev_is_activated', '1' );
-						update_user_meta( $user_id, 'alg_wc_ev_activation_code',      $code );
-						update_user_meta( $user_id, 'alg_wc_ev_activation_code_time', time() );
-						if ( ! empty( $code ) ) {
-							alg_wc_ev()->core->save_activation_info( $code, $user_id );
-						}
-						
-					}
+				}
 			}
-			
 		}
 	}
 
