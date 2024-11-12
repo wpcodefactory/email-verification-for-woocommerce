@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Admin Class.
  *
- * @version 2.9.0
+ * @version 2.9.1
  * @since   1.5.0
  * @author  WPFactory
  */
@@ -666,7 +666,7 @@ class Alg_WC_Email_Verification_Admin {
 	/**
 	 * Generate Rich Text Editor HTML.
 	 *
-	 * @version 2.9.0
+	 * @version 2.9.1
 	 * @since   2.9.0
 	 */
 	function generate_editor_html( $value ) {
@@ -676,6 +676,14 @@ class Alg_WC_Email_Verification_Admin {
 		$field_description = WC_Admin_Settings::get_field_description( $value );
 		$description       = $field_description['description'];
 		$tooltip_html      = $field_description['tooltip_html'];
+
+		$custom_attributes = array();
+
+		if ( ! empty( $value['custom_attributes'] ) && is_array( $value['custom_attributes'] ) ) {
+			foreach ( $value['custom_attributes'] as $attribute => $attribute_value ) {
+				$custom_attributes[] = esc_attr( $attribute ) . '="' . esc_attr( $attribute_value ) . '"';
+			}
+		}
 		?>
 		<tr class="<?php echo esc_attr( $value['row_class'] ); ?>">
 			<th scope="row" class="titledesc">
@@ -683,15 +691,17 @@ class Alg_WC_Email_Verification_Admin {
 			</th>
 			<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?> alg-wc-editor">
 				<?php echo $description; ?>
-				<?php
-				$editor_id = esc_attr( $value['id'] );
-				$settings  = array(
-					'textarea_name' => esc_attr( $value['field_name'] ),
-					'editor_class'  => esc_attr( $value['class'] ),
-					'editor_height' => '',
-				);
-				wp_editor( htmlspecialchars_decode( $option_value, ENT_QUOTES ), $editor_id, $settings );
-				?>
+				<div <?php echo implode( ' ', $custom_attributes ); ?>>
+					<?php
+					$editor_id = esc_attr( $value['id'] );
+					$settings  = array(
+						'textarea_name' => esc_attr( $value['field_name'] ),
+						'editor_class'  => esc_attr( $value['class'] ),
+						'editor_height' => '',
+					);
+					wp_editor( htmlspecialchars_decode( $option_value, ENT_QUOTES ), $editor_id, $settings );
+					?>
+				</div>
 			</td>
 		</tr>
 
@@ -701,7 +711,7 @@ class Alg_WC_Email_Verification_Admin {
 	/**
 	 * Enqueue styles and scripts for settings page.
 	 *
-	 * @version 2.9.0
+	 * @version 2.9.1
 	 * @since   2.9.0
 	 */
 	function enqueue_ev_setting_style_and_script() {
@@ -713,6 +723,12 @@ class Alg_WC_Email_Verification_Admin {
 			<style>
 				.woocommerce table.form-table .alg-wc-editor textarea {
 					width: 100%;
+				}
+
+				.alg-wc-editor [readonly="readonly"] textarea,
+				.alg-wc-editor [readonly="readonly"] .mce-edit-area {
+					pointer-events: none;
+					opacity: 0.5;
 				}
 			</style>
 			<script>
