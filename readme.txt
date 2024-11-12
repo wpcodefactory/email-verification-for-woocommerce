@@ -353,11 +353,12 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 **Post-Activation:**
 Once activated, access the plugin's settings by navigating to “WooCommerce > Settings” and look for the relevant tab.
 
-
 == Changelog ==
 
 = 2.9.1 - 12/11/2024 =
+* Fix - HPOS compatibility fixed.
 * Dev - Email - Activation email - Disabled editing in read-only mode.
+* Dev - Updated cross-selling library.
 * WC tested up to: 9.4.
 
 = 2.9.0 - 22/10/2024 =
