@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - General Section Settings
  *
- * @version 2.8.2
+ * @version 2.9.3
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.8.2
+	 * @version 2.9.3
 	 * @since   1.0.0
 	 * @todo    [next] Logout unverified users on every page: better description
 	 * @todo    [next] (maybe) `alg_wc_ev_delay_wc_email`: default to `yes`?
@@ -62,12 +62,21 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 				'default'  => 'yes',
 			),
 			array(
-				'title'    => __( 'Guest users', 'emails-verification-for-woocommerce' ),
-				'desc'     => __( 'Verify guest users', 'emails-verification-for-woocommerce' ),
-				'desc_tip' => __( 'If enabled, checkout as guest user billing address will be verified.', 'emails-verification-for-woocommerce' ),
-				'type'     => 'checkbox',
-				'id'       => 'alg_wc_ev_verify_guest_email',
-				'default'  => 'no',
+				'title'         => __( 'Guest users', 'emails-verification-for-woocommerce' ),
+				'desc'          => __( 'Verify guest users', 'emails-verification-for-woocommerce' ),
+				'desc_tip'      => __( 'If enabled, checkout as guest user billing address will be verified.', 'emails-verification-for-woocommerce' ),
+				'type'          => 'checkbox',
+				'checkboxgroup' => 'start',
+				'id'            => 'alg_wc_ev_verify_guest_email',
+				'default'       => 'no',
+			),
+			array(
+				'desc'          => __( 'Enable token verification on verify guest user', 'emails-verification-for-woocommerce' ),
+				'desc_tip'      => __( 'If enabled, email verification will use a token for verification. Note: This option might be disabled if caching is enabled for the checkout page.', 'emails-verification-for-woocommerce' ),
+				'type'          => 'checkbox',
+				'checkboxgroup' => 'end',
+				'id'            => 'alg_wc_ev_nonce_verify_guest_email',
+				'default'       => 'yes',
 			),
 			array(
 				'type'     => 'sectionend',

@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Core Class.
  *
- * @version 2.9.0
+ * @version 2.9.3
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -1194,7 +1194,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		/**
 		 * enqueue_guest_feature_scripts.
 		 *
-		 * @version 2.9.0
+		 * @version 2.9.3
 		 * @since   2.9.0
 		 *
 		 * @return void
@@ -1209,10 +1209,27 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 			}
 
 			$wc_ev_options = array(
-				'send'             => __( '<a href="javascript:;" id="alg_wc_ev_send_verify">Send Verify Email</a>', 'emails-verification-for-woocommerce' ),
-				'resend'           => __( 'Resending....', 'emails-verification-for-woocommerce' ),
-				'sent'             => __( 'Verification mail sent successfully to billing email, please check inbox and verify ! <a href="javascript:;" id="alg_wc_ev_resend_verify">Resend</a>', 'emails-verification-for-woocommerce' ),
-				'already_verified' => __( 'Email id verified !', 'emails-verification-for-woocommerce' )
+				'send'                => sprintf(
+				/* translators: %s is the text for the "Send Verify Email" link text. */
+					'<a href="javascript:;" id="alg_wc_ev_send_verify">%s</a>',
+					esc_html( get_option( 'alg_wc_ev_verify_guest_send_link_text', __( 'Send Verify Email', 'emails-verification-for-woocommerce' ) ) )
+				),
+				'resend'              => esc_html__( 'Resending...', 'emails-verification-for-woocommerce' ),
+				'sending'              => esc_html__( 'Sending...', 'emails-verification-for-woocommerce' ),
+				'sent'                => sprintf(
+				/* translators: %1$s is the success message, %2$s is the "Resend" link text. */
+					'%1$s <a href="javascript:;" id="alg_wc_ev_resend_verify">%2$s</a>',
+					esc_html( get_option( 'alg_wc_ev_verify_guest_verification_message', __( 'Verification mail sent successfully to billing email, please check inbox and verify!', 'emails-verification-for-woocommerce' ) ) ),
+					esc_html( get_option( 'alg_wc_ev_verify_guest_resent_text', __( 'Resend', 'emails-verification-for-woocommerce' ) ) )
+				),
+				'already_verified'    => esc_html( get_option( 'alg_wc_ev_verify_guest_already_verification_message', __( 'Email ID verified!', 'emails-verification-for-woocommerce' ) ) ),
+				'error_nonce_message' => sprintf(
+				/* translators: %1$s is the error message, %2$s is the "Resend" link text. */
+					'%1$s <a href="javascript:;" id="alg_wc_ev_resend_verify">%2$s</a>',
+					esc_html( get_option( 'alg_wc_ev_verify_guest_verification_message', __( 'The request could not be completed due to an invalid or expired security token. Please refresh and try again!', 'emails-verification-for-woocommerce' ) ) ),
+					esc_html( get_option( 'alg_wc_ev_verify_guest_resent_text', __( 'Resend', 'emails-verification-for-woocommerce' ) ) )
+				),
+				'security_nonce'      => wp_create_nonce( 'alg_wc_ev_ajax_security_nonce' ),
 			);
 
 			wp_enqueue_script( 'alg-wc-ev-guest-verify', trailingslashit( alg_wc_ev()->plugin_url() ) . 'includes/js/alg-wc-ev-guest-verify.js', array( 'jquery' ), alg_wc_ev()->version, true );
@@ -1222,7 +1239,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		/**
 		 * verify_guest_at_checkout_script_footer.
 		 *
-		 * @version 2.9.0
+		 * @version 2.9.3
 		 * @since   2.5.8
 		 *
 		 * @return string
@@ -1263,23 +1280,36 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 					?>
                 });
             </script>
-            <style>
+			<style>
                 .alg-wc-ev-guest-verify-button {
-                    color: green;
+                    color: #008000;
                 }
-            </style>
+
+                .alg-wc-ev-guest-verify-error-color {
+                    color: #ff0000;
+                }
+			</style>
 			<?php
 		}
 
 		/**
 		 * alg_wc_ev_send_guest_verification_email_action.
 		 *
-		 * @version 2.9.0
+		 * @version 2.9.3
 		 * @since   2.5.8
 		 *
 		 * @return string
 		 */
 		function alg_wc_ev_send_guest_verification_email_action( $param ) {
+
+			// Check if the nonce is set and valid
+			if ( 'yes' === get_option( 'alg_wc_ev_nonce_verify_guest_email', 'yes' ) ) {
+				if ( ! isset( $_POST['security_nonce'] ) || ! wp_verify_nonce( $_POST['security_nonce'], 'alg_wc_ev_ajax_security_nonce' ) ) {
+					echo "invalid_nonce";
+					die;
+				}
+			}
+
 			if (
 				is_user_logged_in() ||
 				'yes' !== get_option( 'alg_wc_ev_verify_guest_email', 'no' )

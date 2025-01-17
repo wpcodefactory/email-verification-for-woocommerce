@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Messages Section Settings.
  *
- * @version 2.9.0
+ * @version 2.9.3
  * @since   1.3.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_Email_Verification_Settings_Messages extends Alg_WC_Email_Verificat
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.9.0
+	 * @version 2.9.3
 	 * @since   1.3.0
 	 */
 	function get_settings() {
@@ -128,6 +128,46 @@ class Alg_WC_Email_Verification_Settings_Messages extends Alg_WC_Email_Verificat
 			array(
 				'type'     => 'sectionend',
 				'id'       => 'alg_wc_ev_resend_verification_url_options',
+			),
+			array(
+				'title'    => __( 'Guest checkout email verification', 'emails-verification-for-woocommerce' ),
+				'type'     => 'title',
+				'id'       => 'alg_wc_ev_guest_checkout_email_verification_options',
+			),
+			array(
+				'title'    => __( 'Verification link text', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => __( 'Text displayed for the verification link after enabling the "Verify Guest Users" option in the "General" settings.', 'emails-verification-for-woocommerce' ),
+				'type'     => 'text',
+				'id'       => 'alg_wc_ev_verify_guest_send_link_text',
+				'default'  => __( 'Send Verify Email', 'emails-verification-for-woocommerce' ),
+			),
+			array(
+				'title'    => __( 'Post-verification message', 'emails-verification-for-woocommerce' ),
+				'type'     => 'textarea',
+				'id'       => 'alg_wc_ev_verify_guest_verification_message',
+				'default'  => __( 'Verification mail sent successfully to billing email, please check inbox and verify!', 'emails-verification-for-woocommerce' ),
+			),
+			array(
+				'title'    => __( 'Already verified message', 'emails-verification-for-woocommerce' ),
+				'type'     => 'textarea',
+				'id'       => 'alg_wc_ev_verify_guest_already_verification_message',
+				'default'  => __( 'Email ID verified!', 'emails-verification-for-woocommerce' ),
+			),
+			array(
+				'title'    => __( 'Resend link text', 'emails-verification-for-woocommerce' ),
+				'type'     => 'text',
+				'id'       => 'alg_wc_ev_verify_guest_resent_text',
+				'default'  => __( 'Resend', 'emails-verification-for-woocommerce' ),
+			),
+			array(
+				'title'    => __( 'Invalid token message', 'emails-verification-for-woocommerce' ),
+				'type'     => 'textarea',
+				'id'       => 'alg_wc_ev_guest_invalid_token_message',
+				'default'  => __( 'The request could not be completed due to an invalid or expired security token. Please refresh and try again!', 'emails-verification-for-woocommerce' ),
+			),
+			array(
+				'type'     => 'sectionend',
+				'id'       => 'alg_wc_ev_guest_checkout_email_verification_options',
 			),
 		);
 	}
