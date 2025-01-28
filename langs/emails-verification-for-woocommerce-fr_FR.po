@@ -15,7 +15,7 @@ msgstr ""
 "X-Loco-Parser: loco_parse_po\n"
 "X-Generator: Loco https://localise.biz/\n"
 
-#: email-verification-for-woocommerce-pro.php:283
+#: email-verification-for-woocommerce-pro.php:287
 msgid "Go Pro"
 msgstr "Passez en version Pro"
 

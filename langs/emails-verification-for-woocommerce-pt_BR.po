@@ -30,7 +30,7 @@ msgstr ""
 msgid "https://wpfactory.com"
 msgstr ""
 
-#: email-verification-for-woocommerce-pro.php:283
+#: email-verification-for-woocommerce-pro.php:287
 msgid "Go Pro"
 msgstr ""
 

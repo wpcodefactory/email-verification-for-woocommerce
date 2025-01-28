@@ -3,13 +3,13 @@
 Plugin Name: Email Verification for WooCommerce
 Plugin URI: https://wpfactory.com/item/email-verification-for-woocommerce/
 Description: Verify user emails in WooCommerce. Beautifully.
-Version: 2.9.3
+Version: 2.9.4
 Author: WPFactory
 Author URI: https://wpfactory.com
 Text Domain: emails-verification-for-woocommerce
 Domain Path: /langs
-Copyright: © 2024 WPFactory
-WC tested up to: 9.5
+Copyright: © 2025 WPFactory
+WC tested up to: 9.6
 Requires Plugins: woocommerce
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -49,10 +49,6 @@ if (
 }
 
 if ( ! class_exists( 'Alg_WC_Email_Verification' ) ) :
-	require_once plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
-endif;
-
-if ( ! class_exists( 'Alg_WC_Email_Verification' ) ) :
 
 /**
  * Main Alg_WC_Email_Verification Class
@@ -69,7 +65,7 @@ final class Alg_WC_Email_Verification {
 	 * @var   string
 	 * @since 1.0.0
 	 */
-	public $version = '2.9.3';
+	public $version = '2.9.4';
 
 	/**
 	 * @var   Alg_WC_Email_Verification The single instance of the class
@@ -173,7 +169,7 @@ final class Alg_WC_Email_Verification {
 	/**
 	 * add_cross_selling_library.
 	 *
-	 * @version 2.9.0
+	 * @version 2.9.4
 	 * @since   2.9.0
 	 *
 	 * @return void
@@ -182,6 +178,10 @@ final class Alg_WC_Email_Verification {
 		if ( ! is_admin() ) {
 			return;
 		}
+
+		// Composer.
+		require_once plugin_dir_path( $this->get_filesystem_path() ) . 'vendor/autoload.php';
+
 		// Cross-selling library.
 		$cross_selling = new \WPFactory\WPFactory_Cross_Selling\WPFactory_Cross_Selling();
 		$cross_selling->setup( array( 'plugin_file_path'   => $this->get_filesystem_path() ) );
@@ -191,7 +191,7 @@ final class Alg_WC_Email_Verification {
 	/**
 	 * move_wc_settings_tab_to_wpfactory_submenu.
 	 *
-	 * @version 2.9.0
+	 * @version 2.9.4
 	 * @since   2.9.0
 	 *
 	 * @return void
@@ -200,6 +200,10 @@ final class Alg_WC_Email_Verification {
 		if ( ! is_admin() ) {
 			return;
 		}
+
+		// Composer.
+		require_once plugin_dir_path( $this->get_filesystem_path() ) . 'vendor/autoload.php';
+
 		// WC Settings tab as WPFactory submenu item.
 		$wpf_admin_menu = \WPFactory\WPFactory_Admin_Menu\WPFactory_Admin_Menu::get_instance();
 		$wpf_admin_menu->move_wc_settings_tab_to_wpfactory_menu( array(
