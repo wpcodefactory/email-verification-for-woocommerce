@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Core Class.
  *
- * @version 2.9.3
+ * @version 2.9.5
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -980,7 +980,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		/**
 		 * Display user data.
 		 *
-		 * @version 2.3.5
+		 * @version 2.9.5
 		 * @since   2.3.5
 		 *
 		 * @param   null  $atts
@@ -988,16 +988,32 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		 * @return string
 		 */
 		function alg_wc_ev_new_user_info( $atts = null ) {
-			$atts        = shortcode_atts( array(
-				'info_type'     => 'user_email',
-				'not_found_msg' => '',
-			), $atts, 'alg_wc_ev_new_user_info' );
-			$info_type   = isset( $atts['info_type'] ) ? $atts['info_type'] : '';
-			$new_user_id = isset( $_GET['alg_wc_ev_activate_account_message'] ) ? sanitize_text_field( $_GET['alg_wc_ev_activate_account_message'] ) : '';
-			$new_user    = get_user_by( 'ID', $new_user_id );
 
-			if ( $new_user instanceof WP_User ) {
-				return isset( $new_user->{$info_type} ) ? $new_user->{$info_type} : __( 'User data not found.', 'emails-verification-for-woocommerce' );
+			$atts = shortcode_atts(
+				array(
+					'info_type'     => 'user_email',
+					'not_found_msg' => '',
+				),
+				$atts,
+				'alg_wc_ev_new_user_info'
+			);
+
+			$info_type   = isset( $atts['info_type'] ) ? sanitize_key( $atts['info_type'] ) : 'user_email';
+			$new_user_id = isset( $_GET['alg_wc_ev_activate_account_message'] ) ? absint( $_GET['alg_wc_ev_activate_account_message'] ) : 0;
+
+			if ( ! is_user_logged_in() ) {
+				return false;
+			}
+
+			$user_id = get_current_user_id();
+			if( current_user_can( 'administrator' ) && $new_user_id !== 0 ) {
+				$user_id = $new_user_id;
+			}
+
+			$user = get_user_by( 'ID', $user_id );
+
+			if ( $user instanceof WP_User ) {
+				return isset( $user->{$info_type} ) ? esc_html( $user->{$info_type} ) : __( 'User data not found.', 'emails-verification-for-woocommerce' );
 			}
 
 			return esc_html( $atts['not_found_msg'] );

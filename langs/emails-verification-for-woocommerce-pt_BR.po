@@ -71,7 +71,7 @@ msgid "User %s: activation link resent."
 msgstr ""
 
 #: includes/class-alg-wc-ev-admin.php:609
-#: includes/class-alg-wc-ev-core.php:1070
+#: includes/class-alg-wc-ev-core.php:1086
 #: includes/settings/class-alg-wc-ev-settings-shortcodes.php:83
 #: includes/settings/class-alg-wc-ev-settings-shortcodes.php:128
 msgid "Verified"
@@ -90,8 +90,8 @@ msgid "Verify"
 msgstr ""
 
 #: includes/class-alg-wc-ev-admin.php:649
-#: includes/class-alg-wc-ev-core.php:1223
-#: includes/class-alg-wc-ev-core.php:1230
+#: includes/class-alg-wc-ev-core.php:1239
+#: includes/class-alg-wc-ev-core.php:1246
 #: includes/settings/class-alg-wc-ev-settings-messages.php:104
 #: includes/settings/class-alg-wc-ev-settings-messages.php:160
 msgid "Resend"
@@ -110,16 +110,16 @@ msgstr ""
 msgid "You can resend the email with verification link by clicking <a href=\"%resend_verification_url%\">here</a>."
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:1069
+#: includes/class-alg-wc-ev-core.php:1085
 #: includes/settings/class-alg-wc-ev-settings-shortcodes.php:102
 msgid "Verification status: "
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:1017
+#: includes/class-alg-wc-ev-core.php:1033
 msgid "You can resend the email with verification link by clicking <a href=\"{resend_verification_url}\">here</a>."
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:1071
+#: includes/class-alg-wc-ev-core.php:1087
 #: includes/settings/class-alg-wc-ev-settings-shortcodes.php:87
 msgid "Unverified"
 msgstr ""
@@ -1513,7 +1513,7 @@ msgstr ""
 msgid "Email address"
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:1000
+#: includes/class-alg-wc-ev-core.php:1016
 msgid "User data not found."
 msgstr ""
 
@@ -2282,30 +2282,30 @@ msgstr ""
 msgid "Possible values:"
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:1215
+#: includes/class-alg-wc-ev-core.php:1231
 #: includes/settings/class-alg-wc-ev-settings-messages.php:142
 msgid "Send Verify Email"
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:1217
+#: includes/class-alg-wc-ev-core.php:1233
 msgid "Resending..."
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:1218
+#: includes/class-alg-wc-ev-core.php:1234
 msgid "Sending..."
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:1222
+#: includes/class-alg-wc-ev-core.php:1238
 #: includes/settings/class-alg-wc-ev-settings-messages.php:148
 msgid "Verification mail sent successfully to billing email, please check inbox and verify!"
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:1225
+#: includes/class-alg-wc-ev-core.php:1241
 #: includes/settings/class-alg-wc-ev-settings-messages.php:154
 msgid "Email ID verified!"
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:1229
+#: includes/class-alg-wc-ev-core.php:1245
 #: includes/settings/class-alg-wc-ev-settings-messages.php:166
 msgid "The request could not be completed due to an invalid or expired security token. Please refresh and try again!"
 msgstr ""
