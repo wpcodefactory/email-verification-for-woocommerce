@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: emails-verification-for-woocommerce 2.9.5\n"
+"Project-Id-Version: emails-verification-for-woocommerce 2.9.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/emails-verification-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-01-30T19:59:17+01:00\n"
+"POT-Creation-Date: 2025-02-10T20:08:12+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: emails-verification-for-woocommerce\n"
@@ -142,7 +142,6 @@ msgstr ""
 #: includes/class-alg-wc-ev-admin.php:609
 #: includes/class-alg-wc-ev-core.php:1086
 #: includes/settings/class-alg-wc-ev-settings-shortcodes.php:83
-#: includes/settings/class-alg-wc-ev-settings-shortcodes.php:128
 msgid "Verified"
 msgstr ""
 
@@ -240,21 +239,21 @@ msgstr ""
 msgid "The request could not be completed due to an invalid or expired security token. Please refresh and try again!"
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:77
+#: includes/class-alg-wc-ev-emails.php:88
 #: includes/pro/class-alg-wc-ev-confirmation-wc-email-pro.php:176
 #: includes/pro/class-alg-wc-ev-pro.php:157
 #: includes/settings/class-alg-wc-ev-settings-email.php:265
 msgid "Your account has been activated"
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:82
+#: includes/class-alg-wc-ev-emails.php:93
 #: includes/pro/class-alg-wc-ev-confirmation-wc-email-pro.php:164
 #: includes/pro/class-alg-wc-ev-pro.php:170
 #: includes/settings/class-alg-wc-ev-settings-email.php:247
 msgid "Your account has been activated successfully"
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:297
+#: includes/class-alg-wc-ev-emails.php:323
 #: includes/pro/class-alg-wc-ev-activation-wc-email-pro.php:198
 #: includes/pro/class-alg-wc-ev-pro.php:683
 #: includes/pro/class-alg-wc-ev-pro.php:875
@@ -262,35 +261,35 @@ msgstr ""
 msgid "Activate your account"
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:374
+#: includes/class-alg-wc-ev-emails.php:400
 msgid "<p>Please <a href=\"%s\" target=\"_blank\">click here</a> to verify your email on %s.</p>"
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:381
+#: includes/class-alg-wc-ev-emails.php:407
 msgid "<p>Your account has been activated successfully on %s.</p>"
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:388
+#: includes/class-alg-wc-ev-emails.php:414
 msgid "User %s has just verified his email (%s) on %s."
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:453
-#: includes/class-alg-wc-ev-emails.php:602
+#: includes/class-alg-wc-ev-emails.php:479
+#: includes/class-alg-wc-ev-emails.php:628
 #: includes/pro/class-alg-wc-ev-activation-wc-email-pro.php:157
 #: includes/pro/class-alg-wc-ev-pro.php:844
 #: includes/settings/class-alg-wc-ev-settings-email.php:120
 msgid "Please activate your account"
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:573
+#: includes/class-alg-wc-ev-emails.php:599
 msgid "Error sending mail."
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:574
+#: includes/class-alg-wc-ev-emails.php:600
 msgid "Mail function: %s."
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:577
+#: includes/class-alg-wc-ev-emails.php:603
 msgid "Last error: %s."
 msgstr ""
 
@@ -2277,7 +2276,7 @@ msgid "Displays a link to send the verification email only for unverified users.
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-shortcodes.php:113
-#: includes/settings/class-alg-wc-ev-settings-shortcodes.php:136
+#: includes/settings/class-alg-wc-ev-settings-shortcodes.php:131
 msgid "Examples:"
 msgstr ""
 
@@ -2286,7 +2285,7 @@ msgid "[alg_wc_ev_email_content_placeholder]"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-shortcodes.php:122
-msgid "Appends the verification email to some custom email template"
+msgid "Appends the verification email to the Customer New Account email"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-shortcodes.php:124
@@ -2294,22 +2293,18 @@ msgid "In order to use it, it’s necessary to <strong>enable</strong> the optio
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-shortcodes.php:127
-msgid "The User email."
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-shortcodes.php:132
 msgid "Appends the verification email content to a custom WooCommerce email template."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-shortcodes.php:169
+#: includes/settings/class-alg-wc-ev-settings-shortcodes.php:164
 msgid "Params:"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-shortcodes.php:216
+#: includes/settings/class-alg-wc-ev-settings-shortcodes.php:211
 msgid "Default value:"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-shortcodes.php:219
+#: includes/settings/class-alg-wc-ev-settings-shortcodes.php:214
 msgid "Possible values:"
 msgstr ""
 

@@ -119,16 +119,11 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Shortcodes' ) ) :
 				),
 				array(
 					'title'    => __( '[alg_wc_ev_email_content_placeholder]', 'emails-verification-for-woocommerce' ),
-					'desc'     => __( 'Appends the verification email to some custom email template', 'emails-verification-for-woocommerce' ),
+					'desc'     => __( 'Appends the verification email to the Customer New Account email', 'emails-verification-for-woocommerce' ),
 					'default'  => 'yes',
 					'desc_tip' => __( 'In order to use it, it’s necessary to <strong>enable</strong> the option "Email > Activation email > Fine tune activation email placement", <strong>disable</strong> the option "Email > Activation email > Send as a separate email", and the option "Emails > Activation email > Email template" should be probably set as Plain.', 'emails-verification-for-woocommerce' ) . '<br /><br />' .
 					              $this->format_shortcode_params( array(
-						              'user_email' => array(
-							              'desc'    => __( 'The User email.', 'emails-verification-for-woocommerce' ),
-							              'default' => '<strong>' . __( 'Verified', 'emails-verification-for-woocommerce' ) . '</strong>',
-						              ),
-					              ) ) . $this->format_shortcode_params( array(
-							'echo do_shortcode(\'[alg_wc_ev_email_content_placeholder user_email="\'.$email.\'"]\')' => array(
+							'echo do_shortcode(\'[alg_wc_ev_email_content_placeholder]\')' => array(
 								'desc' => __( 'Appends the verification email content to a custom WooCommerce email template.', 'emails-verification-for-woocommerce' )
 							),
 						),
