@@ -1,7 +1,7 @@
 /**
  * alg-wc-ev-guest-verify.js
  *
- * @version 2.9.3
+ * @version 2.9.7
  * @since   2.7.4
  */
 
@@ -58,23 +58,21 @@ jQuery( function ( $ ) {
 				data: alg_wc_ev_data,
 				success: function ( response ) {
 					if ( 'invalid_nonce' === response ) {
-
 						guest_email_verify_text.html( email_verification_options.error_nonce_message );
 						guest_email_verify_text.removeClass();
 						guest_email_verify_text.addClass( 'alg-wc-ev-guest-verify-error-color' );
-
 					} else if ( 'sent' === response ) {
-
 						guest_email_verify_text.html( email_verification_options.sent );
 						guest_email_verify_text.removeClass();
 						guest_email_verify_text.addClass( 'alg-wc-ev-guest-verify-button' );
-
 					} else if ( 'already_verified' === response ) {
-
 						guest_email_verify_text.html( email_verification_options.already_verified );
 						guest_email_verify_text.removeClass();
 						guest_email_verify_text.addClass( 'alg-wc-ev-guest-verify-button' );
-
+					} else if ( 'email_exists' ) {
+						guest_email_verify_text.html( email_verification_options.email_exists );
+						guest_email_verify_text.removeClass();
+						guest_email_verify_text.addClass( 'alg-wc-ev-guest-verify-error-color' );
 					}
 				}
 			} );

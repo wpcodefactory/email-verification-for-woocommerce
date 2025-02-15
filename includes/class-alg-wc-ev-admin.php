@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Admin Class.
  *
- * @version 2.9.1
+ * @version 2.9.7
  * @since   1.5.0
  * @author  WPFactory
  */
@@ -65,7 +65,7 @@ class Alg_WC_Email_Verification_Admin {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.9.0
+	 * @version 2.9.7
 	 * @since   1.5.0
 	 * @todo    (maybe) move more stuff here, e.g. settings, action links etc.
 	 */
@@ -103,50 +103,12 @@ class Alg_WC_Email_Verification_Admin {
 	        add_action( 'pre_get_users', array( $this, 'filter_users_based_on_verification_status' ), 10, 1 );
         }
 
-		add_filter( 'pre_update_option_alg_wc_ev_verify_guest_email', array( $this, 'create_guest_verification_table' ), 10, 2 );
-
 		// Hooks the Rich Text Editor field into WooCommerce settings API.
 		add_action( 'woocommerce_admin_field_alg_wc_ev_editor', array( $this, 'generate_editor_html' ) );
 
 		// Hooks the custom script into the 'admin_footer' for the editor field.
 		add_action( 'admin_footer', array( $this, 'enqueue_ev_setting_style_and_script' ) );
 
-	}
-
-	/**
-	 * create_guest_verification_table.
-	 *
-	 * @param $new_value, $old_value
-	 *
-	 * @return string
-	 * @version 2.5.8
-	 * @since   2.5.8
-	 *
-	 */
-	function create_guest_verification_table( $new_value, $old_value ) {
-		global $wpdb;
-		$table_name = $wpdb->prefix . 'alg_wc_ev_guest_verify';
-		$charset_collate = $wpdb->get_charset_collate();
-		
-		if( 'yes' === $new_value && $old_value !== $new_value ) {
-			if( $wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name ) {
-				
-
-				$sql = "CREATE TABLE $table_name (
-					`id` int(11) NOT NULL AUTO_INCREMENT,
-					`date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-					`email` tinytext NOT NULL,
-					`code` text NOT NULL,
-					`status` varchar(10) DEFAULT '0' NOT NULL,
-					PRIMARY KEY  (`id`)
-				) $charset_collate;";
-
-				require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-				dbDelta( $sql );
-			}
-		}
-		
-		return $new_value;
 	}
 
 	/**

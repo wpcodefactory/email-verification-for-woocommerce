@@ -64,7 +64,7 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 			array(
 				'title'         => __( 'Guest users', 'emails-verification-for-woocommerce' ),
 				'desc'          => __( 'Verify guest users', 'emails-verification-for-woocommerce' ),
-				'desc_tip'      => __( 'If enabled, checkout as guest user billing address will be verified.', 'emails-verification-for-woocommerce' ),
+				'desc_tip'      => __( 'If enabled, checkout as guest user billing address will be verified.', 'emails-verification-for-woocommerce' ).' '.__( 'Note:', 'emails-verification-for-woocommerce' ).' '.__( 'For now, this feature will only work for the classic checkout.', 'emails-verification-for-woocommerce' ),
 				'type'          => 'checkbox',
 				'checkboxgroup' => 'start',
 				'id'            => 'alg_wc_ev_verify_guest_email',

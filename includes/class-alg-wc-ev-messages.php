@@ -169,8 +169,6 @@ class Alg_WC_Email_Verification_Messages {
 		return $notice;
 	}
 	
-	
-	
 	/**
 	 * get_activation_message.
 	 *
