@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Guest Verification.
  *
- * @version 2.8.0
+ * @version 2.9.8
  * @since   2.8.0
  * @author  WPFactory
  */
@@ -401,10 +401,16 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 		 *
 		 * @see sync_verification_if_guest()
 		 *
-		 * @version 2.9.7
+		 * @version 2.9.8
 		 * @since   2.6.9
 		 */
 		function sync_verification_if_guest( $user_id ) {
+			if (
+				is_user_logged_in() ||
+				'yes' !== get_option( 'alg_wc_ev_verify_guest_email', 'no' )
+			) {
+				return;
+			}
 			global $wpdb;
 			$user_obj = get_user_by( 'id', $user_id );
 			if ( $user_obj ) {

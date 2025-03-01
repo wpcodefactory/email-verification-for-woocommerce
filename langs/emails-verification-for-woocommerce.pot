@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: emails-verification-for-woocommerce 2.9.7\n"
+"Project-Id-Version: emails-verification-for-woocommerce 2.9.8\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/emails-verification-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-02-15T19:51:55+01:00\n"
+"POT-Creation-Date: 2025-03-01T03:47:36+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: emails-verification-for-woocommerce\n"
@@ -252,7 +252,7 @@ msgid "User %s has just verified his email (%s) on %s."
 msgstr ""
 
 #: includes/class-alg-wc-ev-emails.php:477
-#: includes/class-alg-wc-ev-guest-verification.php:458
+#: includes/class-alg-wc-ev-guest-verification.php:464
 #: includes/pro/class-alg-wc-ev-activation-wc-email-pro.php:157
 #: includes/pro/class-alg-wc-ev-pro.php:844
 #: includes/settings/class-alg-wc-ev-settings-email.php:120

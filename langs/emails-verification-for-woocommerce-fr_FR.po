@@ -57,7 +57,7 @@ msgid "Email verified"
 msgstr "Email vérifié"
 
 #: includes/class-alg-wc-ev-emails.php:477
-#: includes/class-alg-wc-ev-guest-verification.php:458
+#: includes/class-alg-wc-ev-guest-verification.php:464
 #: includes/pro/class-alg-wc-ev-activation-wc-email-pro.php:157
 #: includes/pro/class-alg-wc-ev-pro.php:844
 #: includes/settings/class-alg-wc-ev-settings-email.php:120
