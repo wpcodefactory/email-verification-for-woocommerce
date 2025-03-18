@@ -242,7 +242,7 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 			),
 			array(
 				'title'   => __( 'Prevent login notice', 'emails-verification-for-woocommerce' ),
-				'desc'    => __( 'Add "Activate" notice to the WooCommerce "Thank you" (i.e. "Order received") page', 'emails-verification-for-woocommerce' ),
+				'desc'    => __( 'Force "Activate" notice to the WooCommerce "Thank you" (i.e. "Order received") page', 'emails-verification-for-woocommerce' ),
 				'type'    => 'checkbox',
 				'id'      => 'alg_wc_ev_prevent_login_after_checkout_notice',
 				'default' => 'yes',

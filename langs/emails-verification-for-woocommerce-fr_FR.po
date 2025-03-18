@@ -915,10 +915,6 @@ msgstr ""
 msgid "Prevent login notice"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:245
-msgid "Add \"Activate\" notice to the WooCommerce \"Thank you\" (i.e. \"Order received\") page"
-msgstr ""
-
 #: includes/settings/class-alg-wc-ev-settings-advanced.php:251
 msgid "Block thank you page"
 msgstr ""
@@ -2352,4 +2348,8 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-general.php:67
 msgid "For now, this feature will only work for the classic checkout."
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:245
+msgid "Force \"Activate\" notice to the WooCommerce \"Thank you\" (i.e. \"Order received\") page"
 msgstr ""

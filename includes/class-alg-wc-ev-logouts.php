@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Logouts Class.
  *
- * @version 2.5.4
+ * @version 3.0.0
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -24,7 +24,7 @@ class Alg_WC_Email_Verification_Logouts {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.5.3
+	 * @version 3.0.0
 	 * @since   1.6.0
 	 * @todo    (maybe) force "activate" notice for guest users also
 	 * @todo    (maybe) `alg_wc_ev_prevent_login_after_register`: `woocommerce_account_navigation` (doesn't seem to work though...)
@@ -46,12 +46,16 @@ class Alg_WC_Email_Verification_Logouts {
 			add_action( 'wp_footer', array( $this, 'redirect_after_register_using_sessions' ) );
 			add_action( 'init', array( $this, 'start_session_for_redirecting_after_register' ), 1 );
 		}
-		// Prevent login: After checkout
+		// Prevent login: After checkout.
 		if ( 'yes' === get_option( 'alg_wc_ev_prevent_login_after_checkout', 'yes' ) ) {
 			if ( 'woocommerce_get_return_url' === ( $action = get_option( 'alg_wc_ev_prevent_login_after_checkout_action', 'woocommerce_get_return_url' ) ) ) {
 				add_filter( 'woocommerce_get_return_url', array( $this, 'logout_and_redirect_user_after_checkout' ), PHP_INT_MAX );
 				if ( 'yes' === get_option( 'alg_wc_ev_prevent_login_after_checkout_notice', 'yes' ) ) {
 					add_action( 'woocommerce_before_thankyou', array( $this, 'print_wc_notices' ) );
+					add_filter( 'woocommerce_thankyou_order_received_text', function ( $text ) {
+						$this->print_wc_notices();
+						return $text;
+					} );
 				}
 			} else { // 'woocommerce_before_thankyou', 'woocommerce_thankyou'
 				add_action( $action, array( $this, 'logout_and_redirect_user_after_checkout_thankyou' ) );
@@ -459,7 +463,7 @@ class Alg_WC_Email_Verification_Logouts {
 	 * @version 1.4.0
 	 * @since   1.4.0
 	 */
-	function print_wc_notices( $order_id ) {
+	function print_wc_notices() {
 		wc_print_notices();
 	}
 
