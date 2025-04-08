@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Blocking Section Settings.
  *
- * @version 2.4.7
+ * @version 3.0.1
  * @since   2.1.1
  * @author  WPFactory
  */
@@ -73,7 +73,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Blocking' ) ) :
 		/**
 		 * get_settings.
 		 *
-		 * @version 2.4.7
+		 * @version 3.0.1
 		 * @since   2.1.1
 		 */
 		function get_settings() {
@@ -176,7 +176,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Blocking' ) ) :
 				),
 				array(
 					'title'    => __( 'Block checkout', 'emails-verification-for-woocommerce' ),
-					'desc' => __( 'Blocks checkout process for unverified users (including guests).', 'emails-verification-for-woocommerce' ),
+					'desc' => __( 'Blocks checkout process for unverified users.', 'emails-verification-for-woocommerce' ),
 					'type'     => 'checkbox',
 					'id'       => 'alg_wc_ev_block_checkout_process',
 					'default'  => 'no',

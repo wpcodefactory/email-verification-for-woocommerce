@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: emails-verification-for-woocommerce 3.0.0\n"
+"Project-Id-Version: emails-verification-for-woocommerce 3.0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/emails-verification-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-03-18T19:54:18+01:00\n"
+"POT-Creation-Date: 2025-04-08T02:23:47+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: emails-verification-for-woocommerce\n"
@@ -233,8 +233,8 @@ msgstr ""
 
 #: includes/class-alg-wc-ev-emails.php:321
 #: includes/pro/class-alg-wc-ev-activation-wc-email-pro.php:198
-#: includes/pro/class-alg-wc-ev-pro.php:683
-#: includes/pro/class-alg-wc-ev-pro.php:875
+#: includes/pro/class-alg-wc-ev-pro.php:692
+#: includes/pro/class-alg-wc-ev-pro.php:884
 #: includes/settings/class-alg-wc-ev-settings-email.php:141
 msgid "Activate your account"
 msgstr ""
@@ -254,7 +254,7 @@ msgstr ""
 #: includes/class-alg-wc-ev-emails.php:477
 #: includes/class-alg-wc-ev-guest-verification.php:464
 #: includes/pro/class-alg-wc-ev-activation-wc-email-pro.php:157
-#: includes/pro/class-alg-wc-ev-pro.php:844
+#: includes/pro/class-alg-wc-ev-pro.php:853
 #: includes/settings/class-alg-wc-ev-settings-email.php:120
 msgid "Please activate your account"
 msgstr ""
@@ -404,32 +404,32 @@ msgstr ""
 msgid "Your email has been changed. In order to verify your account please check the activation email that was sent to your new email."
 msgstr ""
 
-#: includes/pro/class-alg-wc-ev-pro.php:445
+#: includes/pro/class-alg-wc-ev-pro.php:452
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:189
 msgid "You need to log in and verify your email to place an order."
 msgstr ""
 
-#: includes/pro/class-alg-wc-ev-pro.php:494
+#: includes/pro/class-alg-wc-ev-pro.php:503
 #: includes/settings/class-alg-wc-ev-settings-general.php:230
 msgid "Link has expired. You can resend the email with verification link by clicking <a href=\"%resend_verification_url%\">here</a>."
 msgstr ""
 
-#: includes/pro/class-alg-wc-ev-pro.php:536
+#: includes/pro/class-alg-wc-ev-pro.php:545
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:342
 msgid "Your email is denied."
 msgstr ""
 
-#: includes/pro/class-alg-wc-ev-pro.php:618
+#: includes/pro/class-alg-wc-ev-pro.php:627
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:227
 msgid "You need to <a href=\"%myaccount_url%\" target=\"_blank\">register</a> and verify your email before adding products to the cart."
 msgstr ""
 
-#: includes/pro/class-alg-wc-ev-pro.php:823
+#: includes/pro/class-alg-wc-ev-pro.php:832
 #: includes/settings/class-alg-wc-ev-settings-email.php:352
 msgid "User account has been activated"
 msgstr ""
 
-#: includes/pro/class-alg-wc-ev-pro.php:829
+#: includes/pro/class-alg-wc-ev-pro.php:838
 #: includes/settings/class-alg-wc-ev-settings-email.php:337
 msgid "User email has been verified"
 msgstr ""
@@ -1024,11 +1024,8 @@ msgid "Block checkout"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:173
-msgid "Blocks checkout process for unverified users."
-msgstr ""
-
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:179
-msgid "Blocks checkout process for unverified users (including guests)."
+msgid "Blocks checkout process for unverified users."
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:199
