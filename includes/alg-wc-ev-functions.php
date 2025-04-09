@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Functions.
  *
- * @version 2.8.2
+ * @version 3.0.2
  * @since   1.9.0
  * @author  WPFactory
  */
@@ -438,5 +438,19 @@ if ( ! function_exists( 'alg_wc_ev_get_verification_param' ) ) {
 	 */
 	function alg_wc_ev_get_verification_param() {
 		return apply_filters( 'alg_wc_ev_verification_param', 'alg_wc_ev_verify_email' );
+	}
+}
+
+if ( ! function_exists( 'alg_wc_ev_get_default_email_from' ) ) {
+	/**
+	 * alg_wc_ev_get_default_email_from.
+	 *
+	 * @version 3.0.2
+	 * @since   3.0.2
+	 *
+	 * @return string
+	 */
+	function alg_wc_ev_get_default_email_from() {
+		return apply_filters( 'wp_mail_from', get_bloginfo( 'admin_email' ) );
 	}
 }

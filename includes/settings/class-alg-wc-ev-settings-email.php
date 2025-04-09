@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Email Section Settings.
  *
- * @version 2.9.0
+ * @version 3.0.2
  * @since   1.3.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.9.0
+	 * @version 3.0.2
 	 * @since   1.3.0
 	 */
 	function get_settings() {
@@ -66,6 +66,14 @@ class Alg_WC_Email_Verification_Settings_Email extends Alg_WC_Email_Verification
 					'simulation'    => __( 'Email Verification plugin', 'emails-verification-for-woocommerce' ),
 					'real_wc_email' => __( 'WooCommerce > Emails', 'emails-verification-for-woocommerce' ),
 				),
+			),
+			array(
+				'title'   => __( 'From email address', 'emails-verification-for-woocommerce' ),
+				'desc'    => __( 'Used as the From address in all emails sent by this plugin.', 'emails-verification-for-woocommerce' ) . ' ' . '<strong>' . __( 'Note:', 'emails-verification-for-woocommerce' ) . '</strong>' . ' ' .
+				             __( 'Some email plugins, such as SMTP ones, may override this setting.', 'emails-verification-for-woocommerce' ),
+				'type'    => 'text',
+				'id'      => 'alg_wc_ev_wc_email_from',
+				'default' => alg_wc_ev_get_default_email_from(),
 			),
 			array(
 				'type' => 'sectionend',

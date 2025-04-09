@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 6.7
-Stable tag: 3.0.1
+Stable tag: 3.0.2
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -355,7 +355,10 @@ Once activated, access the plugin's settings by navigating to “WooCommerce > S
 
 == Changelog ==
 
-= 3.0.1 07/04/2025 =
+= 3.0.2 - 09/04/2025 =
+* Dev - Email - Added new option to set the From email address.
+
+= 3.0.1 - 07/04/2025 =
 * Fix - Blocking - Block checkout - Verified guest users were asked to log in.
 
 = 3.0.0 - 18/03/2025 =

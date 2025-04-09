@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Emails Class.
  *
- * @version 2.9.7
+ * @version 3.0.2
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -577,7 +577,7 @@ class Alg_WC_Email_Verification_Emails {
 	/**
 	 * send_mail.
 	 *
-	 * @version 1.9.2
+	 * @version 3.0.2
 	 * @since   1.9.2
 	 * @see     https://www.php.net/manual/en/function.mail.php
 	 * @see     https://github.com/woocommerce/woocommerce/blob/master/includes/wc-core-functions.php
@@ -590,18 +590,37 @@ class Alg_WC_Email_Verification_Emails {
 		 * `wc_mail( $to, $subject, $message, $headers = "Content-Type: text/html\r\n", $attachments = '' )`
 		 * `wp_mail( string|array $to, string $subject, string $message, string|array $headers = '', string|array $attachments = array() )`
 		 */
-		$func                 = get_option( 'alg_wc_ev_mail_function', 'wc_mail' );
-		$message              = apply_filters( 'alg_wc_ev_send_mail_message', $message, $func );
-		$res     = $func( $to, $subject, $message, "Content-Type: text/html\r\n" );
+		$func    = get_option( 'alg_wc_ev_mail_function', 'wc_mail' );
+		$message = apply_filters( 'alg_wc_ev_send_mail_message', $message, $func );
+		add_filter( 'wp_mail_from', array( $this, 'change_email_from' ), PHP_INT_MAX );
+		$res = $func( $to, $subject, $message, "Content-Type: text/html\r\n" );
+		remove_filter( 'wp_mail_from', array( $this, 'change_email_from' ), PHP_INT_MAX );
 		if ( ! $res ) {
-			$error_message  = __( 'Error sending mail.', 'emails-verification-for-woocommerce' );
+			$error_message = __( 'Error sending mail.', 'emails-verification-for-woocommerce' );
 			$error_message .= ' ' . sprintf( __( 'Mail function: %s.', 'emails-verification-for-woocommerce' ), $func );
-			$last_error     = error_get_last();
+			$last_error    = error_get_last();
 			if ( ! empty( $last_error['message'] ) ) {
 				$error_message .= ' ' . sprintf( __( 'Last error: %s.', 'emails-verification-for-woocommerce' ), $last_error['message'] );
 			}
 			alg_wc_ev()->core->add_to_log( $error_message );
 		}
+	}
+
+	/**
+	 * change_email_from.
+	 *
+	 * @version 3.0.2
+	 * @since   3.0.2
+	 *
+	 * @param $from
+	 *
+	 * @return mixed
+	 */
+	function change_email_from( $from ) {
+		remove_filter( 'wp_mail_from', array( $this, 'change_email_from' ), PHP_INT_MAX );
+		$from = get_option( 'alg_wc_ev_wc_email_from', alg_wc_ev_get_default_email_from() );
+
+		return $from;
 	}
 
 }
