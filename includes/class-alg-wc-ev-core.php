@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Core Class.
  *
- * @version 2.9.7
+ * @version 3.0.3
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -1152,7 +1152,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		/**
 		 * language_shortcode.
 		 *
-		 * @version 1.7.0
+		 * @version 3.0.3
 		 * @since   1.7.0
 		 */
 		function language_shortcode( $atts, $content = '' ) {
@@ -1160,14 +1160,14 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 			// E.g.: `[alg_wc_ev_translate lang="EN,DE" lang_text="Text for EN & DE" not_lang_text="Text for other languages"]`
 			if ( isset( $atts['lang_text'] ) && isset( $atts['not_lang_text'] ) && ! empty( $atts['lang'] ) ) {
 				return ( ! $language || ! $this->language_in( $language, $atts['lang'] ) ) ?
-					$atts['not_lang_text'] : $atts['lang_text'];
+					esc_html( $atts['not_lang_text'] ) : esc_html( $atts['lang_text'] );
 			}
 
 			// E.g.: `[alg_wc_ev_translate lang="EN,DE"]Text for EN & DE[/alg_wc_ev_translate][alg_wc_ev_translate not_lang="EN,DE"]Text for other languages[/alg_wc_ev_translate]`
 			return (
 				( ! empty( $atts['lang'] ) && ( ! $language || ! $this->language_in( $language, $atts['lang'] ) ) ) ||
 				( ! empty( $atts['not_lang'] ) && $language && $this->language_in( $language, $atts['not_lang'] ) )
-			) ? '' : $content;
+			) ? '' : esc_html( $content );
 		}
 
 		/**
