@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Messages Class.
  *
- * @version 2.7.8
+ * @version 3.0.4
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -172,11 +172,11 @@ class Alg_WC_Email_Verification_Messages {
 	/**
 	 * get_activation_message.
 	 *
-	 * @version 2.5.8
+	 * @version 3.0.4
 	 * @since   2.5.8
 	 */
 	function get_guest_unverified_message( $user_id = 0 ) {
-		$notice = do_shortcode( __( 'Your email is not verified. Please click on verify link sent on your email.', 'emails-verification-for-woocommerce' ) );
+		$notice = do_shortcode( get_option( 'alg_wc_ev_guest_unverified_user_message', __( 'Your email is not verified. Please click the verification link sent to your email.', 'emails-verification-for-woocommerce' ) ) );
 		return $notice;
 	}
 

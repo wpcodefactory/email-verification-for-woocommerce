@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 6.8
-Stable tag: 3.0.3
+Stable tag: 3.0.4
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -354,6 +354,12 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 Once activated, access the plugin's settings by navigating to “WooCommerce > Settings” and look for the relevant tab.
 
 == Changelog ==
+
+= 3.0.4 - 07/05/2025 =
+* Fix - Guest users - Improved unverified user message.
+* Fix - Guest users - Fixed invalid nonce message.
+* Dev - Guest users - Added option to set up the unverified user message.
+* Dev - Guest users/Block checkout - Improved unverified user detection on checkout by trying to handle smart buttons like Paypal or Google Pay.
 
 = 3.0.3 - 30/04/2025 =
 * Fix - Fixed a security vulnerability issue.

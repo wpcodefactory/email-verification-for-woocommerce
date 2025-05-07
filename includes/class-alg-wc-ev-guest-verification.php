@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Guest Verification.
  *
- * @version 2.9.8
+ * @version 3.0.4
  * @since   2.8.0
  * @author  WPFactory
  */
@@ -18,7 +18,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 		/**
 		 * init.
 		 *
-		 * @version 2.9.7
+		 * @version 3.0.4
 		 * @since   2.9.7
 		 *
 		 * @return void
@@ -28,7 +28,8 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 			add_action( 'wp_footer', array( $this, 'verify_guest_at_checkout_script_footer' ), PHP_INT_MAX );
 			add_action( 'wp_ajax_alg_wc_ev_send_guest_verification_email_action', array( $this, 'alg_wc_ev_send_guest_verification_email_action' ) );
 			add_action( 'wp_ajax_nopriv_alg_wc_ev_send_guest_verification_email_action', array( $this, 'alg_wc_ev_send_guest_verification_email_action' ) );
-			add_action( 'woocommerce_after_checkout_validation', array( $this, 'checkout_validate_guest_email' ), PHP_INT_MAX );
+			add_action( 'woocommerce_after_checkout_validation', array( $this, 'checkout_validate_guest_email' ), 10, 2 );
+			add_filter( 'woocommerce_checkout_create_order', array( $this, 'checkout_validate_guest_email_on_checkout_create_order' ),10,2 );
 			add_action( 'template_redirect', array( $this, 'checkout_validate_guest_email_message' ) );
 			add_action( 'user_register', array( $this, 'sync_verification_if_guest' ), PHP_INT_MAX - 1 );
 
@@ -39,7 +40,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 		/**
 		 * enqueue_guest_feature_scripts.
 		 *
-		 * @version 2.9.7
+		 * @version 3.0.4
 		 * @since   2.9.0
 		 *
 		 * @return void
@@ -71,7 +72,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 				'error_nonce_message' => sprintf(
 				/* translators: %1$s is the error message, %2$s is the "Resend" link text. */
 					'%1$s <a href="javascript:;" id="alg_wc_ev_resend_verify">%2$s</a>',
-					esc_html( get_option( 'alg_wc_ev_verify_guest_verification_message', __( 'The request could not be completed due to an invalid or expired security token. Please refresh and try again!', 'emails-verification-for-woocommerce' ) ) ),
+					esc_html( get_option( 'alg_wc_ev_guest_invalid_token_message', __( 'The request could not be completed due to an invalid or expired security token. Please refresh and try again!', 'emails-verification-for-woocommerce' ) ) ),
 					esc_html( get_option( 'alg_wc_ev_verify_guest_resent_text', __( 'Resend', 'emails-verification-for-woocommerce' ) ) )
 				),
 				'email_exists'        => __( 'Sorry, that email address is already used!' ), // Without Email Verification domain because it's a default WordPress msg.
@@ -196,28 +197,46 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 		/**
 		 * checkout_validate_guest_email.
 		 *
-		 * @version 2.9.7
+		 * @version 3.0.4
 		 * @since   2.5.8
 		 *
 		 * @return string
 		 */
-		function checkout_validate_guest_email( $_posted ) {
+		function checkout_validate_guest_email( $_posted, $errors ) {
 			if (
-				is_user_logged_in() ||
-				'yes' !== get_option( 'alg_wc_ev_verify_guest_email', 'no' )
+				! is_user_logged_in() &&
+				'yes' === get_option( 'alg_wc_ev_verify_guest_email', 'no' ) &&
+				isset( $_posted['billing_email'] ) && ! empty( $_posted['billing_email'] ) &&
+				! $this->is_guest_email_already_verified( $_posted['billing_email'] )
 			) {
-				return false;
+				$errors->add( 'alg_wc_ev_verify_guest_email', alg_wc_ev()->core->messages->get_guest_unverified_message() );
+			}
+		}
+
+		/**
+		 * checkout_validate_guest_email_on_checkout_create_order.
+		 *
+		 * @version 3.0.4
+		 * @since   3.0.4
+		 *
+		 * @param $order
+		 * @param $_posted
+		 *
+		 * @throws Exception
+		 * @return mixed
+		 */
+		function checkout_validate_guest_email_on_checkout_create_order( $order, $_posted ) {
+			if (
+				! is_user_logged_in() &&
+				'yes' === get_option( 'alg_wc_ev_verify_guest_email', 'no' ) &&
+				isset( $_posted['billing_email'] ) && ! empty( $_posted['billing_email'] ) &&
+				! $this->is_guest_email_already_verified( $_posted['billing_email'] )
+			) {
+				$message = alg_wc_ev()->core->messages->get_guest_unverified_message();
+				throw new Exception( $message );
 			}
 
-			if ( isset( $_posted['billing_email'] ) && ! empty( $_posted['billing_email'] ) ) {
-				if ( ! $this->is_guest_email_already_verified( $_posted['billing_email'] ) ) {
-					alg_wc_ev_add_notice( alg_wc_ev()->core->messages->get_guest_unverified_message(), 'error' );
-
-					return false;
-				}
-			}
-
-			return true;
+			return $order;
 		}
 
 		/**

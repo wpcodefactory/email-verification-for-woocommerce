@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Messages Section Settings.
  *
- * @version 2.9.3
+ * @version 3.0.4
  * @since   1.3.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_Email_Verification_Settings_Messages extends Alg_WC_Email_Verificat
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.9.3
+	 * @version 3.0.4
 	 * @since   1.3.0
 	 */
 	function get_settings() {
@@ -164,6 +164,12 @@ class Alg_WC_Email_Verification_Settings_Messages extends Alg_WC_Email_Verificat
 				'type'     => 'textarea',
 				'id'       => 'alg_wc_ev_guest_invalid_token_message',
 				'default'  => __( 'The request could not be completed due to an invalid or expired security token. Please refresh and try again!', 'emails-verification-for-woocommerce' ),
+			),
+			array(
+				'title'    => __( 'Unverified user message', 'emails-verification-for-woocommerce' ),
+				'type'     => 'textarea',
+				'id'       => 'alg_wc_ev_guest_unverified_user_message',
+				'default'  => __( 'Your email is not verified. Please click the verification link sent to your email.', 'emails-verification-for-woocommerce' ),
 			),
 			array(
 				'type'     => 'sectionend',
