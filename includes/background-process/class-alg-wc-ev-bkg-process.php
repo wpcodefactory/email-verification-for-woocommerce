@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Background Process
  *
- * @version 2.6.0
+ * @version 3.0.6
  * @since   2.0.1
  *
  * @see WC_Background_Process;
@@ -14,11 +14,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 } // Exit if accessed directly
 
 if ( ! class_exists( 'WP_Async_Request', false ) ) {
-	include_once dirname( WC_PLUGIN_FILE ) . '/includes/libraries/wp-async-request.php';
+	include_once WC_ABSPATH . 'includes/libraries/wp-async-request.php';
 }
 
 if ( ! class_exists( 'WP_Background_Process', false ) ) {
-	include_once dirname( WC_PLUGIN_FILE ) . '/includes/libraries/wp-background-process.php';
+	include_once WC_ABSPATH . 'includes/libraries/wp-background-process.php';
 }
 
 if ( ! class_exists( 'Alg_WC_Email_Verification_Bkg_Process' ) ) :
