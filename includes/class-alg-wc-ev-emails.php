@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Emails Class.
  *
- * @version 3.0.2
+ * @version 3.0.7
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -552,7 +552,7 @@ class Alg_WC_Email_Verification_Emails {
 	 *
 	 * @see wc_create_new_customer()
 	 *
-	 * @version 2.4.3
+	 * @version 3.0.7
 	 * @since   1.6.0
 	 */
 	function maybe_send_wc_customer_new_account_email( $user_id ) {
@@ -565,7 +565,7 @@ class Alg_WC_Email_Verification_Emails {
 			$customer_data = ( $password_generated = 'yes' === get_option( 'woocommerce_registration_generate_password', 'yes' ) ) ? array( 'user_pass' => $user_pass = wp_generate_password() ) : array();
 			if ( $password_generated ) {
 				add_filter( 'send_password_change_email', '__return_false' );
-				wp_update_user( array( 'ID' => $user_id, 'user_pass' => $user_pass ) );
+				wp_set_password( $user_pass, $user_id );
 			}
 			$wc_emails = WC_Emails::instance();
 			$this->activate_customer_new_account_email = true;

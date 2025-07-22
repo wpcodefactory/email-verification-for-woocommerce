@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 6.8
-Stable tag: 3.0.6
+Stable tag: 3.0.7
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -354,6 +354,10 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 Once activated, access the plugin's settings by navigating to “WooCommerce > Settings” and look for the relevant tab.
 
 == Changelog ==
+
+= 3.0.7 - 22/07/2025 =
+* Fix - Fixed issue with Woodmart social login users not being automatically verified after login.
+* Dev - Created and enqueued minified javascript files.
 
 = 3.0.6 - 16/07/2025 =
 * Fix - Fixed possible error "Undefined constant WC_PLUGIN_FILE" on `Alg_WC_Email_Verification_Bkg_Process` class.

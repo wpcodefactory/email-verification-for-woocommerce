@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Guest Verification.
  *
- * @version 3.0.4
+ * @version 3.0.7
  * @since   2.8.0
  * @author  WPFactory
  */
@@ -40,7 +40,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 		/**
 		 * enqueue_guest_feature_scripts.
 		 *
-		 * @version 3.0.4
+		 * @version 3.0.7
 		 * @since   2.9.0
 		 *
 		 * @return void
@@ -79,7 +79,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 				'security_nonce'      => wp_create_nonce( 'alg_wc_ev_ajax_security_nonce' ),
 			);
 
-			wp_enqueue_script( 'alg-wc-ev-guest-verify', trailingslashit( alg_wc_ev()->plugin_url() ) . 'includes/js/alg-wc-ev-guest-verify.js', array( 'jquery' ), alg_wc_ev()->version, true );
+			alg_wc_ev_enqueue_script( 'alg-wc-ev-guest-verify', trailingslashit( alg_wc_ev()->plugin_url() ) . 'includes/js/alg-wc-ev-guest-verify.js', array( 'jquery' ), alg_wc_ev()->version, true );
 			wp_localize_script( 'alg-wc-ev-guest-verify', 'email_verification_options', $wc_ev_options );
 		}
 
