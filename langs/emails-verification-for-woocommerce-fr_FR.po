@@ -561,7 +561,7 @@ msgid "New title"
 msgstr ""
 
 #: includes/pro/class-alg-wc-ev-activation-wc-email-pro.php:32
-#: includes/pro/class-alg-wc-ev-compatibility-pro.php:381
+#: includes/pro/class-alg-wc-ev-compatibility-pro.php:382
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:253
 #: includes/settings/class-alg-wc-ev-settings-email.php:99
 msgid "Activation email"
@@ -572,7 +572,7 @@ msgstr ""
 msgid "An email sent to the user with an activation link."
 msgstr ""
 
-#: includes/pro/class-alg-wc-ev-compatibility-pro.php:382
+#: includes/pro/class-alg-wc-ev-compatibility-pro.php:383
 #: includes/pro/class-alg-wc-ev-confirmation-wc-email-pro.php:31
 #: includes/settings/class-alg-wc-ev-settings-email.php:230
 #: includes/settings/class-alg-wc-ev-settings-email.php:236
