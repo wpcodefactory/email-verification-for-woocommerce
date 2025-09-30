@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit365338cb4b7dc88b2ccda0d9e2eddbb6
+class ComposerStaticInitWPFactoryEmailVerificationForWooCommerce
 {
     public static $files = array (
         '20872bbaff0e3115cc7db5ab4a7d607e' => __DIR__ . '/..' . '/wpfactory/wpfactory-promoting-notice/src/php/functions.php',
@@ -31,18 +31,23 @@ class ComposerStaticInit365338cb4b7dc88b2ccda0d9e2eddbb6
         'WPFactory\\WPFactory_Admin_Menu\\Singleton' => __DIR__ . '/..' . '/wpfactory/wpfactory-admin-menu/src/php/trait-singleton.php',
         'WPFactory\\WPFactory_Admin_Menu\\WC_Settings_Menu_Item_Swapper' => __DIR__ . '/..' . '/wpfactory/wpfactory-admin-menu/src/php/class-wc-settings-menu-item-swapper.php',
         'WPFactory\\WPFactory_Admin_Menu\\WPFactory_Admin_Menu' => __DIR__ . '/..' . '/wpfactory/wpfactory-admin-menu/src/php/class-wpfactory-admin-menu.php',
+        'WPFactory\\WPFactory_Cross_Selling\\Banners' => __DIR__ . '/..' . '/wpfactory/wpfactory-cross-selling/src/php/class-banners.php',
         'WPFactory\\WPFactory_Cross_Selling\\Product_Categories' => __DIR__ . '/..' . '/wpfactory/wpfactory-cross-selling/src/php/class-product-categories.php',
         'WPFactory\\WPFactory_Cross_Selling\\Products' => __DIR__ . '/..' . '/wpfactory/wpfactory-cross-selling/src/php/class-products.php',
+        'WPFactory\\WPFactory_Cross_Selling\\Recommendation_Box_Tags' => __DIR__ . '/..' . '/wpfactory/wpfactory-cross-selling/src/php/class-recommendation-box-tags.php',
+        'WPFactory\\WPFactory_Cross_Selling\\Recommendations_Box' => __DIR__ . '/..' . '/wpfactory/wpfactory-cross-selling/src/php/class-recommendations-box.php',
+        'WPFactory\\WPFactory_Cross_Selling\\Recommendations_Page' => __DIR__ . '/..' . '/wpfactory/wpfactory-cross-selling/src/php/class-recommendations-page.php',
         'WPFactory\\WPFactory_Cross_Selling\\Singleton' => __DIR__ . '/..' . '/wpfactory/wpfactory-cross-selling/src/php/trait-singleton.php',
         'WPFactory\\WPFactory_Cross_Selling\\WPFactory_Cross_Selling' => __DIR__ . '/..' . '/wpfactory/wpfactory-cross-selling/src/php/class-wpfactory-cross-selling.php',
+        'WPFactory\\WPFactory_Cross_Selling\\WPFactory_Cross_Selling_Injector' => __DIR__ . '/..' . '/wpfactory/wpfactory-cross-selling/src/php/trait-wpfactory-cross-selling-injector.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit365338cb4b7dc88b2ccda0d9e2eddbb6::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit365338cb4b7dc88b2ccda0d9e2eddbb6::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit365338cb4b7dc88b2ccda0d9e2eddbb6::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitWPFactoryEmailVerificationForWooCommerce::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitWPFactoryEmailVerificationForWooCommerce::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitWPFactoryEmailVerificationForWooCommerce::$classMap;
 
         }, null, ClassLoader::class);
     }
