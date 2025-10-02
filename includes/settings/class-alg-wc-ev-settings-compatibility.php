@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Compatibility Section Settings.
  *
- * @version 2.8.3
+ * @version 3.1.0
  * @since   2.1.3
  * @author  WPFactory
  */
@@ -43,7 +43,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 		/**
 		 * get_settings.
 		 *
-		 * @version 2.8.3
+		 * @version 3.1.0
 		 * @since   2.1.3
 		 * @todo    (maybe) remove `alg_wc_ev_prevent_login_after_checkout_notice` (i.e. make it always enabled)
 		 */
@@ -123,6 +123,28 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 				array(
 					'type'     => 'sectionend',
 					'id'       => 'alg_wc_ev_compatibility_options',
+				),
+			);
+
+			$wc_paypal_opts = array(
+				array(
+					'title' => __( 'WooCommerce PayPal Payments', 'emails-verification-for-woocommerce' ),
+					'type'  => 'title',
+					'desc'  => sprintf( __( 'Compatibility with the %s plugin.', 'emails-verification-for-woocommerce' ), sprintf( '<a href="%s" target="_blank">%s</a>', 'https://woocommerce.com/products/woocommerce-paypal-payments/', __( 'WooCommerce PayPal Payments', 'emails-verification-for-woocommerce' ) ) ),
+					'id'    => 'alg_wc_ev_compatibility_wc_paypal_opts',
+				),
+				array(
+					'title'             => __( 'Early Checkout Validation', 'emails-verification-for-woocommerce' ),
+					'desc'              => __( 'Force early Checkout validation', 'emails-verification-for-woocommerce' ),
+					'desc_tip'          => sprintf( __( 'This <a href="%s" target="_blank">validation</a> is triggered in a non-standard way and might cause issues on some sites.', 'emails-verification-for-woocommerce' ), 'https://github.com/woocommerce/woocommerce-paypal-payments/wiki/Actions-and-Filters#checkout-gateway' ),
+					'id'                => 'alg_wc_ev_comp_wc_paypal_opts_early_checkout_validation',
+					'default'           => 'no',
+					'type'              => 'checkbox',
+					'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+				),
+				array(
+					'type' => 'sectionend',
+					'id'   => 'alg_wc_ev_compatibility_wc_paypal_opts',
 				),
 			);
 
@@ -355,6 +377,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Compatibility' ) ) :
 			);
 			return array_merge(
 				$general,
+				$wc_paypal_opts,
 				$wp_social_login_opts,
 				$xoo_login_signup_popup_opts,
 				$polylang_opts,

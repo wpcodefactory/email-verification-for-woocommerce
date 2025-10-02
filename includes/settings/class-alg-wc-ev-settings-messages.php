@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Messages Section Settings.
  *
- * @version 3.0.4
+ * @version 3.1.0
  * @since   1.3.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_Email_Verification_Settings_Messages extends Alg_WC_Email_Verificat
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.0.4
+	 * @version 3.1.0
 	 * @since   1.3.0
 	 */
 	function get_settings() {
@@ -169,7 +169,7 @@ class Alg_WC_Email_Verification_Settings_Messages extends Alg_WC_Email_Verificat
 				'title'    => __( 'Unverified user message', 'emails-verification-for-woocommerce' ),
 				'type'     => 'textarea',
 				'id'       => 'alg_wc_ev_guest_unverified_user_message',
-				'default'  => __( 'Your email is not verified. Please click the verification link sent to your email.', 'emails-verification-for-woocommerce' ),
+				'default'  => __( 'Your email is not verified. Click on the verification link below the email field, and confirm it in your inbox.', 'emails-verification-for-woocommerce' ),
 			),
 			array(
 				'type'     => 'sectionend',

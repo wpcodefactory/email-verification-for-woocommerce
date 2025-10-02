@@ -197,17 +197,17 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 		/**
 		 * checkout_validate_guest_email.
 		 *
-		 * @version 3.0.4
+		 * @version 3.1.0
 		 * @since   2.5.8
 		 *
 		 * @return string
 		 */
 		function checkout_validate_guest_email( $_posted, $errors ) {
 			if (
-				! is_user_logged_in() &&
 				'yes' === get_option( 'alg_wc_ev_verify_guest_email', 'no' ) &&
-				isset( $_posted['billing_email'] ) && ! empty( $_posted['billing_email'] ) &&
-				! $this->is_guest_email_already_verified( $_posted['billing_email'] )
+				! is_user_logged_in() &&
+				( isset( $_posted['billing_email'] ) && ! empty( $_posted['billing_email'] ) && ! $this->is_guest_email_already_verified( $_posted['billing_email'] ) ) ||
+				( ! isset( $_posted['billing_email'] ) || empty( $_posted['billing_email'] ) )
 			) {
 				$errors->add( 'alg_wc_ev_verify_guest_email', alg_wc_ev()->core->messages->get_guest_unverified_message() );
 			}
@@ -216,7 +216,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 		/**
 		 * checkout_validate_guest_email_on_checkout_create_order.
 		 *
-		 * @version 3.0.4
+		 * @version 3.1.0
 		 * @since   3.0.4
 		 *
 		 * @param $order
@@ -227,10 +227,10 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 		 */
 		function checkout_validate_guest_email_on_checkout_create_order( $order, $_posted ) {
 			if (
-				! is_user_logged_in() &&
 				'yes' === get_option( 'alg_wc_ev_verify_guest_email', 'no' ) &&
-				isset( $_posted['billing_email'] ) && ! empty( $_posted['billing_email'] ) &&
-				! $this->is_guest_email_already_verified( $_posted['billing_email'] )
+				! is_user_logged_in() &&
+				( isset( $_posted['billing_email'] ) && ! empty( $_posted['billing_email'] ) && ! $this->is_guest_email_already_verified( $_posted['billing_email'] ) ) ||
+				( ! isset( $_posted['billing_email'] ) || empty( $_posted['billing_email'] ) )
 			) {
 				$message = alg_wc_ev()->core->messages->get_guest_unverified_message();
 				throw new Exception( $message );

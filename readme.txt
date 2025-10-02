@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, kousikmukherjeeli, ae
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 6.8
-Stable tag: 3.0.9
+Stable tag: 3.1.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -354,6 +354,11 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 Once activated, access the plugin's settings by navigating to “WooCommerce > Settings” and look for the relevant tab.
 
 == Changelog ==
+
+= 3.1.0 - 02/10/2025 =
+* Fix - Guest users - Empty email wasn't triggering the error message.
+* Dev - Compatibility - WooCommerce PayPal Payments - Added Early Checkout Validation option.
+* Dev - Guest users - Improved unverified user message.
 
 = 3.0.9 - 30/09/2025 =
 * Fix - Guest users - Fixed Guest User table name sanitization.
