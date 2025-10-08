@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Logouts Class.
  *
- * @version 3.0.0
+ * @version 3.1.1
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -24,18 +24,20 @@ class Alg_WC_Email_Verification_Logouts {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.0.0
+	 * @version 3.1.1
 	 * @since   1.6.0
 	 * @todo    (maybe) force "activate" notice for guest users also
 	 * @todo    (maybe) `alg_wc_ev_prevent_login_after_register`: `woocommerce_account_navigation` (doesn't seem to work though...)
 	 */
 	function __construct() {
+
 		// Blocks unverified user login.
 		foreach ( array( 'wp_authenticate_user', 'authenticate' ) as $auth_filter ) {
 			add_filter( $auth_filter, array( $this, 'block_unverified_user_login' ), PHP_INT_MAX, 2 );
 		}
 		add_filter( 'send_auth_cookies', array( $this, 'block_unverified_user_login_by_wp_set_cookie' ), 90, 4 );
 		add_action( 'set_logged_in_cookie', array( $this, 'block_auth_cookies' ), 10, 4 );
+
 		// Prevent login: After registration
 		if ( 'yes' === get_option( 'alg_wc_ev_prevent_login_after_register', 'yes' ) ) {
 			add_filter( 'woocommerce_registration_auth_new_customer', array( $this, 'handle_login_after_registration' ), PHP_INT_MAX );
@@ -46,6 +48,7 @@ class Alg_WC_Email_Verification_Logouts {
 			add_action( 'wp_footer', array( $this, 'redirect_after_register_using_sessions' ) );
 			add_action( 'init', array( $this, 'start_session_for_redirecting_after_register' ), 1 );
 		}
+
 		// Prevent login: After checkout.
 		if ( 'yes' === get_option( 'alg_wc_ev_prevent_login_after_checkout', 'yes' ) ) {
 			if ( 'woocommerce_get_return_url' === ( $action = get_option( 'alg_wc_ev_prevent_login_after_checkout_action', 'woocommerce_get_return_url' ) ) ) {
@@ -61,17 +64,50 @@ class Alg_WC_Email_Verification_Logouts {
 				add_action( $action, array( $this, 'logout_and_redirect_user_after_checkout_thankyou' ) );
 			}
 		}
-		// Prevent login: My account
+
+		// Prevent login: Password reset.
+		add_action( 'password_reset', array( $this, 'prevent_login_on_password_reset' ) );
+		add_action( 'woocommerce_customer_reset_password', array( $this, 'prevent_login_on_password_reset' ) );
+
+		// Prevent login: My account.
 		if ( 'yes' === get_option( 'alg_wc_ev_prevent_login_myaccount', 'no' ) ) {
 			add_action( 'template_redirect', array( $this, 'logout_and_redirect_user_myaccount' ), PHP_INT_MAX );
 		}
-		// Prevent login: Always
+
+		// Prevent login: Always.
 		if ( 'yes' === get_option( 'alg_wc_ev_prevent_login_always', 'no' ) ) {
 			add_action( 'wp_footer', array( $this, 'logout_and_redirect_user_always' ), PHP_INT_MAX );
 		}
-		// Prevent login using the same activation link
+
+		// Prevent login using the same activation link.
 		add_filter( 'alg_wc_ev_verify_email', array( $this, 'prevent_login_using_the_same_link' ), 10, 3 );
 		add_action( 'alg_wc_ev_activation_link_already_used', array( $this, 'register_one_time_activation_link_error_notice' ) );
+	}
+
+	/**
+	 * prevent_login_on_password_reset.
+	 *
+	 * @version 3.1.1
+	 * @since   3.1.1
+	 *
+	 * @param $user
+	 *
+	 * @return void
+	 */
+	function prevent_login_on_password_reset( $user ) {
+		if (
+			'yes' === get_option( 'alg_wc_ev_block_unverified_login', 'yes' ) &&
+			! alg_wc_ev()->core->is_user_verified( $user )
+		) {
+			if ( 'yes' === get_option( 'alg_wc_ev_redirect_on_failure', 'no' ) ) {
+				wp_redirect( add_query_arg( array(
+					'alg_wc_ev_email_verified_error' => $user->ID
+				), get_option( 'alg_wc_ev_redirect_on_failure_url', '' ) ) );
+				exit;
+			} else {
+				$this->logout_user();
+			}
+		}
 	}
 
 	/**

@@ -2086,10 +2086,6 @@ msgstr ""
 msgid "Redirect on failure"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:278
-msgid "Redirects customers after unsuccessful verification."
-msgstr ""
-
 #: includes/settings/class-alg-wc-ev-settings-general.php:279
 msgid "This will also append a %s argument to the URL that could help you displaying the error message in case you have issues with that."
 msgstr ""
@@ -2391,4 +2387,8 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:139
 msgid "This <a href=\"%s\" target=\"_blank\">validation</a> is triggered in a non-standard way and might cause issues on some sites."
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-general.php:278
+msgid "Redirects to a custom URL if an unverified user tries to login, including after a password reset."
 msgstr ""

@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - General Section Settings
  *
- * @version 2.9.3
+ * @version 3.1.1
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.9.3
+	 * @version 3.1.1
 	 * @since   1.0.0
 	 * @todo    [next] Logout unverified users on every page: better description
 	 * @todo    [next] (maybe) `alg_wc_ev_delay_wc_email`: default to `yes`?
@@ -275,7 +275,7 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 			array(
 				'title' => __( 'Redirect on failure', 'emails-verification-for-woocommerce' ),
 				'type'  => 'title',
-				'desc'  => __( 'Redirects customers after unsuccessful verification.', 'emails-verification-for-woocommerce' ) . '<br />' .
+				'desc'  => __( 'Redirects to a custom URL if an unverified user tries to login, including after a password reset.', 'emails-verification-for-woocommerce' ) . '<br /><br />' .
 				           sprintf( __( 'This will also append a %s argument to the URL that could help you displaying the error message in case you have issues with that.', 'emails-verification-for-woocommerce' ), '<code>' . '?alg_wc_ev_email_verified_error' . '</code>' ),
 				'id'    => 'alg_wc_ev_redirect_on_failure_options',
 			),
