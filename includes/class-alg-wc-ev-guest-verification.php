@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Guest Verification.
  *
- * @version 3.0.9
+ * @version 3.1.2
  * @since   2.8.0
  * @author  WPFactory
  */
@@ -197,7 +197,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 		/**
 		 * checkout_validate_guest_email.
 		 *
-		 * @version 3.1.0
+		 * @version 3.1.2
 		 * @since   2.5.8
 		 *
 		 * @return string
@@ -206,8 +206,11 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 			if (
 				'yes' === get_option( 'alg_wc_ev_verify_guest_email', 'no' ) &&
 				! is_user_logged_in() &&
-				( isset( $_posted['billing_email'] ) && ! empty( $_posted['billing_email'] ) && ! $this->is_guest_email_already_verified( $_posted['billing_email'] ) ) ||
-				( ! isset( $_posted['billing_email'] ) || empty( $_posted['billing_email'] ) )
+				(
+					( isset( $_posted['billing_email'] ) && ! empty( $_posted['billing_email'] ) && ! $this->is_guest_email_already_verified( $_posted['billing_email'] ) ) ||
+					( isset( $_posted['billing_email'] ) && empty( $_posted['billing_email'] ) ) ||
+					! isset( $_posted['billing_email'] )
+				)
 			) {
 				$errors->add( 'alg_wc_ev_verify_guest_email', alg_wc_ev()->core->messages->get_guest_unverified_message() );
 			}
