@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Guest Verification.
  *
- * @version 3.1.2
+ * @version 3.1.3
  * @since   2.8.0
  * @author  WPFactory
  */
@@ -197,29 +197,48 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 		/**
 		 * checkout_validate_guest_email.
 		 *
-		 * @version 3.1.2
+		 * @version 3.1.3
 		 * @since   2.5.8
 		 *
 		 * @return string
 		 */
 		function checkout_validate_guest_email( $_posted, $errors ) {
-			if (
-				'yes' === get_option( 'alg_wc_ev_verify_guest_email', 'no' ) &&
-				! is_user_logged_in() &&
-				(
-					( isset( $_posted['billing_email'] ) && ! empty( $_posted['billing_email'] ) && ! $this->is_guest_email_already_verified( $_posted['billing_email'] ) ) ||
-					( isset( $_posted['billing_email'] ) && empty( $_posted['billing_email'] ) ) ||
-					! isset( $_posted['billing_email'] )
-				)
-			) {
+			if ( $this->need_to_validate_guest_email_and_posted_email_is_wrong( $_posted ) ) {
 				$errors->add( 'alg_wc_ev_verify_guest_email', alg_wc_ev()->core->messages->get_guest_unverified_message() );
 			}
 		}
 
 		/**
+		 * need_to_validate_guest_email_and_posted_email_is_wrong.
+		 *
+		 * @version 3.1.3
+		 * @since   3.1.3
+		 *
+		 * @param $posted
+		 *
+		 * @return bool
+		 */
+		function need_to_validate_guest_email_and_posted_email_is_wrong( $posted ) {
+			$response = false;
+			if (
+				'yes' === get_option( 'alg_wc_ev_verify_guest_email', 'no' ) &&
+				! is_user_logged_in() &&
+				(
+					( isset( $posted['billing_email'] ) && ! empty( $posted['billing_email'] ) && ! $this->is_guest_email_already_verified( $posted['billing_email'] ) ) ||
+					( isset( $posted['billing_email'] ) && empty( $posted['billing_email'] ) ) ||
+					! isset( $posted['billing_email'] )
+				)
+			) {
+				$response = true;
+			}
+
+			return $response;
+		}
+
+		/**
 		 * checkout_validate_guest_email_on_checkout_create_order.
 		 *
-		 * @version 3.1.0
+		 * @version 3.1.3
 		 * @since   3.0.4
 		 *
 		 * @param $order
@@ -229,12 +248,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 		 * @return mixed
 		 */
 		function checkout_validate_guest_email_on_checkout_create_order( $order, $_posted ) {
-			if (
-				'yes' === get_option( 'alg_wc_ev_verify_guest_email', 'no' ) &&
-				! is_user_logged_in() &&
-				( isset( $_posted['billing_email'] ) && ! empty( $_posted['billing_email'] ) && ! $this->is_guest_email_already_verified( $_posted['billing_email'] ) ) ||
-				( ! isset( $_posted['billing_email'] ) || empty( $_posted['billing_email'] ) )
-			) {
+			if ( $this->need_to_validate_guest_email_and_posted_email_is_wrong( $_posted ) ) {
 				$message = alg_wc_ev()->core->messages->get_guest_unverified_message();
 				throw new Exception( $message );
 			}
