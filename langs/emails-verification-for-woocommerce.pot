@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: emails-verification-for-woocommerce 3.1.4\n"
+"Project-Id-Version: emails-verification-for-woocommerce 3.1.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/emails-verification-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-10-27T16:13:13+01:00\n"
+"POT-Creation-Date: 2025-11-05T22:32:07+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: emails-verification-for-woocommerce\n"
@@ -357,11 +357,11 @@ msgstr ""
 msgid "User deleted: (ID: %d, Email: %s)."
 msgstr ""
 
-#: includes/class-alg-wc-ev-user-deletion.php:150
+#: includes/class-alg-wc-ev-user-deletion.php:167
 msgid "%d unverified users are going to be deleted in background processing."
 msgstr ""
 
-#: includes/class-alg-wc-ev-user-deletion.php:164
+#: includes/class-alg-wc-ev-user-deletion.php:181
 msgid "Total unverified users deleted: %d."
 msgstr ""
 
@@ -926,7 +926,8 @@ msgid "Deletes based on the frequency option below."
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-advanced.php:351
-msgid "Frequency"
+#: includes/settings/class-alg-wc-ev-settings-email.php:196
+msgid "Frequency."
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-advanced.php:353
@@ -950,22 +951,34 @@ msgid "Weekly"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-advanced.php:365
-msgid "Network deletion"
+msgid "Registration Delay"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-advanced.php:366
+msgid "If the user is not eligible for deletion, it will be checked again on the next attempt."
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:367
+msgid "The minimum time, in hours, after a user registers before they become eligible for deletion."
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:373
+msgid "Network deletion"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:374
 msgid "Delete users from network"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:396
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:404
 msgid "JSON not valid. Please check the content."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:451
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:459
 msgid "Please, reload the page to see the next scheduled event info."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-advanced.php:456
+#: includes/settings/class-alg-wc-ev-settings-advanced.php:464
 msgid "Next event scheduled to %s"
 msgstr ""
 
@@ -1769,10 +1782,6 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-email.php:189
 msgid "Works for future users, or if a current unverified user receives the activation email manually."
-msgstr ""
-
-#: includes/settings/class-alg-wc-ev-settings-email.php:196
-msgid "Frequency."
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-email.php:205

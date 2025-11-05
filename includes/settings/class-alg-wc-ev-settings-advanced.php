@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Advanced Section Settings.
  *
- * @version 2.8.0
+ * @version 3.1.5
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -36,7 +36,7 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.8.0
+	 * @version 3.1.5
 	 * @since   1.6.0
 	 * @todo    (maybe) remove `alg_wc_ev_prevent_login_after_checkout_notice` (i.e. make it always enabled)
 	 */
@@ -348,7 +348,7 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 				'default'  => 'no',
 			),
 			array(
-				'desc'     => __( 'Frequency', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'Frequency.', 'emails-verification-for-woocommerce' ),
 				'type'     => 'select',
 				'desc_tip' => __( 'If the frequency is changed after the Delete users automatically option is enabled, it will be necessary to disable and enable it again to see the frequency updated.', 'emails-verification-for-woocommerce' ),
 				'options'  => array(
@@ -360,6 +360,14 @@ class Alg_WC_Email_Verification_Settings_Advanced extends Alg_WC_Email_Verificat
 				'class'    => 'chosen_select',
 				'id'       => 'alg_wc_ev_delete_users_cron_frequency',
 				'default'  => 'weekly',
+			),
+			array(
+				'title'    => __( 'Registration Delay', 'emails-verification-for-woocommerce' ),
+				'desc_tip' => __( 'If the user is not eligible for deletion, it will be checked again on the next attempt.', 'emails-verification-for-woocommerce' ),
+				'desc'     => __( 'The minimum time, in hours, after a user registers before they become eligible for deletion.', 'emails-verification-for-woocommerce' ),
+				'default'  => 1,
+				'type'     => 'number',
+				'id'       => 'alg_wc_ev_delete_users_registration_delay',
 			),
 			array(
 				'title'    => __( 'Network deletion', 'emails-verification-for-woocommerce' ),

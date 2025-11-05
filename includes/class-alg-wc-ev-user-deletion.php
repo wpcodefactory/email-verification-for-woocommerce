@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Users Deletion class.
  *
- * @version 2.8.0
+ * @version 3.1.5
  * @since   2.8.0
  * @author  WPFactory
  */
@@ -107,13 +107,14 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Users_Deletion' ) ) {
 		/**
 		 * delete_unverified_users.
 		 *
-		 * @version 2.7.9
+		 * @version 3.1.5
 		 * @since   1.3.0
 		 * @todo    add "preview"
 		 */
 		function delete_unverified_users( $is_cron = false ) {
 			$current_user_id = ( function_exists( 'get_current_user_id' ) && 0 != get_current_user_id() ? get_current_user_id() : null );
-			// Args
+
+			// Args.
 			$args = array(
 				'role__not_in' => get_option( 'alg_wc_ev_skip_user_roles', array( 'administrator' ) ),
 				'exclude'      => ( $current_user_id ? array( $current_user_id ) : array() ),
@@ -125,6 +126,19 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Users_Deletion' ) ) {
 					),
 				),
 			);
+
+			// Registration delay.
+			$delay_hours        = (int) get_option( 'alg_wc_ev_delete_users_registration_delay', 1 );
+			$cutoff             = gmdate( 'Y-m-d H:i:s', time() - HOUR_IN_SECONDS * $delay_hours );
+			$args['date_query'] = array(
+				array(
+					'before'    => $cutoff,
+					'column'    => 'user_registered',
+					'inclusive' => true,
+				),
+			);
+
+			// Checks current verified users.
 			if ( 'yes' === get_option( 'alg_wc_ev_verify_already_registered', 'no' ) ) {
 				$args['meta_query']['relation'] = 'OR';
 				$args['meta_query'][]           = array(
@@ -133,8 +147,11 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Users_Deletion' ) ) {
 					'compare' => 'NOT EXISTS',
 				);
 			}
+
+			// Filters get_users args.
 			$args = apply_filters( 'alg_wc_ev_delete_unverified_users_loop_args', $args, $current_user_id, $is_cron );
-			// Loop
+
+			// Loop.
 			$total                  = 0;
 			$users_query            = get_users( $args );
 			$bkg_process_min_amount = get_option( 'alg_wc_ev_bkg_process_min_amount', 20 );
