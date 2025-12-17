@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: emails-verification-for-woocommerce 3.1.6\n"
+"Project-Id-Version: emails-verification-for-woocommerce 3.1.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/emails-verification-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-12-03T03:02:29+01:00\n"
+"POT-Creation-Date: 2025-12-17T22:26:03+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: emails-verification-for-woocommerce\n"
@@ -34,16 +34,16 @@ msgstr ""
 msgid "https://wpfactory.com"
 msgstr ""
 
-#: email-verification-for-woocommerce-pro.php:211
+#: email-verification-for-woocommerce-pro.php:217
 #: includes/settings/class-alg-wc-ev-settings.php:24
 msgid "Email Verification"
 msgstr ""
 
-#: email-verification-for-woocommerce-pro.php:212
+#: email-verification-for-woocommerce-pro.php:218
 msgid "Customer Email Verification for WooCommerce"
 msgstr ""
 
-#: email-verification-for-woocommerce-pro.php:292
+#: email-verification-for-woocommerce-pro.php:298
 msgid "Go Pro"
 msgstr ""
 

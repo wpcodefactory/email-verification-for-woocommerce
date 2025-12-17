@@ -15,7 +15,7 @@ msgstr ""
 "X-Loco-Parser: loco_parse_po\n"
 "X-Generator: Loco https://localise.biz/\n"
 
-#: email-verification-for-woocommerce-pro.php:292
+#: email-verification-for-woocommerce-pro.php:298
 msgid "Go Pro"
 msgstr "Passez en version Pro"
 
@@ -299,7 +299,7 @@ msgstr "Renvoyer"
 msgid "Available placeholder(s): %s"
 msgstr "Espace(s) disponible(s): %s"
 
-#: email-verification-for-woocommerce-pro.php:211
+#: email-verification-for-woocommerce-pro.php:217
 #: includes/settings/class-alg-wc-ev-settings.php:24
 msgid "Email Verification"
 msgstr "Vérification de l'email"
@@ -2347,7 +2347,7 @@ msgstr ""
 msgid "Customer Email Verification for WooCommerce Pro"
 msgstr ""
 
-#: email-verification-for-woocommerce-pro.php:212
+#: email-verification-for-woocommerce-pro.php:218
 msgid "Customer Email Verification for WooCommerce"
 msgstr ""
 

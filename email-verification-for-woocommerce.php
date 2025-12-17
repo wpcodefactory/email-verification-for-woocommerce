@@ -3,7 +3,7 @@
 Plugin Name: Customer Email Verification for WooCommerce
 Plugin URI: https://wpfactory.com/item/email-verification-for-woocommerce/
 Description: Verify user emails in WooCommerce. Beautifully.
-Version: 3.1.6
+Version: 3.1.7
 Author: WPFactory
 Author URI: https://wpfactory.com
 Text Domain: emails-verification-for-woocommerce
@@ -65,7 +65,7 @@ final class Alg_WC_Email_Verification {
 	 * @var   string
 	 * @since 1.0.0
 	 */
-	public $version = '3.1.6';
+	public $version = '3.1.7';
 
 	/**
 	 * @var   Alg_WC_Email_Verification The single instance of the class
@@ -184,7 +184,13 @@ final class Alg_WC_Email_Verification {
 
 		// Cross-selling library.
 		$cross_selling = new \WPFactory\WPFactory_Cross_Selling\WPFactory_Cross_Selling();
-		$cross_selling->setup( array( 'plugin_file_path'   => $this->get_filesystem_path() ) );
+		$cross_selling->setup( array(
+			'plugin_file_path'   => $this->get_filesystem_path(),
+			'recommendations_box' => array(
+				'enable'             => true,
+				'wc_settings_tab_id' => 'alg_wc_ev',
+			),
+		) );
 		$cross_selling->init();
 	}
 
