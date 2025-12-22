@@ -2,7 +2,7 @@
 /**
  * WPFactory Cross-Selling - Banners
  *
- * @version 1.0.7
+ * @version 1.0.8
  * @since   1.0.7
  * @author  WPFactory
  */
@@ -254,7 +254,7 @@ if ( ! class_exists( 'WPFactory\WPFactory_Cross_Selling\Banners' ) ) {
 		/**
 		 * render_dashboard_banner.
 		 *
-		 * @version 1.0.7
+		 * @version 1.0.8
 		 * @since   1.0.7
 		 *
 		 * @param $banners_arr
@@ -264,11 +264,13 @@ if ( ! class_exists( 'WPFactory\WPFactory_Cross_Selling\Banners' ) ) {
 		function render_dashboard_banner( $banners_arr, $add_close_button = true ) {
 			$banners_html = '';
 			if ( ! empty( $banners_arr ) ) {
+				$banners_html .= '<div class="wrap">';
 				foreach ( $banners_arr as $banner ) {
 					$close_button = $add_close_button ? '<button type="button" aria-label="' . __( 'Close', 'wpfactory-cross-selling' ) . '" class="wpfcs-dashboard-banner-close-btn"><div class="dashicons-before dashicons-no"></div></button>' : '';
 					$banners_html .= '<div class="wpfcs-dashboard-banner"><div class="wpfcs-dashboard-banner-inner">' . wp_kses_post( $this->force_target_blank_on_html( $banner ) ) . $close_button . '</div></div>';
 					break;
 				}
+				$banners_html .= '</div>';
 			}
 
 			return $banners_html;
@@ -438,9 +440,9 @@ if ( ! class_exists( 'WPFactory\WPFactory_Cross_Selling\Banners' ) ) {
 		 * @version 1.0.7
 		 * @since   1.0.7
 		 *
-		 * @param $html
+		 * @param $raw_string
 		 *
-		 * @return void
+		 * @return false|string
 		 */
 		function force_target_blank_on_html( $raw_string ) {
 			$html = html_entity_decode( $raw_string, ENT_QUOTES, 'UTF-8' );
