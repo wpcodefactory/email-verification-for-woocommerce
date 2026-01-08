@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, kousikmukherjeeli, ae
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 4.4
 Tested up to: 6.9
-Stable tag: 3.1.8
+Stable tag: 3.1.9
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -354,6 +354,10 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 Once activated, access the plugin's settings by navigating to “WooCommerce > Settings” and look for the relevant tab.
 
 == Changelog ==
+
+= 3.1.9 - 07/01/2026 =
+* Dev - General - Added new option "Required user meta". Users with empty required meta won't be able to verify their accounts.
+* WC tested up to: 10.4.
 
 = 3.1.8 - 22/12/2025 =
 * Updated cross-selling library to version 1.0.9.

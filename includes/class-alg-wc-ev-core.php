@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Core Class.
  *
- * @version 3.0.3
+ * @version 3.1.9
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -93,7 +93,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		/**
 		 * Constructor.
 		 *
-		 * @version 2.9.7
+		 * @version 3.1.9
 		 * @since   1.0.0
 		 * @todo    [next] (maybe) `[alg_wc_ev_translate]` to description in readme.txt
 		 */
@@ -154,7 +154,30 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 				'initialize_options'
 			), PHP_INT_MAX );
 
+			add_filter( 'alg_wc_ev_is_user_verified', array( $this, 'auto_verify_skipped_user_roles' ), 100, 2 );
+		}
 
+		/**
+		 * auto_verify_skipped_user_roles.
+		 *
+		 * @version 3.1.9
+		 * @since   3.1.9
+		 *
+		 * @param $is_valid
+		 * @param $user_id
+		 *
+		 * @return mixed|true
+		 */
+		function auto_verify_skipped_user_roles( $is_valid, $user_id ) {
+			if (
+				false !== ( $user = get_user_by( 'ID', intval( $user_id ) ) ) &&
+				is_a( $user, 'WP_User' ) &&
+				$this->is_user_role_skipped( $user )
+			) {
+				$is_valid = true;
+			}
+
+			return $is_valid;
 		}
 
 		/**

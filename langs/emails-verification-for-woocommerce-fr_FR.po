@@ -39,7 +39,7 @@ msgid "User %s: activation link resent."
 msgstr "Utilisateur %s: lien d'activation renvoyé."
 
 #: includes/class-alg-wc-ev-admin.php:571
-#: includes/class-alg-wc-ev-core.php:1093
+#: includes/class-alg-wc-ev-core.php:1116
 #: includes/settings/class-alg-wc-ev-settings-shortcodes.php:83
 msgid "Verified"
 msgstr "Vérifié"
@@ -59,7 +59,7 @@ msgstr "Email vérifié"
 #: includes/class-alg-wc-ev-emails.php:477
 #: includes/class-alg-wc-ev-guest-verification.php:500
 #: includes/pro/class-alg-wc-ev-activation-wc-email-pro.php:157
-#: includes/pro/class-alg-wc-ev-pro.php:903
+#: includes/pro/class-alg-wc-ev-pro.php:976
 #: includes/settings/class-alg-wc-ev-settings-email.php:128
 msgid "Please activate your account"
 msgstr "Veuillez activer votre compte"
@@ -108,7 +108,7 @@ msgstr "Laissez vide pour envoyer à %s."
 msgid "Email subject"
 msgstr "Sujet de l'email"
 
-#: includes/pro/class-alg-wc-ev-pro.php:888
+#: includes/pro/class-alg-wc-ev-pro.php:961
 #: includes/settings/class-alg-wc-ev-settings-email.php:345
 msgid "User email has been verified"
 msgstr "L'adresse email de l'utilisateur a été vérifiée"
@@ -117,7 +117,7 @@ msgstr "L'adresse email de l'utilisateur a été vérifiée"
 msgid "Email heading"
 msgstr "En-tête de l'email"
 
-#: includes/pro/class-alg-wc-ev-pro.php:882
+#: includes/pro/class-alg-wc-ev-pro.php:955
 #: includes/settings/class-alg-wc-ev-settings-email.php:360
 msgid "User account has been activated"
 msgstr "Le compte utilisateur a été activé"
@@ -219,8 +219,8 @@ msgstr "WooCommerce"
 
 #: includes/class-alg-wc-ev-emails.php:321
 #: includes/pro/class-alg-wc-ev-activation-wc-email-pro.php:198
-#: includes/pro/class-alg-wc-ev-pro.php:742
-#: includes/pro/class-alg-wc-ev-pro.php:934
+#: includes/pro/class-alg-wc-ev-pro.php:815
+#: includes/pro/class-alg-wc-ev-pro.php:1007
 #: includes/settings/class-alg-wc-ev-settings-email.php:149
 msgid "Activate your account"
 msgstr "Activez votre compte"
@@ -233,26 +233,26 @@ msgstr "Options générales"
 msgid "Delay"
 msgstr "Retard (délais)"
 
-#: includes/pro/class-alg-wc-ev-pro.php:677
+#: includes/pro/class-alg-wc-ev-pro.php:750
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:227
 msgid "You need to <a href=\"%myaccount_url%\" target=\"_blank\">register</a> and verify your email before adding products to the cart."
 msgstr "Vous devez <a href=\"%myaccount_url%\" target=\"_blank\"> vous inscrire </a> et vérifier votre email avant d'ajouter des produits au panier."
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:197
+#: includes/settings/class-alg-wc-ev-settings-general.php:209
 msgid "Ignored if set to zero."
 msgstr "Ignoré si défini sur zéro."
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:198
+#: includes/settings/class-alg-wc-ev-settings-general.php:210
 msgid "Please note that all activation codes generated before installing the plugin v1.7.0 will be automatically expired."
 msgstr "Veuillez noter que tous les codes d'activation générés avant l'installation du plugin v1.7.0 expireront automatiquement."
 
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:339
-#: includes/settings/class-alg-wc-ev-settings-general.php:218
+#: includes/settings/class-alg-wc-ev-settings-general.php:230
 msgid "Notice will appear when user will try to verify his email by clicking the email activation link."
 msgstr "Une notification apparaîtra lorsque l'utilisateur tentera de vérifier son email en cliquant sur le lien d'activation de l'email."
 
-#: includes/pro/class-alg-wc-ev-pro.php:553
-#: includes/settings/class-alg-wc-ev-settings-general.php:221
+#: includes/pro/class-alg-wc-ev-pro.php:626
+#: includes/settings/class-alg-wc-ev-settings-general.php:233
 msgid "Link has expired. You can resend the email with verification link by clicking <a href=\"%resend_verification_url%\">here</a>."
 msgstr "Le lien a expiré. Vous pouvez renvoyer l'email avec le lien de vérification en cliquant <a href=\"%resend_verification_url%\"> ici </a>."
 
@@ -260,7 +260,7 @@ msgstr "Le lien a expiré. Vous pouvez renvoyer l'email avec le lien de vérific
 msgid "Ignored if empty."
 msgstr "Ignoré si vide."
 
-#: includes/pro/class-alg-wc-ev-pro.php:595
+#: includes/pro/class-alg-wc-ev-pro.php:668
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:342
 msgid "Your email is denied."
 msgstr "Votre email est sur liste noire."
@@ -437,54 +437,54 @@ msgstr ""
 msgid "Unverify"
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:260
-#: includes/class-alg-wc-ev-core.php:261
+#: includes/class-alg-wc-ev-core.php:283
+#: includes/class-alg-wc-ev-core.php:284
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:153
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:162
 msgid "You need to <a href=\"%myaccount_url%\">verify your account</a> to access this content."
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:261
+#: includes/class-alg-wc-ev-core.php:284
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:153
 msgid "You can resend the email with verification link by clicking <a href=\"%resend_verification_url%\">here</a>."
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:950
+#: includes/class-alg-wc-ev-core.php:973
 msgid "Submit"
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:961
+#: includes/class-alg-wc-ev-core.php:984
 msgid "Email address"
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:1023
+#: includes/class-alg-wc-ev-core.php:1046
 msgid "User data not found."
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:1040
+#: includes/class-alg-wc-ev-core.php:1063
 msgid "You can resend the email with verification link by clicking <a href=\"{resend_verification_url}\">here</a>."
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:1092
+#: includes/class-alg-wc-ev-core.php:1115
 #: includes/settings/class-alg-wc-ev-settings-shortcodes.php:102
 msgid "Verification status: "
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:1094
+#: includes/class-alg-wc-ev-core.php:1117
 #: includes/settings/class-alg-wc-ev-settings-shortcodes.php:87
 msgid "Unverified"
 msgstr ""
 
 #: includes/class-alg-wc-ev-emails.php:86
 #: includes/pro/class-alg-wc-ev-confirmation-wc-email-pro.php:176
-#: includes/pro/class-alg-wc-ev-pro.php:168
+#: includes/pro/class-alg-wc-ev-pro.php:241
 #: includes/settings/class-alg-wc-ev-settings-email.php:273
 msgid "Your account has been activated"
 msgstr ""
 
 #: includes/class-alg-wc-ev-emails.php:91
 #: includes/pro/class-alg-wc-ev-confirmation-wc-email-pro.php:164
-#: includes/pro/class-alg-wc-ev-pro.php:181
+#: includes/pro/class-alg-wc-ev-pro.php:254
 #: includes/settings/class-alg-wc-ev-settings-email.php:255
 msgid "Your account has been activated successfully"
 msgstr ""
@@ -535,20 +535,20 @@ msgstr ""
 msgid "You need to become a paying customer in order to activate your account."
 msgstr ""
 
-#: includes/class-alg-wc-ev-user-deletion.php:87
+#: includes/class-alg-wc-ev-user-deletion.php:91
 msgid "User deleted: (ID: %d, Email: %s)."
 msgstr ""
 
-#: includes/class-alg-wc-ev-user-deletion.php:167
+#: includes/class-alg-wc-ev-user-deletion.php:177
 msgid "%d unverified users are going to be deleted in background processing."
 msgstr ""
 
-#: includes/class-alg-wc-ev-user-deletion.php:181
+#: includes/class-alg-wc-ev-user-deletion.php:193
 msgid "Total unverified users deleted: %d."
 msgstr ""
 
 #: includes/class-alg-wc-ev-verification-info-widget.php:24
-#: includes/settings/class-alg-wc-ev-settings-general.php:147
+#: includes/settings/class-alg-wc-ev-settings-general.php:159
 msgid "Verification info"
 msgstr ""
 
@@ -584,12 +584,12 @@ msgstr ""
 msgid "An email sent to the user when the account is verified."
 msgstr ""
 
-#: includes/pro/class-alg-wc-ev-pro.php:381
+#: includes/pro/class-alg-wc-ev-pro.php:454
 #: includes/settings/class-alg-wc-ev-settings-general.php:140
 msgid "Your email has been changed. In order to verify your account please check the activation email that was sent to your new email."
 msgstr ""
 
-#: includes/pro/class-alg-wc-ev-pro.php:478
+#: includes/pro/class-alg-wc-ev-pro.php:551
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:189
 msgid "You need to log in and verify your email to place an order."
 msgstr ""
@@ -861,13 +861,13 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-advanced.php:188
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:213
-#: includes/settings/class-alg-wc-ev-settings-general.php:253
-#: includes/settings/class-alg-wc-ev-settings-general.php:281
+#: includes/settings/class-alg-wc-ev-settings-general.php:265
+#: includes/settings/class-alg-wc-ev-settings-general.php:293
 msgid "Custom redirect URL"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-advanced.php:189
-#: includes/settings/class-alg-wc-ev-settings-general.php:254
+#: includes/settings/class-alg-wc-ev-settings-general.php:266
 msgid "\"%s\" must be selected for the \"%s\" option above."
 msgstr ""
 
@@ -994,7 +994,7 @@ msgid "If the %s option is set it will only delete unverified users whose activa
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-advanced.php:327
-#: includes/settings/class-alg-wc-ev-settings-general.php:196
+#: includes/settings/class-alg-wc-ev-settings-general.php:208
 msgid "Expire time"
 msgstr ""
 
@@ -1462,7 +1462,7 @@ msgid "Polylang"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:211
-#: includes/settings/class-alg-wc-ev-settings-general.php:183
+#: includes/settings/class-alg-wc-ev-settings-general.php:195
 msgid "Activation link"
 msgstr ""
 
@@ -1815,7 +1815,7 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-email.php:210
 #: includes/settings/class-alg-wc-ev-settings-email.php:293
-#: includes/settings/class-alg-wc-ev-settings-general.php:210
+#: includes/settings/class-alg-wc-ev-settings-general.php:222
 msgid "Days"
 msgstr ""
 
@@ -1990,124 +1990,124 @@ msgstr ""
 msgid "The parameter used on the URL to verify the user account."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:148
+#: includes/settings/class-alg-wc-ev-settings-general.php:160
 msgid "Prepare verification information to users, including the verification status and a link to resend the verification email."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:154
+#: includes/settings/class-alg-wc-ev-settings-general.php:166
 msgid "My Account page"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:155
+#: includes/settings/class-alg-wc-ev-settings-general.php:167
 msgid "Show account verification info on <a href=\"%s\">%s</a> page"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:155
+#: includes/settings/class-alg-wc-ev-settings-general.php:167
 msgid "My Account"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:161
+#: includes/settings/class-alg-wc-ev-settings-general.php:173
 msgid "Widget"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:162
+#: includes/settings/class-alg-wc-ev-settings-general.php:174
 msgid "Add account verification info widget"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:168
+#: includes/settings/class-alg-wc-ev-settings-general.php:180
 msgid "Customization"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:169
+#: includes/settings/class-alg-wc-ev-settings-general.php:181
 msgid "Documentation on <a href=\"%s\">shortcodes</a> section."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:170
+#: includes/settings/class-alg-wc-ev-settings-general.php:182
 msgid "You can use %s and %s shortcodes here and any other one you'd like."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:231
-#: includes/settings/class-alg-wc-ev-settings-general.php:237
-#: includes/settings/class-alg-wc-ev-settings-general.php:255
+#: includes/settings/class-alg-wc-ev-settings-general.php:243
+#: includes/settings/class-alg-wc-ev-settings-general.php:249
+#: includes/settings/class-alg-wc-ev-settings-general.php:267
 msgid "Redirect on success"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:233
+#: includes/settings/class-alg-wc-ev-settings-general.php:245
 msgid "Redirects customers after successful verification."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:238
+#: includes/settings/class-alg-wc-ev-settings-general.php:250
 msgid "Redirects customers to the selected page after successful verification."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:244
+#: includes/settings/class-alg-wc-ev-settings-general.php:256
 msgid "Do not redirect"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:245
+#: includes/settings/class-alg-wc-ev-settings-general.php:257
 msgid "Redirect to \"My account\" page"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:246
+#: includes/settings/class-alg-wc-ev-settings-general.php:258
 msgid "Redirect to \"Shop\" page"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:247
+#: includes/settings/class-alg-wc-ev-settings-general.php:259
 msgid "Redirect to home page"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:248
-#: includes/settings/class-alg-wc-ev-settings-general.php:255
+#: includes/settings/class-alg-wc-ev-settings-general.php:260
+#: includes/settings/class-alg-wc-ev-settings-general.php:267
 msgid "Redirect to custom URL"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:249
+#: includes/settings/class-alg-wc-ev-settings-general.php:261
 msgid "Redirect to the previous url before \"my account\" page"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:267
-#: includes/settings/class-alg-wc-ev-settings-general.php:274
+#: includes/settings/class-alg-wc-ev-settings-general.php:279
+#: includes/settings/class-alg-wc-ev-settings-general.php:286
 msgid "Redirect on failure"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:270
+#: includes/settings/class-alg-wc-ev-settings-general.php:282
 msgid "This will also append a %s argument to the URL that could help you displaying the error message in case you have issues with that."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:275
+#: includes/settings/class-alg-wc-ev-settings-general.php:287
 msgid "Redirects to a custom URL if an unverified user tries to login"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:282
+#: includes/settings/class-alg-wc-ev-settings-general.php:294
 msgid "If empty will redirect to the same page"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:184
+#: includes/settings/class-alg-wc-ev-settings-general.php:196
 msgid "A link sent via email where users can verify their accounts."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:189
+#: includes/settings/class-alg-wc-ev-settings-general.php:201
 msgid "One-time activation link"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:190
+#: includes/settings/class-alg-wc-ev-settings-general.php:202
 msgid "Prevent activation link from working after the first use"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:199
+#: includes/settings/class-alg-wc-ev-settings-general.php:211
 msgid "Expiration time based on the %s option below."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:199
-#: includes/settings/class-alg-wc-ev-settings-general.php:206
+#: includes/settings/class-alg-wc-ev-settings-general.php:211
+#: includes/settings/class-alg-wc-ev-settings-general.php:218
 msgid "Expire time unit"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:209
+#: includes/settings/class-alg-wc-ev-settings-general.php:221
 msgid "Seconds"
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:216
+#: includes/settings/class-alg-wc-ev-settings-general.php:228
 msgid "Expire notice"
 msgstr ""
 
@@ -2373,7 +2373,7 @@ msgstr ""
 msgid "This <a href=\"%s\" target=\"_blank\">validation</a> is triggered in a non-standard way and might cause issues on some sites."
 msgstr ""
 
-#: includes/settings/class-alg-wc-ev-settings-general.php:269
+#: includes/settings/class-alg-wc-ev-settings-general.php:281
 msgid "Redirects to a custom URL if an unverified user tries to login, including after a password reset."
 msgstr ""
 
@@ -2399,4 +2399,24 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-general.php:93
 msgid "If enabled, all your current unverified users created before the plugin was active will have to verify their accounts."
+msgstr ""
+
+#: includes/pro/class-alg-wc-ev-pro.php:194
+msgid "The account couldn't be verified because required user metadata is missing: %s."
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-general.php:143
+msgid "Required user meta"
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-general.php:144
+msgid "Required user meta for verification."
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-general.php:145
+msgid "Use one meta per line."
+msgstr ""
+
+#: includes/settings/class-alg-wc-ev-settings-general.php:146
+msgid "Users with empty required meta won't be able to verify their accounts."
 msgstr ""

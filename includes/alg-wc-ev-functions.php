@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Functions.
  *
- * @version 3.0.7
+ * @version 3.1.9
  * @since   1.9.0
  * @author  WPFactory
  */
@@ -468,5 +468,31 @@ if ( ! function_exists( 'alg_wc_ev_enqueue_script' ) ) {
 		}
 
 		wp_enqueue_script( $handle, $src, $deps, $ver, $args );
+	}
+}
+
+if ( ! function_exists( 'alg_wc_ev_user_has_empty_required_meta' ) ) {
+	/**
+	 * alg_wc_ev_user_has_empty_required_meta.
+	 *
+	 * @version 3.1.9
+	 * @since   3.1.9
+	 */
+	function alg_wc_ev_user_has_empty_required_meta( $user_id ) {
+		$has_empty_required_meta = false;
+		if (
+			! empty( $required_user_meta_raw = get_option( 'alg_wc_ev_required_user_meta' ) ) &&
+			! empty( $required_user_meta = array_filter( array_map( 'trim', preg_split( "/\r\n|\r|\n/", $required_user_meta_raw ) ) ) )
+		) {
+			foreach ( $required_user_meta as $meta_key ) {
+				$value = get_user_meta( $user_id, $meta_key, true );
+				if ( $value === '' || $value === null ) {
+					$has_empty_required_meta = true;
+					break;
+				}
+			}
+		}
+
+		return $has_empty_required_meta;
 	}
 }

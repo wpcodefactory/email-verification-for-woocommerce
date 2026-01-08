@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - General Section Settings
  *
- * @version 3.1.6
+ * @version 3.1.9
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.1.6
+	 * @version 3.1.9
 	 * @since   1.0.0
 	 * @todo    [next] Logout unverified users on every page: better description
 	 * @todo    [next] (maybe) `alg_wc_ev_delay_wc_email`: default to `yes`?
@@ -138,6 +138,18 @@ class Alg_WC_Email_Verification_Settings_General extends Alg_WC_Email_Verificati
 				'type'              => 'text',
 				'id'                => 'alg_wc_ev_unverify_email_changing_msg',
 				'default'           => __( 'Your email has been changed. In order to verify your account please check the activation email that was sent to your new email.', 'emails-verification-for-woocommerce' ),
+			),
+			array(
+				'title'             => __( 'Required user meta', 'emails-verification-for-woocommerce' ),
+				'desc'              => __( 'Required user meta for verification.', 'emails-verification-for-woocommerce' ).' '.
+				                       __( 'Use one meta per line.', 'emails-verification-for-woocommerce' ),
+				'desc_tip'          => __( 'Users with empty required meta won\'t be able to verify their accounts.', 'emails-verification-for-woocommerce' ),
+				'type'              => 'textarea',
+				'css'               => 'width:100%;height:83px;',
+				'id'                => 'alg_wc_ev_required_user_meta',
+				'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'readonly' => 'readonly' ) ),
+				'alg_wc_ev_raw'     => true,
+				'default'           => '',
 			),
 			array(
 				'type'     => 'sectionend',
