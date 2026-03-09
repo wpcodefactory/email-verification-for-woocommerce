@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Core Class.
  *
- * @version 3.1.9
+ * @version 3.2.0
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -274,7 +274,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		/**
 		 * show_blocked_content_notice.
 		 *
-		 * @version 2.4.7
+		 * @version 3.2.0
 		 * @since   2.1.1
 		 */
 		function show_blocked_content_notice() {
@@ -293,7 +293,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 				}
 				$msg = str_replace( array_keys( $replace ), $replace, $msg );
 				if ( ! empty( $msg ) ) {
-					alg_wc_ev_add_notice( $msg );
+					alg_wc_ev_add_notice( $msg, 'notice' );
 				}
 			}
 		}
@@ -372,7 +372,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		/**
 		 * display_error_activation_message.
 		 *
-		 * @version 2.3.7
+		 * @version 3.2.0
 		 * @since   2.1.0
 		 */
 		function display_error_activation_message() {
@@ -382,7 +382,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 				&& ! empty( $user = get_user_by( 'ID', $user_id ) )
 			) {
 				$message = apply_filters( 'alg_wc_ev_block_unverified_user_login_error_message', alg_wc_ev()->core->messages->get_error_message( $user->ID ), $user );
-				alg_wc_ev_add_notice( $message );
+				alg_wc_ev_add_notice( $message, 'notice' );
 			}
 
 			if (
