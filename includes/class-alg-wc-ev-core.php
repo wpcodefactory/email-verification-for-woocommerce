@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Core Class.
  *
- * @version 3.2.0
+ * @version 3.2.2
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -274,7 +274,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		/**
 		 * show_blocked_content_notice.
 		 *
-		 * @version 3.2.0
+		 * @version 3.2.2
 		 * @since   2.1.1
 		 */
 		function show_blocked_content_notice() {
@@ -293,7 +293,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 				}
 				$msg = str_replace( array_keys( $replace ), $replace, $msg );
 				if ( ! empty( $msg ) ) {
-					alg_wc_ev_add_notice( $msg, 'notice' );
+					alg_wc_ev_add_notice( $msg, 'error' );
 				}
 			}
 		}
@@ -372,7 +372,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		/**
 		 * display_error_activation_message.
 		 *
-		 * @version 3.2.0
+		 * @version 3.2.2
 		 * @since   2.1.0
 		 */
 		function display_error_activation_message() {
@@ -382,7 +382,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 				&& ! empty( $user = get_user_by( 'ID', $user_id ) )
 			) {
 				$message = apply_filters( 'alg_wc_ev_block_unverified_user_login_error_message', alg_wc_ev()->core->messages->get_error_message( $user->ID ), $user );
-				alg_wc_ev_add_notice( $message, 'notice' );
+				alg_wc_ev_add_notice( $message, 'error' );
 			}
 
 			if (
@@ -877,14 +877,14 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		/**
 		 * activate.
 		 *
-		 * @version         1.6.0
+		 * @version         3.2.2
 		 * @since           1.6.0
 		 * @todo            [next] (maybe) custom `alg_wc_ev_add_notice()`
 		 * @todo    (maybe) rename `alg_wc_ev_activate_account_message`
 		 */
 		function activate_message() {
 			if ( isset( $_GET['alg_wc_ev_activate_account_message'] ) ) {
-				alg_wc_ev_add_notice( $this->messages->get_activation_message( intval( $_GET['alg_wc_ev_activate_account_message'] ) ) );
+				alg_wc_ev_add_notice( $this->messages->get_activation_message( intval( $_GET['alg_wc_ev_activate_account_message'] ) ), 'notice' );
 			}
 		}
 

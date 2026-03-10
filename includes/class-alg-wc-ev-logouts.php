@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Logouts Class.
  *
- * @version 3.1.1
+ * @version 3.2.2
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -463,7 +463,7 @@ class Alg_WC_Email_Verification_Logouts {
 	/**
 	 * logout_and_redirect_user_after_checkout_thankyou.
 	 *
-	 * @version 1.6.0
+	 * @version 3.2.2
 	 * @since   1.5.0
 	 */
 	function logout_and_redirect_user_after_checkout_thankyou() {
@@ -471,7 +471,7 @@ class Alg_WC_Email_Verification_Logouts {
 			$this->logout_user();
 			do_action( 'alg_wc_ev_after_thankyou_logout', $user_id );
 			if ( 'yes' === get_option( 'alg_wc_ev_prevent_login_after_checkout_notice', 'yes' ) ) {
-				wc_print_notice( alg_wc_ev()->core->messages->get_activation_message( $user_id ) );
+				wc_print_notice( alg_wc_ev()->core->messages->get_activation_message( $user_id ), 'notice' );
 			}
 		}
 	}
