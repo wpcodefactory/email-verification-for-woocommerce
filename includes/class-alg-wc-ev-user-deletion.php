@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Users Deletion class.
  *
- * @version 3.1.9
+ * @version 3.2.5
  * @since   2.8.0
  * @author  WPFactory
  */
@@ -53,7 +53,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Users_Deletion' ) ) {
 		/**
 		 * Delete user.
 		 *
-		 * @version 3.1.9
+		 * @version 3.2.5
 		 * @since   2.8.0
 		 *
 		 * @param $args
@@ -62,7 +62,8 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Users_Deletion' ) ) {
 		 */
 		function delete_user( $args = null ) {
 			$args                = wp_parse_args( $args, array(
-				'delete_from_network' => isset( $_POST['alg_wc_ev_delete_users_from_network'] ) ? true === filter_var( $_POST['alg_wc_ev_delete_users_from_network'], FILTER_VALIDATE_BOOLEAN ) : 'yes' === get_option( 'alg_wc_ev_delete_users_from_network', 'no' ),
+				// phpcs:ignore WordPress.Security.NonceVerification.Missing
+				'delete_from_network' => isset( $_POST['alg_wc_ev_delete_users_from_network'] ) ? true === filter_var( wp_unslash( $_POST['alg_wc_ev_delete_users_from_network'] ), FILTER_VALIDATE_BOOLEAN ) : 'yes' === get_option( 'alg_wc_ev_delete_users_from_network', 'no' ),
 				'log'                 => true,
 				'user'                => '',
 				'user_id'             => '',
@@ -88,7 +89,8 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Users_Deletion' ) ) {
 				}
 				if ( $log ) {
 					$logger = wc_get_logger();
-					$logger->info( sprintf( __( 'User deleted: (ID: %d, Email: %s).', 'emails-verification-for-woocommerce' ), $user->ID, $user->user_email ), array( 'source' => 'alg_wc_ev_delete_users_tool' ) );
+					/* translators: %1$d: user ID, %2$s: user email */
+					$logger->info( sprintf( __( 'User deleted: (ID: %1$d, Email: %2$s).', 'emails-verification-for-woocommerce' ), $user->ID, $user->user_email ), array( 'source' => 'alg_wc_ev_delete_users_tool' ) );
 				}
 
 				return true;
@@ -122,7 +124,9 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Users_Deletion' ) ) {
 			$args = array(
 				'fields'       => 'ID',
 				'role__not_in' => get_option( 'alg_wc_ev_skip_user_roles', array( 'administrator' ) ),
+				// phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude -- Exclude current user to prevent self-deletion.
 				'exclude'      => ( $current_user_id ? array( $current_user_id ) : array() ),
+				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 				'meta_query'   => array(
 					array(
 						'key'     => 'alg_wc_ev_is_activated',
@@ -174,6 +178,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Users_Deletion' ) ) {
 				}
 				$this->delete_users_bkg_process->save()->dispatch();
 				if ( ! $is_cron ) {
+					/* translators: %d: number of users */
 					$message = sprintf( __( '%d unverified users are going to be deleted in background processing.', 'emails-verification-for-woocommerce' ), $total );
 					if ( ! empty( $complete_bkg_task_msg_regarding_email = alg_wc_ev_get_complete_bkg_task_msg_regarding_email() ) ) {
 						$message .= ' ' . $complete_bkg_task_msg_regarding_email;
@@ -190,6 +195,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Users_Deletion' ) ) {
 						$total ++;
 					}
 				}
+				/* translators: %d: number of users */
 				WC_Admin_Settings::add_message( sprintf( __( 'Total unverified users deleted: %d.', 'emails-verification-for-woocommerce' ), $total ) );
 			}
 		}
@@ -197,38 +203,38 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Users_Deletion' ) ) {
 		/**
 		 * get_users_without_required_meta.
 		 *
-		 * @version 3.1.9
+		 * @version 3.2.5
 		 * @since   3.1.9
 		 *
 		 * @return array
 		 */
 		function get_users_without_required_meta() {
+			// phpcs:disable WordPress.DB.DirectDatabaseQuery
 			$users = array();
 			if (
-				! empty( $required_user_meta_raw = get_option( 'alg_wc_ev_required_user_meta' ) ) &&
+				! empty( $required_user_meta_raw = apply_filters( 'alg_wc_ev_required_user_meta', '' ) ) &&
 				! empty( $required_user_meta = array_filter( array_map( 'trim', preg_split( "/\r\n|\r|\n/", $required_user_meta_raw ) ) ) )
 			) {
-				$meta_keys    = $required_user_meta;
-				$placeholders = implode( ',', array_fill( 0, count( $meta_keys ), '%s' ) );
+				$meta_keys = $required_user_meta;
 
 				global $wpdb;
 
-				$sql = "
-				    SELECT DISTINCT u.ID
-				    FROM {$wpdb->users} u
-				    LEFT JOIN {$wpdb->usermeta} um
-				        ON um.user_id = u.ID
-				        AND um.meta_key IN ($placeholders)
-				    WHERE um.umeta_id IS NULL
-       				OR um.meta_value = ''
-				";
-
 				$users = array_map(
 					'intval',
-					$wpdb->get_col( $wpdb->prepare( $sql, ...$meta_keys ) )
+					$wpdb->get_col( $wpdb->prepare(
+						"SELECT DISTINCT u.ID
+						FROM {$wpdb->users} u
+						LEFT JOIN {$wpdb->usermeta} um
+						    ON um.user_id = u.ID
+						    AND um.meta_key IN (" . implode( ',', array_fill( 0, count( $meta_keys ), '%s' ) ) . ")
+						WHERE um.umeta_id IS NULL
+						OR um.meta_value = ''",
+						...$meta_keys
+					) )
 				);
 			}
 
+			// phpcs:enable WordPress.DB.DirectDatabaseQuery
 			return $users;
 		}
 

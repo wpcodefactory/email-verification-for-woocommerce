@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Shortcodes Section Settings
  *
- * @version 2.8.2
+ * @version 3.2.5
  * @since   2.8.2
  * @author  WPFactory
  */
@@ -13,7 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Shortcodes' ) ) :
 
-	class Alg_WC_Email_Verification_Settings_Shortcodes extends Alg_WC_Email_Verification_Settings_Section {
+	class Alg_WC_Email_Verification_Settings_Shortcodes extends
+		Alg_WC_Email_Verification_Settings_Section {
 
 		/**
 		 * Constructor.
@@ -31,7 +32,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Shortcodes' ) ) :
 		/**
 		 * add_admin_inline_css.
 		 *
-		 * @version 2.8.2
+		 * @version 3.2.5
 		 * @since   2.8.2
 		 *
 		 * @return void
@@ -41,18 +42,16 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Shortcodes' ) ) :
 			if (
 				! $screen ||
 				'woocommerce_page_wc-settings' !== $screen->id ||
-				! isset( $_GET['tab'] ) ||
-				'alg_wc_ev' !== $_GET['tab'] ||
-				! isset( $_GET['section'] ) ||
-				'shortcodes' !== $_GET['section']
+				'alg_wc_ev' !== sanitize_text_field( filter_input( INPUT_GET, 'tab' ) ) ||
+				'shortcodes' !== sanitize_text_field( filter_input( INPUT_GET, 'section' ) )
 			) {
 				return;
 			}
 			?>
 			<style>
-                .wrap.woocommerce table.form-table .titledesc {
-                    word-break: break-word;
-                }
+				.wrap.woocommerce table.form-table .titledesc {
+					word-break: break-word;
+				}
 			</style>
 			<?php
 		}
@@ -96,7 +95,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Shortcodes' ) ) :
 								'default' => '<div class="alg-wc-ev-custom-msg">{content_template}</div>',
 							),
 							'content_template'  => array(
-								'desc'    => __( 'The shortcode content.', 'emails-verification-for-woocommerce' ) . ' Available placeholders: ' . alg_wc_ev_array_to_string( array_merge( array( '%verification_status%','%resend_verification_url%' ), $this->get_default_email_placeholders() ), array(
+								'desc'    => __( 'The shortcode content.', 'emails-verification-for-woocommerce' ) . ' Available placeholders: ' . alg_wc_ev_array_to_string( array_merge( array( '%verification_status%', '%resend_verification_url%' ), $this->get_default_email_placeholders() ), array(
 										'item_template' => '<code>{value}</code>'
 									) ) . '.',
 								'default' => __( 'Verification status: ', 'emails-verification-for-woocommerce' ) . '%verification_status%',
@@ -122,16 +121,16 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Shortcodes' ) ) :
 					'desc'     => __( 'Appends the verification email to the Customer New Account email', 'emails-verification-for-woocommerce' ),
 					'default'  => 'yes',
 					'desc_tip' => __( 'In order to use it, it’s necessary to <strong>enable</strong> the option "Email > Activation email > Fine tune activation email placement", <strong>disable</strong> the option "Email > Activation email > Send as a separate email", and the option "Emails > Activation email > Email template" should be probably set as Plain.', 'emails-verification-for-woocommerce' ) . '<br /><br />' .
-					              $this->format_shortcode_params( array(
-							'echo do_shortcode(\'[alg_wc_ev_email_content_placeholder]\')' => array(
-								'desc' => __( 'Appends the verification email content to a custom WooCommerce email template.', 'emails-verification-for-woocommerce' )
-							),
-						),
-							array(
-								'title'      => __( 'Examples:', 'emails-verification-for-woocommerce' ),
-								'list_style' => 'circle inside'
-							)
-						),
+								  $this->format_shortcode_params( array(
+									  'echo do_shortcode(\'[alg_wc_ev_email_content_placeholder]\')' => array(
+										  'desc' => __( 'Appends the verification email content to a custom WooCommerce email template.', 'emails-verification-for-woocommerce' )
+									  ),
+								  ),
+									  array(
+										  'title'      => __( 'Examples:', 'emails-verification-for-woocommerce' ),
+										  'list_style' => 'circle inside'
+									  )
+								  ),
 					'type'     => 'checkbox',
 					'id'       => 'alg_wc_ev_sc_email_content_placeholder',
 				),
@@ -149,7 +148,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Shortcodes' ) ) :
 		 *
 		 * Use an array for each param having the key as the shortcode param.
 		 *
-		 * @version 2.8.2
+		 * @version 3.2.5
 		 * @since   2.8.2
 		 *
 		 * @see     self::format_shortcode_param() for a list of argument for each param.
@@ -166,7 +165,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Shortcodes' ) ) :
 			) );
 			$title                = sanitize_text_field( $settings['title'] );
 			$list_style           = sanitize_text_field( $settings['list_style'] );
-			$output               = ! empty( $params ) ? $title . '<br />' . '<ul style="list-style: ' . esc_attr__( $list_style ) . '">%s</ul>' : '';
+			$output               = ! empty( $params ) ? $title . '<br />' . '<ul style="list-style: ' . esc_attr( $list_style ) . '">%s</ul>' : '';
 			$formatted_params_arr = array();
 			foreach ( $params as $param_key => $param_data ) {
 				$sc_param_data                    = array( 'param' => $param_key );
@@ -212,13 +211,13 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Shortcodes' ) ) :
 			}
 			if ( ! empty( $args['possible_values'] ) && is_array( $args['possible_values'] ) ) {
 				$output .= ' ' . __( 'Possible values:', 'emails-verification-for-woocommerce' ) . ' ' .
-				           alg_wc_ev_array_to_string(
-					           $args['possible_values'], array(
-						           'item_template' => '<code>{value}</code>',
-						           'glue'          => ', '
-					           )
-				           )
-				           . '.';
+						   alg_wc_ev_array_to_string(
+							   $args['possible_values'], array(
+								   'item_template' => '<code>{value}</code>',
+								   'glue'          => ', '
+							   )
+						   )
+						   . '.';
 			}
 
 			return $output;

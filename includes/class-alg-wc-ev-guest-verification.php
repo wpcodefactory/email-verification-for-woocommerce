@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Guest Verification.
  *
- * @version 3.1.3
+ * @version 3.2.5
  * @since   2.8.0
  * @author  WPFactory
  */
@@ -29,7 +29,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 			add_action( 'wp_ajax_alg_wc_ev_send_guest_verification_email_action', array( $this, 'alg_wc_ev_send_guest_verification_email_action' ) );
 			add_action( 'wp_ajax_nopriv_alg_wc_ev_send_guest_verification_email_action', array( $this, 'alg_wc_ev_send_guest_verification_email_action' ) );
 			add_action( 'woocommerce_after_checkout_validation', array( $this, 'checkout_validate_guest_email' ), 10, 2 );
-			add_filter( 'woocommerce_checkout_create_order', array( $this, 'checkout_validate_guest_email_on_checkout_create_order' ),10,2 );
+			add_filter( 'woocommerce_checkout_create_order', array( $this, 'checkout_validate_guest_email_on_checkout_create_order' ), 10, 2 );
 			add_action( 'template_redirect', array( $this, 'checkout_validate_guest_email_message' ) );
 			add_action( 'user_register', array( $this, 'sync_verification_if_guest' ), PHP_INT_MAX - 1 );
 
@@ -40,7 +40,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 		/**
 		 * enqueue_guest_feature_scripts.
 		 *
-		 * @version 3.0.7
+		 * @version 3.2.5
 		 * @since   2.9.0
 		 *
 		 * @return void
@@ -75,7 +75,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 					esc_html( get_option( 'alg_wc_ev_guest_invalid_token_message', __( 'The request could not be completed due to an invalid or expired security token. Please refresh and try again!', 'emails-verification-for-woocommerce' ) ) ),
 					esc_html( get_option( 'alg_wc_ev_verify_guest_resent_text', __( 'Resend', 'emails-verification-for-woocommerce' ) ) )
 				),
-				'email_exists'        => __( 'Sorry, that email address is already used!' ), // Without Email Verification domain because it's a default WordPress msg.
+				'email_exists'        => __( 'Sorry, that email address is already used!', 'emails-verification-for-woocommerce' ), // Default WordPress message.
 				'security_nonce'      => wp_create_nonce( 'alg_wc_ev_ajax_security_nonce' ),
 			);
 
@@ -86,7 +86,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 		/**
 		 * verify_guest_at_checkout_script_footer.
 		 *
-		 * @version 2.9.7
+		 * @version 3.2.5
 		 * @since   2.5.8
 		 *
 		 * @return string
@@ -104,7 +104,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 			$verified_email = '';
 
 			$args = wp_parse_args( null, array(
-				'verify_code' => isset( $_GET[ alg_wc_ev_get_verification_param() ] ) ? $_GET[ alg_wc_ev_get_verification_param() ] : '',
+				'verify_code' => sanitize_text_field( filter_input( INPUT_GET, alg_wc_ev_get_verification_param() ) ),
 				'directly'    => true
 			) );
 
@@ -147,7 +147,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 		/**
 		 * alg_wc_ev_send_guest_verification_email_action.
 		 *
-		 * @version 2.9.7
+		 * @version 3.2.5
 		 * @since   2.5.8
 		 *
 		 * @return string
@@ -156,7 +156,8 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 
 			// Check if the nonce is set and valid
 			if ( 'yes' === get_option( 'alg_wc_ev_nonce_verify_guest_email', 'yes' ) ) {
-				if ( ! isset( $_POST['security_nonce'] ) || ! wp_verify_nonce( $_POST['security_nonce'], 'alg_wc_ev_ajax_security_nonce' ) ) {
+				$security_nonce = isset( $_POST['security_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['security_nonce'] ) ) : '';
+				if ( '' === $security_nonce || ! wp_verify_nonce( $security_nonce, 'alg_wc_ev_ajax_security_nonce' ) ) {
 					echo "invalid_nonce";
 					die;
 				}
@@ -168,13 +169,14 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 			) {
 				return;
 			}
+			$posted_email = sanitize_email( (string) filter_input( INPUT_POST, 'alg_wc_ev_email' ) );
 			if (
-				isset( $_POST['alg_wc_ev_email'] ) &&
-				'' !== $_POST['alg_wc_ev_email'] &&
-				filter_var( $_POST['alg_wc_ev_email'], FILTER_VALIDATE_EMAIL )
+				'' !== $posted_email &&
+				filter_var( $posted_email, FILTER_VALIDATE_EMAIL )
 			) {
-				$email = filter_var( $_POST['alg_wc_ev_email'], FILTER_SANITIZE_EMAIL );
-				$send  = sanitize_text_field( $_POST['send'] );
+				$email = sanitize_email( $posted_email );
+				$send  = isset( $_POST['send'] ) ? sanitize_text_field( wp_unslash( $_POST['send'] ) ) : '';
+				// phpcs:enable WordPress.Security.NonceVerification.Missing
 
 				if ( email_exists( $email ) ) {
 					echo "email_exists";
@@ -238,7 +240,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 		/**
 		 * checkout_validate_guest_email_on_checkout_create_order.
 		 *
-		 * @version 3.1.3
+		 * @version 3.2.5
 		 * @since   3.0.4
 		 *
 		 * @param $order
@@ -250,7 +252,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 		function checkout_validate_guest_email_on_checkout_create_order( $order, $_posted ) {
 			if ( $this->need_to_validate_guest_email_and_posted_email_is_wrong( $_posted ) ) {
 				$message = alg_wc_ev()->core->messages->get_guest_unverified_message();
-				throw new Exception( $message );
+				throw new Exception( esc_html( wp_strip_all_tags( $message ) ) );
 			}
 
 			return $order;
@@ -259,7 +261,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 		/**
 		 * checkout_validate_guest_email_message.
 		 *
-		 * @version 2.9.7
+		 * @version 3.2.5
 		 * @since   2.5.8
 		 *
 		 * @return string
@@ -274,7 +276,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 
 			if ( is_checkout() && ! is_wc_endpoint_url() ) {
 				$args = wp_parse_args( null, array(
-					'verify_code' => isset( $_GET[ alg_wc_ev_get_verification_param() ] ) ? $_GET[ alg_wc_ev_get_verification_param() ] : '',
+					'verify_code' => filter_input( INPUT_GET, alg_wc_ev_get_verification_param() ),
 					'directly'    => true
 				) );
 
@@ -299,12 +301,13 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 		/**
 		 * is_guest_user_verified_by_email.
 		 *
-		 * @version 3.0.9
+		 * @version 3.2.5
 		 * @since   2.5.8
 		 *
 		 * @return string
 		 */
 		function is_guest_user_verified_by_email( $email, $code ) {
+			// phpcs:disable WordPress.DB.DirectDatabaseQuery
 			global $wpdb;
 
 			$table_name = $wpdb->prefix . 'alg_wc_ev_guest_verify';
@@ -312,10 +315,10 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 
 			if (
 				filter_var( $email, FILTER_VALIDATE_EMAIL ) &&
-				$wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $table_name ) ) === $table_name
+				$wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) ) === $table_name
 			) {
 				$result_arr = $wpdb->get_row(
-					$wpdb->prepare( "SELECT * FROM $table_name WHERE email = %s", $email )
+					$wpdb->prepare( 'SELECT * FROM %i WHERE email = %s', $table_name, $email )
 				);
 
 				if ( ! empty( $result_arr ) ) {
@@ -323,37 +326,40 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 					if ( $code === $result_code ) {
 						$wpdb->update( $table_name, array( 'status' => '1' ), array( 'email' => $email ) );
 
+						// phpcs:enable WordPress.DB.DirectDatabaseQuery
 						return true;
 					}
 				}
 			}
 
-			return false;
+			// phpcs:enable WordPress.DB.DirectDatabaseQuery
 		}
 
 		/**
 		 * is_guest_email_already_verified.
 		 *
-		 * @version 3.0.9
+		 * @version 3.2.5
 		 * @since   2.5.8
 		 *
 		 * @return string
 		 */
 		function is_guest_email_already_verified( $email ) {
+			// phpcs:disable WordPress.DB.DirectDatabaseQuery
 			global $wpdb;
 
 			$table_name = $wpdb->prefix . 'alg_wc_ev_guest_verify';
 			$email      = filter_var( $email, FILTER_SANITIZE_EMAIL );
 
 			if (
-				$wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $table_name ) ) === $table_name &&
+				$wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) ) === $table_name &&
 				filter_var( $email, FILTER_VALIDATE_EMAIL )
 			) {
 
 				$result_arr = $wpdb->get_row(
 					$wpdb->prepare(
-						"SELECT * FROM {$table_name} WHERE email = %s",
-						$email // email as a string
+						'SELECT * FROM %i WHERE email = %s',
+						$table_name,
+						$email
 					)
 				);
 
@@ -367,31 +373,34 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 
 			}
 
+			// phpcs:enable WordPress.DB.DirectDatabaseQuery
 			return false;
 		}
 
 		/**
 		 * send_guest_verification.
 		 *
-		 * @version 3.0.9
+		 * @version 3.2.5
 		 * @since   2.5.8
 		 *
 		 * @return string
 		 */
 		function send_guest_verification( $email, $send ) {
+			// phpcs:disable WordPress.DB.DirectDatabaseQuery
 			global $wpdb;
 			$code              = alg_wc_ev_generate_user_code();
 			$table_name        = $wpdb->prefix . 'alg_wc_ev_guest_verify';
-			$current_date_time = date( "Y-m-d H:i:s" );
+			$current_date_time = gmdate( 'Y-m-d H:i:s' );
 			$email             = filter_var( $email, FILTER_SANITIZE_EMAIL );
 
 			if (
 				filter_var( $email, FILTER_VALIDATE_EMAIL ) &&
-				$wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $table_name ) ) === $table_name
-			){
+				$wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) ) === $table_name
+			) {
 				$result_arr = $wpdb->get_row(
 					$wpdb->prepare(
-						"SELECT * FROM $table_name WHERE email = %s AND status = %d",
+						'SELECT * FROM %i WHERE email = %s AND status = %d',
+						$table_name,
 						$email,
 						0
 					)
@@ -430,17 +439,19 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 					$this->send_guest_verify_email( $email, $code );
 				}
 			}
+			// phpcs:enable WordPress.DB.DirectDatabaseQuery
 		}
 
 		/**
 		 * sync verification if guest function.
 		 *
-		 * @see sync_verification_if_guest()
-		 *
-		 * @version 3.0.9
+		 * @version 3.2.5
 		 * @since   2.6.9
+		 * @see     sync_verification_if_guest()
+		 *
 		 */
 		function sync_verification_if_guest( $user_id ) {
+			// phpcs:disable WordPress.DB.DirectDatabaseQuery
 			if (
 				is_user_logged_in() ||
 				'yes' !== get_option( 'alg_wc_ev_verify_guest_email', 'no' )
@@ -455,15 +466,17 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 				$table_name = $wpdb->prefix . 'alg_wc_ev_guest_verify';
 
 				if (
-					$wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $table_name ) ) === $table_name &&
+					$wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) ) === $table_name &&
 					filter_var( $email, FILTER_VALIDATE_EMAIL )
 				) {
-					$prepared_sql = $wpdb->prepare(
-						"SELECT * FROM {$table_name} WHERE email = %s AND status = %d",
-						$email,
-						1       //
+					$result_arr = $wpdb->get_row(
+						$wpdb->prepare(
+							'SELECT * FROM %i WHERE email = %s AND status = %d',
+							$table_name,
+							$email,
+							1
+						)
 					);
-					$result_arr   = $wpdb->get_row( $prepared_sql );
 					if ( ! empty( $result_arr ) ) {
 						$code = $result_arr->code;
 					}
@@ -477,14 +490,16 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 				}
 			}
 		}
+		// phpcs:enable WordPress.DB.DirectDatabaseQuery
+
 
 		/**
 		 * send verify email function.
 		 *
-		 * @see send_guest_verify_email()
-		 *
 		 * @version 2.9.7
 		 * @since   2.5.8
+		 * @see     send_guest_verify_email()
+		 *
 		 */
 		function send_guest_verify_email( $email, $code ) {
 			$email_content = alg_wc_ev()->core->emails->get_email_content( array(
@@ -507,14 +522,15 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 		/**
 		 * create_guest_verification_table.
 		 *
-		 * @param $new_value, $old_value
-		 *
-		 * @return string
 		 * @version 3.0.9
 		 * @since   2.5.8
 		 *
+		 * @param $new_value  , $old_value
+		 *
+		 * @return string
 		 */
 		function create_guest_verification_table( $new_value, $old_value ) {
+			// phpcs:disable WordPress.DB.DirectDatabaseQuery
 			global $wpdb;
 			$table_name      = $wpdb->prefix . 'alg_wc_ev_guest_verify';
 			$charset_collate = $wpdb->get_charset_collate();
@@ -535,6 +551,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Guest_Verification' ) ) {
 				}
 			}
 
+			// phpcs:enable WordPress.DB.DirectDatabaseQuery
 			return $new_value;
 		}
 	}

@@ -1,13 +1,13 @@
 === Customer Email Verification for WooCommerce ===
 Contributors: wpcodefactory, omardabbas, karzin, anbinder, kousikmukherjeeli, aegkr
 Tags: woocommerce, email, verification, email verification, woo commerce
-Requires at least: 4.4
+Requires at least: 6.2
 Tested up to: 7.0
-Stable tag: 3.2.4
+Stable tag: 3.2.5
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Enhance WooCommerce security and credibility with Email Verification best plugin. Ensure genuine customer interactions, eliminate spam, and elevate email marketing efficiency
+Enhance WooCommerce security with Email Verification. Ensure genuine customer interactions, eliminate spam, and boost email marketing efficiency.
 
 == Description ==
 
@@ -354,6 +354,12 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 Once activated, access the plugin's settings by navigating to “WooCommerce > Settings” and look for the relevant tab.
 
 == Changelog ==
+
+= 3.2.5 - 15/06/2026 =
+* Fix - Fixed I18n issues.
+* Fix - Fixed nonce, escaping and validation checks.
+* Fix - Code refactoring.
+* WC tested up to: 10.8.
 
 = 3.2.4 - 22/05/2026 =
 * Tested up to: 7.0.

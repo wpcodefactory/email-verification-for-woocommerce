@@ -2,12 +2,13 @@
 /**
  * Email Verification for WooCommerce - Functions.
  *
- * @version 3.1.9
+ * @version 3.2.5
  * @since   1.9.0
  * @author  WPFactory
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) )
+	exit; // Exit if accessed directly
 
 if ( ! function_exists( 'alg_wc_ev_is_user_verified_by_user_id' ) ) {
 	/**
@@ -28,13 +29,13 @@ if ( ! function_exists( 'alg_wc_ev_add_notice' ) ) {
 	 * @version 2.3.5
 	 * @since   2.0.9
 	 *
-	 * @param $message
-	 * @param string $notice_type
-	 * @param array $data
-	 * @param null $args
+	 * @param           $message
+	 * @param   string  $notice_type
+	 * @param   array   $data
+	 * @param   null    $args
 	 */
 	function alg_wc_ev_add_notice( $message, $notice_type = 'success', $data = array(), $args = null ) {
-		$args = wp_parse_args( $args, array(
+		$args                    = wp_parse_args( $args, array(
 			'clear_previous_messages' => 'yes' === get_option( 'alg_wc_ev_clear_previous_messages', 'no' ),
 			'check_previous_messages' => true
 		) );
@@ -71,12 +72,13 @@ if ( ! function_exists( 'alg_wc_ev_is_valid_paying_user' ) ) {
 	 * @version 2.2.4
 	 * @since   1.9.5
 	 *
+	 * @todo    Maybe create an option or a filter to change if the function should check if user is already verified or not
+	 *
 	 * @param $user_id
 	 *
-	 * @return bool
 	 * @throws Exception
 	 *
-	 * @todo Maybe create an option or a filter to change if the function should check if user is already verified or not
+	 * @return bool
 	 */
 	function alg_wc_ev_is_valid_paying_user( $user_id ) {
 		if (
@@ -90,31 +92,8 @@ if ( ! function_exists( 'alg_wc_ev_is_valid_paying_user' ) ) {
 		) {
 			return true;
 		}
-		return false;
-	}
-}
 
-if ( ! function_exists( 'alg_wc_ev_get_expiration_time' ) ) {
-	/**
-	 * alg_wc_ev_get_expiration_time.
-	 *
-	 * @version 1.9.8
-	 * @since   1.9.8
-	 *
-	 * @return float|int
-	 */
-	function alg_wc_ev_get_expiration_time() {
-		$unit_constants   = array(
-			'seconds' => 1,
-			'days'    => DAY_IN_SECONDS,
-		);
-		$expire_time_opt  = get_option( 'alg_wc_ev_expiration_time', 0 );
-		$expire_time_unit = get_option( 'alg_wc_ev_expiration_time_unit', 'seconds' );
-		if ( empty( $expire_time_opt ) ) {
-			return 0;
-		} else {
-			return $expire_time_opt * $unit_constants[ $expire_time_unit ];
-		}
+		return false;
 	}
 }
 
@@ -125,8 +104,8 @@ if ( ! function_exists( 'alg_wc_ev_array_to_string' ) ) {
 	 * @version 2.0.7
 	 * @since   2.0.7
 	 *
-	 * @param $arr
-	 * @param array $args
+	 * @param          $arr
+	 * @param   array  $args
 	 *
 	 * @return string
 	 */
@@ -137,8 +116,10 @@ if ( ! function_exists( 'alg_wc_ev_array_to_string' ) ) {
 		) );
 		$transformed_arr = array_map( function ( $key, $value ) use ( $args ) {
 			$item = str_replace( array( '{key}', '{value}' ), array( $key, $value ), $args['item_template'] );
+
 			return $item;
 		}, array_keys( $arr ), $arr );
+
 		return implode( $args['glue'], $transformed_arr );
 	}
 }
@@ -150,7 +131,7 @@ if ( ! function_exists( 'alg_wc_ev_get_user_placeholders' ) ) {
 	 * @version 2.8.2
 	 * @since   2.3.1
 	 *
-	 * @param array $args
+	 * @param   array  $args
 	 *
 	 * @return array
 	 */
@@ -308,8 +289,10 @@ if ( ! function_exists( 'alg_wc_ev_get_complete_bkg_task_msg_regarding_email' ) 
 	function alg_wc_ev_get_complete_bkg_task_msg_regarding_email() {
 		$msg = '';
 		if ( 'yes' === get_option( 'alg_wc_ev_bkg_process_send_email', 'no' ) ) {
+			/* translators: %s: email address */
 			$msg = sprintf( __( 'When the task is complete an email is going to be sent to %s.', 'emails-verification-for-woocommerce' ), get_option( 'alg_wc_ev_bkg_process_email_to', get_option( 'admin_email' ) ) );
 		}
+
 		return $msg;
 	}
 }
@@ -331,9 +314,11 @@ if ( ! function_exists( 'alg_wc_ev_generate_placeholders_for_villatheme_email_cu
 		) );
 		$new_placeholders = array_map( function ( $k, $v ) {
 			$new_key = preg_replace( '/\%$/', '}', preg_replace( '/^\%/', '{alg_wc_ev_', $k ) );
+
 			return array( $new_key => $v );
 		}, array_keys( $placeholders ), $placeholders );
 		$new_placeholders = call_user_func_array( 'array_merge', $new_placeholders );
+
 		return $new_placeholders;
 	}
 }
@@ -359,7 +344,7 @@ if ( ! function_exists( 'alg_wc_ev_generate_user_code' ) ) {
 	 * @version 2.7.5
 	 * @since   2.4.0
 	 *
-	 * @param null $args
+	 * @param   null  $args
 	 *
 	 * @return int|string
 	 */
@@ -386,7 +371,7 @@ if ( ! function_exists( 'alg_wc_ev_decode_verify_code' ) ) {
 	 * @version 2.4.0
 	 * @since   2.4.0
 	 *
-	 * @param null $args
+	 * @param   null  $args
 	 *
 	 * @return array
 	 */
@@ -405,6 +390,7 @@ if ( ! function_exists( 'alg_wc_ev_decode_verify_code' ) ) {
 			$data['id']      = is_array( $hashids_decoded ) && isset( $hashids_decoded[0] ) ? $hashids_decoded[0] : '';
 			$data['code']    = is_array( $hashids_decoded ) && isset( $hashids_decoded[1] ) ? $hashids_decoded[1] : '';
 		}
+
 		return $data;
 	}
 }
@@ -413,7 +399,7 @@ if ( ! function_exists( 'alg_wc_ev_get_current_url' ) ) {
 	/**
 	 * alg_wc_ev_get_current_url.
 	 *
-	 * @version 2.4.7
+	 * @version 3.2.5
 	 * @since   2.4.7
 	 *
 	 * @return string
@@ -421,8 +407,10 @@ if ( ! function_exists( 'alg_wc_ev_get_current_url' ) ) {
 	function alg_wc_ev_get_current_url() {
 		global $wp;
 		$wp->parse_request();
-		$query_string = ! empty( $_SERVER['QUERY_STRING'] ) ? '?' . $_SERVER['QUERY_STRING'] : '';
+		$query_string = filter_input( INPUT_SERVER, 'QUERY_STRING' );
+		$query_string = ! empty( $query_string ) ? '?' . urlencode( $query_string ) : '';
 		$current_url  = trailingslashit( home_url( $wp->request ) ) . $query_string;
+
 		return $current_url;
 	}
 }
@@ -445,12 +433,13 @@ if ( ! function_exists( 'alg_wc_ev_get_default_email_from' ) ) {
 	/**
 	 * alg_wc_ev_get_default_email_from.
 	 *
-	 * @version 3.0.2
+	 * @version 3.2.5
 	 * @since   3.0.2
 	 *
 	 * @return string
 	 */
 	function alg_wc_ev_get_default_email_from() {
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		return apply_filters( 'wp_mail_from', get_bloginfo( 'admin_email' ) );
 	}
 }
@@ -471,28 +460,3 @@ if ( ! function_exists( 'alg_wc_ev_enqueue_script' ) ) {
 	}
 }
 
-if ( ! function_exists( 'alg_wc_ev_user_has_empty_required_meta' ) ) {
-	/**
-	 * alg_wc_ev_user_has_empty_required_meta.
-	 *
-	 * @version 3.1.9
-	 * @since   3.1.9
-	 */
-	function alg_wc_ev_user_has_empty_required_meta( $user_id ) {
-		$has_empty_required_meta = false;
-		if (
-			! empty( $required_user_meta_raw = get_option( 'alg_wc_ev_required_user_meta' ) ) &&
-			! empty( $required_user_meta = array_filter( array_map( 'trim', preg_split( "/\r\n|\r|\n/", $required_user_meta_raw ) ) ) )
-		) {
-			foreach ( $required_user_meta as $meta_key ) {
-				$value = get_user_meta( $user_id, $meta_key, true );
-				if ( $value === '' || $value === null ) {
-					$has_empty_required_meta = true;
-					break;
-				}
-			}
-		}
-
-		return $has_empty_required_meta;
-	}
-}

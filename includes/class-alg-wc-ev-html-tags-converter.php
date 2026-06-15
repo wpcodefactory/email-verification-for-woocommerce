@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - HTML Tags Converter
  *
- * @version 2.0.0
+ * @version 3.2.5
  * @since   2.0.0
  * @author  WPFactory
  */
@@ -23,7 +23,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_HTML_Tags_Converter' ) ) :
 		 * @version 2.0.0
 		 * @since   2.0.0
 		 *
-		 * @param null $args
+		 * @param   null  $args
 		 */
 		function init( $args = null ) {
 			$args       = wp_parse_args( $args, array(
@@ -47,7 +47,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_HTML_Tags_Converter' ) ) :
 		/**
 		 * unsanitize_option.
 		 *
-		 * @version 2.0.0
+		 * @version 3.2.5
 		 * @since   2.0.0
 		 *
 		 * @param $value
@@ -57,8 +57,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_HTML_Tags_Converter' ) ) :
 		 */
 		function unsanitize_option( $value, $option ) {
 			if (
-				isset( $_GET['tab'] )
-				&& ! empty( $wc_tab_id = $_GET['tab'] )
+				( $wc_tab_id = sanitize_text_field( filter_input( INPUT_GET, 'tab' ) ) )
 				&& $wc_tab_id == $this->args['wc_tab_id']
 			) {
 				return $value;
@@ -70,6 +69,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_HTML_Tags_Converter' ) ) :
 					) );
 				}
 			}
+
 			return $value;
 		}
 
@@ -97,6 +97,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_HTML_Tags_Converter' ) ) :
 					'action' => 'decode'
 				) );
 			}
+
 			return $new_value;
 		}
 
@@ -106,7 +107,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_HTML_Tags_Converter' ) ) :
 		 * @version 2.0.0
 		 * @since   2.0.0
 		 *
-		 * @param null $args
+		 * @param   null  $args
 		 *
 		 * @return mixed
 		 */
@@ -122,6 +123,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_HTML_Tags_Converter' ) ) :
 				$search  = array_values( $args['replacement_params'] );
 				$replace = array_keys( $args['replacement_params'] );
 			}
+
 			return str_replace( $search, $replace, $args['value'] );
 		}
 	}

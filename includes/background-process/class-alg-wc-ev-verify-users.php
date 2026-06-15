@@ -46,6 +46,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Verify_Users' ) ) :
 			) );
 
 			$logger = wc_get_logger();
+			/* translators: %d: user ID */
 			$logger->info( sprintf( __( 'User verified manually: %d.', 'emails-verification-for-woocommerce' ), $item['user_id'] ), array( 'source' => $this->get_logger_context() ) );
 
 			return false;
