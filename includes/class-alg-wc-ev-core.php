@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Core Class.
  *
- * @version 3.2.5
+ * @version 3.2.6
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -766,7 +766,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		/**
 		 * verify.
 		 *
-		 * @version 3.2.5
+		 * @version 3.2.6
 		 * @since   1.6.0
 		 *
 		 * @param   null  $args
@@ -788,9 +788,10 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 				}
 				if (
 					! empty( $user_id = intval( $data['id'] ) ) &&
-					! empty( $code = get_user_meta( $user_id, 'alg_wc_ev_activation_code', true ) ) &&
-					$code == $data['code'] &&
-					! alg_wc_ev_is_user_verified_by_user_id( $user_id )
+                    ! empty( $code = get_user_meta( $user_id, 'alg_wc_ev_activation_code', true ) ) &&
+                    is_string( $data['code'] ) &&
+                    $code === $data['code'] &&
+                    ! alg_wc_ev_is_user_verified_by_user_id( $user_id )
 				) {
 					if ( apply_filters( 'alg_wc_ev_verify_email', true, $user_id, $code, $args ) ) {
 						$this->activate_user( array(

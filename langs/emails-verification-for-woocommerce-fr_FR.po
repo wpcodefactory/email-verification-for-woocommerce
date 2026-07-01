@@ -42,7 +42,7 @@ msgid "User %s: activation link resent."
 msgstr "Utilisateur %s: lien d'activation renvoyé."
 
 #: includes/class-alg-wc-ev-admin.php:582
-#: includes/class-alg-wc-ev-core.php:1121
+#: includes/class-alg-wc-ev-core.php:1122
 #: includes/settings/class-alg-wc-ev-settings-shortcodes.php:82
 msgid "Verified"
 msgstr "Vérifié"
@@ -472,28 +472,28 @@ msgstr ""
 msgid "You can resend the email with verification link by clicking <a href=\"%resend_verification_url%\">here</a>."
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:978
+#: includes/class-alg-wc-ev-core.php:979
 msgid "Submit"
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:989
+#: includes/class-alg-wc-ev-core.php:990
 msgid "Email address"
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:1051
+#: includes/class-alg-wc-ev-core.php:1052
 msgid "User data not found."
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:1068
+#: includes/class-alg-wc-ev-core.php:1069
 msgid "You can resend the email with verification link by clicking <a href=\"{resend_verification_url}\">here</a>."
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:1120
+#: includes/class-alg-wc-ev-core.php:1121
 #: includes/settings/class-alg-wc-ev-settings-shortcodes.php:101
 msgid "Verification status: "
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:1122
+#: includes/class-alg-wc-ev-core.php:1123
 #: includes/settings/class-alg-wc-ev-settings-shortcodes.php:86
 msgid "Unverified"
 msgstr ""
