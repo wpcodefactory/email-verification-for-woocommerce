@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Logouts Class.
  *
- * @version 3.2.5
+ * @version 3.2.7
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -21,6 +21,15 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Logouts' ) ) :
 		 * @var bool
 		 */
 		protected $send_auth_cookies = true;
+
+		/**
+		 * Redirect cookie name used for the forced registration redirect.
+		 *
+		 * @since 3.2.7
+		 *
+		 * @var string
+		 */
+		protected $redirect_after_register_cookie = 'alg_wc_ev_redirect_after_register';
 
 		/**
 		 * Constructor.
@@ -47,7 +56,6 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Logouts' ) ) :
 				add_action( $new_user_action, array( $this, 'add_redirect_session_variable_after_register' ), PHP_INT_MAX );
 				add_action( $new_user_action, array( $this, 'redirect_on_new_user_created_and_login_prevented' ), PHP_INT_MAX );
 				add_action( 'wp_footer', array( $this, 'redirect_after_register_using_sessions' ) );
-				add_action( 'init', array( $this, 'start_session_for_redirecting_after_register' ), 1 );
 			}
 
 			// Prevent login: After checkout.
@@ -89,7 +97,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Logouts' ) ) :
 		/**
 		 * prevent_login_on_password_reset.
 		 *
-		 * @version 3.2.5
+		 * @version 3.2.7
 		 * @since   3.1.1
 		 *
 		 * @param $user
@@ -102,9 +110,10 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Logouts' ) ) :
 				! alg_wc_ev()->core->is_user_verified( $user )
 			) {
 				if ( 'yes' === get_option( 'alg_wc_ev_redirect_on_failure', 'no' ) ) {
-					wp_safe_redirect( add_query_arg( array(
+					$redirect_url = add_query_arg( array(
 						'alg_wc_ev_email_verified_error' => $user->ID
-					), get_option( 'alg_wc_ev_redirect_on_failure_url', '' ) ) );
+					), get_option( 'alg_wc_ev_redirect_on_failure_url', '' ) );
+					wp_safe_redirect( alg_wc_ev()->core->add_notice_nonce_to_url( $redirect_url, $user->ID ) );
 					exit;
 				} else {
 					$this->logout_user();
@@ -174,47 +183,30 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Logouts' ) ) :
 		}
 
 		/**
-		 * start_session_for_redirect_after_register.
+		 * redirect_after_register_using_cookie.
 		 *
-		 * @version 2.3.4
-		 * @since   2.0.9
-		 */
-		function start_session_for_redirecting_after_register() {
-			if (
-				'yes' === get_option( 'alg_wc_ev_prevent_login_after_register_session_redirect', 'no' ) &&
-				'no' != get_option( 'alg_wc_ev_prevent_login_after_register_redirect', 'no' ) &&
-				! session_id() &&
-				! is_admin()
-			) {
-				session_start( alg_wc_ev_get_session_start_params_option() );
-			}
-		}
-
-		/**
-		 * redirect_after_register_with_cookie.
-		 *
-		 * @version 2.0.9
+		 * @version 3.2.7
 		 * @since   2.0.9
 		 */
 		function redirect_after_register_using_sessions() {
 			if (
 				'no' === get_option( 'alg_wc_ev_prevent_login_after_register_session_redirect', 'no' )
 				|| 'no' == get_option( 'alg_wc_ev_prevent_login_after_register_redirect', 'no' )
-				|| ! isset( $_SESSION['alg_wc_ev_redirect'] )
-				|| empty( $redirect_url = $_SESSION['alg_wc_ev_redirect'] )
+				|| empty( $_COOKIE[ $this->redirect_after_register_cookie ] )
 			) {
 				return;
 			}
-			unset( $_SESSION['alg_wc_ev_redirect'] );
+			$redirect_url = wp_unslash( $_COOKIE[ $this->redirect_after_register_cookie ] );
+			wc_setcookie( $this->redirect_after_register_cookie, '', 1 );
 			?>
-			<script>window.location.replace( "<?php echo esc_url( $redirect_url )?>" );</script>
+			<script>window.location.replace( <?php echo wp_json_encode( esc_url_raw( $redirect_url ) ); ?> );</script>
 			<?php
 		}
 
 		/**
 		 * create_redirect_cookie_after_register.
 		 *
-		 * @version 2.3.4
+		 * @version 3.2.7
 		 * @since   2.0.9
 		 *
 		 * @param $user_id
@@ -228,15 +220,16 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Logouts' ) ) :
 				if ( ! empty( $user_id ) && ! alg_wc_ev()->core->is_user_verified_by_user_id( $user_id ) ) {
 					$redirect_url = apply_filters( 'alg_wc_ev_redirect_on_registration', $this->get_redirect_url_on_registration(), $user_id );
 				}
-				$redirect_url                   = add_query_arg( 'alg_wc_ev_activate_account_message', $user_id, $redirect_url );
-				$_SESSION['alg_wc_ev_redirect'] = $redirect_url;
+				$redirect_url = add_query_arg( 'alg_wc_ev_activate_account_message', $user_id, $redirect_url );
+				$redirect_url = alg_wc_ev()->core->add_notice_nonce_to_url( $redirect_url, $user_id );
+				wc_setcookie( $this->redirect_after_register_cookie, $redirect_url );
 			}
 		}
 
 		/**
 		 * redirect_on_new_user_created_and_login_prevented.
 		 *
-		 * @version 3.2.5
+		 * @version 3.2.7
 		 * @since   2.3.4
 		 *
 		 * @param $user_id
@@ -251,6 +244,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Logouts' ) ) :
 				false === strpos( $referer, 'update_order_review' )
 			) {
 				$redirect_url = add_query_arg( 'alg_wc_ev_activate_account_message', $user_id, $this->get_redirect_url_on_registration() );
+				$redirect_url = alg_wc_ev()->core->add_notice_nonce_to_url( $redirect_url, $user_id );
 				wp_safe_redirect( wp_validate_redirect( $redirect_url ) );
 				exit;
 			}
@@ -259,13 +253,14 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Logouts' ) ) :
 		/**
 		 * logout_and_redirect_user_myaccount.
 		 *
-		 * @version 1.8.3
+		 * @version 3.2.7
 		 * @since   1.8.3
 		 */
 		function logout_and_redirect_user_myaccount() {
 			if ( is_account_page() && ( $user_id = get_current_user_id() ) && ! alg_wc_ev()->core->is_user_verified_by_user_id( $user_id ) ) {
 				$this->logout_user();
-				wp_safe_redirect( add_query_arg( 'alg_wc_ev_activate_account_message', $user_id ) );
+				$redirect_url = add_query_arg( 'alg_wc_ev_activate_account_message', $user_id );
+				wp_safe_redirect( alg_wc_ev()->core->add_notice_nonce_to_url( $redirect_url, $user_id ) );
 				exit;
 			}
 		}
@@ -310,7 +305,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Logouts' ) ) :
 		/**
 		 * block_unverified_user_login_by_wp_set_cookie.
 		 *
-		 * @version 2.5.4
+		 * @version 3.2.7
 		 * @since   2.5.3
 		 *
 		 * @param $valid
@@ -330,9 +325,10 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Logouts' ) ) :
 				is_a( $user, 'WP_User' ) &&
 				! alg_wc_ev()->core->is_user_verified( $user )
 			) {
-				wp_safe_redirect( add_query_arg( array(
+				$redirect_url = add_query_arg( array(
 					'alg_wc_ev_email_verified_error' => $user_id
-				), get_option( 'alg_wc_ev_redirect_on_failure_url', '' ) ) );
+				), get_option( 'alg_wc_ev_redirect_on_failure_url', '' ) );
+				wp_safe_redirect( alg_wc_ev()->core->add_notice_nonce_to_url( $redirect_url, $user_id ) );
 				exit;
 			}
 
@@ -342,7 +338,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Logouts' ) ) :
 		/**
 		 * block_auth_cookies.
 		 *
-		 * @version 2.0.7
+		 * @version 3.2.7
 		 * @since   2.0.7
 		 *
 		 * @param $logged_in_cookie
@@ -355,7 +351,8 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Logouts' ) ) :
 				'yes' === get_option( 'alg_wc_ev_block_auth_cookies', 'no' )
 				&& ! alg_wc_ev()->core->is_user_verified_by_user_id( $user_id )
 			) {
-				wp_safe_redirect( add_query_arg( 'alg_wc_ev_activate_account_message', $user_id ) );
+				$redirect_url = add_query_arg( 'alg_wc_ev_activate_account_message', $user_id );
+				wp_safe_redirect( alg_wc_ev()->core->add_notice_nonce_to_url( $redirect_url, $user_id ) );
 				$this->send_auth_cookies = false;
 				add_filter( 'send_auth_cookies', array( $this, 'prevent_sending_auth_cookies' ) );
 			}
@@ -400,7 +397,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Logouts' ) ) :
 		/**
 		 * logout_and_redirect.
 		 *
-		 * @version 3.2.5
+		 * @version 3.2.7
 		 * @since   1.9.0
 		 */
 		function logout_and_redirect( $redirect_to, $type, $args = null ) {
@@ -420,8 +417,9 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Logouts' ) ) :
 						$redirect_to = apply_filters( 'alg_wc_ev_redirect_after_checkout', $redirect_to, $user_id );
 						break;
 				}
+				$redirect_url = add_query_arg( 'alg_wc_ev_activate_account_message', $user_id, $redirect_to );
 
-				return add_query_arg( 'alg_wc_ev_activate_account_message', $user_id, $redirect_to );
+				return alg_wc_ev()->core->add_notice_nonce_to_url( $redirect_url, $user_id );
 			} else {
 				return $redirect_to;
 			}
@@ -489,7 +487,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Logouts' ) ) :
 		/**
 		 * logout_and_redirect_user_always.
 		 *
-		 * @version         1.8.1
+		 * @version         3.2.7
 		 * @since           1.8.0
 		 * @todo    (maybe) `alg_wc_ev_add_notice( alg_wc_ev()->core->messages->get_activation_message( $user_id ) );` (i.e. instead of redirect)
 		 */
@@ -497,7 +495,8 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Logouts' ) ) :
 			if ( ( $user_id = get_current_user_id() ) && ! alg_wc_ev()->core->is_user_verified_by_user_id( $user_id ) ) {
 				$this->logout_user();
 				if ( 'yes' === get_option( 'alg_wc_ev_prevent_login_always_redirect', 'yes' ) ) {
-					wp_safe_redirect( add_query_arg( 'alg_wc_ev_activate_account_message', $user_id ) );
+					$redirect_url = add_query_arg( 'alg_wc_ev_activate_account_message', $user_id );
+					wp_safe_redirect( alg_wc_ev()->core->add_notice_nonce_to_url( $redirect_url, $user_id ) );
 					exit;
 				}
 			}

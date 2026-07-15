@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Settings.
  *
- * @version 3.2.5
+ * @version 3.2.7
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -68,7 +68,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings' ) ) :
 		/**
 		 * add_promoting_notice.
 		 *
-		 * @version 2.1.0
+		 * @version 3.2.7
 		 * @since   2.1.0
 		 */
 		function add_promoting_notice() {
@@ -79,13 +79,14 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings' ) ) :
 					'params'        => array( 'page' => 'wc-settings', 'tab' => $this->id ),
 				),
 				'enable'                        => true === apply_filters( 'alg_wc_ev_settings', true ),
-				'optimize_plugin_icon_contrast' => true,
+				'optimize_plugin_icon_contrast' => false,
 				'template_variables'            => array(
 					'%pro_version_url%'    => 'https://wpfactory.com/item/email-verification-for-woocommerce/',
 					'%plugin_icon_url%'    => 'https://ps.w.org/emails-verification-for-woocommerce/assets/icon-128x128.png',
 					'%pro_version_title%'  => __( 'Email Verification for WooCommerce Pro', 'emails-verification-for-woocommerce' ),
 					'%main_text%'          => __( 'Disabled options can be unlocked using <a href="%pro_version_url%" target="_blank"><strong>%pro_version_title%</strong></a>', 'emails-verification-for-woocommerce' ),
 					'%btn_call_to_action%' => __( 'Upgrade to Pro version', 'emails-verification-for-woocommerce' ),
+					'%plugin_icon_style%'    => 'margin-top:-6px;',
 				),
 			) );
 			$promoting_notice->init();

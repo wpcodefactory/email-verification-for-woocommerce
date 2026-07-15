@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Advanced Section Settings.
  *
- * @version 3.1.5
+ * @version 3.2.7
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -38,7 +38,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Advanced' ) ) :
 		/**
 		 * get_settings.
 		 *
-		 * @version         3.2.5
+		 * @version         3.2.7
 		 * @since           1.6.0
 		 * @todo    (maybe) remove `alg_wc_ev_prevent_login_after_checkout_notice` (i.e. make it always enabled)
 		 */
@@ -93,15 +93,6 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Advanced' ) ) :
 					'type'     => 'checkbox',
 					'id'       => 'alg_wc_ev_replace_html_tags',
 					'default'  => 'no',
-				),
-				array(
-					'title'    => __( 'Session start params', 'emails-verification-for-woocommerce' ),
-					'type'     => 'textarea',
-					'id'       => 'alg_wc_ev_session_start_params',
-					'desc'     => $this->get_session_start_params_desc(),
-					'desc_tip' => __( 'Only going to be used in case an option needs Session, like "Prevent login after register > Force redirect". You can leave it empty if you don\'t know what parameters to use.', 'emails-verification-for-woocommerce' ),
-					'default'  => wp_json_encode( alg_wc_ev_get_default_session_start_params(), JSON_PRETTY_PRINT ),
-					'css'      => $this->get_session_start_params_css()
 				),
 				array(
 					'type' => 'sectionend',
@@ -206,10 +197,10 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Advanced' ) ) :
 				),
 				array(
 					'title'    => __( 'Force redirect', 'emails-verification-for-woocommerce' ),
-					'desc'     => __( 'Force redirect using sessions after the user is registered', 'emails-verification-for-woocommerce' ),
+					'desc'     => __( 'Force redirect after the user is registered', 'emails-verification-for-woocommerce' ),
 					'desc_tip' => __( 'Enable if the redirect is not working.', 'emails-verification-for-woocommerce' ),
 					'type'     => 'checkbox',
-					'id'       => 'alg_wc_ev_prevent_login_after_register_session_redirect',
+					'id'       => 'alg_wc_ev_prevent_login_after_register_session_redirect', // Todo: The naming should be different, after stop using sessions.
 					'default'  => 'no',
 				),
 				array(
@@ -407,55 +398,6 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Advanced' ) ) :
 				$rest_api_options,
 				$delete_opts
 			);
-		}
-
-		/**
-		 * get_sanitization_content_desc.
-		 *
-		 * @version 2.3.4
-		 * @since   2.3.4
-		 *
-		 * @return string
-		 */
-		function get_session_start_params_desc() {
-			$desc = ! $this->is_session_start_params_option_valid() ? '<span style="color:red">' . __( 'JSON not valid. Please check the content.', 'emails-verification-for-woocommerce' ) . '</span>' : '';
-
-			return $desc;
-		}
-
-		/**
-		 * get_sanitization_content_css.
-		 *
-		 * @version 2.3.4
-		 * @since   2.3.4
-		 *
-		 * @return string
-		 */
-		function get_session_start_params_css() {
-			$css = 'min-height:110px;';
-			if ( ! $this->is_session_start_params_option_valid() ) {
-				$css .= 'border:1px solid red;';
-			}
-
-			return $css;
-		}
-
-		/**
-		 * sanitization_content_valid.
-		 *
-		 * @version 2.3.4
-		 * @since   2.3.4
-		 *
-		 * @return bool
-		 */
-		function is_session_start_params_option_valid() {
-			$allowed_html = get_option( 'alg_wc_ev_session_start_params', wp_json_encode( alg_wc_ev_get_default_session_start_params() ) );
-			$ob           = json_decode( $allowed_html );
-			if ( $ob === null ) {
-				return false;
-			} else {
-				return true;
-			}
 		}
 
 		/**

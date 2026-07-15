@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Blocking Section Settings.
  *
- * @version 3.2.5
+ * @version 3.2.7
  * @since   2.1.1
  * @author  WPFactory
  */
@@ -55,7 +55,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Blocking' ) ) :
 		/**
 		 * get_blocked_products_custom_attributes.
 		 *
-		 * @version 3.2.5
+		 * @version 3.2.7
 		 * @since   2.1.1
 		 *
 		 * @return array
@@ -67,8 +67,10 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Blocking' ) ) :
 				'aria-hidden'      => "true",
 				'data-sortable'    => "true",
 			);
+			$settings_custom_attributes = apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) );
+			$settings_custom_attributes = is_array( $settings_custom_attributes ) ? $settings_custom_attributes : array();
 
-			return array_merge( $attributes, apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ) );
+			return array_merge( $attributes, $settings_custom_attributes );
 		}
 
 		/**

@@ -25,11 +25,6 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Non_Paying_Blocker' ) ) :
 			add_filter( 'alg_wc_ev_verify_email', array( $this, 'prevent_non_paying_users_from_verify' ), 10, 3 );
 			add_filter( 'alg_wc_ev_block_unverified_user_login_error_message', array( $this, 'replace_unverified_user_login_error_message' ), 10, 2 );
 			add_action( 'alg_wc_ev_non_paying_user_blocked', array( $this, 'show_blocked_non_paying_user_error_message' ) );
-
-			// Prevents sending activation email on user register for non paying users.
-			add_filter( 'alg_wc_ev_reset_and_mail_activation_link_validation', array( $this, 'prevent_sending_activation_link_on_user_register_for_non_paying_users' ), 10, 3 );
-			// Sends activation mail only on order is paid.
-			add_action( 'woocommerce_order_status_changed', array( $this, 'mail_activation_link_on_paid_status' ), 11, 3 );
 		}
 
 		/**
@@ -94,61 +89,6 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Non_Paying_Blocker' ) ) :
 			}
 
 			return $this->get_non_paying_user_error_message( $user->ID );
-		}
-
-		/**
-		 * prevent_sending_activation_link_on_user_register_for_non_paying_users.
-		 *
-		 * @version 3.2.5
-		 * @since   1.9.5
-		 *
-		 * @param $can_send
-		 * @param $user_id
-		 * @param $current_hook
-		 *
-		 * @return bool
-		 */
-		function prevent_sending_activation_link_on_user_register_for_non_paying_users( $can_send, $user_id, $current_hook ) {
-			if (
-				'yes' === get_option( 'alg_wc_ev_block_nonpaying_users_activation', 'no' ) &&
-				'yes' === apply_filters( 'alg_wc_ev_block_nonpaying_users_activation_email_on_payment', 'no' ) &&
-				( 'user_register' === $current_hook || 'woocommerce_created_customer' == $current_hook ) &&
-				! empty( $user = get_user_by( 'id', $user_id ) ) &&
-				( empty( $role_checking = get_option( 'alg_wc_ev_block_nonpaying_users_activation_role', array( 'customer' ) ) ) || count( array_intersect( $role_checking, $user->roles ) ) > 0 )
-			) {
-				$code = alg_wc_ev_generate_user_code();
-				alg_wc_ev()->core->emails->update_all_user_meta( $user_id, $code );
-				$can_send = false;
-			}
-
-			return $can_send;
-		}
-
-		/**
-		 * mail_activation_link_on_paid_status.
-		 *
-		 * @version 3.2.5
-		 * @since   2.2.4
-		 *
-		 * @param $order_id
-		 * @param $from
-		 * @param $to
-		 */
-		function mail_activation_link_on_paid_status( $order_id, $from, $to ) {
-			if (
-				'yes' === get_option( 'alg_wc_ev_block_nonpaying_users_activation', 'no' ) &&
-				'yes' === apply_filters( 'alg_wc_ev_block_nonpaying_users_activation_email_on_payment', 'no' ) &&
-				! empty( $order = wc_get_order( $order_id ) ) &&
-				! empty( $order->get_subtotal() ) &&
-				! empty( $customer_id = $order->get_customer_id() ) &&
-				! empty( $user = get_user_by( 'id', $customer_id ) ) &&
-				( empty( $role_checking = get_option( 'alg_wc_ev_block_nonpaying_users_activation_role', array( 'customer' ) ) ) || count( array_intersect( $role_checking, $user->roles ) ) > 0 ) &&
-				! empty( $statuses = wc_get_is_paid_statuses() ) &&
-				in_array( $to, $statuses ) &&
-				! alg_wc_ev_is_user_verified_by_user_id( $customer_id )
-			) {
-				alg_wc_ev()->core->emails->reset_and_mail_activation_link( array( 'user_id' => $customer_id ) );
-			}
 		}
 
 		/**

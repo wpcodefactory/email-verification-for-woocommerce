@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Section Settings.
  *
- * @version 3.2.5
+ * @version 3.2.7
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -37,6 +37,22 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Section' ) ) :
 		function __construct() {
 			add_filter( 'woocommerce_get_sections_alg_wc_ev', array( $this, 'settings_section' ) );
 			add_filter( 'woocommerce_get_settings_alg_wc_ev_' . $this->id, array( $this, 'get_settings' ), PHP_INT_MAX );
+		}
+
+		/**
+		 * get_settings_custom_attributes.
+		 *
+		 * @version 3.2.7
+		 * @since   3.2.7
+		 *
+		 * @param array $defaults Default custom attributes.
+		 *
+		 * @return array
+		 */
+		function get_settings_custom_attributes( $defaults = array( 'disabled' => 'disabled' ) ) {
+			$custom_attributes = apply_filters( 'alg_wc_ev_settings', $defaults );
+
+			return is_array( $custom_attributes ) ? $custom_attributes : array();
 		}
 
 		/**

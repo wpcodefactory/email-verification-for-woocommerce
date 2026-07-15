@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Functions.
  *
- * @version 3.2.5
+ * @version 3.2.7
  * @since   1.9.0
  * @author  WPFactory
  */
@@ -69,7 +69,7 @@ if ( ! function_exists( 'alg_wc_ev_is_valid_paying_user' ) ) {
 	/**
 	 * alg_wc_ev_is_valid_paying_user.
 	 *
-	 * @version 2.2.4
+	 * @version 3.2.7
 	 * @since   1.9.5
 	 *
 	 * @todo    Maybe create an option or a filter to change if the function should check if user is already verified or not
@@ -81,12 +81,15 @@ if ( ! function_exists( 'alg_wc_ev_is_valid_paying_user' ) ) {
 	 * @return bool
 	 */
 	function alg_wc_ev_is_valid_paying_user( $user_id ) {
+		$user          = get_user_by( 'id', $user_id );
+		$role_checking = get_option( 'alg_wc_ev_block_nonpaying_users_activation_role', array( 'customer' ) );
+
 		if (
 			alg_wc_ev()->core->is_user_verified_by_user_id( $user_id ) ||
 			(
-				! empty( $user = get_user_by( 'id', $user_id ) ) &&
+				! empty( $user ) &&
 				! empty( $customer = new \WC_Customer( $user_id ) ) &&
-				( empty( $role_checking = get_option( 'alg_wc_ev_block_nonpaying_users_activation_role', array( 'customer' ) ) ) || count( array_intersect( $role_checking, $user->roles ) ) > 0 ) &&
+				( empty( $role_checking ) || count( array_intersect( $role_checking, $user->roles ) ) > 0 ) &&
 				$customer->get_is_paying_customer()
 			)
 		) {
@@ -243,37 +246,6 @@ if ( ! function_exists( 'alg_wc_ev_associative_array_replace' ) ) {
 		}
 
 		return str_replace( array_keys( $from_to ), $from_to, $subject );
-	}
-}
-
-if ( ! function_exists( 'alg_wc_ev_get_default_session_start_params' ) ) {
-	/**
-	 * alg_wc_ev_get_session_start_default_params.
-	 *
-	 * @version 2.3.4
-	 * @since   2.3.4
-	 *
-	 * @return array
-	 */
-	function alg_wc_ev_get_default_session_start_params() {
-		return array(
-			'cache_limiter'  => 'private',
-			'read_and_close' => true,
-		);
-	}
-}
-
-if ( ! function_exists( 'alg_wc_ev_get_session_start_params_option' ) ) {
-	/**
-	 * get_session_start_params_option.
-	 *
-	 * @version 2.3.4
-	 * @since   2.3.4
-	 *
-	 * @return array
-	 */
-	function alg_wc_ev_get_session_start_params_option() {
-		return apply_filters( 'alg_wc_ev_session_start_params', json_decode( get_option( 'alg_wc_ev_session_start_params', wp_json_encode( alg_wc_ev_get_default_session_start_params() ) ), true ) );
 	}
 }
 

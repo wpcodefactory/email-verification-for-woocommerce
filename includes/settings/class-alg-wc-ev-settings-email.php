@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Email Section Settings.
  *
- * @version 3.2.5
+ * @version 3.2.7
  * @since   1.3.0
  * @author  WPFactory
  */
@@ -30,10 +30,13 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Email' ) ) :
 		/**
 		 * get_settings.
 		 *
-		 * @version 3.2.5
+		 * @version 3.2.7
 		 * @since   1.3.0
 		 */
 		function get_settings() {
+			$disabled_settings_attributes = apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) );
+			$disabled_settings_attributes = is_array( $disabled_settings_attributes ) ? $disabled_settings_attributes : array();
+
 			$general_opts            = array(
 				array(
 					'title' => __( 'Email options', 'emails-verification-for-woocommerce' ),
@@ -210,7 +213,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Email' ) ) :
 					//'custom_attributes' => array( 'min' => 1 ),
 					'id'                => 'alg_wc_ev_activation_email_automatic_sending_frequency',
 					'default'           => 1,
-					'custom_attributes' => array_merge( empty( $disabled_arr = apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ) ) ? array() : $disabled_arr, array( 'min' => 1 ) ),
+					'custom_attributes' => array_merge( $disabled_settings_attributes, array( 'min' => 1 ) ),
 				),
 				array(
 					'desc'              => __( 'Unit of time.', 'emails-verification-for-woocommerce' ),
@@ -229,7 +232,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Email' ) ) :
 					'type'              => 'number',
 					'id'                => 'alg_wc_ev_activation_email_automatic_sending_count_max',
 					'default'           => 3,
-					'custom_attributes' => array_merge( empty( $disabled_arr = apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ) ) ? array() : $disabled_arr, array( 'min' => 1 ) ),
+					'custom_attributes' => array_merge( $disabled_settings_attributes, array( 'min' => 1 ) ),
 				),
 				array(
 					'type' => 'sectionend',

@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, kousikmukherjeeli, ae
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 6.2
 Tested up to: 7.0
-Stable tag: 3.2.6
+Stable tag: 3.2.7
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -354,6 +354,16 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 Once activated, access the plugin's settings by navigating to “WooCommerce > Settings” and look for the relevant tab.
 
 == Changelog ==
+
+= 3.2.7 - 15/07/2026 =
+* Fix - General security improvements.
+* Dev - Code refactor.
+* Dev - Advanced - Replaced sessions with Cookies on Force Redirect option.
+* Dev - Admin menu library updated to v1.1.1.
+* Dev - Cross selling library updated to v1.1.3.
+* Dev - Key Manager library updated to v1.0.8.
+* Dev - Promoting Notice library updated to v1.0.7.
+* Dev - Improved promoting notice style.
 
 = 3.2.6 - 01/07/2026 =
 * Fix - Fixed a security vulnerability.

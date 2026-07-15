@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Emails Class.
  *
- * @version 3.2.5
+ * @version 3.2.7
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -35,7 +35,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Emails' ) ) :
 		/**
 		 * Constructor.
 		 *
-		 * @version 2.9.7
+		 * @version 3.2.7
 		 * @since   1.6.0
 		 */
 		function __construct() {
@@ -68,7 +68,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Emails' ) ) :
 		/**
 		 * send_confirmation_email.
 		 *
-		 * @version 3.2.5
+		 * @version 3.2.7
 		 * @since   2.4.1
 		 *
 		 * @param         $user_id
@@ -76,7 +76,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Emails' ) ) :
 		 */
 		function send_confirmation_email( $user_id, $args = null ) {
 			$user      = new WP_User( $user_id );
-			$recipient = $user->user_email;
+			$recipient = apply_filters( 'alg_wc_ev_confirmation_email_recipient', $user->user_email, $user_id, $args );
 			if ( '' === $recipient ) {
 				return;
 			}
@@ -91,10 +91,8 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Emails' ) ) :
 				'context' => 'confirmation_email',
 				'subject' => '[%site_title%]: ' . __( 'Your account has been activated successfully', 'emails-verification-for-woocommerce' )
 			) );
-			$wc_email_template = apply_filters( 'alg_wc_ev_wc_email_template', 'simulation' );
-			$email_template    = apply_filters( 'alg_wc_ev_email_template', 'plain' );
 
-			if ( in_array( $email_template, array( 'wc', 'smart' ) ) && 'real_wc_email' === $wc_email_template ) {
+			if ( apply_filters( 'alg_wc_ev_use_confirmation_wc_email', false, $user_id, $args ) ) {
 				do_action( 'alg_wc_ev_trigger_confirmation_wc_email', $user_id );
 			} else {
 				$this->send_mail( $recipient, $subject, $content );
@@ -107,7 +105,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Emails' ) ) :
 		/**
 		 * Send Confirmation email to the user.
 		 *
-		 * @version 2.4.8
+		 * @version 3.2.7
 		 * @since   2.2.9
 		 *
 		 * @param   $user_id
@@ -117,12 +115,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Emails' ) ) :
 			if ( 'yes' !== get_option( 'alg_wc_ev_enable_confirmation_email', 'yes' ) ) {
 				return;
 			}
-			if (
-				isset( $args['context'] ) &&
-				! empty( $args['context'] ) &&
-				'admin_verification' === $args['context'] &&
-				'no' === get_option( 'alg_wc_ev_send_confirmation_email_to_manually_verified_users', 'no' )
-			) {
+			if ( ! apply_filters( 'alg_wc_ev_allow_confirmation_email', true, $user_id, $args ) ) {
 				return;
 			}
 			if ( 'no' === get_option( 'alg_wc_ev_confirmation_email_delay', 'no' ) ) {
@@ -458,7 +451,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Emails' ) ) :
 		/**
 		 * reset_and_mail_activation_link.maybe_send_wc_customer_new_account_email.
 		 *
-		 * @version         3.2.5
+		 * @version         3.2.7
 		 * @since           1.0.0
 		 * @todo    (maybe) add `%site_name%` etc. replaced value in `alg_wc_ev_email_subject`
 		 */
@@ -488,12 +481,11 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Emails' ) ) :
 				$this->update_all_user_meta( $user_id, $code );
 				// Send email
 				if ( ! alg_wc_ev()->core->is_user_verified_by_user_id( $user_id ) ) {
-					$wc_email_template = apply_filters( 'alg_wc_ev_wc_email_template', 'simulation' );
-					$email_template    = apply_filters( 'alg_wc_ev_email_template', 'plain' );
-					if ( in_array( $email_template, array( 'wc', 'smart' ) ) && 'real_wc_email' === $wc_email_template ) {
+					$recipient         = apply_filters( 'alg_wc_ev_activation_email_recipient', $user->user_email, $args );
+					if ( apply_filters( 'alg_wc_ev_use_activation_wc_email', false, $user_id, $args ) ) {
 						do_action( 'alg_wc_ev_trigger_activation_wc_email', $user_id );
 					} else {
-						$this->send_mail( $user->user_email, $email_subject, $email_content );
+						$this->send_mail( $recipient, $email_subject, $email_content );
 					}
 
 					// Store referer url in meta from cookies

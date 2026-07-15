@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Core Class.
  *
- * @version 3.2.6
+ * @version 3.2.7
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -373,13 +373,53 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		}
 
 		/**
+		 * get_notice_nonce_action.
+		 *
+		 * @version 3.2.7
+		 * @since   3.2.7
+		 *
+		 * @param   int  $user_id  User ID related to notice payload.
+		 *
+		 * @return string
+		 */
+		function get_notice_nonce_action( $user_id = 0 ) {
+			return 'alg_wc_ev_notice_message_' . absint( $user_id );
+		}
+
+		/**
+		 * add_notice_nonce_to_url.
+		 *
+		 * @version 3.2.7
+		 * @since   3.2.7
+		 *
+		 * @param   string  $url      URL to receive notice nonce.
+		 * @param   int     $user_id  User ID related to notice payload.
+		 *
+		 * @return string
+		 */
+		function add_notice_nonce_to_url( $url, $user_id = 0 ) {
+			return add_query_arg( 'alg_wc_ev_notice_nonce', wp_create_nonce( $this->get_notice_nonce_action( $user_id ) ), $url );
+		}
+
+		/**
 		 * display_error_activation_message.
 		 *
-		 * @version 3.2.5
+		 * @version 3.2.7
 		 * @since   2.1.0
 		 */
 		function display_error_activation_message() {
-			$user_id = (int) filter_input( INPUT_GET, 'alg_wc_ev_email_verified_error', FILTER_SANITIZE_NUMBER_INT );
+			$user_id            = (int) filter_input( INPUT_GET, 'alg_wc_ev_email_verified_error', FILTER_SANITIZE_NUMBER_INT );
+			$resend_status_code = sanitize_text_field( (string) filter_input( INPUT_GET, 'alg_wc_ev_resend_status_code' ) );
+			$resend_user_id     = (int) filter_input( INPUT_GET, 'alg_wc_ev_user_id', FILTER_SANITIZE_NUMBER_INT );
+			$nonce_user_id      = $user_id > 0 ? $user_id : $resend_user_id;
+			$notice_nonce       = sanitize_text_field( (string) filter_input( INPUT_GET, 'alg_wc_ev_notice_nonce' ) );
+
+			if (
+				( $user_id > 0 || '' !== $resend_status_code ) &&
+				( '' === $notice_nonce || ! wp_verify_nonce( $notice_nonce, $this->get_notice_nonce_action( $nonce_user_id ) ) )
+			) {
+				return;
+			}
 
 			if ( $user_id ) {
 				$user = get_user_by( 'ID', $user_id );
@@ -395,8 +435,6 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 				}
 			}
 
-			$resend_status_code = sanitize_text_field( (string) filter_input( INPUT_GET, 'alg_wc_ev_resend_status_code' ) );
-
 			if ( '' !== $resend_status_code && '1' !== $resend_status_code ) {
 				$resend_message        = alg_wc_ev()->core->messages->get_resend_message( $resend_status_code );
 				$resend_message_string = isset( $resend_message['msg'] ) ? sanitize_text_field( $resend_message['msg'] ) : '';
@@ -409,7 +447,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		/**
 		 * redirect_on_failure.
 		 *
-		 * @version 2.2.2
+		 * @version 3.2.7
 		 * @since   2.1.0
 		 *
 		 * @param $username
@@ -426,9 +464,10 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 					$user = get_user_by( 'login', $username );
 				}
 				if ( $user ) {
-					wp_safe_redirect( add_query_arg( array(
+					$redirect_url = add_query_arg( array(
 						'alg_wc_ev_email_verified_error' => $user->ID
-					), get_option( 'alg_wc_ev_redirect_on_failure_url', '' ) ) );
+					), get_option( 'alg_wc_ev_redirect_on_failure_url', '' ) );
+					wp_safe_redirect( $this->add_notice_nonce_to_url( $redirect_url, $user->ID ) );
 					exit;
 				}
 			}
@@ -788,10 +827,10 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 				}
 				if (
 					! empty( $user_id = intval( $data['id'] ) ) &&
-                    ! empty( $code = get_user_meta( $user_id, 'alg_wc_ev_activation_code', true ) ) &&
-                    is_string( $data['code'] ) &&
-                    $code === $data['code'] &&
-                    ! alg_wc_ev_is_user_verified_by_user_id( $user_id )
+					! empty( $code = get_user_meta( $user_id, 'alg_wc_ev_activation_code', true ) ) &&
+					is_string( $data['code'] ) &&
+					$code === $data['code'] &&
+					! alg_wc_ev_is_user_verified_by_user_id( $user_id )
 				) {
 					if ( apply_filters( 'alg_wc_ev_verify_email', true, $user_id, $code, $args ) ) {
 						$this->activate_user( array(
@@ -877,13 +916,17 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		/**
 		 * activate.
 		 *
-		 * @version         3.2.5
+		 * @version         3.2.7
 		 * @since           1.6.0
 		 * @todo            [next] (maybe) custom `alg_wc_ev_add_notice()`
 		 * @todo    (maybe) rename `alg_wc_ev_activate_account_message`
 		 */
 		function activate_message() {
 			if ( ( $user_id = filter_input( INPUT_GET, 'alg_wc_ev_activate_account_message', FILTER_VALIDATE_INT ) ) ) {
+				$notice_nonce = sanitize_text_field( (string) filter_input( INPUT_GET, 'alg_wc_ev_notice_nonce' ) );
+				if ( '' === $notice_nonce || ! wp_verify_nonce( $notice_nonce, $this->get_notice_nonce_action( $user_id ) ) ) {
+					return;
+				}
 				alg_wc_ev_add_notice( $this->messages->get_activation_message( $user_id ), 'notice' );
 			}
 		}
@@ -928,7 +971,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		/**
 		 * Receive email address and send verification email from verification form.
 		 *
-		 * @version 3.2.5
+		 * @version 3.2.7
 		 * @since   2.3.5
 		 */
 		function redirect_to_resend_verification_url() {
@@ -944,18 +987,21 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 
 				// If no user found with this email.
 				if ( ! $user_to_verify instanceof WP_User ) {
-					wp_safe_redirect( add_query_arg( array( 'alg_wc_ev_resend_status_code' => 2 ), $current_url ) );
+					$redirect_url = add_query_arg( array( 'alg_wc_ev_resend_status_code' => 2 ), $current_url );
+					wp_safe_redirect( $this->add_notice_nonce_to_url( $redirect_url ) );
 					exit;
 				}
 
 				// If the user is already verified.
 				if ( alg_wc_ev_is_user_verified_by_user_id( $user_to_verify->ID ) ) {
-					wp_safe_redirect( add_query_arg( array( 'alg_wc_ev_resend_status_code' => 3 ), $current_url ) );
+					$redirect_url = add_query_arg( array( 'alg_wc_ev_resend_status_code' => 3 ), $current_url );
+					wp_safe_redirect( $this->add_notice_nonce_to_url( $redirect_url, $user_to_verify->ID ) );
 					exit;
 				}
 
 				// Ready to resend verification email to this user.
-				wp_safe_redirect( alg_wc_ev()->core->messages->get_resend_verification_url( $user_to_verify->ID, array( 'alg_wc_ev_resend_status_code' => 1 ) ) );
+				$redirect_url = alg_wc_ev()->core->messages->get_resend_verification_url( $user_to_verify->ID, array( 'alg_wc_ev_resend_status_code' => 1 ) );
+				wp_safe_redirect( $this->add_notice_nonce_to_url( $redirect_url, $user_to_verify->ID ) );
 				exit;
 			}
 		}
@@ -1016,7 +1062,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		/**
 		 * Display user data.
 		 *
-		 * @version 2.9.5
+		 * @version 3.2.7
 		 * @since   2.3.5
 		 *
 		 * @param   null  $atts
@@ -1043,13 +1089,16 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 
 			$user_id = get_current_user_id();
 			if ( current_user_can( 'administrator' ) && $new_user_id !== 0 ) {
-				$user_id = $new_user_id;
+				$notice_nonce = sanitize_text_field( (string) filter_input( INPUT_GET, 'alg_wc_ev_notice_nonce' ) );
+				if ( '' !== $notice_nonce && wp_verify_nonce( $notice_nonce, $this->get_notice_nonce_action( $new_user_id ) ) ) {
+					$user_id = $new_user_id;
+				}
 			}
 
 			$user = get_user_by( 'ID', $user_id );
 
 			if ( $user instanceof WP_User ) {
-				return isset( $user->{$info_type} ) ? esc_html( $user->{$info_type} ) : __( 'User data not found.', 'emails-verification-for-woocommerce' );
+				return isset( $user->{$info_type} ) ? esc_html( $user->{$info_type} ) : esc_html__( 'User data not found.', 'emails-verification-for-woocommerce' );
 			}
 
 			return esc_html( $atts['not_found_msg'] );
