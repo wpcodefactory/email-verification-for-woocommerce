@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Core Class.
  *
- * @version 3.2.7
+ * @version 3.2.8
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -142,7 +142,6 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 
 			// Blocks content for unverified users.
 			add_action( 'template_redirect', array( $this, 'block_pages_for_unverified_users' ) );
-			add_action( 'init', array( $this, 'show_blocked_content_notice' ) );
 			add_action( 'wp', array( $this, 'redirect_to_resend_verification_url' ) );
 			add_action( 'wp', array( $this, 'save_my_account_page_referer_url' ) );
 			$this->handle_shortcodes();
@@ -249,7 +248,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		/**
 		 * block_pages_for_unverified_users.
 		 *
-		 * @version 3.2.5
+		 * @version 3.2.8
 		 * @since   2.1.1
 		 */
 		function block_pages_for_unverified_users() {
@@ -265,39 +264,9 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 			) {
 				$redirect_url = add_query_arg( array(
 					'alg_wc_ev_blocked_content' => true
-				), apply_filters( 'alg_wc_ev_block_content_redirect_url', home_url() ) );
+				), home_url() );
 				wp_safe_redirect( $redirect_url );
 				exit;
-			}
-		}
-
-		/**
-		 * show_blocked_content_notice.
-		 *
-		 * @version 3.2.5
-		 * @since   2.1.1
-		 */
-		function show_blocked_content_notice() {
-			if ( filter_input( INPUT_GET, 'alg_wc_ev_blocked_content' ) ) {
-				$error_msg_options = array(
-					'alg_wc_ev_block_content_notice_guests' => __( 'You need to <a href="%myaccount_url%">verify your account</a> to access this content.', 'emails-verification-for-woocommerce' ),
-					'alg_wc_ev_block_content_notice'        => __( 'You need to <a href="%myaccount_url%">verify your account</a> to access this content.', 'emails-verification-for-woocommerce' ) . ' ' . __( 'You can resend the email with verification link by clicking <a href="%resend_verification_url%">here</a>.', 'emails-verification-for-woocommerce' )
-				);
-				$error_msg_option  = ! is_user_logged_in() ? 'alg_wc_ev_block_content_notice_guests' : 'alg_wc_ev_block_content_notice';
-				$msg               = apply_filters( 'alg_wc_ev_block_content_notice', $error_msg_options[ $error_msg_option ], array(
-					'option'  => $error_msg_option,
-					'context' => ! is_user_logged_in() ? 'guests' : 'logged_in',
-				) );
-				$replace           = array(
-					'%myaccount_url%' => wc_get_page_permalink( 'myaccount' )
-				);
-				if ( is_user_logged_in() ) {
-					$replace['%resend_verification_url%'] = alg_wc_ev()->core->messages->get_resend_verification_url( get_current_user_id() );
-				}
-				$msg = str_replace( array_keys( $replace ), $replace, $msg );
-				if ( ! empty( $msg ) ) {
-					alg_wc_ev_add_notice( $msg, 'error' );
-				}
 			}
 		}
 
@@ -342,7 +311,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		 */
 		function add_verification_info_to_my_account_page() {
 			if ( 'yes' === get_option( 'alg_wc_ev_verification_info_my_account', 'no' ) ) {
-				echo do_shortcode( apply_filters( 'alg_wc_ev_verification_info_customization', $this->get_verification_info_default() ) );
+				echo do_shortcode( get_option( 'alg_wc_ev_verification_info_customization', $this->get_verification_info_default() ) );
 			}
 		}
 
@@ -895,7 +864,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		/**
 		 * Deactivate or Unverify user.
 		 *
-		 * @version 2.3.8
+		 * @version 3.2.8
 		 * @since   2.3.8
 		 *
 		 * @param   null  $args
@@ -908,7 +877,6 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 
 			update_user_meta( $user_id, 'alg_wc_ev_is_activated', '0' );
 			delete_user_meta( $user_id, 'alg_wc_ev_customer_new_account_email_sent' );
-			delete_user_meta( $user_id, 'alg_wc_ev_admin_email_sent' );
 
 			do_action( 'alg_wc_ev_user_account_deactivated', $user_id, $args );
 		}
@@ -934,7 +902,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		/**
 		 * resend.
 		 *
-		 * @version         2.8.6
+		 * @version         3.2.8
 		 * @since           1.6.0
 		 * @todo    (maybe) rename `alg_wc_ev_user_id`
 		 */
@@ -956,7 +924,10 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 					) ||
 					(
 						empty( $resend_timestamp ) &&
-						wp_verify_nonce( $nonce, 'resend-' . $user_id . '-' . 'old-user' )
+						(
+							wp_verify_nonce( $nonce, 'resend-' . $user_id . '-' . 'old-user' ) ||
+							wp_verify_nonce( $nonce, 'resend-' . $user_id . '-0' )
+						)
 					)
 				)
 			) {
@@ -1311,13 +1282,16 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		/**
 		 * get_hashids.
 		 *
-		 * @version 3.2.5
+		 * @version 3.2.8
 		 * @since   2.6.0
 		 *
-		 * @return \Hashids\Hashids
+		 * @return \Hashids\Hashids|null
 		 */
 		function get_hashids() {
 			if ( is_null( $this->hashids ) ) {
+				if ( version_compare( PHP_VERSION, '8.1', '<' ) ) {
+					return null;
+				}
 				$this->hashids = new \Hashids\Hashids( get_option( 'alg_wc_ev_hashids_salt', '' ), 6, get_option( 'alg_wc_ev_hashids_alphabet', 'abcdefghijklmnopqrstuvwxyz1234567890' ) );
 			}
 

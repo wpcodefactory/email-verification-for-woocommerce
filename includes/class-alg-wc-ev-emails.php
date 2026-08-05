@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Emails Class.
  *
- * @version 3.2.7
+ * @version 3.2.8
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -68,7 +68,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Emails' ) ) :
 		/**
 		 * send_confirmation_email.
 		 *
-		 * @version 3.2.7
+		 * @version 3.2.8
 		 * @since   2.4.1
 		 *
 		 * @param         $user_id
@@ -80,13 +80,13 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Emails' ) ) :
 			if ( '' === $recipient ) {
 				return;
 			}
-			$content           = $this->get_email_content( array(
+			$content = $this->get_email_content( array(
 				'user_id' => $user_id,
 				'context' => 'confirmation_email',
 				'content' => alg_wc_ev()->core->emails->get_default_email_content( 'confirmation' ),
 				'heading' => __( 'Your account has been activated', 'emails-verification-for-woocommerce' )
 			) );
-			$subject           = $this->get_email_subject( array(
+			$subject = $this->get_email_subject( array(
 				'user_id' => $user_id,
 				'context' => 'confirmation_email',
 				'subject' => '[%site_title%]: ' . __( 'Your account has been activated successfully', 'emails-verification-for-woocommerce' )
@@ -230,7 +230,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Emails' ) ) :
 		/**
 		 * get_verification_url.
 		 *
-		 * @version 2.7.7
+		 * @version 3.2.8
 		 * @since   1.8.0
 		 */
 		function get_verification_url( $args = null ) {
@@ -246,9 +246,12 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Emails' ) ) :
 			} else {
 				$user_id = intval( $args['user_id'] );
 			}
-			$code                    = $args['code'];
-			$code                    = false === $code && ! empty( $activation_code = get_user_meta( $user_id, 'alg_wc_ev_activation_code', true ) ) ? $activation_code : ( ! empty( $code ) ? $code : false );
-			$encoding_method         = $args['encoding_method'];
+			$code            = $args['code'];
+			$code            = false === $code && ! empty( $activation_code = get_user_meta( $user_id, 'alg_wc_ev_activation_code', true ) ) ? $activation_code : ( ! empty( $code ) ? $code : false );
+			$encoding_method = $args['encoding_method'];
+			if ( 'hashids' === $encoding_method && is_null( alg_wc_ev_get_hashids() ) ) {
+				$encoding_method = 'base64_encode';
+			}
 			$verify_email_hash       = '';
 			$verification_check_page = $args['verification_check_page'];
 			switch ( $encoding_method ) {
@@ -283,7 +286,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Emails' ) ) :
 		/**
 		 * get_email_subject.
 		 *
-		 * @version 2.6.5
+		 * @version 3.2.8
 		 * @since   2.3.1
 		 */
 		function get_email_subject( $args ) {
@@ -295,7 +298,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Emails' ) ) :
 			) );
 			$user_id      = $args['user_id'];
 			$placeholders = array_merge( $args['placeholders'], alg_wc_ev_get_user_placeholders( array( 'user_id' => $user_id ) ) );
-			$subject      = apply_filters( 'alg_wc_ev_email_subject', $args['subject'], $args );
+		$subject      = $args['subject'];
 
 			return apply_filters( 'alg_wc_ev_email_subject_final', str_replace( array_keys( $placeholders ), $placeholders, $subject ), $args );
 		}
@@ -303,7 +306,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Emails' ) ) :
 		/**
 		 * get_email_content.
 		 *
-		 * @version         2.6.9
+		 * @version         3.2.8
 		 * @since           1.8.0
 		 * @todo    (maybe) `$user->user_url`, `$user->user_registered`
 		 *
@@ -332,7 +335,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Emails' ) ) :
 					'verification_check_page' => $verification_check_page
 				) );
 			}
-			$content = apply_filters( 'alg_wc_ev_email_content', $args['content'], $args );
+		$content = $args['content'];
 
 			return apply_filters( 'alg_wc_ev_email_content_final', str_replace( array_keys( $placeholders ), $placeholders, $content ), $args );
 		}
@@ -393,32 +396,24 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Emails' ) ) :
 		function get_default_email_content( $email_type ) {
 			$default_content = '';
 			switch ( $email_type ) {
-			case 'activation':            /* translators: %1$s: verification URL, %2$s: site link */ $default_content = sprintf(
-					'<p>' .
-					/* translators: %1$s: verification URL link, %2$s: site link */
-					__( 'Please %1$s to verify your email on %2$s.', 'emails-verification-for-woocommerce' ),
-					'<a href="%verification_url%" target="_blank">' . __( 'click here', 'emails-verification-for-woocommerce' ) . '</a>',
-					'<a href="%site_url%" target="_blank">%site_title%</a>'
-				) . '</p>';
+				case 'activation':            /* translators: %1$s: verification URL, %2$s: site link */ $default_content = sprintf(
+					                                                                                                            '<p>' .
+					                                                                                                            /* translators: %1$s: verification URL link, %2$s: site link */
+					                                                                                                            __( 'Please %1$s to verify your email on %2$s.', 'emails-verification-for-woocommerce' ),
+					                                                                                                            '<a href="%verification_url%" target="_blank">' . __( 'click here', 'emails-verification-for-woocommerce' ) . '</a>',
+					                                                                                                            '<a href="%site_url%" target="_blank">%site_title%</a>'
+				                                                                                                            ) . '</p>';
 					break;
-			case 'confirmation':            /* translators: %s: site link */ $default_content = sprintf(
-					'<p>' .
-					/* translators: %s: site link */
-					__( 'Your account has been activated successfully on %s.', 'emails-verification-for-woocommerce' ),
-					'<a href="%site_url%" target="_blank">%site_title%</a>'
-				) . '</p>';
-					break;
-				case 'admin':            /* translators: %1$s: user profile link, %2$s: user email, %3$s: site link */ $default_content =
-					sprintf(
-						__( 'User %1$s has just verified his email (%2$s) on %3$s.', 'emails-verification-for-woocommerce' ),
-						'<a href="%admin_user_profile_url%">%user_login%</a>',
-						'%user_email%',
-						'<a href="%site_url%" target="_blank">%site_title%</a>'
-					);
+				case 'confirmation':            /* translators: %s: site link */ $default_content = sprintf(
+					                                                                                    '<p>' .
+					                                                                                    /* translators: %s: site link */
+					                                                                                    __( 'Your account has been activated successfully on %s.', 'emails-verification-for-woocommerce' ),
+					                                                                                    '<a href="%site_url%" target="_blank">%site_title%</a>'
+				                                                                                    ) . '</p>';
 					break;
 			}
 
-			return $default_content;
+			return apply_filters( 'alg_wc_ev_get_default_email_content', $default_content, $email_type );
 		}
 
 		/**
@@ -481,7 +476,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Emails' ) ) :
 				$this->update_all_user_meta( $user_id, $code );
 				// Send email
 				if ( ! alg_wc_ev()->core->is_user_verified_by_user_id( $user_id ) ) {
-					$recipient         = apply_filters( 'alg_wc_ev_activation_email_recipient', $user->user_email, $args );
+					$recipient = apply_filters( 'alg_wc_ev_activation_email_recipient', $user->user_email, $args );
 					if ( apply_filters( 'alg_wc_ev_use_activation_wc_email', false, $user_id, $args ) ) {
 						do_action( 'alg_wc_ev_trigger_activation_wc_email', $user_id );
 					} else {

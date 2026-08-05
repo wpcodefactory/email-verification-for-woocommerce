@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Logouts Class.
  *
- * @version 3.2.7
+ * @version 3.2.8
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -185,7 +185,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Logouts' ) ) :
 		/**
 		 * redirect_after_register_using_cookie.
 		 *
-		 * @version 3.2.7
+		 * @version 3.2.8
 		 * @since   2.0.9
 		 */
 		function redirect_after_register_using_sessions() {
@@ -196,7 +196,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Logouts' ) ) :
 			) {
 				return;
 			}
-			$redirect_url = wp_unslash( $_COOKIE[ $this->redirect_after_register_cookie ] );
+			$redirect_url = sanitize_text_field( wp_unslash( $_COOKIE[ $this->redirect_after_register_cookie ] ) );
 			wc_setcookie( $this->redirect_after_register_cookie, '', 1 );
 			?>
 			<script>window.location.replace( <?php echo wp_json_encode( esc_url_raw( $redirect_url ) ); ?> );</script>

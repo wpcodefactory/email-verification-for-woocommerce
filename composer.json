@@ -17,7 +17,7 @@
     "wpfactory/wpfactory-promoting-notice": "*",
     "wpfactory/wpfactory-cross-selling": "*",
     "wpfactory/wpfactory-admin-menu": "*",
-    "hashids/hashids": "4.*"
+    "hashids/hashids": "5.*"
   },
   "config": {
     "preferred-install": "dist",

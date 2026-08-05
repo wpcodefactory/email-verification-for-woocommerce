@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Non Paying Blocker.
  *
- * @version 3.2.5
+ * @version 3.2.8
  * @since   1.9.5
  * @author  WPFactory
  */
@@ -94,7 +94,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Non_Paying_Blocker' ) ) :
 		/**
 		 * get_non_paying_user_error_message.
 		 *
-		 * @version 3.2.5
+		 * @version 3.2.8
 		 * @since   1.9.5
 		 *
 		 * @param   null  $user_id
@@ -103,8 +103,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Non_Paying_Blocker' ) ) :
 		 */
 		function get_non_paying_user_error_message( $user_id = null ) {
 			$default_notice = __( 'You need to become a paying customer in order to activate your account.', 'emails-verification-for-woocommerce' );
-			$notice         = do_shortcode( apply_filters( 'alg_wc_ev_block_nonpaying_users_activation_error_notice', $default_notice ) );
-
+		$notice         = do_shortcode( get_option( 'alg_wc_ev_block_nonpaying_users_activation_error_notice', $default_notice ) );
 			if ( $user_id ) {
 				return str_replace( '%resend_verification_url%', alg_wc_ev()->core->messages->get_resend_verification_url( $user_id ), $notice );
 			} else {

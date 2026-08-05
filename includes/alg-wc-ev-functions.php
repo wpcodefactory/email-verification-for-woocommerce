@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Functions.
  *
- * @version 3.2.7
+ * @version 3.2.8
  * @since   1.9.0
  * @author  WPFactory
  */
@@ -340,7 +340,7 @@ if ( ! function_exists( 'alg_wc_ev_decode_verify_code' ) ) {
 	/**
 	 * alg_wc_ev_decode_verify_code.
 	 *
-	 * @version 2.4.0
+	 * @version 3.2.8
 	 * @since   2.4.0
 	 *
 	 * @param   null  $args
@@ -352,15 +352,19 @@ if ( ! function_exists( 'alg_wc_ev_decode_verify_code' ) ) {
 			'verify_code'     => '',
 			'encoding_method' => get_option( 'alg_wc_ev_encoding_method', 'base64_encode' ),
 		) );
-		$verify_code = $args['verify_code'];
-		$data        = array();
-		if ( 'base64_encode' === $args['encoding_method'] ) {
+		$verify_code    = $args['verify_code'];
+		$encoding_method = $args['encoding_method'];
+		if ( 'hashids' === $encoding_method && is_null( alg_wc_ev_get_hashids() ) ) {
+			$encoding_method = 'base64_encode';
+		}
+		$data = array();
+		if ( 'base64_encode' === $encoding_method ) {
 			$data = json_decode( alg_wc_ev()->core->base64_url_decode( $verify_code ), true );
-		} elseif ( 'hashids' === $args['encoding_method'] ) {
+		} elseif ( 'hashids' === $encoding_method ) {
 			$hashids         = alg_wc_ev_get_hashids();
 			$hashids_decoded = $hashids->decode( $verify_code );
-			$data['id']      = is_array( $hashids_decoded ) && isset( $hashids_decoded[0] ) ? $hashids_decoded[0] : '';
-			$data['code']    = is_array( $hashids_decoded ) && isset( $hashids_decoded[1] ) ? $hashids_decoded[1] : '';
+			$data['id']      = is_array( $hashids_decoded ) && isset( $hashids_decoded[0] ) ? (string) $hashids_decoded[0] : '';
+			$data['code']    = is_array( $hashids_decoded ) && isset( $hashids_decoded[1] ) ? (string) $hashids_decoded[1] : '';
 		}
 
 		return $data;
@@ -391,13 +395,13 @@ if ( ! function_exists( 'alg_wc_ev_get_verification_param' ) ) {
 	/**
 	 * alg_wc_ev_get_verification_param.
 	 *
-	 * @version 2.6.0
+	 * @version 3.2.8
 	 * @since   2.6.0
 	 *
 	 * @return string
 	 */
 	function alg_wc_ev_get_verification_param() {
-		return apply_filters( 'alg_wc_ev_verification_param', 'alg_wc_ev_verify_email' );
+		return get_option( 'alg_wc_ev_verification_parameter', 'alg_wc_ev_verify_email' );
 	}
 }
 

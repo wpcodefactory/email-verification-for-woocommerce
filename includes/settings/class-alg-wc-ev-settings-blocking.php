@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Blocking Section Settings.
  *
- * @version 3.2.7
+ * @version 3.2.8
  * @since   2.1.1
  * @author  WPFactory
  */
@@ -76,7 +76,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Blocking' ) ) :
 		/**
 		 * get_settings.
 		 *
-		 * @version 3.2.5
+		 * @version 3.2.8
 		 * @since   2.1.1
 		 */
 		function get_settings() {
@@ -147,6 +147,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Blocking' ) ) :
 					'css'               => 'width:100%;',
 					'alg_wc_ev_raw'     => true,
 					'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'readonly' => 'readonly' ) ),
+
 				),
 				array(
 					'title'             => __( 'Error notice', 'emails-verification-for-woocommerce' ),
@@ -157,6 +158,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Blocking' ) ) :
 					'css'               => 'width:100%;',
 					'alg_wc_ev_raw'     => true,
 					'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'readonly' => 'readonly' ) ),
+
 				),
 				array(
 					'type'              => 'textarea',
@@ -166,6 +168,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Blocking' ) ) :
 					'css'               => 'width:100%;',
 					'alg_wc_ev_raw'     => true,
 					'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'readonly' => 'readonly' ) ),
+
 				),
 				array(
 					'type' => 'sectionend',
@@ -280,7 +283,6 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Blocking' ) ) :
 					'default'           => __( 'You need to become a paying customer in order to activate your account.', 'emails-verification-for-woocommerce' ),
 					'css'               => 'width:100%;',
 					'alg_wc_ev_raw'     => true,
-					'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'readonly' => 'readonly' ) ),
 				),
 				array(
 					'type' => 'sectionend',

@@ -2,36 +2,35 @@
     "packages": [
         {
             "name": "hashids/hashids",
-            "version": "4.1.0",
-            "version_normalized": "4.1.0.0",
+            "version": "5.0.2",
+            "version_normalized": "5.0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vinkla/hashids.git",
-                "reference": "8cab111f78e0bd9c76953b082919fc9e251761be"
+                "reference": "197171016b77ddf14e259e186559152eb3f8cf33"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vinkla/hashids/zipball/8cab111f78e0bd9c76953b082919fc9e251761be",
-                "reference": "8cab111f78e0bd9c76953b082919fc9e251761be",
+                "url": "https://api.github.com/repos/vinkla/hashids/zipball/197171016b77ddf14e259e186559152eb3f8cf33",
+                "reference": "197171016b77ddf14e259e186559152eb3f8cf33",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
-                "php": "^7.2 || ^8.0"
+                "php": "^8.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "^8.0 || ^9.4",
-                "squizlabs/php_codesniffer": "^3.5"
+                "phpunit/phpunit": "^10.0"
             },
             "suggest": {
                 "ext-bcmath": "Required to use BC Math arbitrary precision mathematics (*).",
                 "ext-gmp": "Required to use GNU multiple precision mathematics (*)."
             },
-            "time": "2020-11-26T19:24:33+00:00",
+            "time": "2023-02-23T15:00:54+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.1-dev"
+                    "dev-master": "5.0-dev"
                 }
             },
             "installation-source": "dist",
@@ -69,29 +68,29 @@
             ],
             "support": {
                 "issues": "https://github.com/vinkla/hashids/issues",
-                "source": "https://github.com/vinkla/hashids/tree/4.1.0"
+                "source": "https://github.com/vinkla/hashids/tree/5.0.2"
             },
             "install-path": "../hashids/hashids"
         },
         {
             "name": "wpfactory/wpfactory-admin-menu",
-            "version": "v1.1.1",
-            "version_normalized": "1.1.1.0",
+            "version": "v1.1.2",
+            "version_normalized": "1.1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wpcodefactory/wpfactory-admin-menu.git",
-                "reference": "97d51f09e96c7c5fdb314b6828f5a3ecc1301371"
+                "reference": "585f27f2165531c44bdff584df5f0255fc29c7ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wpcodefactory/wpfactory-admin-menu/zipball/97d51f09e96c7c5fdb314b6828f5a3ecc1301371",
-                "reference": "97d51f09e96c7c5fdb314b6828f5a3ecc1301371",
+                "url": "https://api.github.com/repos/wpcodefactory/wpfactory-admin-menu/zipball/585f27f2165531c44bdff584df5f0255fc29c7ff",
+                "reference": "585f27f2165531c44bdff584df5f0255fc29c7ff",
                 "shasum": ""
             },
             "require-dev": {
                 "wp-cli/wp-cli-bundle": "*"
             },
-            "time": "2026-05-20T16:27:36+00:00",
+            "time": "2026-07-29T22:35:45+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -119,7 +118,7 @@
                 ]
             },
             "support": {
-                "source": "https://github.com/wpcodefactory/wpfactory-admin-menu/tree/v1.1.1",
+                "source": "https://github.com/wpcodefactory/wpfactory-admin-menu/tree/v1.1.2",
                 "issues": "https://github.com/wpcodefactory/wpfactory-admin-menu/issues"
             },
             "install-path": "../wpfactory/wpfactory-admin-menu"

@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Account verification widget.
  *
- * @version 3.2.5
+ * @version 3.2.8
  * @since   2.1.1
  * @author  WPFactory
  */
@@ -29,7 +29,7 @@ class Alg_WC_Email_Verification_Info_Widget extends WP_Widget {
 	/**
 	 * Front-end display of widget.
 	 *
-	 * @version 3.2.5
+	 * @version 3.2.8
 	 * @since   2.1.1
 	 *
 	 * @see     WP_Widget::widget()
@@ -45,7 +45,7 @@ class Alg_WC_Email_Verification_Info_Widget extends WP_Widget {
 		if ( ! empty( $title ) ) {
 			echo wp_kses_post( $before_title . $title . $after_title );
 		}
-		echo do_shortcode( apply_filters( 'alg_wc_ev_verification_info_customization', alg_wc_ev()->core->get_verification_info_default() ) );
+		echo do_shortcode( get_option( 'alg_wc_ev_verification_info_customization', alg_wc_ev()->core->get_verification_info_default() ) );
 		echo wp_kses_post( $after_widget );
 	}
 

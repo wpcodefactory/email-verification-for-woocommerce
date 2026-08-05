@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - General Section Settings
  *
- * @version 3.2.5
+ * @version 3.2.8
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -30,7 +30,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_General' ) ) :
 		/**
 		 * get_settings.
 		 *
-		 * @version         3.2.5
+		 * @version         3.2.8
 		 * @since           1.0.0
 		 * @todo            [next] Logout unverified users on every page: better description
 		 * @todo            [next] (maybe) `alg_wc_ev_delay_wc_email`: default to `yes`?
@@ -63,7 +63,8 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_General' ) ) :
 					/* translators: %s: example URL */
 					'desc'              => sprintf( __( 'Ex: <code>%s</code>', 'emails-verification-for-woocommerce' ), alg_wc_ev()->core->emails->get_verification_url( array( 'user_id' => get_current_user_id(), 'code' => 'a' ) ) ),
 					'desc_tip'          => __( 'The parameter used on the URL to verify the user account.', 'emails-verification-for-woocommerce' ),
-					'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'disabled' => 'disabled' ) ),
+
+
 					'type'              => 'text',
 					'id'                => 'alg_wc_ev_verification_parameter',
 					'default'           => 'alg_wc_ev_verify_email',
@@ -191,7 +192,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_General' ) ) :
 					'type'              => 'textarea',
 					'css'               => 'width:100%;height:83px;',
 					'id'                => 'alg_wc_ev_verification_info_customization',
-					'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'readonly' => 'readonly' ) ),
+
 					'alg_wc_ev_raw'     => true,
 					'default'           => alg_wc_ev()->core->get_verification_info_default(),
 				),

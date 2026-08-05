@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Messages Class.
  *
- * @version 3.1.0
+ * @version 3.2.8
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -136,7 +136,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Messages' ) ) :
 		/**
 		 * get_resend_verification_url.
 		 *
-		 * @version         2.4.2
+		 * @version         3.2.8
 		 * @since           1.4.0
 		 * @todo    (maybe) `wc_get_page_permalink( 'myaccount' )` instead of current URL
 		 *
@@ -155,6 +155,8 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Messages' ) ) :
 				'yes' === get_option( 'alg_wc_ev_verify_already_registered', 'no' )
 			) {
 				$url_params['alg_wc_ev_nonce'] = wp_create_nonce( "resend-{$user_id}-old-user" );
+			} else {
+				$url_params['alg_wc_ev_nonce'] = wp_create_nonce( "resend-{$user_id}-0" );
 			}
 
 			return add_query_arg( $url_params, get_option( 'alg_wc_ev_resend_verification_url', '' ) );

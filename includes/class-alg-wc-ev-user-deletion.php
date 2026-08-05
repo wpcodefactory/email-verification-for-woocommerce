@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Users Deletion class.
  *
- * @version 3.2.5
+ * @version 3.2.8
  * @since   2.8.0
  * @author  WPFactory
  */
@@ -198,44 +198,6 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Users_Deletion' ) ) {
 				/* translators: %d: number of users */
 				WC_Admin_Settings::add_message( sprintf( __( 'Total unverified users deleted: %d.', 'emails-verification-for-woocommerce' ), $total ) );
 			}
-		}
-
-		/**
-		 * get_users_without_required_meta.
-		 *
-		 * @version 3.2.5
-		 * @since   3.1.9
-		 *
-		 * @return array
-		 */
-		function get_users_without_required_meta() {
-			// phpcs:disable WordPress.DB.DirectDatabaseQuery
-			$users = array();
-			if (
-				! empty( $required_user_meta_raw = apply_filters( 'alg_wc_ev_required_user_meta', '' ) ) &&
-				! empty( $required_user_meta = array_filter( array_map( 'trim', preg_split( "/\r\n|\r|\n/", $required_user_meta_raw ) ) ) )
-			) {
-				$meta_keys = $required_user_meta;
-
-				global $wpdb;
-
-				$users = array_map(
-					'intval',
-					$wpdb->get_col( $wpdb->prepare(
-						"SELECT DISTINCT u.ID
-						FROM {$wpdb->users} u
-						LEFT JOIN {$wpdb->usermeta} um
-						    ON um.user_id = u.ID
-						    AND um.meta_key IN (" . implode( ',', array_fill( 0, count( $meta_keys ), '%s' ) ) . ")
-						WHERE um.umeta_id IS NULL
-						OR um.meta_value = ''",
-						...$meta_keys
-					) )
-				);
-			}
-
-			// phpcs:enable WordPress.DB.DirectDatabaseQuery
-			return $users;
 		}
 
 		/**

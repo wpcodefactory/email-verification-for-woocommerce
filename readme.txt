@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, kousikmukherjeeli, ae
 Tags: woocommerce, email, verification, email verification, woo commerce
 Requires at least: 6.2
 Tested up to: 7.0
-Stable tag: 3.2.7
+Stable tag: 3.2.8
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -354,6 +354,14 @@ Params for the `[alg_wc_ev_email_content_placeholder]` shortcode:
 Once activated, access the plugin's settings by navigating to “WooCommerce > Settings” and look for the relevant tab.
 
 == Changelog ==
+
+= 3.2.8 - 05/08/2026 =
+* Fix - General security improvements.
+* Fix - Resend verification email was not being sent.
+* Dev - Updated Hashids library to version 5.0.2.
+* Dev - Code refactor.
+* Dev - Pro features made free: verification parameter, verification info customization, and non-paying blocker error notice.
+* WC tested up to: 11.0.
 
 = 3.2.7 - 15/07/2026 =
 * Fix - General security improvements.

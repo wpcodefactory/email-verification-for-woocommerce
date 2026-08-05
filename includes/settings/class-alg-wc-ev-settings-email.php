@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Email Section Settings.
  *
- * @version 3.2.7
+ * @version 3.2.8
  * @since   1.3.0
  * @author  WPFactory
  */
@@ -30,7 +30,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Email' ) ) :
 		/**
 		 * get_settings.
 		 *
-		 * @version 3.2.7
+		 * @version 3.2.8
 		 * @since   1.3.0
 		 */
 		function get_settings() {
@@ -141,6 +141,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Email' ) ) :
 					'css'               => 'width:100%;',
 					'alg_wc_ev_raw'     => true,
 					'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'readonly' => 'readonly' ) ),
+
 				),
 				array(
 					'title'             => __( 'Email content', 'emails-verification-for-woocommerce' ),
@@ -269,6 +270,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Email' ) ) :
 					'id'                => 'alg_wc_ev_confirmation_email_subject',
 					'default'           => '[%site_title%]: ' . __( 'Your account has been activated successfully', 'emails-verification-for-woocommerce' ),
 					'custom_attributes' => apply_filters( 'alg_wc_ev_settings', array( 'readonly' => 'readonly' ) ),
+
 					'css'               => 'width:100%;',
 					'alg_wc_ev_raw'     => true,
 				),

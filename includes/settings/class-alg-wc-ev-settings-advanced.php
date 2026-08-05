@@ -107,15 +107,16 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Settings_Advanced' ) ) :
 					'id'    => 'alg_wc_ev_encoding_options',
 				),
 				array(
-					'title'   => __( 'Encoding method', 'emails-verification-for-woocommerce' ),
-					'type'    => 'select',
-					'class'   => 'chosen_select',
-					'default' => 'base64_encode',
-					'options' => array(
+					'title'    => __( 'Encoding method', 'emails-verification-for-woocommerce' ),
+					'type'     => 'select',
+					'class'    => 'chosen_select',
+					'default'  => 'base64_encode',
+					'options'  => array(
 						'base64_encode' => __( 'Base64 encode', 'emails-verification-for-woocommerce' ),
 						'hashids'       => __( 'Hashids', 'emails-verification-for-woocommerce' ),
 					),
-					'id'      => 'alg_wc_ev_encoding_method',
+					'desc_tip' => __( 'Hashids requires PHP 8.1 or higher.', 'emails-verification-for-woocommerce' ),
+					'id'       => 'alg_wc_ev_encoding_method',
 				),
 				array(
 					'title'    => __( 'Hashids', 'emails-verification-for-woocommerce' ),
