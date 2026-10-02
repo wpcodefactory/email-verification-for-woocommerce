@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Functions.
  *
- * @version 3.2.8
+ * @version 3.3.1
  * @since   1.9.0
  * @author  WPFactory
  */
@@ -313,7 +313,7 @@ if ( ! function_exists( 'alg_wc_ev_generate_user_code' ) ) {
 	/**
 	 * generate_user_code.
 	 *
-	 * @version 2.7.5
+	 * @version 3.3.1
 	 * @since   2.4.0
 	 *
 	 * @param   null  $args
@@ -328,10 +328,29 @@ if ( ! function_exists( 'alg_wc_ev_generate_user_code' ) ) {
 		if ( 'base64_encode' === $args['encoding_method'] ) {
 			$code = md5( wp_generate_password() );
 		} elseif ( 'hashids' === $args['encoding_method'] ) {
-			$code = wp_rand( 100 );
+			// Strong-entropy non-negative integer (Hashids encodes digits only).
+			$code = wp_rand( 100000, 2147483647 );
 		}
 
 		return $code;
+	}
+}
+
+if ( ! function_exists( 'alg_wc_ev_sign_verify_code' ) ) {
+	/**
+	 * alg_wc_ev_sign_verify_code.
+	 *
+	 * Adds an HMAC signature to the verification payload.
+	 *
+	 * @version 3.3.1
+	 * @since   3.3.1
+	 *
+	 * @param   string $payload
+	 *
+	 * @return string
+	 */
+	function alg_wc_ev_sign_verify_code( $payload ) {
+		return $payload . '.' . wp_hash( $payload );
 	}
 }
 
@@ -340,7 +359,7 @@ if ( ! function_exists( 'alg_wc_ev_decode_verify_code' ) ) {
 	/**
 	 * alg_wc_ev_decode_verify_code.
 	 *
-	 * @version 3.2.8
+	 * @version 3.3.1
 	 * @since   2.4.0
 	 *
 	 * @param   null  $args
@@ -348,21 +367,31 @@ if ( ! function_exists( 'alg_wc_ev_decode_verify_code' ) ) {
 	 * @return array
 	 */
 	function alg_wc_ev_decode_verify_code( $args = null ) {
-		$args        = wp_parse_args( $args, array(
+		$args = wp_parse_args( $args, array(
 			'verify_code'     => '',
 			'encoding_method' => get_option( 'alg_wc_ev_encoding_method', 'base64_encode' ),
 		) );
 		$verify_code    = $args['verify_code'];
 		$encoding_method = $args['encoding_method'];
+		// Verify HMAC signature before trusting the payload.
+		$signature_pos = strrpos( $verify_code, '.' );
+		if ( false === $signature_pos ) {
+			return array();
+		}
+		$payload   = substr( $verify_code, 0, $signature_pos );
+		$signature = substr( $verify_code, $signature_pos + 1 );
+		if ( empty( $payload ) || ! hash_equals( wp_hash( $payload ), $signature ) ) {
+			return array();
+		}
 		if ( 'hashids' === $encoding_method && is_null( alg_wc_ev_get_hashids() ) ) {
 			$encoding_method = 'base64_encode';
 		}
 		$data = array();
 		if ( 'base64_encode' === $encoding_method ) {
-			$data = json_decode( alg_wc_ev()->core->base64_url_decode( $verify_code ), true );
+			$data = json_decode( alg_wc_ev()->core->base64_url_decode( $payload ), true );
 		} elseif ( 'hashids' === $encoding_method ) {
 			$hashids         = alg_wc_ev_get_hashids();
-			$hashids_decoded = $hashids->decode( $verify_code );
+			$hashids_decoded = $hashids->decode( $payload );
 			$data['id']      = is_array( $hashids_decoded ) && isset( $hashids_decoded[0] ) ? (string) $hashids_decoded[0] : '';
 			$data['code']    = is_array( $hashids_decoded ) && isset( $hashids_decoded[1] ) ? (string) $hashids_decoded[1] : '';
 		}

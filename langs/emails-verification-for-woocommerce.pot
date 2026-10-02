@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: emails-verification-for-woocommerce 3.3.0\n"
+"Project-Id-Version: emails-verification-for-woocommerce 3.3.1-dev\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/emails-verification-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-18T22:37:43+02:00\n"
+"POT-Creation-Date: 2026-10-03T00:48:50+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: emails-verification-for-woocommerce\n"
@@ -162,7 +162,7 @@ msgid "User %s: activation link resent."
 msgstr ""
 
 #: includes/class-alg-wc-ev-admin.php:584
-#: includes/class-alg-wc-ev-core.php:1142
+#: includes/class-alg-wc-ev-core.php:1181
 #: includes/settings/class-alg-wc-ev-settings-shortcodes.php:82
 msgid "Verified"
 msgstr ""
@@ -195,28 +195,28 @@ msgstr ""
 msgid "Unverify"
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:996
+#: includes/class-alg-wc-ev-core.php:1035
 msgid "Submit"
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:1007
+#: includes/class-alg-wc-ev-core.php:1046
 msgid "Email address"
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:1072
+#: includes/class-alg-wc-ev-core.php:1111
 msgid "User data not found."
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:1089
+#: includes/class-alg-wc-ev-core.php:1128
 msgid "You can resend the email with verification link by clicking <a href=\"{resend_verification_url}\">here</a>."
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:1141
+#: includes/class-alg-wc-ev-core.php:1180
 #: includes/settings/class-alg-wc-ev-settings-shortcodes.php:101
 msgid "Verification status: "
 msgstr ""
 
-#: includes/class-alg-wc-ev-core.php:1143
+#: includes/class-alg-wc-ev-core.php:1182
 #: includes/settings/class-alg-wc-ev-settings-shortcodes.php:86
 msgid "Unverified"
 msgstr ""
@@ -234,7 +234,7 @@ msgstr ""
 msgid "Your account has been activated successfully"
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:322
+#: includes/class-alg-wc-ev-emails.php:323
 #: includes/pro/class-alg-wc-ev-activation-wc-email-pro.php:200
 #: includes/pro/class-alg-wc-ev-pro.php:964
 #: includes/pro/class-alg-wc-ev-pro.php:1150
@@ -243,39 +243,39 @@ msgid "Activate your account"
 msgstr ""
 
 #. translators: %1$s: verification URL link, %2$s: site link
-#: includes/class-alg-wc-ev-emails.php:402
+#: includes/class-alg-wc-ev-emails.php:403
 msgid "Please %1$s to verify your email on %2$s."
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:403
+#: includes/class-alg-wc-ev-emails.php:404
 msgid "click here"
 msgstr ""
 
 #. translators: %s: site link
 #. translators: %s placeholder(s)
-#: includes/class-alg-wc-ev-emails.php:410
+#: includes/class-alg-wc-ev-emails.php:411
 #: includes/pro/templates/emails/plain/customer-account-confirmation.php:21
 msgid "Your account has been activated successfully on %s."
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:473
+#: includes/class-alg-wc-ev-emails.php:474
 #: includes/class-alg-wc-ev-guest-verification.php:515
 #: includes/pro/class-alg-wc-ev-activation-wc-email-pro.php:159
 #: includes/settings/class-alg-wc-ev-settings-email.php:140
 msgid "Please activate your account"
 msgstr ""
 
-#: includes/class-alg-wc-ev-emails.php:593
+#: includes/class-alg-wc-ev-emails.php:594
 msgid "Error sending mail."
 msgstr ""
 
 #. translators: %s: mail function name
-#: includes/class-alg-wc-ev-emails.php:595
+#: includes/class-alg-wc-ev-emails.php:596
 msgid "Mail function: %s."
 msgstr ""
 
 #. translators: %s: error message
-#: includes/class-alg-wc-ev-emails.php:599
+#: includes/class-alg-wc-ev-emails.php:600
 msgid "Last error: %s."
 msgstr ""
 

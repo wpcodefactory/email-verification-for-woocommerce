@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Core Class.
  *
- * @version 3.2.9
+ * @version 3.3.1
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -490,15 +490,20 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		/**
 		 * login_user_automatically_on_success_activation.
 		 *
-		 * @version 2.2.6
+		 * @version 3.3.1
 		 * @since   2.0.0
 		 *
 		 * @param $user_id
 		 */
 		function login_user_automatically_on_success_activation( $user_id, $args ) {
+			// Don't auto-login privileged accounts on activation.
+			$user               = get_user_by( 'id', $user_id );
+			$privileged_roles   = array( 'administrator', 'editor', 'shop_manager' );
+			$auto_login_allowed = ( $user && empty( array_intersect( (array) $user->roles, $privileged_roles ) ) );
 			if (
 				'yes' === get_option( 'alg_wc_ev_login_automatically_on_activation', 'yes' ) &&
-				$args['directly']
+				$args['directly'] &&
+				apply_filters( 'alg_wc_ev_auto_login_on_success_activation', $auto_login_allowed, $user_id, $args )
 			) {
 				wp_set_current_user( $user_id );
 				wp_set_auth_cookie( $user_id );
@@ -772,9 +777,35 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		}
 
 		/**
+		 * check_verify_rate_limit.
+		 *
+		 * @version 3.3.1
+		 * @since   3.3.1
+		 *
+		 * @return bool
+		 */
+		function check_verify_rate_limit() {
+			$ip = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
+			$ip = empty( $ip ) ? 'unknown' : $ip;
+			$transient_id = 'alg_wc_ev_verify_' . md5( $ip );
+			$attempts     = get_transient( $transient_id );
+			if ( false === $attempts ) {
+				set_transient( $transient_id, 1, 10 * MINUTE_IN_SECONDS );
+
+				return true;
+			}
+			if ( (int) $attempts >= 100 ) {
+				return false;
+			}
+			set_transient( $transient_id, (int) $attempts + 1, 10 * MINUTE_IN_SECONDS );
+
+			return true;
+		}
+
+		/**
 		 * verify.
 		 *
-		 * @version 3.2.6
+		 * @version 3.3.1
 		 * @since   1.6.0
 		 *
 		 * @param   null  $args
@@ -786,6 +817,9 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 				'verify_code' => sanitize_text_field( filter_input( INPUT_GET, alg_wc_ev_get_verification_param() ) ),
 				'directly'    => true
 			) );
+			if ( ! empty( $args['verify_code'] ) && ! $this->check_verify_rate_limit() ) {
+				return false;
+			}
 			if (
 				! empty( $args['verify_code'] ) &&
 				! empty( $verify_code = wc_clean( $args['verify_code'] ) ) &&
@@ -826,6 +860,11 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 
 					return false;
 				}
+			} elseif ( $args['directly'] && ! empty( $args['verify_code'] ) ) {
+				// Invalid, unsigned or tampered verification token.
+				alg_wc_ev_add_notice( $this->messages->get_failed_message( get_current_user_id() ), 'error', $args );
+
+				return false;
 			}
 
 			return false;
@@ -1250,14 +1289,14 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Core' ) ) :
 		/**
 		 * alg_wc_ev_default_hashids_salt_opt.
 		 *
-		 * @version 2.4.0
+		 * @version 3.3.1
 		 * @since   2.4.0
 		 *
 		 * @return string
 		 */
 		function get_default_hashids_salt_opt() {
 			if ( is_null( $this->default_hashids_salt_opt ) ) {
-				$this->default_hashids_salt_opt = md5( time() );
+				$this->default_hashids_salt_opt = wp_generate_password( 32, false );
 			}
 
 			return $this->default_hashids_salt_opt;

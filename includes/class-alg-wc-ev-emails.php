@@ -2,7 +2,7 @@
 /**
  * Email Verification for WooCommerce - Emails Class.
  *
- * @version 3.2.8
+ * @version 3.3.1
  * @since   1.6.0
  * @author  WPFactory
  */
@@ -230,7 +230,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Emails' ) ) :
 		/**
 		 * get_verification_url.
 		 *
-		 * @version 3.2.8
+		 * @version 3.3.1
 		 * @since   1.8.0
 		 */
 		function get_verification_url( $args = null ) {
@@ -272,6 +272,7 @@ if ( ! class_exists( 'Alg_WC_Email_Verification_Emails' ) ) :
 					$verify_email_hash = $hashids->encode( $user_id, $code );
 					break;
 			}
+			$verify_email_hash = alg_wc_ev_sign_verify_code( $verify_email_hash );
 			switch ( $verification_check_page ) {
 				case 'checkout':
 					$verification_check_page = wc_get_checkout_url();
