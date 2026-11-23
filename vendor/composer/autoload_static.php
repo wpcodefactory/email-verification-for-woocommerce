@@ -11,14 +11,14 @@ class ComposerStaticInitWPFactoryEmailVerificationForWooCommerce
     );
 
     public static $prefixLengthsPsr4 = array (
-        'H' => 
+        'H' =>
         array (
             'Hashids\\' => 8,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Hashids\\' => 
+        'Hashids\\' =>
         array (
             0 => __DIR__ . '/..' . '/hashids/hashids/src',
         ),

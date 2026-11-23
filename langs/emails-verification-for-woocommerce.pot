@@ -2,53 +2,56 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: emails-verification-for-woocommerce 3.3.1\n"
+"Project-Id-Version: Customer Email Verification for WooCommerce 3.3.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/emails-verification-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-13T19:55:06+02:00\n"
+"POT-Creation-Date: 2026-11-23T12:24:18+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.11.0\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: emails-verification-for-woocommerce\n"
 
 #. Plugin Name of the plugin
-msgid "Customer Email Verification for WooCommerce Pro"
+#: email-verification-for-woocommerce.php
+#: email-verification-for-woocommerce.php:225
+msgid "Customer Email Verification for WooCommerce"
 msgstr ""
 
 #. Plugin URI of the plugin
+#: email-verification-for-woocommerce.php
 msgid "https://wpfactory.com/item/email-verification-for-woocommerce/"
 msgstr ""
 
 #. Description of the plugin
+#: email-verification-for-woocommerce.php
 msgid "Verify user emails in WooCommerce. Beautifully."
 msgstr ""
 
 #. Author of the plugin
+#: email-verification-for-woocommerce.php
 msgid "WPFactory"
 msgstr ""
 
 #. Author URI of the plugin
+#: email-verification-for-woocommerce.php
 msgid "https://wpfactory.com"
 msgstr ""
 
-#: email-verification-for-woocommerce-pro.php:224
+#: email-verification-for-woocommerce.php:224
 #: includes/settings/class-alg-wc-ev-settings.php:25
 msgid "Email Verification"
 msgstr ""
 
-#: email-verification-for-woocommerce-pro.php:225
-msgid "Customer Email Verification for WooCommerce"
-msgstr ""
-
-#: email-verification-for-woocommerce-pro.php:309
+#: email-verification-for-woocommerce.php:309
 msgid "Go Pro"
 msgstr ""
 
 #. translators: %s: email address
 #: includes/alg-wc-ev-functions.php:265
+#, php-format
 msgid "When the task is complete an email is going to be sent to %s."
 msgstr ""
 
@@ -62,6 +65,7 @@ msgstr ""
 
 #. translators: %d: user ID
 #: includes/background-process/class-alg-wc-ev-unverify-users.php:45
+#, php-format
 msgid "User unverified manually: %d."
 msgstr ""
 
@@ -71,6 +75,7 @@ msgstr ""
 
 #. translators: %d: user ID
 #: includes/background-process/class-alg-wc-ev-verify-users.php:50
+#, php-format
 msgid "User verified manually: %d."
 msgstr ""
 
@@ -92,6 +97,7 @@ msgstr ""
 
 #. translators: %d: number of users
 #: includes/class-alg-wc-ev-admin.php:255
+#, php-format
 msgid "Verification email sent to %d user successfully."
 msgid_plural "Verification email sent to %d users successfully."
 msgstr[0] ""
@@ -99,11 +105,13 @@ msgstr[1] ""
 
 #. translators: %d: number of users
 #: includes/class-alg-wc-ev-admin.php:262
+#, php-format
 msgid "%d unverified users are going to be verified manually in background processing."
 msgstr ""
 
 #. translators: %d: number of users
 #: includes/class-alg-wc-ev-admin.php:267
+#, php-format
 msgid "%d user verified successfully."
 msgid_plural "%d users verified successfully."
 msgstr[0] ""
@@ -111,11 +119,13 @@ msgstr[1] ""
 
 #. translators: %d: number of users
 #: includes/class-alg-wc-ev-admin.php:275
+#, php-format
 msgid "%d verified users are going to be unverified manually in background processing."
 msgstr ""
 
 #. translators: %d: number of users
 #: includes/class-alg-wc-ev-admin.php:280
+#, php-format
 msgid "%d user unverified successfully."
 msgid_plural "%d users unverified successfully."
 msgstr[0] ""
@@ -148,16 +158,19 @@ msgstr ""
 
 #. translators: %s: user info with ID
 #: includes/class-alg-wc-ev-admin.php:545
+#, php-format
 msgid "User %s: verified."
 msgstr ""
 
 #. translators: %s: user info with ID
 #: includes/class-alg-wc-ev-admin.php:550
+#, php-format
 msgid "User %s: unverified."
 msgstr ""
 
 #. translators: %s: user info with ID
 #: includes/class-alg-wc-ev-admin.php:555
+#, php-format
 msgid "User %s: activation link resent."
 msgstr ""
 
@@ -244,6 +257,7 @@ msgstr ""
 
 #. translators: %1$s: verification URL link, %2$s: site link
 #: includes/class-alg-wc-ev-emails.php:403
+#, php-format
 msgid "Please %1$s to verify your email on %2$s."
 msgstr ""
 
@@ -255,6 +269,7 @@ msgstr ""
 #. translators: %s placeholder(s)
 #: includes/class-alg-wc-ev-emails.php:411
 #: includes/pro/templates/emails/plain/customer-account-confirmation.php:21
+#, php-format
 msgid "Your account has been activated successfully on %s."
 msgstr ""
 
@@ -271,11 +286,13 @@ msgstr ""
 
 #. translators: %s: mail function name
 #: includes/class-alg-wc-ev-emails.php:596
+#, php-format
 msgid "Mail function: %s."
 msgstr ""
 
 #. translators: %s: error message
 #: includes/class-alg-wc-ev-emails.php:600
+#, php-format
 msgid "Last error: %s."
 msgstr ""
 
@@ -365,16 +382,19 @@ msgstr ""
 
 #. translators: %1$d: user ID, %2$s: user email
 #: includes/class-alg-wc-ev-user-deletion.php:93
+#, php-format
 msgid "User deleted: (ID: %1$d, Email: %2$s)."
 msgstr ""
 
 #. translators: %d: number of users
 #: includes/class-alg-wc-ev-user-deletion.php:182
+#, php-format
 msgid "%d unverified users are going to be deleted in background processing."
 msgstr ""
 
 #. translators: %d: number of users
 #: includes/class-alg-wc-ev-user-deletion.php:199
+#, php-format
 msgid "Total unverified users deleted: %d."
 msgstr ""
 
@@ -421,6 +441,7 @@ msgstr ""
 
 #. translators: %s: list of missing metadata keys
 #: includes/pro/class-alg-wc-ev-pro.php:261
+#, php-format
 msgid "The account couldn't be verified because required user metadata is missing: %s."
 msgstr ""
 
@@ -472,11 +493,13 @@ msgid "User email has been verified"
 msgstr ""
 
 #: includes/pro/class-alg-wc-ev-pro.php:1471
+#, php-format
 msgid "User %1$s has just verified his email (%2$s) on %3$s."
 msgstr ""
 
 #. translators: %s: parameter name
 #: includes/pro/class-alg-wc-ev-rest-api-pro.php:51
+#, php-format
 msgid "You must provide the verification code %s parameter."
 msgstr ""
 
@@ -490,6 +513,7 @@ msgstr ""
 
 #. translators: %s: Customer billing full name
 #: includes/pro/templates/emails/plain/customer-account-activation.php:21
+#, php-format
 msgid "Please click on the following link to verify your email on %s:"
 msgstr ""
 
@@ -537,6 +561,7 @@ msgstr ""
 
 #. translators: %s: users admin page URL
 #: includes/settings/class-alg-wc-ev-settings-admin.php:87
+#, php-format
 msgid "A new column displayed on the <a href=\"%s\">users list page</a> with useful info about users verification."
 msgstr ""
 
@@ -561,6 +586,7 @@ msgstr ""
 
 #. translators: %s: option name
 #: includes/settings/class-alg-wc-ev-settings-admin.php:107
+#, php-format
 msgid "%s option must be enabled."
 msgstr ""
 
@@ -574,6 +600,7 @@ msgstr ""
 
 #. translators: %s: users admin page URL
 #: includes/settings/class-alg-wc-ev-settings-admin.php:122
+#, php-format
 msgid "New options displayed on the <a href=\"%s\">users</a> bulk actions."
 msgstr ""
 
@@ -581,6 +608,7 @@ msgstr ""
 #: includes/settings/class-alg-wc-ev-settings-admin.php:128
 #: includes/settings/class-alg-wc-ev-settings-admin.php:136
 #: includes/settings/class-alg-wc-ev-settings-admin.php:144
+#, php-format
 msgid "Add %s bulk option"
 msgstr ""
 
@@ -607,6 +635,7 @@ msgstr ""
 
 #. translators: %1$s, %2$s, %3$s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-advanced.php:56
+#, php-format
 msgid "Use the %1$s filter to priorize the %2$s message over the %3$s message."
 msgstr ""
 
@@ -624,6 +653,7 @@ msgstr ""
 #: includes/settings/class-alg-wc-ev-settings-advanced.php:63
 #: includes/settings/class-alg-wc-ev-settings-advanced.php:65
 #: includes/settings/class-alg-wc-ev-settings-advanced.php:67
+#, php-format
 msgid "%s filter"
 msgstr ""
 
@@ -645,6 +675,7 @@ msgstr ""
 
 #. translators: %s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-advanced.php:81
+#, php-format
 msgid "Replace standard %s function by a custom one"
 msgstr ""
 
@@ -732,6 +763,7 @@ msgstr ""
 
 #. translators: %1$s, %2$s, %3$s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-advanced.php:165
+#, php-format
 msgid "Note: The %1$s method sets the %2$s filter as %3$s."
 msgstr ""
 
@@ -778,6 +810,7 @@ msgstr ""
 #. translators: %1$s: option value, %2$s: option name
 #: includes/settings/class-alg-wc-ev-settings-advanced.php:190
 #: includes/settings/class-alg-wc-ev-settings-general.php:277
+#, php-format
 msgid "\"%1$s\" must be selected for the \"%2$s\" option above."
 msgstr ""
 
@@ -808,6 +841,7 @@ msgstr ""
 
 #. translators: %s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-advanced.php:223
+#, php-format
 msgid "If this option is not working correctly on your site, please try to change the %s option."
 msgstr ""
 
@@ -900,11 +934,13 @@ msgstr ""
 
 #. translators: %s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-advanced.php:311
+#, php-format
 msgid "Add %s endpoint allowing to verify users via REST API"
 msgstr ""
 
 #. translators: %s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-advanced.php:313
+#, php-format
 msgid "Full URL example: %s"
 msgstr ""
 
@@ -918,6 +954,7 @@ msgstr ""
 
 #. translators: %1$s, %2$s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-advanced.php:330
+#, php-format
 msgid "Every deleted user  will be registered on %1$s page over the source %2$s."
 msgstr ""
 
@@ -928,6 +965,7 @@ msgstr ""
 
 #. translators: %s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-advanced.php:332
+#, php-format
 msgid "It will only delete unverified users which roles are not set in the %s option."
 msgstr ""
 
@@ -938,6 +976,7 @@ msgstr ""
 
 #. translators: %s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-advanced.php:334
+#, php-format
 msgid "If the %s option is set it will only delete unverified users whose activation have expired, so it's more safe to use it."
 msgstr ""
 
@@ -949,6 +988,7 @@ msgstr ""
 
 #. translators: %s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-advanced.php:336
+#, php-format
 msgid "If the %s option is enabled it may delete the current users who have not verified their account yet, so it's more safe to leave it <strong>disabled</strong>."
 msgstr ""
 
@@ -1036,6 +1076,7 @@ msgstr ""
 
 #. translators: %s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-advanced.php:426
+#, php-format
 msgid "Next event scheduled to %s"
 msgstr ""
 
@@ -1129,6 +1170,7 @@ msgstr ""
 
 #. translators: %s: option name
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:245
+#, php-format
 msgid "Prevents non-paying users from activating their accounts until they become paying customers, considering the %s option."
 msgstr ""
 
@@ -1161,6 +1203,7 @@ msgstr ""
 
 #. translators: %s: order status name
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:252
+#, php-format
 msgid "The order status should be marked as %s to be considered paid."
 msgstr ""
 
@@ -1209,6 +1252,7 @@ msgstr ""
 
 #. translators: %s: email name
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:307
+#, php-format
 msgid "Consider adding the %s email if you want to prevent the admin from receiving the new order notification."
 msgstr ""
 
@@ -1229,6 +1273,7 @@ msgstr ""
 
 #. translators: %1$s: email name, %2$s: option name
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:318
+#, php-format
 msgid "Will only send the email related to the current order status and the %1$s email if set on the %2$s option."
 msgstr ""
 
@@ -1250,6 +1295,7 @@ msgstr ""
 
 #. translators: %1$s: wildcard character, %2$s: example emails
 #: includes/settings/class-alg-wc-ev-settings-blocking.php:337
+#, php-format
 msgid "Separate emails with a comma and/or with a new line. You can also use wildcard (%1$s) here, for example: %2$s"
 msgstr ""
 
@@ -1319,6 +1365,7 @@ msgstr ""
 
 #. translators: %1$s, %2$s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:70
+#, php-format
 msgid "Accept verification from \"<a target=\"_blank\" href=\"%1$s\">WooCommerce Social Login</a>\" plugin made by Woocommerce author <a href=\"%2$s\" target=\"_blank\">SkyVerge</a>"
 msgstr ""
 
@@ -1328,6 +1375,7 @@ msgstr ""
 
 #. translators: %1$s, %2$s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:79
+#, php-format
 msgid "Accept verification from \"<a target=\"_blank\" href=\"%1$s\">WooCommerce Social Login</a>\" plugin made by CodeCanyon author <a href=\"%2$s\" target=\"_blank\">wpweb</a>"
 msgstr ""
 
@@ -1337,6 +1385,7 @@ msgstr ""
 
 #. translators: %s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:88
+#, php-format
 msgid "Accept verification from \"<a target=\"_blank\" href=\"%s\">Super Socializer</a>\" plugin"
 msgstr ""
 
@@ -1346,6 +1395,7 @@ msgstr ""
 
 #. translators: %1$s, %2$s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:97
+#, php-format
 msgid "Accept verification from Social Login feature bundled on \"<a target=\"_blank\" href=\"%1$s\">My Listing</a>\" theme made by ThemeForest author <a href=\"%2$s\" target=\"_blank\">27collective</a>"
 msgstr ""
 
@@ -1355,6 +1405,7 @@ msgstr ""
 
 #. translators: %s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:106
+#, php-format
 msgid "Automatically verifies a user who registers or logins from \"<a target=\"_blank\" href=\"%s\">Nextend Social Login</a>\" plugin"
 msgstr ""
 
@@ -1376,11 +1427,13 @@ msgstr ""
 
 #. translators: %s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:121
+#, php-format
 msgid "Append verification email to the \"Customer new account\" email customized by the \"<a target=\"_blank\" href=\"%s\">WooMail</a>\" plugin"
 msgstr ""
 
 #. translators: %s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:124
+#, php-format
 msgid "You need to use this shortcode in your template: %s."
 msgstr ""
 
@@ -1388,6 +1441,7 @@ msgstr ""
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:126
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:255
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:374
+#, php-format
 msgid "It's necessary to enable %1$s option and use %2$s option as %3$s."
 msgstr ""
 
@@ -1438,6 +1492,7 @@ msgstr ""
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:310
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:335
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:365
+#, php-format
 msgid "Compatibility with the %s plugin."
 msgstr ""
 
@@ -1451,6 +1506,7 @@ msgstr ""
 
 #. translators: %s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:152
+#, php-format
 msgid "This <a href=\"%s\" target=\"_blank\">validation</a> is triggered in a non-standard way and might cause issues on some sites."
 msgstr ""
 
@@ -1541,11 +1597,13 @@ msgstr ""
 
 #. translators: %s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:251
+#, php-format
 msgid "Display the activation email content on a custom template using the %s action hook"
 msgstr ""
 
 #. translators: %s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:253
+#, php-format
 msgid "The action hook should be used in a %s block from the Email Customizer plugin."
 msgstr ""
 
@@ -1561,6 +1619,7 @@ msgstr ""
 
 #. translators: %1$s, %2$s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:278
+#, php-format
 msgid "Display the activation email content on the %1$s template using the %2$s special text"
 msgstr ""
 
@@ -1573,6 +1632,7 @@ msgstr ""
 
 #. translators: %s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:280
+#, php-format
 msgid "The action hook should be used in a %s from the Email Customizer plugin."
 msgstr ""
 
@@ -1583,6 +1643,7 @@ msgstr ""
 
 #. translators: %s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:282
+#, php-format
 msgid "It's necessary to enable %s option."
 msgstr ""
 
@@ -1596,6 +1657,7 @@ msgstr ""
 
 #. translators: %1$s, %2$s, %3$s, %4$s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:293
+#, php-format
 msgid "In order to enable the %1$s and %2$s email types, it's necessary to set the option %3$s as %4$s."
 msgstr ""
 
@@ -1627,6 +1689,7 @@ msgid "WooCommerce > Emails"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:294
+#, php-format
 msgid "The %s placeholder will only be available to the <strong>Activation email</strong> template."
 msgstr ""
 
@@ -1644,11 +1707,13 @@ msgstr ""
 
 #. translators: %s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:316
+#, php-format
 msgid "Verify users who register or log in from %s element"
 msgstr ""
 
 #. translators: %1$s, %2$s, %3$s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:318
+#, php-format
 msgid "If you have issues, try to enable %1$s and set the %2$s option as %3$s."
 msgstr ""
 
@@ -1693,6 +1758,7 @@ msgstr ""
 
 #. translators: %s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:371
+#, php-format
 msgid "Append the Activation email message to the \"Customer new account\" email using the %s shortcode"
 msgstr ""
 
@@ -1704,6 +1770,7 @@ msgstr ""
 
 #. translators: %s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:393
+#, php-format
 msgid "Compatibility with the %s theme."
 msgstr ""
 
@@ -1717,6 +1784,7 @@ msgstr ""
 
 #. translators: %1$s, %2$s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-compatibility.php:400
+#, php-format
 msgid "If you want to block login from unverified WoodMart users, try the option %1$s set as %2$s."
 msgstr ""
 
@@ -1743,6 +1811,7 @@ msgstr ""
 
 #. translators: %1$s, %2$s, %3$s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-email.php:49
+#, php-format
 msgid "Possible values: %1$s, %2$s, %3$s."
 msgstr ""
 
@@ -1772,6 +1841,7 @@ msgstr ""
 
 #. translators: %s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-email.php:65
+#, php-format
 msgid "%s will use the template options from this page."
 msgstr ""
 
@@ -1783,6 +1853,7 @@ msgstr ""
 
 #. translators: %1$s, %2$s, %3$s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-email.php:67
+#, php-format
 msgid "%1$s option will create new emails (%2$s) on %3$s."
 msgstr ""
 
@@ -1808,16 +1879,19 @@ msgstr ""
 
 #. translators: %s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-email.php:95
+#, php-format
 msgid "These placeholders can be used on the Email Subject or Content options: %s."
 msgstr ""
 
 #. translators: %1$s, %2$s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-email.php:97
+#, php-format
 msgid "If you're having deliverability problems or emails being sent to Spam, try using the placeholders %1$s and %2$s on the Email Content or subject."
 msgstr ""
 
 #. translators: %s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-email.php:114
+#, php-format
 msgid "Additional placeholders: %s."
 msgstr ""
 
@@ -1836,6 +1910,7 @@ msgstr ""
 
 #. translators: %1$s, %2$s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-email.php:122
+#, php-format
 msgid "If the %1$s email is not being sent, try to change the option %2$s."
 msgstr ""
 
@@ -1866,6 +1941,7 @@ msgstr ""
 #. translators: %1$s, %2$s, %3$s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-email.php:159
 #: includes/settings/class-alg-wc-ev-settings-email.php:414
+#, php-format
 msgid "If \"%1$s\" option is selected as \"%2$s\" or \"%3$s\", set the email wrap method here."
 msgstr ""
 
@@ -1883,6 +1959,7 @@ msgstr ""
 
 #. translators: %1$s, %2$s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-email.php:172
+#, php-format
 msgid "It's necessary to add %1$s to the %2$s email template."
 msgstr ""
 
@@ -1949,6 +2026,7 @@ msgstr ""
 #. translators: %1$s, %2$s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-email.php:261
 #: includes/settings/class-alg-wc-ev-settings-email.php:345
+#, php-format
 msgid "Only useful if the options %1$s, %2$s are enabled."
 msgstr ""
 
@@ -1991,6 +2069,7 @@ msgstr ""
 
 #. translators: %s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-email.php:354
+#, php-format
 msgid "Leave empty to send to %s."
 msgstr ""
 
@@ -2018,6 +2097,7 @@ msgstr ""
 #: includes/settings/class-alg-wc-ev-settings-email.php:404
 #: includes/settings/class-alg-wc-ev-settings-email.php:406
 #: includes/settings/class-alg-wc-ev-settings-email.php:408
+#, php-format
 msgid "%s function"
 msgstr ""
 
@@ -2031,6 +2111,7 @@ msgstr ""
 
 #. translators: %s placeholder(s)
 #: includes/settings/class-alg-wc-ev-settings-email.php:421
+#, php-format
 msgid "Native - Using %s function"
 msgstr ""
 
@@ -2047,6 +2128,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: includes/settings/class-alg-wc-ev-settings-email.php:451
+#, php-format
 msgid "Send email every %1$s %2$s."
 msgstr ""
 
@@ -2073,6 +2155,7 @@ msgstr ""
 
 #. translators: %s: option name
 #: includes/settings/class-alg-wc-ev-settings-general.php:53
+#, php-format
 msgid "Change your %s option"
 msgstr ""
 
@@ -2083,6 +2166,7 @@ msgstr ""
 
 #. translators: %s: section name
 #: includes/settings/class-alg-wc-ev-settings-general.php:55
+#, php-format
 msgid "Disable login options on the %s section"
 msgstr ""
 
@@ -2092,6 +2176,7 @@ msgstr ""
 
 #. translators: %s: example URL
 #: includes/settings/class-alg-wc-ev-settings-general.php:64
+#, php-format
 msgid "Ex: <code>%s</code>"
 msgstr ""
 
@@ -2205,6 +2290,7 @@ msgstr ""
 
 #. translators: %1$s: my account URL, %2$s: page name
 #: includes/settings/class-alg-wc-ev-settings-general.php:174
+#, php-format
 msgid "Show account verification info on <a href=\"%1$s\">%2$s</a> page"
 msgstr ""
 
@@ -2227,11 +2313,13 @@ msgstr ""
 
 #. translators: %s: shortcodes admin page URL
 #: includes/settings/class-alg-wc-ev-settings-general.php:189
+#, php-format
 msgid "Documentation on <a href=\"%s\">shortcodes</a> section."
 msgstr ""
 
 #. translators: %1$s: verification status shortcode, %2$s: resend URL shortcode
 #: includes/settings/class-alg-wc-ev-settings-general.php:191
+#, php-format
 msgid "You can use %1$s and %2$s shortcodes here and any other one you'd like."
 msgstr ""
 
@@ -2257,6 +2345,7 @@ msgstr ""
 
 #. translators: %s: option name
 #: includes/settings/class-alg-wc-ev-settings-general.php:221
+#, php-format
 msgid "Expiration time based on the %s option below."
 msgstr ""
 
@@ -2324,6 +2413,7 @@ msgstr ""
 
 #. translators: %s: query argument name
 #: includes/settings/class-alg-wc-ev-settings-general.php:294
+#, php-format
 msgid "This will also append a %s argument to the URL that could help you displaying the error message in case you have issues with that."
 msgstr ""
 
@@ -2431,6 +2521,7 @@ msgid "disabled"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-section.php:112
+#, php-format
 msgid "This will probably make more sense with the %1$s option %2$s, where the account verification becomes optional."
 msgstr ""
 
@@ -2440,10 +2531,12 @@ msgstr ""
 
 #. translators: %s: comma-separated list of placeholder codes
 #: includes/settings/class-alg-wc-ev-settings-section.php:147
+#, php-format
 msgid "Available placeholder(s): %s"
 msgstr ""
 
 #: includes/settings/class-alg-wc-ev-settings-section.php:180
+#, php-format
 msgid "The option \"%1$s > %2$s\" needs to be %3$s."
 msgstr ""
 
